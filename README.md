@@ -18,4 +18,8 @@ Copyright (C) 2012  Samuele Rini
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
+<<<<<<< HEAD
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+=======
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+>>>>>>> dfcf4133f77923728164638c6c4996c5ec9f9228
