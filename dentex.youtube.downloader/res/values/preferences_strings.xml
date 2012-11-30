@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="download_location_entries">
+        <item>Downloads</item>
+        <item>DCIM</item>
+        <item>Movies</item>
+    </string-array>
+    
+    <string-array name="download_location_entry_values">
+        <item>Downloads</item>
+        <item>DCIM</item>
+        <item>Movies</item>
+    </string-array>
+</resources>

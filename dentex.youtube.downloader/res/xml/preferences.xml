@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory
+        android:title="@string/settings_cat1">
+            
+    	<CheckBoxPreference
+        	android:key="ssh_info"
+        	android:title="@string/ssh_info_title"
+        	android:summary="@string/ssh_info_summary"
+        	android:defaultValue="true" />
+    	
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+    	android:title="@string/settings_cat2">
+    	            	
+        <ListPreference
+            android:key="download_location"
+            android:title="@string/download_location_title"
+            android:dialogTitle="@string/download_location_title"
+            android:entries="@array/download_location_entries"
+            android:entryValues="@array/download_location_entry_values"
+            android:defaultValue="@string/download_location_default"
+        	android:summary=" " />
+            	
+        <CheckBoxPreference
+        	android:key="enable_user_location"
+        	android:title="@string/enable_user_location_title"
+        	android:summary="@string/enable_user_location_summary"
+        	android:defaultValue="true" />
+        
+        <EditTextPreference
+            android:dependency="enable_user_location"
+            android:key="user_location"
+            android:title="@string/user_location_title"
+            android:dialogTitle="@string/user_location_title"
+            android:summary=" " />
+    		
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="app_name">YouTube Downloader</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="title_activity_share">YouTube Downloader</string>
+    <string name="title_activity_settings">YouTube Downloader Settings</string>
+    <string name="VideoTitle">Loading&#8230;</string>
+    <!--<string name="VideoTitle"></string>-->
+    
+    <string name="settings_cat1">Tutorials</string>
+        
+    <string name="ssh_info_title">Ebable SSH how-to</string>
+    <string name="ssh_info_summary">Whether to show a quick tip about remote downloading via SSH.</string>
+    <string name="ssh_info_checkbox">Show again next time</string>
+    
+    <string name="settings_cat2">Downloads location</string>
+                
+    <string name="download_location_title">Choose standard folder</string>
+    <string name="download_location_default">Downloads</string>
+    
+    <string name="enable_user_location_title">Enable user defined</string>
+    <string name="enable_user_location_summary">Whether to use a user defined download location (will override the chosen standard folder).</string>
+    
+    <string name="user_location_title">Specify user defined directory</string>
+
+</resources>
