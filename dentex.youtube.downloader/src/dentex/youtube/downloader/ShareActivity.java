@@ -87,6 +87,7 @@ public class ShareActivity extends Activity {
 	public final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
 	public final File dir_Movies = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
 	boolean sshInfoCheckboxEnabled;
+	public File chooserFolder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -152,7 +153,7 @@ public class ShareActivity extends Activity {
         if (networkInfo != null && networkInfo.isConnected()) {
             String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
             if (linkValidator(sharedText) == "not_a_valid_youtube_link") {
-                showPopUp("Error", "Not a valid YouTube link.", "alert");
+                showPopUp("Error!", "Not a valid YouTube link.", "alert");
             } else if (sharedText != null) {
                 new AsyncDownload().execute(sharedText);
                 //Toast.makeText(this, "Please wait...", Toast.LENGTH_LONG).show();
@@ -175,15 +176,48 @@ public class ShareActivity extends Activity {
     }
     
     /* Checks if external storage is available for read and write */
-    public boolean isExternalStorageWritable() {
+    public boolean pathCheckOK() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state) && path.canWrite()) {
-        	Log.d(DEBUG_TAG, "download path is mounted & writable");
-            return true;
+        	Log.d(DEBUG_TAG, "Destination folder is available and writable");
+        	Pattern extPattern = Pattern.compile("(extSdCard|sdcard1|emmc)");
+        	Matcher extMatcher = extPattern.matcher(path.toString());
+        	if (extMatcher.find()) {
+        		return false;
+        	} else {
+        		return true;
+        	}
         } else {
-        	Log.d(DEBUG_TAG, "download path is NOT mounted and/or NOT writable");
+        	Log.d(DEBUG_TAG, "Destination folder is NOT available and/or NOT writable");
         	return false;
         }
+    }
+    
+    public void assignPath() {
+    	boolean standardLocationEnabled = settings.getBoolean("enable_standard_location", true);
+        boolean chooserLocationEnabled = settings.getBoolean("enable_chooser_location", false);
+        
+        if (standardLocationEnabled == true) {
+            String location = settings.getString("standard_location", "Downloads");
+            Log.d(DEBUG_TAG, "location: " + location);
+            
+            if (location.equals("DCIM") == true) {
+            	path = dir_DCIM;
+            }
+            if (location.equals("Movies") == true) {
+            	path = dir_Movies;
+            } 
+            if (location.equals("Downloads") == true) {
+            	path = dir_Downloads;
+            }
+            
+        } else if (chooserLocationEnabled == true) {
+        	String cs = settings.getString("CHOOSER_FOLDER", "");
+        	chooserFolder = new File(cs);
+        	Log.d(DEBUG_TAG, "chooserFolder: " + chooserFolder);
+        	path = chooserFolder;
+        }
+        Log.d(DEBUG_TAG, "path: " + path);
     }
 
     private class AsyncDownload extends AsyncTask<String, Void, String> {
@@ -205,7 +239,7 @@ public class ShareActivity extends Activity {
         	progressBar1.setVisibility(View.GONE);
         	
             if (result == "e") {
-                showPopUp("Error", "Unable to retrieve web page. URL may be invalid.", "alert");
+                showPopUp("Error!", "Unable to retrieve web page. URL may be invalid.", "alert");
             }
 
             String[] lv_arr = CQchoices.toArray(new String[0]);
@@ -215,45 +249,10 @@ public class ShareActivity extends Activity {
             tv.setText(titleRaw);
 
             lv.setOnItemClickListener(new OnItemClickListener() {
-
-                private File chooserFolder;
                 
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                	
-                    boolean standardLocationEnabled = settings.getBoolean("enable_standard_location", true);
-                    boolean chooserLocationEnabled = settings.getBoolean("enable_chooser_location", false);
-                    
-                    if (standardLocationEnabled == true) {
-                        String location = settings.getString("standard_location", "Downloads");
-                        Log.d(DEBUG_TAG, "location: " + location);
-                        
-	                    if (location.equals("DCIM") == true) {
-	                    	path = dir_DCIM;
-	                    }
-	                    if (location.equals("Movies") == true) {
-	                    	path = dir_Movies;
-	                    } 
-	                    if (location.equals("Downloads") == true) {
-	                    	path = dir_Downloads;
-	                    }
-	                    
-                    } else if (chooserLocationEnabled == true) {
-                    	String cs = settings.getString(getString(R.string.chooser_location_summary), "/mnt/sdcard");
-                    	//TODO FIX: chooser_location_summary non viene letto come valore assegnato nelle preferenze; /mnt/sdcard assegnato sempre
-                    	
-                    	chooserFolder = new File(cs);
-                    	Log.d(DEBUG_TAG, "chooserFolder: " + chooserFolder);
-                    	
-                    	if (chooserFolder.canWrite()) {
-                    		Log.d(DEBUG_TAG, "chooserFolder is writable");
-                    		path = chooserFolder;
-                    	} else {
-                    		Log.d(DEBUG_TAG, "Unable to write on 'chooserFolder'. Defaulting to sdcard/Downloads");
-                    		Toast.makeText(getApplicationContext(), "Unable to write on " + chooserFolder + ". Defaulting to Downloads folder on sdcard", Toast.LENGTH_LONG).show();
-                    		path = dir_Downloads;
-                    	}
-                    }
-                    Log.d(DEBUG_TAG, "path: " + path);
+					
+					assignPath();
                     
                     //createExternalStorageLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
                     pos = position;
@@ -267,22 +266,20 @@ public class ShareActivity extends Activity {
 
                         @TargetApi(11)
                         public void onClick(DialogInterface dialog, int which) {
-                            ytVideoLink = links[pos];
-                            downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-
-                            Request request = new Request(Uri.parse(ytVideoLink));
-                            videoUri = Uri.parse(path.toURI() + title + "_" + qualities.get(pos) + "." + codecs.get(pos));
-                            Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
-                            request.setDestinationUri(videoUri);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                request.allowScanningByMediaScanner();
-                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                            }
-                            
-                            if (isExternalStorageWritable() == true) {
+                        	if (pathCheckOK() == true) {
+	                            ytVideoLink = links[pos];
+	                            downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+	                            Request request = new Request(Uri.parse(ytVideoLink));
+	                            videoUri = Uri.parse(path.toURI() + title + "_" + qualities.get(pos) + "." + codecs.get(pos));
+	                            Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
+	                            request.setDestinationUri(videoUri);
+	                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	                                request.allowScanningByMediaScanner();
+	                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+	                            }
                             	enqueue = downloadManager.enqueue(request);
                             } else {
-                            	showPopUp("Unable to save the video!", "Destination folder not available", "alert");
+                            	showPopUp("Unable to save the video!", "Destination folder is NOT available and/or NOT writable.", "alert");
                             }
                         }
                     });
@@ -304,7 +301,8 @@ public class ShareActivity extends Activity {
                                 android.text.ClipboardManager o_cb = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                                 o_cb.setText(cmd);
                             }
-
+                            
+                            sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
                             if (sshInfoCheckboxEnabled == true) {
 	                            AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
 	                            

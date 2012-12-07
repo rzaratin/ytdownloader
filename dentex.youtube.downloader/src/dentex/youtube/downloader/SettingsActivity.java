@@ -6,8 +6,12 @@ import group.pals.android.lib.ui.filechooser.services.IFileProvider;
 
 import java.io.File;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -27,13 +31,17 @@ public class SettingsActivity extends Activity {
 	
 	private static final int _ReqChooseFile = 0;
 	public static String chooserSummary = "Long-press a folder to select location.";
-    
+    public static SharedPreferences settings;
+	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         // Load default preferences values
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        
+    	settings = getSharedPreferences(PREFS_NAME, 0);
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
@@ -47,6 +55,8 @@ public class SettingsActivity extends Activity {
     	private CheckBoxPreference standardLoc;
 		private CheckBoxPreference chooserLoc;
 		private Preference filechooser;
+		private int icon;
+
 		
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -146,16 +156,53 @@ public class SettingsActivity extends Activity {
                     @SuppressWarnings("unchecked")
 					List<LocalFile> files = (List<LocalFile>) data.getSerializableExtra(FileChooserActivity._Results);
                     for (File f : files) {
+                    	if (f.canWrite()) {
+                        	Log.d(DEBUG_TAG, "Chosen folder is writable");
+                        	Pattern extPattern = Pattern.compile("(extSdCard|sdcard1|emmc)");
+                        	Matcher extMatcher = extPattern.matcher(f.toString());
+                        	if (extMatcher.find()) {
+                        		showPopUp("Attention!", "It's not possible to write files on the external (removable) sdcard.", "alert");
+                        	}
+                        } else { 
+                    		Log.d(DEBUG_TAG, "Chosen folder is NOT writable");
+                    		showPopUp("Attention!", "It's not possible to write files in a system folder.", "alert");
+                        }
                     	
                     	chooserSummary = f.toString();
                     	Log.d(DEBUG_TAG, "file-chooser selection: " + chooserSummary);
                     	for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
                             initSummary(getPreferenceScreen().getPreference(i));
                         }
+                    	SharedPreferences.Editor editor = settings.edit();
+                    	editor.putString("CHOOSER_FOLDER", chooserSummary);
+                    	editor.commit();
                     }
                 }
                 break;
             }
+        }
+        
+        private void showPopUp(String title, String message, String type) {
+            AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getActivity());
+            helpBuilder.setTitle(title);
+            helpBuilder.setMessage(message);
+
+            if ( type == "alert" ) {
+                icon = android.R.drawable.ic_dialog_alert;
+            } else if ( type == "info" ) {
+                icon = android.R.drawable.ic_dialog_info;
+            }
+
+            helpBuilder.setIcon(icon);
+            helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do nothing but close the dialog
+                }
+            });
+
+            AlertDialog helpDialog = helpBuilder.create();
+            helpDialog.show();
         }
 
      }
