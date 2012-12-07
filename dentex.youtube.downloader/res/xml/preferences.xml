@@ -14,29 +14,34 @@
     
     <PreferenceCategory
     	android:title="@string/settings_cat2">
-    	            	
-        <ListPreference
-            android:key="download_location"
-            android:title="@string/download_location_title"
-            android:dialogTitle="@string/download_location_title"
-            android:entries="@array/download_location_entries"
-            android:entryValues="@array/download_location_entry_values"
-            android:defaultValue="@string/download_location_default"
-        	android:summary=" " />
-            	
+    	
         <CheckBoxPreference
-        	android:key="enable_user_location"
-        	android:title="@string/enable_user_location_title"
-        	android:summary="@string/enable_user_location_summary"
+        	android:key="enable_standard_location"
+        	android:title="@string/enable_standard_location_title"
+        	android:summary="@string/enable_standard_location_summary"
         	android:defaultValue="true" />
+    	
+        <ListPreference
+            android:dependency="enable_standard_location"
+            android:key="standard_location"
+            android:title="@string/standard_location_title"
+            android:dialogTitle="@string/standard_location_title"
+            android:entries="@array/standard_location_entries"
+            android:entryValues="@array/standard_location_entry_values"
+            android:defaultValue="@string/standard_location_default" />    
+                
+        <CheckBoxPreference
+        	android:key="enable_chooser_location"
+        	android:title="@string/enable_chooser_location_title"
+        	android:summary="@string/enable_chooser_location_summary"
+        	android:defaultValue="false" />
         
-        <EditTextPreference
-            android:dependency="enable_user_location"
-            android:key="user_location"
-            android:title="@string/user_location_title"
-            android:dialogTitle="@string/user_location_title"
-            android:summary=" " />
-    		
+		<PreferenceScreen 
+		    android:dependency="enable_chooser_location"
+		    android:key="open_chooser"
+		    android:title="@string/chooser_location_title" 
+		    android:summary="@string/chooser_location_summary" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -1,7 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dentex.youtube.downloader"
+    android:installLocation="auto"
     android:versionCode="1"
-    android:versionName="1.0" android:installLocation="auto">
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -10,12 +12,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
-        android:icon="@drawable/icon_new"
         android:allowBackup="true"
+        android:icon="@drawable/icon_new"
         android:label="@string/app_name"
         android:theme="@style/AppThemeDark" >
+        <service android:name="group.pals.android.lib.ui.filechooser.services.LocalFileProvider" />
+
+        <activity
+            android:name="group.pals.android.lib.ui.filechooser.FileChooserActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name="dentex.youtube.downloader.ShareActivity"
             android:label="@string/title_activity_share"

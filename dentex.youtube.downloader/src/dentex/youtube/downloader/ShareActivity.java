@@ -81,8 +81,11 @@ public class ShareActivity extends Activity {
     private Uri videoUri;
     private int icon;
 	public CheckBox showAgain;
-	SharedPreferences settings;
+	public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
+	public final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+	public final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+	public final File dir_Movies = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
 	boolean sshInfoCheckboxEnabled;
 
     @Override
@@ -174,10 +177,13 @@ public class ShareActivity extends Activity {
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
+        if (Environment.MEDIA_MOUNTED.equals(state) && path.canWrite()) {
+        	Log.d(DEBUG_TAG, "download path is mounted & writable");
             return true;
+        } else {
+        	Log.d(DEBUG_TAG, "download path is NOT mounted and/or NOT writable");
+        	return false;
         }
-        return false;
     }
 
     private class AsyncDownload extends AsyncTask<String, Void, String> {
@@ -197,7 +203,7 @@ public class ShareActivity extends Activity {
         protected void onPostExecute(String result) {
         	
         	progressBar1.setVisibility(View.GONE);
-
+        	
             if (result == "e") {
                 showPopUp("Error", "Unable to retrieve web page. URL may be invalid.", "alert");
             }
@@ -210,36 +216,44 @@ public class ShareActivity extends Activity {
 
             lv.setOnItemClickListener(new OnItemClickListener() {
 
-                private File userFolder;
-
+                private File chooserFolder;
+                
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 	
-                	sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
-                    Log.d(DEBUG_TAG, "sshInfoCheckboxEnabled: " + sshInfoCheckboxEnabled);
-
-                    String location = settings.getString("download_locations", "Downloads");
-                    Log.d(DEBUG_TAG, "location: " + location);
+                    boolean standardLocationEnabled = settings.getBoolean("enable_standard_location", true);
+                    boolean chooserLocationEnabled = settings.getBoolean("enable_chooser_location", false);
                     
-                    boolean userLocationEnabled = settings.getBoolean("enable_user_location", false);
-                    
-                    if (userLocationEnabled == false) {
+                    if (standardLocationEnabled == true) {
+                        String location = settings.getString("standard_location", "Downloads");
+                        Log.d(DEBUG_TAG, "location: " + location);
+                        
 	                    if (location.equals("DCIM") == true) {
-	                    	path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+	                    	path = dir_DCIM;
 	                    }
 	                    if (location.equals("Movies") == true) {
-	                    	path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+	                    	path = dir_Movies;
 	                    } 
 	                    if (location.equals("Downloads") == true) {
-	                    	path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+	                    	path = dir_Downloads;
 	                    }
-	                    Log.d(DEBUG_TAG, "path: " + path);
-                    } else {
-                    	userFolder = new File(settings.getString("user_location", ""));
-                    	if (!userFolder.isDirectory()) if (userFolder.mkdirs()) Log.d(DEBUG_TAG, "User defined folders just created");
-                    	path = userFolder;
+	                    
+                    } else if (chooserLocationEnabled == true) {
+                    	String cs = settings.getString(getString(R.string.chooser_location_summary), "/mnt/sdcard");
+                    	//TODO FIX: chooser_location_summary non viene letto come valore assegnato nelle preferenze; /mnt/sdcard assegnato sempre
+                    	
+                    	chooserFolder = new File(cs);
+                    	Log.d(DEBUG_TAG, "chooserFolder: " + chooserFolder);
+                    	
+                    	if (chooserFolder.canWrite()) {
+                    		Log.d(DEBUG_TAG, "chooserFolder is writable");
+                    		path = chooserFolder;
+                    	} else {
+                    		Log.d(DEBUG_TAG, "Unable to write on 'chooserFolder'. Defaulting to sdcard/Downloads");
+                    		Toast.makeText(getApplicationContext(), "Unable to write on " + chooserFolder + ". Defaulting to Downloads folder on sdcard", Toast.LENGTH_LONG).show();
+                    		path = dir_Downloads;
+                    	}
                     }
-                    
-                    Log.d(DEBUG_TAG, "path: " + path.toString());
+                    Log.d(DEBUG_TAG, "path: " + path);
                     
                     //createExternalStorageLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
                     pos = position;
