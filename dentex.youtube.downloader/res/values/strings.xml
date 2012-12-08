@@ -26,5 +26,15 @@
     
     <string name="chooser_location_title">Open file-chooser</string>
     <string name="chooser_location_summary"></string>
+    
+    <string name="settings_cat3">Video files naming</string>
+    
+    <string name="enable_q_suffix_title">Append quality suffix</string>
+    <string name="enable_q_suffix_summary">Whether to add the video quality type at the end of the file name.</string>
+    
+    <string name="enable_rename_title">Enable file rename</string>
+    <string name="enable_rename_summary">Whether to rename the video file before downloading it.</string>
+    
+    
 
 </resources>

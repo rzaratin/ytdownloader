@@ -219,6 +219,15 @@ public class ShareActivity extends Activity {
         }
         Log.d(DEBUG_TAG, "path: " + path);
     }
+    
+    public boolean useQualitySuffix() {
+    	boolean qualitySuffixEnabled = settings.getBoolean("enable_q_suffix", true);
+    	if (qualitySuffixEnabled == true) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
 
     private class AsyncDownload extends AsyncTask<String, Void, String> {
 
@@ -270,7 +279,11 @@ public class ShareActivity extends Activity {
 	                            ytVideoLink = links[pos];
 	                            downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
 	                            Request request = new Request(Uri.parse(ytVideoLink));
-	                            videoUri = Uri.parse(path.toURI() + title + "_" + qualities.get(pos) + "." + codecs.get(pos));
+	        					if (useQualitySuffix() == true) {
+	        						videoUri = Uri.parse(path.toURI() + title + "_" + qualities.get(pos) + "." + codecs.get(pos));
+	        					} else {
+	        						videoUri = Uri.parse(path.toURI() + title + "." + codecs.get(pos));
+	        					}
 	                            Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
 	                            request.setDestinationUri(videoUri);
 	                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -289,8 +302,12 @@ public class ShareActivity extends Activity {
                         @SuppressWarnings("deprecation")
                         @TargetApi(11)
                         public void onClick(DialogInterface dialog, int which) {
-
-                            String wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'\"url_encoded_fmt_stream_map\".*(\", \"cafe|\", \"watermark)\' | sed -e \'s/\"url_encoded_fmt_stream_map\": \"itag=[0-9][0-9]//\' -e \'s/\".*, \"watermark//\' -e \'s/\", \"cafe//\' -e \'s/,itag=[0-9]*//g\'` && urlarray=( `echo $urlblock | sed \'s/\\\\\\u0026url=/\\n\\n/g\'` ) && N=" + pos + " && downloadurl=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\' -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/\\\\\\u0026type.*\\\\\\u0026sig/\\&signature/g\' -e \'s/%253A/\\:/g\' -e \'s/\\\\\\u0026quality.*//\'` && wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5 --timeout=45 --no-check-certificate \"$downloadurl\" -O " + title + "_" + qualities.get(pos) + "." + codecs.get(pos);
+                        	String wgetCmd;
+                        	if (useQualitySuffix() == true) {
+                        		wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'\"url_encoded_fmt_stream_map\".*(\", \"cafe|\", \"watermark)\' | sed -e \'s/\"url_encoded_fmt_stream_map\": \"itag=[0-9][0-9]//\' -e \'s/\".*, \"watermark//\' -e \'s/\", \"cafe//\' -e \'s/,itag=[0-9]*//g\'` && urlarray=( `echo $urlblock | sed \'s/\\\\\\u0026url=/\\n\\n/g\'` ) && N=" + pos + " && downloadurl=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\' -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/\\\\\\u0026type.*\\\\\\u0026sig/\\&signature/g\' -e \'s/%253A/\\:/g\' -e \'s/\\\\\\u0026quality.*//\'` && wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5 --timeout=45 --no-check-certificate \"$downloadurl\" -O " + title + "_" + qualities.get(pos) + "." + codecs.get(pos);
+                        	} else {
+                        		wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'\"url_encoded_fmt_stream_map\".*(\", \"cafe|\", \"watermark)\' | sed -e \'s/\"url_encoded_fmt_stream_map\": \"itag=[0-9][0-9]//\' -e \'s/\".*, \"watermark//\' -e \'s/\", \"cafe//\' -e \'s/,itag=[0-9]*//g\'` && urlarray=( `echo $urlblock | sed \'s/\\\\\\u0026url=/\\n\\n/g\'` ) && N=" + pos + " && downloadurl=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\' -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/\\\\\\u0026type.*\\\\\\u0026sig/\\&signature/g\' -e \'s/%253A/\\:/g\' -e \'s/\\\\\\u0026quality.*//\'` && wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5 --timeout=45 --no-check-certificate \"$downloadurl\" -O " + title + "." + codecs.get(pos);
+                        	}
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                                 ClipData cmd = ClipData.newPlainText("simple text", wgetCmd);

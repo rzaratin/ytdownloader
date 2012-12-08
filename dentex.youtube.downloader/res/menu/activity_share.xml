@@ -3,5 +3,6 @@
         android:title="@string/menu_settings"
         android:orderInCategory="100"
         android:onClick="settingsClick"
+        android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="ifRoom" />
 </menu>

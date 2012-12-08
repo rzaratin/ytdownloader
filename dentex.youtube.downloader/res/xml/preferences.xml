@@ -43,5 +43,22 @@
 		    android:summary="@string/chooser_location_summary" />
 
     </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/settings_cat3">
+            
+    	<CheckBoxPreference
+        	android:key="enable_q_suffix"
+        	android:title="@string/enable_q_suffix_title"
+        	android:summary="@string/enable_q_suffix_summary"
+        	android:defaultValue="true" />
+    	
+    	<CheckBoxPreference
+        	android:key="enable_rename"
+        	android:title="@string/enable_rename_title"
+        	android:summary="@string/enable_rename_summary"
+        	android:defaultValue="false" />
+    	
+    </PreferenceCategory>
 
 </PreferenceScreen>
