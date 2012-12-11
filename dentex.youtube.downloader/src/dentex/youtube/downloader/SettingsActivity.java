@@ -78,7 +78,7 @@ public class SettingsActivity extends Activity {
             		// by default, if not specified, default rootpath is sdcard, if sdcard is not available, "/" will be used
             		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
             		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
-            		intent.putExtra(FileChooserActivity._Theme, android.R.style.Theme_Dialog);
+            		//intent.putExtra(FileChooserActivity._Theme, android.R.style.Theme_Dialog);
             		startActivityForResult(intent, _ReqChooseFile);
                     return true;
                 }
@@ -162,7 +162,7 @@ public class SettingsActivity extends Activity {
                         	Pattern extPattern = Pattern.compile("(extSdCard|sdcard1|emmc)");
                         	Matcher extMatcher = extPattern.matcher(f.toString());
                         	if (extMatcher.find()) {
-                        		showPopUp("Attention!", "System Apps only can write files on the external (removable) sdcard.", "alert");
+                        		showPopUp("Attention!", "This App cannot write files on the external (removable) sdcard.", "alert");
                         	}
                         } else { 
                     		Log.d(DEBUG_TAG, "Chosen folder is NOT writable");
