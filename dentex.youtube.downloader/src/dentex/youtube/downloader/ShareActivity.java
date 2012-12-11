@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -39,7 +38,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Html;
@@ -60,7 +58,6 @@ import android.widget.Toast;
 public class ShareActivity extends Activity {
 	
 	private ProgressBar progressBar1;
-
     public static final String USER_AGENT_FIREFOX = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729)";
     private static final String DEBUG_TAG = "ShareActivity";
     private TextView tv;
@@ -78,15 +75,19 @@ public class ShareActivity extends Activity {
     public String validatedLink;
     private DownloadManager downloadManager;
     private long enqueue;
+	String filename = "video";
+	String composedFilename;
     private Uri videoUri;
     private int icon;
 	public CheckBox showAgain;
+	public TextView userFilename;
 	public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
 	public final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	public final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
 	public final File dir_Movies = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
 	boolean sshInfoCheckboxEnabled;
+	boolean fileRenameEnabled;
 	public File chooserFolder;
 
     @Override
@@ -159,6 +160,7 @@ public class ShareActivity extends Activity {
                 //Toast.makeText(this, "Please wait...", Toast.LENGTH_LONG).show();
             }
         } else {
+        	progressBar1.setVisibility(View.GONE);
         	showPopUp("No Connection Available.", "Please, enable a network connection first.", "alert");
         }
     }
@@ -219,15 +221,6 @@ public class ShareActivity extends Activity {
         }
         Log.d(DEBUG_TAG, "path: " + path);
     }
-    
-    public boolean useQualitySuffix() {
-    	boolean qualitySuffixEnabled = settings.getBoolean("enable_q_suffix", true);
-    	if (qualitySuffixEnabled == true) {
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
 
     private class AsyncDownload extends AsyncTask<String, Void, String> {
 
@@ -273,24 +266,30 @@ public class ShareActivity extends Activity {
 
                     helpBuilder.setPositiveButton("Download here", new DialogInterface.OnClickListener() {
 
-                        @TargetApi(11)
                         public void onClick(DialogInterface dialog, int which) {
                         	if (pathCheckOK() == true) {
-	                            ytVideoLink = links[pos];
-	                            downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-	                            Request request = new Request(Uri.parse(ytVideoLink));
-	        					if (useQualitySuffix() == true) {
-	        						videoUri = Uri.parse(path.toURI() + title + "_" + qualities.get(pos) + "." + codecs.get(pos));
-	        					} else {
-	        						videoUri = Uri.parse(path.toURI() + title + "." + codecs.get(pos));
-	        					}
-	                            Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
-	                            request.setDestinationUri(videoUri);
-	                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-	                                request.allowScanningByMediaScanner();
-	                                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                        		composedFilename = composeFilename();
+	                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
+	                            if (fileRenameEnabled == true) {
+	                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
+		                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
+		                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
+		                    	    userFilename.setHint(composedFilename);
+		                    	    adb.setView(inputFilename);
+		                    	    adb.setTitle("New filename:");
+		                    	    adb.setMessage("Do not enter the file extension (like .mp4 or .flv).");
+		                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		                    	    	public void onClick(DialogInterface dialog, int which) {
+		                    	    		title = userFilename.getText().toString();
+		                    	    		composedFilename = composeFilename();
+		                    	    		callDownloadManager();
+		                    	    	}
+		                    	    });
+		                    	    adb.show();
+	                            } else {
+	                            	callDownloadManager();
 	                            }
-                            	enqueue = downloadManager.enqueue(request);
                             } else {
                             	showPopUp("Unable to save the video!", "Destination folder is NOT available and/or NOT writable.", "alert");
                             }
@@ -299,44 +298,36 @@ public class ShareActivity extends Activity {
 
                     helpBuilder.setNeutralButton("Send via SSH", new DialogInterface.OnClickListener() {
 
-                        @SuppressWarnings("deprecation")
-                        @TargetApi(11)
                         public void onClick(DialogInterface dialog, int which) {
                         	String wgetCmd;
-                        	if (useQualitySuffix() == true) {
-                        		wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'\"url_encoded_fmt_stream_map\".*(\", \"cafe|\", \"watermark)\' | sed -e \'s/\"url_encoded_fmt_stream_map\": \"itag=[0-9][0-9]//\' -e \'s/\".*, \"watermark//\' -e \'s/\", \"cafe//\' -e \'s/,itag=[0-9]*//g\'` && urlarray=( `echo $urlblock | sed \'s/\\\\\\u0026url=/\\n\\n/g\'` ) && N=" + pos + " && downloadurl=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\' -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/\\\\\\u0026type.*\\\\\\u0026sig/\\&signature/g\' -e \'s/%253A/\\:/g\' -e \'s/\\\\\\u0026quality.*//\'` && wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5 --timeout=45 --no-check-certificate \"$downloadurl\" -O " + title + "_" + qualities.get(pos) + "." + codecs.get(pos);
-                        	} else {
-                        		wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'\"url_encoded_fmt_stream_map\".*(\", \"cafe|\", \"watermark)\' | sed -e \'s/\"url_encoded_fmt_stream_map\": \"itag=[0-9][0-9]//\' -e \'s/\".*, \"watermark//\' -e \'s/\", \"cafe//\' -e \'s/,itag=[0-9]*//g\'` && urlarray=( `echo $urlblock | sed \'s/\\\\\\u0026url=/\\n\\n/g\'` ) && N=" + pos + " && downloadurl=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\' -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/\\\\\\u0026type.*\\\\\\u0026sig/\\&signature/g\' -e \'s/%253A/\\:/g\' -e \'s/\\\\\\u0026quality.*//\'` && wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5 --timeout=45 --no-check-certificate \"$downloadurl\" -O " + title + "." + codecs.get(pos);
-                        	}
+                        	composedFilename = composeFilename();
+                        	wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
+                        			validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'\"url_encoded_fmt_stream_map\".*(\", \"cafe|\", \"watermark)\' |" + 
+                        			" sed -e \'s/\"url_encoded_fmt_stream_map\": \"itag=[0-9][0-9]//\' -e \'s/\".*, \"watermark//\' -e \'s/\", \"cafe//\'" + 
+                        			" -e \'s/,itag=[0-9]*//g\'` && urlarray=( `echo $urlblock | sed \'s/\\\\\\u0026url=/\\n\\n/g\'` ) && N=" + pos + 
+                        			" && downloadurl=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\'" + 
+                        			" -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/\\\\\\u0026type.*\\\\\\u0026sig/\\&signature/g\' -e \'s/%253A/\\:/g\' -e" + 
+                        			" \'s/\\\\\\u0026quality.*//\'` && wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5" + 
+                        			" --timeout=45 --no-check-certificate \"$downloadurl\" -O " + composedFilename;
 
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                                ClipData cmd = ClipData.newPlainText("simple text", wgetCmd);
-                                ClipboardManager cb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                                cb.setPrimaryClip(cmd);
-                            } else {
-                                CharSequence cmd = wgetCmd;
-                                android.text.ClipboardManager o_cb = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                                o_cb.setText(cmd);
-                            }
+                            ClipData cmd = ClipData.newPlainText("simple text", wgetCmd);
+                            ClipboardManager cb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            cb.setPrimaryClip(cmd);
                             
                             sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
                             if (sshInfoCheckboxEnabled == true) {
 	                            AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
-	                            
 	                    	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
 	                    	    View sshInfo = adbInflater.inflate(R.layout.dialog_ssh_info, null);
 	                    	    showAgain = (CheckBox) sshInfo.findViewById(R.id.showAgain);
 	                    	    showAgain.setChecked(true);
 	                    	    adb.setView(sshInfo);
-	                    	    
 	                    	    adb.setTitle("Send via SSH How-To");
 	                    	    adb.setMessage(Html.fromHtml("A single long command has been loaded in the clipboard.<br>" + "<br>" +
 	                    				"Once in your remote shell, browse to the destination directory, PASTE the command (use the menu button) and then push ENTER.<br>"));
-	                        	
-	                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {  
-	                        		
+
+	                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 	                    	    	public void onClick(DialogInterface dialog, int which) {
-	                    	    		
 	                    	    		if (showAgain.isChecked() == false) {
 	                    	    			SharedPreferences.Editor editor = settings.edit();
 	                    	    			editor.putBoolean("ssh_info", false);
@@ -347,8 +338,6 @@ public class ShareActivity extends Activity {
 	                    	    		callConnectBot(); 
 	                        		}
 	                        	});
-	                    	    
-	                    	    
 	                    	    adb.show();
                     	    } else {
                     	    	callConnectBot();
@@ -365,12 +354,38 @@ public class ShareActivity extends Activity {
 
                     AlertDialog helpDialog = helpBuilder.create();
                     helpDialog.show();
-
                 }
             });
         }
         
-        void callConnectBot() {
+        public boolean useQualitySuffix() {
+        	boolean qualitySuffixEnabled = settings.getBoolean("enable_q_suffix", true);
+        	if (qualitySuffixEnabled == true) {
+        		return true;
+        	} else {
+        		return false;
+        	}
+        }
+        
+        public String composeFilename() {
+        	filename = title + "_" + qualities.get(pos) + "." + codecs.get(pos);
+    	    if (useQualitySuffix() == false) filename = title + "." + codecs.get(pos);
+    	    return filename;
+        }
+        
+        void callDownloadManager() {
+        	ytVideoLink = links[pos];
+            downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+            Request request = new Request(Uri.parse(ytVideoLink));
+			videoUri = Uri.parse(path.toURI() + composedFilename);
+            Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
+            request.setDestinationUri(videoUri);
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        	enqueue = downloadManager.enqueue(request);
+        }
+
+		void callConnectBot() {
         	Context context = getApplicationContext();
     		PackageManager pm = context.getPackageManager();
     		Intent appStartIntent = pm.getLaunchIntentForPackage("org.connectbot");
