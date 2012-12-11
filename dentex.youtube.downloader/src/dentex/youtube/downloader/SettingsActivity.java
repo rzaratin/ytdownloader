@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -75,7 +76,7 @@ public class SettingsActivity extends Activity {
                 public boolean onPreferenceClick(Preference preference) {
                 	Intent intent = new Intent(getActivity(),  FileChooserActivity.class);
             		// by default, if not specified, default rootpath is sdcard, if sdcard is not available, "/" will be used
-            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile("/storage/sdcard0"));
+            		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
             		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
             		intent.putExtra(FileChooserActivity._Theme, android.R.style.Theme_Dialog);
             		startActivityForResult(intent, _ReqChooseFile);
@@ -161,7 +162,7 @@ public class SettingsActivity extends Activity {
                         	Pattern extPattern = Pattern.compile("(extSdCard|sdcard1|emmc)");
                         	Matcher extMatcher = extPattern.matcher(f.toString());
                         	if (extMatcher.find()) {
-                        		showPopUp("Attention!", "It's not possible to write files on the external (removable) sdcard.", "alert");
+                        		showPopUp("Attention!", "System Apps only can write files on the external (removable) sdcard.", "alert");
                         	}
                         } else { 
                     		Log.d(DEBUG_TAG, "Chosen folder is NOT writable");

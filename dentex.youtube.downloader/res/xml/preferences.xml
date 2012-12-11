@@ -10,6 +10,12 @@
         	android:summary="@string/ssh_info_summary"
         	android:defaultValue="true" />
     	
+    	<CheckBoxPreference
+        	android:key="general_info"
+        	android:title="@string/general_info_title"
+        	android:summary="@string/general_info_summary"
+        	android:defaultValue="true" />
+    	
     </PreferenceCategory>
     
     <PreferenceCategory

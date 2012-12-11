@@ -9,11 +9,15 @@
     
     <string name="settings_cat1">Tutorials</string>
     
+    <string name="general_info_title">Enable General how-to</string>
+    <string name="general_info_summary">Whether to show a general App tutorial on startup.</string>
+    <string name="general_info_checkbox">Show again next time</string>
+    
     <string name="ssh_info_title">Ebable SSH how-to</string>
     <string name="ssh_info_summary">Whether to show a quick tip about remote downloading via SSH.</string>
     <string name="ssh_info_checkbox">Show again next time</string>
     
-    <string name="settings_cat2">Downloads folder location</string>
+    <string name="settings_cat2">Downloads folder</string>
     
     <string name="enable_standard_location_title">Enable standard</string>
     <string name="enable_standard_location_summary">Whether to use a standard download folder.</string>
@@ -22,7 +26,7 @@
     <string name="standard_location_default">Downloads</string>
     
     <string name="enable_chooser_location_title">Enable file-chooser</string>
-    <string name="enable_chooser_location_summary">Whether to use a file-chooser to define the download folder.</string>
+    <string name="enable_chooser_location_summary">Whether to use a file-chooser to select the download folder.</string>
     
     <string name="chooser_location_title">Open file-chooser</string>
     <string name="chooser_location_summary"></string>
@@ -33,7 +37,7 @@
     <string name="enable_q_suffix_summary">Whether to add the video quality type at the end of the file name.</string>
     
     <string name="enable_rename_title">Enable file rename</string>
-    <string name="enable_rename_summary">Whether to rename the video file before downloading it.</string>
+    <string name="enable_rename_summary">Whether to rename the video file before downloading it (for the local download only).</string>
     
     
 
