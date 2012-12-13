@@ -18,7 +18,6 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -31,7 +30,7 @@ import android.util.Log;
 public class SettingsActivity extends Activity {
 	
 	private static final int _ReqChooseFile = 0;
-	public static String chooserSummary = "Long-press a folder to select location.";
+	public static String chooserSummary;
     public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
 	
@@ -52,10 +51,9 @@ public class SettingsActivity extends Activity {
     
     public static class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
     	
-    	private static final String DEBUG_TAG = "ShareActivity";
-    	private CheckBoxPreference standardLoc;
-		private CheckBoxPreference chooserLoc;
+    	private static final String DEBUG_TAG = "SettingsActivity";
 		private Preference filechooser;
+		private Preference quickStart;
 		private int icon;
 
 		
@@ -63,8 +61,9 @@ public class SettingsActivity extends Activity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.preferences);
+            chooserSummary = getString(R.string.chooser_location_summary);
+            initSwapPreference();
             
             for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
                 initSummary(getPreferenceScreen().getPreference(i));
@@ -75,38 +74,32 @@ public class SettingsActivity extends Activity {
             	
                 public boolean onPreferenceClick(Preference preference) {
                 	Intent intent = new Intent(getActivity(),  FileChooserActivity.class);
-            		// by default, if not specified, default rootpath is sdcard, if sdcard is not available, "/" will be used
             		intent.putExtra(FileChooserActivity._Rootpath, (Parcelable) new LocalFile(Environment.getExternalStorageDirectory()));
             		intent.putExtra(FileChooserActivity._FilterMode, IFileProvider.FilterMode.DirectoriesOnly);
-            		//intent.putExtra(FileChooserActivity._Theme, android.R.style.Theme_Dialog);
             		startActivityForResult(intent, _ReqChooseFile);
                     return true;
                 }
             });
             
-            standardLoc = (CheckBoxPreference) findPreference("enable_standard_location");
-            standardLoc.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                public boolean onPreferenceClick(Preference preference) {
-                    unCheckAll();
-                    standardLoc.setChecked(true);
-                    return true;
-                }
-            });
-            
-            chooserLoc = (CheckBoxPreference) findPreference("enable_chooser_location");
-            chooserLoc.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                public boolean onPreferenceClick(Preference preference) {
-                    unCheckAll();
-                    chooserLoc.setChecked(true);
-                    return true;
-                }
-            });
+            quickStart = (Preference) getPreferenceScreen().findPreference("quick_start");
+            quickStart.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+				
+				public boolean onPreferenceClick(Preference preference) {
+					showPopUp(getString(R.string.quick_start_title), getString(R.string.quick_start_text), "info");
+					return true;
+				}
+			});
         }
-        
-        private void unCheckAll() {
-        	standardLoc.setChecked(false);
-        	chooserLoc.setChecked(false);
-        }
+
+		private void initSwapPreference() {
+			boolean swap = settings.getBoolean("swap_location", false);
+			PreferenceScreen p = (PreferenceScreen) findPreference("open_chooser");
+            if (swap == true) {
+            	p.setEnabled(true);
+            } else {
+            	p.setEnabled(false);
+            }
+		}
         
         @Override
         public void onResume(){
@@ -118,13 +111,13 @@ public class SettingsActivity extends Activity {
         @Override
         public void onPause() {
         	super.onPause();
-
         	// Unregister the listener whenever a key changes            
         	getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);    
         }
         
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         	updatePrefSummary(findPreference(key));
+        	initSwapPreference();
         }
         	 
         private void initSummary(Preference p){
@@ -144,7 +137,6 @@ public class SettingsActivity extends Activity {
         	    p.setSummary(listPref.getEntry());
         	}
         	if (p instanceof PreferenceScreen) {
-        		//PreferenceScreen pref = (PreferenceScreen) p;
         		p.setSummary(chooserSummary);
         	}
         }
@@ -162,11 +154,11 @@ public class SettingsActivity extends Activity {
                         	Pattern extPattern = Pattern.compile("(extSdCard|sdcard1|emmc)");
                         	Matcher extMatcher = extPattern.matcher(f.toString());
                         	if (extMatcher.find()) {
-                        		showPopUp("Attention!", "This App cannot write files on the external (removable) sdcard.", "alert");
+                        		showPopUp(getString(R.string.attention), getString(R.string.extsdcard_warning), "alert");
                         	}
                         } else { 
                     		Log.d(DEBUG_TAG, "Chosen folder is NOT writable");
-                    		showPopUp("Attention!", "It's not possible to write files in a system folder.", "alert");
+                    		showPopUp(getString(R.string.attention), getString(R.string.system_warning), "alert");
                         }
                     	
                     	chooserSummary = f.toString();

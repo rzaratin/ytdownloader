@@ -22,6 +22,7 @@
     <string name="afc_cmd_select_all_files">Select all files</string>
     <string name="afc_cmd_select_all_folders">Select all folders</string>
     <string name="afc_cmd_sort">Sort…</string>
+    <string name="afc_cmd_switch_viewmode">Switch Viewmode</string>
     <string name="afc_ellipsize">…</string>
     <string name="afc_file">file</string>
     <string name="afc_folder">folder</string>

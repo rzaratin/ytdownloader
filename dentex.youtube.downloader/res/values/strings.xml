@@ -1,35 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	
     <string name="app_name">YouTube Downloader</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_share">YouTube Downloader</string>
     <string name="title_activity_settings">YouTube Downloader Settings</string>
     <string name="VideoTitle">Loading&#8230;</string>
     
+    <!-- ### ShareActivity ### -->
+        
+    <string name="tutorial_title">General App tutorial</string>
+    <string name="tutorial_msg">Now you will see a list with all the codecs and qualities available for the selected video.\n\nChoose one item and you will be asked to download the video locally (on the phone) or to send the download via SSH to a linux machine.\n\nDestination linux-box requirements: Bash and Wget. Additional SSH info further on.</string>
+	
+    <string name="error">Error!</string>
+    <string name="information">Information</string>
+    <string name="dialogs_negative">Cancel</string>
+    
+    <string name="invalid_url">Unable to retrieve web page. URL may be invalid."</string>
+    
+    <string name="bad_link">Check the provided link.</string>
+    <string name="bad_link_dialog_msg">Not a valid YouTube link.</string>
+    
+    <string name="no_net">No connection available.</string>
+    <string name="no_net_dialog_msg">Please, enable a network connection first.</string>
+    
+    <string name="list_click_dialog_title">Confirm Download for:</string>
+    <string name="list_click_dialog_positive">Download here</string>
+    <string name="list_click_dialog_neutral">Send via SSH</string>
+    
+    <string name="rename_dialog_title">New filename:</string>
+    <string name="rename_dialog_msg">Do not enter the file extension (like .mp4 or .flv).</string>
+    
+    <string name="unable_save">Unable to save the video!</string>
+    <string name="unable_save_dialog_msg">Destination folder is NOT available and/or NOT writable.</string>
+    
+    <string name="ssh_info_tutorial_title">Send via SSH How-To</string>
+    <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
+        \n\nSo now choose a profile in ConnectBot and once in your remote shell, browse to the destination 
+        directory, PASTE the command (use the menu button) and then push ENTER.</string>
+    
+    <string name="callConnectBot_dialog_title">ConnectBot not installed!</string>
+    <string name="callConnectBot_dialog_msg">You need this free App to send the video download via SSH.</string>
+    <string name="callConnectBot_dialog_positive">Install ConnectBot</string>
+    
+    <string name="download_complete_dialog_msg1">Youtube Video:\n</string>
+    <string name="download_complete_dialog_msg2">\nSuccessfully downloaded.</string>
+    <string name="download_complete_dialog_positive">Open</string>
+    
+    <!-- ### SettingsActivity ### -->
+    
+    <string name="attention">Attention!</string>
+    <string name="extsdcard_warning">This App cannot write files on the external (removable) sdcard.</string>
+	<string name="system_warning">It\'s not possible to write files in a system folder.</string>
+
+	<!-- ### preferences ### -->
+	
     <string name="settings_cat1">Tutorials</string>
     
+    <string name="quick_start_title">Quick start</string>
+    <string name="quick_start_summ">Open a quick start tutorial</string>
+    <string name="quick_start_text">Here are just the preferences for \"YouTube Downloader\".
+        \n\nThe actual App can be accessed via the sharing button in the YouTube App, while watching a video.
+        \n\nThen simply choose \"YouTube Downloader\" and you will have further usage info.
+        \n\n(You can also share any YouTube plain text link via any other App).</string>
+      
     <string name="general_info_title">Enable General how-to</string>
     <string name="general_info_summary">Whether to show a general App tutorial on startup.</string>
     <string name="general_info_checkbox">Show again next time</string>
     
-    <string name="ssh_info_title">Ebable SSH how-to</string>
+    <string name="ssh_info_title">Enable SSH how-to</string>
     <string name="ssh_info_summary">Whether to show a quick tip about remote downloading via SSH.</string>
     <string name="ssh_info_checkbox">Show again next time</string>
     
     <string name="settings_cat2">Downloads folder</string>
-    
-    <string name="enable_standard_location_title">Enable standard</string>
-    <string name="enable_standard_location_summary">Whether to use a standard download folder.</string>
-    
+
     <string name="standard_location_title">Choose standard folder</string>
     <string name="standard_location_default">Downloads</string>
     
-    <string name="enable_chooser_location_title">Enable file-chooser</string>
-    <string name="enable_chooser_location_summary">Whether to use a file-chooser to select the download folder.</string>
+    <string name="chooser_swap_title">Swap chooser</string>
     
     <string name="chooser_location_title">Open file-chooser</string>
-    <string name="chooser_location_summary"></string>
+    <string name="chooser_location_summary">Long-press to select a folder.</string>
     
     <string name="settings_cat3">Video files naming</string>
     
@@ -39,6 +90,4 @@
     <string name="enable_rename_title">Enable file rename</string>
     <string name="enable_rename_summary">Whether to rename the video file before downloading it (for the local download only).</string>
     
-    
-
 </resources>

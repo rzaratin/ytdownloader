@@ -40,7 +40,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -103,7 +102,8 @@ public class ShareActivity extends Activity {
         
         lv = (ListView) findViewById(R.id.list);
         tv = (TextView) findViewById(R.id.textView1);
-
+        
+        
         // Get intent, action and MIME type
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -119,7 +119,6 @@ public class ShareActivity extends Activity {
                 }
             }
         }
-
         registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
@@ -155,8 +154,8 @@ public class ShareActivity extends Activity {
             String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
             if (linkValidator(sharedText) == "not_a_valid_youtube_link") {
             	progressBar1.setVisibility(View.GONE);
-            	tv.setText("Check the provided link.");
-                showPopUp("Error!", "Not a valid YouTube link.", "alert");
+            	tv.setText(getString(R.string.bad_link));
+                showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert");
             } else if (sharedText != null) {
             	showGeneralInfoTutorial();
                 new AsyncDownload().execute(sharedText);
@@ -164,8 +163,8 @@ public class ShareActivity extends Activity {
             }
         } else {
         	progressBar1.setVisibility(View.GONE);
-        	tv.setText("No network available.");
-        	showPopUp("No Connection Available.", "Please, enable a network connection first.", "alert");
+        	tv.setText(getString(R.string.no_net));
+        	showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert");
         }
     }
     
@@ -178,10 +177,8 @@ public class ShareActivity extends Activity {
     	    showAgain1 = (CheckBox) generalInfo.findViewById(R.id.showAgain1);
     	    showAgain1.setChecked(true);
     	    adb.setView(generalInfo);
-    	    adb.setTitle("General App tutorial");
-    	    adb.setMessage(Html.fromHtml("Now you will see a list with all the video codecs and qualities available for the video you selected.<br>" + "<br>" +
-    				"Choose one item and you will be asked to download the video locally (on the phone) or to send the download via SSH to a linux machine via the ConnectBot App.<br>" + "<br>" +
-    	    		"Destination linux-box requirements: Bash and Wget. SSH info further on."));
+    	    adb.setTitle(getString(R.string.tutorial_title));    	    
+    	    adb.setMessage(getString(R.string.tutorial_msg));
 
     	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
     	    	public void onClick(DialogInterface dialog, int which) {
@@ -227,10 +224,9 @@ public class ShareActivity extends Activity {
     }
     
     public void assignPath() {
-    	boolean standardLocationEnabled = settings.getBoolean("enable_standard_location", true);
-        boolean chooserLocationEnabled = settings.getBoolean("enable_chooser_location", false);
+    	boolean Location = settings.getBoolean("swap_location", true);
         
-        if (standardLocationEnabled == true) {
+        if (Location == true) {
             String location = settings.getString("standard_location", "Downloads");
             Log.d(DEBUG_TAG, "location: " + location);
             
@@ -244,7 +240,7 @@ public class ShareActivity extends Activity {
             	path = dir_Downloads;
             }
             
-        } else if (chooserLocationEnabled == true) {
+        } else {
         	String cs = settings.getString("CHOOSER_FOLDER", "");
         	chooserFolder = new File(cs);
         	Log.d(DEBUG_TAG, "chooserFolder: " + chooserFolder);
@@ -272,7 +268,7 @@ public class ShareActivity extends Activity {
         	progressBar1.setVisibility(View.GONE);
         	
             if (result == "e") {
-                showPopUp("Error!", "Unable to retrieve web page. URL may be invalid.", "alert");
+                showPopUp(getString(R.string.error), getString(R.string.invalid_url), "alert");
             }
 
             String[] lv_arr = CQchoices.toArray(new String[0]);
@@ -292,10 +288,10 @@ public class ShareActivity extends Activity {
                     AlertDialog.Builder helpBuilder = new AlertDialog.Builder(ShareActivity.this);
 
                     helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
-                    helpBuilder.setTitle("Confirm Download for:");
+                    helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
                     helpBuilder.setMessage(titleRaw + "\n\n\tCodec: " + codecs.get(position) + "\n\tQuality: " + qualities.get(position));
 
-                    helpBuilder.setPositiveButton("Download here", new DialogInterface.OnClickListener() {
+                    helpBuilder.setPositiveButton(getString(R.string.list_click_dialog_positive), new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
                         	if (pathCheckOK() == true) {
@@ -307,10 +303,10 @@ public class ShareActivity extends Activity {
 	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
 		                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
 		                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
-		                    	    userFilename.setHint(composedFilename);
+		                    	    userFilename.setText(composedFilename);
 		                    	    adb.setView(inputFilename);
-		                    	    adb.setTitle("New filename:");
-		                    	    adb.setMessage("Do not enter the file extension (like .mp4 or .flv).");
+		                    	    adb.setTitle(getString(R.string.rename_dialog_title));
+		                    	    adb.setMessage(getString(R.string.rename_dialog_msg));
 		                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		                    	    	public void onClick(DialogInterface dialog, int which) {
 		                    	    		title = userFilename.getText().toString();
@@ -324,12 +320,12 @@ public class ShareActivity extends Activity {
 	                            }
                             } else {
                             	Log.d(DEBUG_TAG, "Destination folder is NOT available and/or NOT writable");
-                            	showPopUp("Unable to save the video!", "Destination folder is NOT available and/or NOT writable.", "alert");
+                            	showPopUp(getString(R.string.unable_save), getString(R.string.unable_save_dialog_msg), "alert");
                             }
                         }
                     });
 
-                    helpBuilder.setNeutralButton("Send via SSH", new DialogInterface.OnClickListener() {
+                    helpBuilder.setNeutralButton(getString(R.string.list_click_dialog_neutral), new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
                         	String wgetCmd;
@@ -355,10 +351,8 @@ public class ShareActivity extends Activity {
 	                    	    showAgain2 = (CheckBox) sshInfo.findViewById(R.id.showAgain2);
 	                    	    showAgain2.setChecked(true);
 	                    	    adb.setView(sshInfo);
-	                    	    adb.setTitle("Send via SSH How-To");
-	                    	    adb.setMessage(Html.fromHtml("A single long command has been loaded in the clipboard.<br>" + "<br>" +
-	                    				"So now choose a profile in ConnectBot and once in your remote shell, browse to the destination directory, PASTE the command (use the menu button) and then push ENTER.<br>"));
-
+	                    	    adb.setTitle(getString(R.string.ssh_info_tutorial_title));
+	                    	    adb.setMessage(getString(R.string.ssh_info_tutorial_msg));
 	                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 	                    	    	public void onClick(DialogInterface dialog, int which) {
 	                    	    		if (showAgain2.isChecked() == false) {
@@ -378,7 +372,7 @@ public class ShareActivity extends Activity {
                         }
                     });
 
-                    helpBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    helpBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
                             //Toast.makeText(ShareActivity.this, "Download canceled...", Toast.LENGTH_SHORT).show();
@@ -427,18 +421,18 @@ public class ShareActivity extends Activity {
     			context.startActivity(appStartIntent);
     		} else {
     			AlertDialog.Builder cb = new AlertDialog.Builder(ShareActivity.this);
-    	        cb.setTitle("ConnectBot not installed!");
-    	        cb.setMessage("You need this free App to send the video download via SSH.");
+    	        cb.setTitle(getString(R.string.callConnectBot_dialog_title));
+    	        cb.setMessage(getString(R.string.callConnectBot_dialog_msg));
     	        icon = android.R.drawable.ic_dialog_alert;
     	        cb.setIcon(icon);
-    	        cb.setPositiveButton("Install ConnectBot", new DialogInterface.OnClickListener() {
+    	        cb.setPositiveButton(getString(R.string.callConnectBot_dialog_positive), new DialogInterface.OnClickListener() {
     	            public void onClick(DialogInterface dialog, int which) {
     	            	Intent intent = new Intent(Intent.ACTION_VIEW); 
     	            	intent.setData(Uri.parse("market://details?id=org.connectbot")); 
     	            	startActivity(intent);
     	            }
     	        });
-    	        cb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+    	        cb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
     	        	public void onClick(DialogInterface dialog, int which) {
     	                // Do nothing but close the dialog
     	            }
@@ -665,9 +659,9 @@ public class ShareActivity extends Activity {
                     if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
                         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
                         helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
-                        helpBuilder.setTitle("Information");
-                        helpBuilder.setMessage("Youtube Video:\n" + titleRaw + "\nSuccessfully downloaded.");
-                        helpBuilder.setPositiveButton("Open", new DialogInterface.OnClickListener() {
+                        helpBuilder.setTitle(getString(R.string.information));
+                        helpBuilder.setMessage(getString(R.string.download_complete_dialog_msg1) + titleRaw + getString(R.string.download_complete_dialog_msg2));
+                        helpBuilder.setPositiveButton(getString(R.string.download_complete_dialog_positive), new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -678,7 +672,7 @@ public class ShareActivity extends Activity {
                             }
                         });
 
-                        helpBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        helpBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
                             }

@@ -64,7 +64,7 @@ public class MenuItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.afc_context_menu_tiem, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.afc_context_menu_item, null);
         }
 
         ((TextView) convertView).setText(mItems[position]);

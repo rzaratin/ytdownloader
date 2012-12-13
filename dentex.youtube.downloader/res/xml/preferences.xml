@@ -3,50 +3,49 @@
     
     <PreferenceCategory
         android:title="@string/settings_cat1">
-            
-    	<CheckBoxPreference
-        	android:key="ssh_info"
-        	android:title="@string/ssh_info_title"
-        	android:summary="@string/ssh_info_summary"
-        	android:defaultValue="true" />
-    	
+          
+        <Preference 
+            android:key="quick_start"
+            android:title="@string/quick_start_title" 
+            android:summary="@string/quick_start_summ" />
+               	
     	<CheckBoxPreference
         	android:key="general_info"
         	android:title="@string/general_info_title"
         	android:summary="@string/general_info_summary"
         	android:defaultValue="true" />
     	
+    	<CheckBoxPreference
+        	android:key="ssh_info"
+        	android:title="@string/ssh_info_title"
+        	android:summary="@string/ssh_info_summary"
+        	android:defaultValue="true" />
+
     </PreferenceCategory>
     
     <PreferenceCategory
     	android:title="@string/settings_cat2">
-    	
-        <CheckBoxPreference
-        	android:key="enable_standard_location"
-        	android:title="@string/enable_standard_location_title"
-        	android:summary="@string/enable_standard_location_summary"
-        	android:defaultValue="true" />
-    	
+
         <ListPreference
-            android:dependency="enable_standard_location"
+            android:dependency="swap_location"
             android:key="standard_location"
             android:title="@string/standard_location_title"
             android:dialogTitle="@string/standard_location_title"
             android:entries="@array/standard_location_entries"
             android:entryValues="@array/standard_location_entry_values"
-            android:defaultValue="@string/standard_location_default" />    
-                
-        <CheckBoxPreference
-        	android:key="enable_chooser_location"
-        	android:title="@string/enable_chooser_location_title"
-        	android:summary="@string/enable_chooser_location_summary"
-        	android:defaultValue="false" />
-        
-		<PreferenceScreen 
-		    android:dependency="enable_chooser_location"
+            android:defaultValue="@string/standard_location_default" />
+            	
+    	<SwitchPreference
+        	android:key="swap_location"
+        	android:title="@string/chooser_swap_title"
+        	android:switchTextOn="ON"
+        	android:switchTextOff="OFF"
+        	android:defaultValue="false" 
+        	android:disableDependentsState="true"/>
+    	
+		<PreferenceScreen
 		    android:key="open_chooser"
-		    android:title="@string/chooser_location_title" 
-		    android:summary="@string/chooser_location_summary" />
+		    android:title="@string/chooser_location_title" />
 
     </PreferenceCategory>
     
