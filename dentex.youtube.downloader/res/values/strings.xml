@@ -50,8 +50,9 @@
     <!-- ### SettingsActivity ### -->
     
     <string name="attention">Attention!</string>
-    <string name="extsdcard_warning">This App cannot write files on the external (removable) sdcard.</string>
-	<string name="system_warning">It\'s not possible to write files in a system folder.</string>
+    <string name="extsdcard_warning">This App cannot write files on the external (removable) sdcard.\nStay on the standard sdcard.</string>
+	<string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.</string>
+	<string name="chooser_location_summary_init">Long-press to select a folder.</string>
 
 	<!-- ### preferences ### -->
 	

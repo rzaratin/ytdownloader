@@ -224,9 +224,9 @@ public class ShareActivity extends Activity {
     }
     
     public void assignPath() {
-    	boolean Location = settings.getBoolean("swap_location", true);
+    	boolean Location = settings.getBoolean("swap_location", false);
         
-        if (Location == true) {
+        if (Location == false) {
             String location = settings.getString("standard_location", "Downloads");
             Log.d(DEBUG_TAG, "location: " + location);
             
@@ -303,7 +303,7 @@ public class ShareActivity extends Activity {
 	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
 		                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
 		                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
-		                    	    userFilename.setText(composedFilename);
+		                    	    userFilename.setText(title);
 		                    	    adb.setView(inputFilename);
 		                    	    adb.setTitle(getString(R.string.rename_dialog_title));
 		                    	    adb.setMessage(getString(R.string.rename_dialog_msg));

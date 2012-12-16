@@ -3,7 +3,7 @@
     
     <PreferenceCategory
         android:title="@string/settings_cat1">
-          
+         
         <Preference 
             android:key="quick_start"
             android:title="@string/quick_start_title" 

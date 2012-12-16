@@ -62,7 +62,12 @@ public class SettingsActivity extends Activity {
             super.onCreate(savedInstanceState);
 
             addPreferencesFromResource(R.xml.preferences);
-            chooserSummary = getString(R.string.chooser_location_summary);
+            String cf = settings.getString("CHOOSER_FOLDER", "");
+            if (cf.isEmpty()) {
+            	chooserSummary = getString(R.string.chooser_location_summary_init);
+            } else {
+            	chooserSummary = settings.getString("CHOOSER_FOLDER", "");
+            }
             initSwapPreference();
             
             for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
@@ -155,6 +160,7 @@ public class SettingsActivity extends Activity {
                         	Matcher extMatcher = extPattern.matcher(f.toString());
                         	if (extMatcher.find()) {
                         		showPopUp(getString(R.string.attention), getString(R.string.extsdcard_warning), "alert");
+                        		Log.d(DEBUG_TAG, "...but it's on removable sdcard");
                         	}
                         } else { 
                     		Log.d(DEBUG_TAG, "Chosen folder is NOT writable");
