@@ -61,7 +61,7 @@ public class ShareActivity extends Activity {
     private TextView tv;
     private ListView lv;
     private InputStream isFromString;
-    private String[] links;
+    List<String> links = new ArrayList<String>();
     List<String> codecs = new ArrayList<String>();
     List<String> qualities = new ArrayList<String>();
     List<String> CQchoices = new ArrayList<String>();
@@ -273,7 +273,7 @@ public class ShareActivity extends Activity {
 
             String[] lv_arr = CQchoices.toArray(new String[0]);
             lv.setAdapter(new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr));
-            Log.d(DEBUG_TAG, "LISTview done");
+            Log.d(DEBUG_TAG, "LISTview done with " + lv_arr.length + " items.");
 
             tv.setText(titleRaw);
 
@@ -330,16 +330,29 @@ public class ShareActivity extends Activity {
                         public void onClick(DialogInterface dialog, int which) {
                         	String wgetCmd;
                         	composedFilename = composeFilename();
+                        	//wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
+                        	//		validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'\"url_encoded_fmt_stream_map\".*(\", \"cafe|\", \"watermark)\' |" + 
+                        	//		" sed -e \'s/\"url_encoded_fmt_stream_map\": \"itag=[0-9][0-9]//\' -e \'s/\".*, \"watermark//\' -e \'s/\", \"cafe//\'" + 
+                        	//		" -e \'s/,itag=[0-9]*//g\'` && urlarray=( `echo $urlblock | sed \'s/\\\\\\u0026url=/\\n\\n/g\'` ) && N=" + pos + 
+                        	//		" && downloadurl=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\'" + 
+                        	//		" -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/\\\\\\u0026type.*\\\\\\u0026sig/\\&signature/g\' -e \'s/%253A/\\:/g\' -e" + 
+                        	//		" \'s/\\\\\\u0026quality.*//\'` && wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5" + 
+                        	//		" --timeout=45 --no-check-certificate \"$downloadurl\" -O " + composedFilename;
+                        	
                         	wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
-                        			validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'\"url_encoded_fmt_stream_map\".*(\", \"cafe|\", \"watermark)\' |" + 
-                        			" sed -e \'s/\"url_encoded_fmt_stream_map\": \"itag=[0-9][0-9]//\' -e \'s/\".*, \"watermark//\' -e \'s/\", \"cafe//\'" + 
-                        			" -e \'s/,itag=[0-9]*//g\'` && urlarray=( `echo $urlblock | sed \'s/\\\\\\u0026url=/\\n\\n/g\'` ) && N=" + pos + 
-                        			" && downloadurl=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\'" + 
-                        			" -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/\\\\\\u0026type.*\\\\\\u0026sig/\\&signature/g\' -e \'s/%253A/\\:/g\' -e" + 
-                        			" \'s/\\\\\\u0026quality.*//\'` && wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5" + 
-                        			" --timeout=45 --no-check-certificate \"$downloadurl\" -O " + composedFilename;
-
-                            ClipData cmd = ClipData.newPlainText("simple text", wgetCmd);
+                        			validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'url_encoded_fmt_stream_map\": \".*\' | sed -e \'s/\", \".*//\'" + 
+                        			" -e \'s/url_encoded_fmt_stream_map\": \"//\'` && urlarray=( `echo $urlblock | sed \'s/,/\\n\\n/g\'` ) && N=" + pos + 
+                        			" && block=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\'" + 
+                        			" -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/%253A/\\:/g\' -e \'s/\", \"/\"-\"/\' -e \'s/sig=/signature=/\'" + 
+                        			" -e \'s/x-flv/flv/\' -e \'s/\\\\\\u0026/\\&/g\'` && url=`echo $block | grep -oE \'http://.*\' | sed -e \'s/&type=.*//\'" + 
+                        			" -e \'s/&signature=.*//\' -e \'s/&quality=.*//\' -e \'s/&fallback_host=.*//\'` &&" + 
+                        			" sig=`echo $block | grep -oE \'signature=.{81}\'` && downloadurl=`echo $url\\&$sig | sed \'s/&itag=[0-9][0-9]&signature/\\&signature/\'` && wget -e \"convert-links=off\"" +
+                        			" --keep-session-cookies --save-cookies /dev/null --tries=5 --timeout=45 --no-check-certificate \"$downloadurl\" -O " + 
+                        			composedFilename;
+                        	
+                        	//Log.d(DEBUG_TAG, "wgetCmd: " + wgetCmd);
+                            
+                        	ClipData cmd = ClipData.newPlainText("simple text", wgetCmd);
                             ClipboardManager cb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                             cb.setPrimaryClip(cmd);
                             
@@ -401,7 +414,7 @@ public class ShareActivity extends Activity {
         }
         
         void callDownloadManager() {
-        	ytVideoLink = links[pos];
+        	ytVideoLink = links.get(pos);
             downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             Request request = new Request(Uri.parse(ytVideoLink));
 			videoUri = Uri.parse(path.toURI() + composedFilename);
@@ -449,7 +462,7 @@ public class ShareActivity extends Activity {
     private String downloadUrl(String myurl) throws IOException {
         InputStream is = null;
         // Only display the first "len" characters of the retrieved web page content.
-        int len = 200000;
+        int len = 2000000;
         Log.d(DEBUG_TAG, "The link is: " + myurl);
         try {
             URL url = new URL(myurl);
@@ -492,8 +505,8 @@ public class ShareActivity extends Activity {
 
         findVideoFilename(content);
 
-        Pattern startPattern = Pattern.compile("url_encoded_fmt_stream_map\\\": \\\"itag=.+?\\\\u0026url=");
-        Pattern endPattern = Pattern.compile("\\\", \\\"(cafe_experiment|watermark)");
+        Pattern startPattern = Pattern.compile("url_encoded_fmt_stream_map\\\": \\\"");
+        Pattern endPattern = Pattern.compile("\\\", \\\"");
         Matcher matcher = startPattern.matcher(content);
         if (matcher.find()) {
             try {
@@ -502,13 +515,12 @@ public class ShareActivity extends Activity {
 
                 // Other decoding Stuff
                 String contentDecoded = URLDecoder.decode(end[0], "UTF-8");
-
-                findCodecAndQuality(contentDecoded);
-
-                String contentDecodedSig = contentDecoded.replaceAll("\\\\u0026type.+?sig", "&signature");
-                String contentDecodedAmp = contentDecodedSig.replaceAll("\\\\u0026", "&");
-                links = contentDecodedAmp.split(",itag=.+?&url=");
-                Log.d(DEBUG_TAG, "number of links found: " + links.length);
+                contentDecoded = contentDecoded.replaceAll(", ", "-");
+                contentDecoded = contentDecoded.replaceAll("sig=", "signature=");
+                contentDecoded = contentDecoded.replaceAll("x-flv", "flv");
+                contentDecoded = contentDecoded.replaceAll("\\\\u0026", "&");
+                //Log.d(DEBUG_TAG, "contentDecoded: " + contentDecoded);
+                findCodecAndQualityAndLinks(contentDecoded);
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -516,36 +528,36 @@ public class ShareActivity extends Activity {
             //createExternalStorageLogFile(stringToIs(Arrays.toString(links)), "ytd_links.txt");
             //createExternalStorageLogFile(stringToIs(Arrays.toString(codecs.toArray())), "ytd_codecs.txt");
             //createExternalStorageLogFile(stringToIs(Arrays.toString(qualities.toArray())), "ytd_qualities.txt");
-            return "Match!\nSee the debug file in 'sdcard/Movies'";
+            return "Match!";
         } else {
             return "No Match";
         }
     }
 
-    private void findVideoFilename(String content) {
+	private void findVideoFilename(String content) {
         Pattern videoPatern = Pattern.compile("<title>(.*?)</title>");
         Matcher matcher = videoPatern.matcher(content);
         if (matcher.find()) {
-            String titleRaw2 = matcher.group();
-            titleRaw = titleRaw2.replaceAll("(<| - YouTube</)title>", "").replaceAll("&quot;", "\"");
+            titleRaw = matcher.group().replaceAll("(<| - YouTube</)title>", "").replaceAll("&quot;", "\"").replaceAll("&amp;", "&");
             title = titleRaw.replaceAll("\\W", "_");
         } else {
             title = "Youtube Video";
         }
+        Log.d(DEBUG_TAG, "findVideoFilename: " + title);
     }
 
-    private void findCodecAndQuality(String contentDecoded) {
-        Pattern trimPattern = Pattern.compile("(http|,itag.+?url=http).+?type=video/");
+    private void findCodecAndQualityAndLinks(String contentDecoded) {
+        Pattern trimPattern = Pattern.compile(",");
         Matcher matcher = trimPattern.matcher(contentDecoded);
         if (matcher.find()) {
             String[] CQ = contentDecoded.split(trimPattern.toString());
             Log.d(DEBUG_TAG, "number of CQ found: " + (CQ.length-1));
-            //count = CQ.length;
             int index = 0;
             while ((index+1) < CQ.length) {
-                codecMatcher(CQ[index+1], index);
-                qualityMatcher(CQ[index+1], index);
-                //Log.d(DEBUG_TAG, "CQstr " + index +": " + CQ[index]);
+                codecMatcher(CQ[index], index);
+                qualityMatcher(CQ[index], index);
+                linksComposer(CQ[index], index);
+                //Log.d(DEBUG_TAG, "block " + index + ": " + CQ[index]);
                 index++;
             }
             CQchoiceBuilder();
@@ -560,9 +572,29 @@ public class ShareActivity extends Activity {
         }
     }
 
+    private void linksComposer(String block, int i) {
+    	Pattern urlPattern = Pattern.compile("http://.*");
+    	Matcher urlMatcher = urlPattern.matcher(block);
+    	if (urlMatcher.find()) {
+    		Pattern sigPattern = Pattern.compile("signature=[[0-9][A-Z]]{40}\\.[[0-9][A-Z]]{40}");
+    		Matcher sigMatcher = sigPattern.matcher(block);
+    		if (sigMatcher.find()) {
+    			String url = urlMatcher.group();
+    			url = url.replaceAll("&type=.*", "");
+    			url = url.replaceAll("&signature=.*", "");
+    			url = url.replaceAll("&quality=.*", "");
+    			url = url.replaceAll("&fallback_host=.*", "");
+    			//Log.d(DEBUG_TAG, "url: " + url);
+    			String sig = sigMatcher.group();
+    			//Log.d(DEBUG_TAG, "sig: " + sig);
+    			String linkToAdd = url + "&" + sig;
+    			links.add(linkToAdd.replaceAll("&itag=[0-9][0-9]&signature", "&signature"));
+    		}
+    	}
+	}
+
     private void codecMatcher(String currentCQ, int i) {
         Pattern codecPattern = Pattern.compile("(webm|mp4|flv|3gpp)");
-        //Pattern codecPattern = Pattern.compile("(webm|mp4|3gpp)");
         Matcher codecMatcher = codecPattern.matcher(currentCQ);
         if (codecMatcher.find()) {
             codecs.add(codecMatcher.group());
@@ -574,7 +606,6 @@ public class ShareActivity extends Activity {
 
     private void qualityMatcher(String currentCQ, int i) {
         Pattern qualityPattern = Pattern.compile("(hd1080|hd720|large|medium|small)");
-        //Pattern qualityPattern = Pattern.compile("(hd1080|hd720|large|medium)");
         Matcher qualityMatcher = qualityPattern.matcher(currentCQ);
         if (qualityMatcher.find()) {
             qualities.add(qualityMatcher.group());
