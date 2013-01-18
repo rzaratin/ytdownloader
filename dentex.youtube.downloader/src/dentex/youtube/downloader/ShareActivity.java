@@ -194,30 +194,14 @@ public class ShareActivity extends Activity {
     	    adb.show();
         }
     }
-
-    private static String mobileToDesktopLink(String link) {
-	Pattern pattern = Pattern.compile("(http|https)://m.youtube.com/.*desktop_uri=%2Fwatch%3Fv%3D(.{11}).*");
-	Matcher matcher = pattern.matcher(link);
-	if (matcher.find()) {
-	    return matcher.group(1) + "://www.youtube.com/watch?v=" + matcher.group(2);
-	} else {
-	    return null;
-	}
-    }
-
+    
     private String linkValidator(String sharedText) {
-        String link = sharedText.replaceAll("feature=.*&", "").replaceAll("&feature=.*", "");
-        Pattern pattern = Pattern.compile("(http|https)://www.youtube.com/watch\\?v=.{11}$");
+    	String link = sharedText;
+    	Pattern pattern = Pattern.compile("(http|https)://(www|m).youtube.com/.*(\\?v=.{11})(.*)");
         Matcher matcher = pattern.matcher(link);
         if (matcher.find()) {
-            validatedLink = link;
-            return link;
-        } else {
-	    String desktopLink = mobileToDesktopLink(sharedText);
-	    if (desktopLink != null) {
-		validatedLink = desktopLink;
-		return desktopLink;
-	    }
+            validatedLink = matcher.group(1) + "://www.youtube.com/watch" + matcher.group(3);
+            return validatedLink;
         }
         return "not_a_valid_youtube_link";
     }
@@ -553,7 +537,7 @@ public class ShareActivity extends Activity {
         Pattern videoPatern = Pattern.compile("<title>(.*?)</title>");
         Matcher matcher = videoPatern.matcher(content);
         if (matcher.find()) {
-            titleRaw = matcher.group().replaceAll("(<| - YouTube</)title>", "").replaceAll("&quot;", "\"").replaceAll("&amp;", "&");
+            titleRaw = matcher.group().replaceAll("(<| - YouTube</)title>", "").replaceAll("&quot;", "\"").replaceAll("&amp;", "&").replaceAll("&#39;", "'");
             title = titleRaw.replaceAll("\\W", "_");
         } else {
             title = "Youtube Video";
