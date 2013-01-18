@@ -158,7 +158,7 @@ public class ShareActivity extends Activity {
                 showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert");
             } else if (sharedText != null) {
             	showGeneralInfoTutorial();
-                new AsyncDownload().execute(sharedText);
+                new AsyncDownload().execute(validatedLink);
                 //Toast.makeText(this, "Please wait...", Toast.LENGTH_LONG).show();
             }
         } else {
@@ -195,6 +195,16 @@ public class ShareActivity extends Activity {
         }
     }
 
+    private static String mobileToDesktopLink(String link) {
+	Pattern pattern = Pattern.compile("(http|https)://m.youtube.com/.*desktop_uri=%2Fwatch%3Fv%3D(.{11}).*");
+	Matcher matcher = pattern.matcher(link);
+	if (matcher.find()) {
+	    return matcher.group(1) + "://www.youtube.com/watch?v=" + matcher.group(2);
+	} else {
+	    return null;
+	}
+    }
+
     private String linkValidator(String sharedText) {
         String link = sharedText.replaceAll("feature=.*&", "").replaceAll("&feature=.*", "");
         Pattern pattern = Pattern.compile("(http|https)://www.youtube.com/watch\\?v=.{11}$");
@@ -203,8 +213,13 @@ public class ShareActivity extends Activity {
             validatedLink = link;
             return link;
         } else {
-            return "not_a_valid_youtube_link";
+	    String desktopLink = mobileToDesktopLink(sharedText);
+	    if (desktopLink != null) {
+		validatedLink = desktopLink;
+		return desktopLink;
+	    }
         }
+        return "not_a_valid_youtube_link";
     }
     
     /* Checks if external storage is available for read and write */
