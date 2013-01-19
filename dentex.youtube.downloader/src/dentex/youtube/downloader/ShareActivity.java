@@ -197,10 +197,10 @@ public class ShareActivity extends Activity {
     
     private String linkValidator(String sharedText) {
     	String link = sharedText;
-    	Pattern pattern = Pattern.compile(".*(v=.{11}).*");
+    	Pattern pattern = Pattern.compile("(http|https).*(v=.{11}).*");
         Matcher matcher = pattern.matcher(link);
         if (matcher.find()) {
-            validatedLink = "http://www.youtube.com/watch?" + matcher.group(1);
+            validatedLink = matcher.group(1) + "://www.youtube.com/watch?" + matcher.group(2);
             return validatedLink;
         }
         return "not_a_valid_youtube_link";
