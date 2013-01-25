@@ -10,7 +10,9 @@
     <!-- ### ShareActivity ### -->
         
     <string name="tutorial_title">General App tutorial</string>
-    <string name="tutorial_msg">Now you will see a list with all the codecs and qualities available for the selected video.\n\nChoose one item and you will be asked to download the video locally (on the phone) or to send the download via SSH to a linux machine.\n\nDestination linux-box requirements: Bash and Wget. Additional SSH info further on.</string>
+    <string name="tutorial_msg">Now you will see a list with all the codecs and qualities available for the selected video.
+        \n\nChoose one item and you will be asked to download the video locally (on the phone) or to send the download via SSH to a linux machine.
+        \n\nDestination linux-box requirements: Bash and Wget. Additional SSH info further on.</string>
 	
     <string name="error">Error!</string>
     <string name="information">Information</string>
@@ -25,8 +27,8 @@
     <string name="no_net_dialog_msg">Please, enable a network connection first.</string>
     
     <string name="list_click_dialog_title">Confirm Download for:</string>
-    <string name="list_click_dialog_positive">Download here</string>
-    <string name="list_click_dialog_neutral">Send via SSH</string>
+    <string name="list_click_download_local">Download here</string>
+    <string name="list_click_download_ssh">Send via SSH</string>
     
     <string name="rename_dialog_title">New filename:</string>
     <string name="rename_dialog_msg">Do not enter the file extension (like .mp4 or .flv).</string>
@@ -36,8 +38,8 @@
     
     <string name="ssh_info_tutorial_title">Send via SSH How-To</string>
     <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
-        \n\nSo now choose a profile in ConnectBot and once in your remote shell, browse to the destination 
-        directory, PASTE the command (use the menu button) and then push ENTER.</string>
+        \n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
+        directory, PASTE the command (use the menu button) and push ENTER.</string>
     
     <string name="callConnectBot_dialog_title">ConnectBot not installed!</string>
     <string name="callConnectBot_dialog_msg">You need this free App to send the video download via SSH.</string>
@@ -56,7 +58,8 @@
 
 	<!-- ### preferences ### -->
 	
-    <string name="settings_cat1">Tutorials</string>
+	<!-- @1 -->
+    <string name="settings_cat_tutorials">Tutorials</string>
     
     <string name="quick_start_title">Quick start</string>
     <string name="quick_start_summ">Open a quick start tutorial</string>
@@ -66,14 +69,15 @@
         \n\n(You can also share any YouTube plain text link via any other App).</string>
       
     <string name="general_info_title">Enable General how-to</string>
-    <string name="general_info_summary">Whether to show a general App tutorial on startup.</string>
+    <string name="general_info_summary">Show a general App tutorial on startup</string>
     <string name="general_info_checkbox">Show again next time</string>
     
     <string name="ssh_info_title">Enable SSH how-to</string>
-    <string name="ssh_info_summary">Whether to show a quick tip about remote downloading via SSH.</string>
+    <string name="ssh_info_summary">Show a quick tip about remote downloading via SSH</string>
     <string name="ssh_info_checkbox">Show again next time</string>
     
-    <string name="settings_cat2">Downloads folder</string>
+    <!-- @2 -->
+    <string name="settings_cat_folder">Download folder</string>
 
     <string name="standard_location_title">Choose standard folder</string>
     <string name="standard_location_default">Downloads</string>
@@ -81,14 +85,27 @@
     <string name="chooser_swap_title">Swap chooser</string>
     
     <string name="chooser_location_title">Open file-chooser</string>
-    <string name="chooser_location_summary">Long-press to select a folder.</string>
+    <string name="chooser_location_summary">Long-press to select a folder</string>
     
-    <string name="settings_cat3">Video files naming</string>
+    <!-- @3 -->
+    <string name="settings_cat_naming">Video files naming</string>
     
     <string name="enable_q_suffix_title">Append quality suffix</string>
-    <string name="enable_q_suffix_summary">Whether to add the video quality type at the end of the file name.</string>
+    <string name="enable_q_suffix_summary">Append the video quality type to the file name</string>
     
     <string name="enable_rename_title">Enable file rename</string>
-    <string name="enable_rename_summary">Whether to rename the video file before downloading it (for the local download only).</string>
+    <string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)</string>
+    
+    <!-- @4 -->
+    <string name="settings_cat_audio">Audio Extraction</string>
+    
+    <string name="enable_audio_extraction_title">Enable audio extraction</string>
+    <string name="enable_audio_extraction_summary">Handle the audio stream after the video download</string>
+    
+    <string name="audio_extraction_type_title">Audio extraction type</string>
+    <string name="audio_extraction_type_default">strip</string>
+    
+    <string name="mp3_bitrate_title">MP3 encoding bitrate (in kbit/s)</string>
+    <string name="mp3_bitrate_default">192</string>
     
 </resources>

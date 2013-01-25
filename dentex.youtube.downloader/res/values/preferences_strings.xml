@@ -11,4 +11,34 @@
         <item>DCIM</item>
         <item>Movies</item>
     </string-array>
+    
+    <!-- <string-array name="audio_extraction_type_entries">
+        <item>Extract audio as-is in video container (Faster)</item>
+        <item>Extract and encode to MP3 (Slower)</item>
+    </string-array> -->
+    
+    <string-array name="audio_extraction_type_entries">
+        <item>strip</item>
+        <item>encode</item>
+    </string-array>
+    
+    <string-array name="audio_extraction_type_entry_values">
+        <item>strip</item>
+        <item>encode</item>
+    </string-array>
+    
+    <string-array name="mp3_bitrate_entry_values">
+        <item>128</item>
+        <item>192</item>
+        <item>256</item>
+        <item>320</item>
+    </string-array>
+    
+    <string-array name="mp3_bitrate_entries">
+        <item>128</item>
+        <item>192</item>
+        <item>256</item>
+        <item>320</item>
+    </string-array>
+    
 </resources>
