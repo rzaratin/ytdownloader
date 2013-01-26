@@ -69,7 +69,6 @@ public class SettingsActivity extends Activity {
             	chooserSummary = settings.getString("CHOOSER_FOLDER", "");
             }
             initSwapPreference();
-            initBitratePreference();
             
             for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
                 initSummary(getPreferenceScreen().getPreference(i));
@@ -106,16 +105,6 @@ public class SettingsActivity extends Activity {
             	p.setEnabled(false);
             }
 		}
-		
-		private void initBitratePreference() {
-			String encode = settings.getString("audio_extraction_type", "strip");
-			Preference p = (Preference) findPreference("mp3_bitrate");
-            if (encode.equals("encode") == true) {
-            	p.setEnabled(true);
-            } else {
-            	p.setEnabled(false);
-            }
-		}
         
         @Override
         public void onResume(){
@@ -134,7 +123,6 @@ public class SettingsActivity extends Activity {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         	updatePrefSummary(findPreference(key));
         	initSwapPreference();
-        	initBitratePreference();
         }
         	 
         private void initSummary(Preference p){

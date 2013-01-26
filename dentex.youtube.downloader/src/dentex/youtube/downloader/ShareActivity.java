@@ -63,12 +63,7 @@ public class ShareActivity extends Activity {
     private InputStream isFromString;
     List<String> links = new ArrayList<String>();
     List<String> codecs = new ArrayList<String>();
-    String codec;
-    String acodec;
     List<String> qualities = new ArrayList<String>();
-    String quality;
-    String aquality;
-    String extrType;
     List<String> CQchoices = new ArrayList<String>();
     private String titleRaw;
     private String title;
@@ -79,9 +74,7 @@ public class ShareActivity extends Activity {
     private DownloadManager downloadManager;
     private long enqueue;
 	String filename = "video";
-	String afilename = "audio";
 	String composedFilename;
-	String composedAudioFilename;
     private Uri videoUri;
     private int icon;
 	public CheckBox showAgain1;
@@ -297,13 +290,12 @@ public class ShareActivity extends Activity {
                     helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
                     helpBuilder.setMessage(titleRaw + "\n\n\tCodec: " + codecs.get(position) + "\n\tQuality: " + qualities.get(position));
 
-                    helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
+                    helpBuilder.setPositiveButton(getString(R.string.list_click_dialog_positive), new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
                         	if (pathCheckOK() == true) {
                             	Log.d(DEBUG_TAG, "Destination folder is available and writable");
                         		composedFilename = composeFilename();
-                        		if (useExtractAudio() == true) composedAudioFilename = composeAudioFilename();
 	                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
 	                            if (fileRenameEnabled == true) {
 	                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
@@ -332,11 +324,19 @@ public class ShareActivity extends Activity {
                         }
                     });
 
-                    helpBuilder.setNeutralButton(getString(R.string.list_click_download_ssh), new DialogInterface.OnClickListener() {
+                    helpBuilder.setNeutralButton(getString(R.string.list_click_dialog_neutral), new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
                         	String wgetCmd;
                         	composedFilename = composeFilename();
+                        	//wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
+                        	//		validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'\"url_encoded_fmt_stream_map\".*(\", \"cafe|\", \"watermark)\' |" + 
+                        	//		" sed -e \'s/\"url_encoded_fmt_stream_map\": \"itag=[0-9][0-9]//\' -e \'s/\".*, \"watermark//\' -e \'s/\", \"cafe//\'" + 
+                        	//		" -e \'s/,itag=[0-9]*//g\'` && urlarray=( `echo $urlblock | sed \'s/\\\\\\u0026url=/\\n\\n/g\'` ) && N=" + pos + 
+                        	//		" && downloadurl=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\'" + 
+                        	//		" -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/\\\\\\u0026type.*\\\\\\u0026sig/\\&signature/g\' -e \'s/%253A/\\:/g\' -e" + 
+                        	//		" \'s/\\\\\\u0026quality.*//\'` && wget -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --tries=5" + 
+                        	//		" --timeout=45 --no-check-certificate \"$downloadurl\" -O " + composedFilename;
                         	
                         	wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
                         			validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'url_encoded_fmt_stream_map\": \".*\' | sed -e \'s/\", \".*//\'" + 
@@ -405,49 +405,14 @@ public class ShareActivity extends Activity {
         		return false;
         	}
         }
-                
-        private boolean useExtractAudio() {
-        	boolean ExtractAudioEnabled = settings.getBoolean("enable_audio_extraction", true);
-			if (ExtractAudioEnabled == true) {
-				return true;
-        	} else {
-				return false;
-        	}
-		}
         
         public String composeFilename() {
         	filename = title + "_" + qualities.get(pos) + "." + codecs.get(pos);
     	    if (useQualitySuffix() == false) filename = title + "." + codecs.get(pos);
-    	    Log.d(DEBUG_TAG, "filename: " + filename);
     	    return filename;
         }
         
-        public String composeAudioFilename() {
-        	//QUALITY
-        	if (useQualitySuffix() ==  true) {
-        		aquality = "_" + settings.getString("mp3_bitrate", "192");
-        	} else { 
-        		aquality = "";
-        	}
-        	//CODEC [file EXTENSION]
-        	extrType = settings.getString("audio_extraction_type", "strip");
-    		if (extrType.equals("encode") == true) {
-    			acodec = ".mp3";
-    		} else {
-    			if (codecs.get(pos) == "webm") acodec = ".ogg";
-    			if (codecs.get(pos) == "mp4") acodec = ".aac";
-    			if (codecs.get(pos) == "flv" && qualities.get(pos) == "small") acodec = ".mp3";
-    			if (codecs.get(pos) == "flv" && qualities.get(pos) == "medium") acodec = ".aac";
-    			if (codecs.get(pos) == "flv" && qualities.get(pos) == "large") acodec = ".aac";
-    			if (codecs.get(pos) == "3gpp") acodec = ".aac";
-    		}
-        	//FINALLY
-        	afilename = title + aquality + acodec;
-        	Log.d(DEBUG_TAG, "afilename: " + afilename);
-    	    return afilename;
-        }
-
-		void callDownloadManager() {
+        void callDownloadManager() {
         	ytVideoLink = links.get(pos);
             downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             Request request = new Request(Uri.parse(ytVideoLink));

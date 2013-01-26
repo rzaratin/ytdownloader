@@ -5,8 +5,8 @@ YouTube Downloader - Android App to download videos from YouTube
 
 ################################################################
 
-versionCode="32"
-versionName="1.4" - WIP
+versionCode="31"
+versionName="1.3.1"
 
 Copyright (C) 2012  Samuele Rini
 

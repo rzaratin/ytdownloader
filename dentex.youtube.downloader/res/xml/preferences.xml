@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
     <PreferenceCategory
-        android:title="@string/settings_cat_tutorials">
+        android:title="@string/settings_cat1">
          
         <Preference 
             android:key="quick_start"
@@ -24,7 +24,7 @@
     </PreferenceCategory>
     
     <PreferenceCategory
-    	android:title="@string/settings_cat_folder">
+    	android:title="@string/settings_cat2">
 
         <ListPreference
             android:dependency="swap_location"
@@ -50,7 +50,7 @@
     </PreferenceCategory>
     
     <PreferenceCategory
-        android:title="@string/settings_cat_naming">
+        android:title="@string/settings_cat3">
             
     	<CheckBoxPreference
         	android:key="enable_q_suffix"
@@ -65,33 +65,5 @@
         	android:defaultValue="false" />
     	
     </PreferenceCategory>
-    
-    <PreferenceCategory
-        android:title="@string/settings_cat_audio">
-    	
-    	<CheckBoxPreference
-        	android:key="enable_audio_extraction"
-        	android:title="@string/enable_audio_extraction_title"
-        	android:summary="@string/enable_audio_extraction_summary"
-        	android:defaultValue="false" />
-        
-        <ListPreference
-            android:dependency="enable_audio_extraction"
-            android:key="audio_extraction_type"
-            android:title="@string/audio_extraction_type_title"
-            android:dialogTitle="@string/audio_extraction_type_title"
-            android:entries="@array/audio_extraction_type_entries"
-            android:entryValues="@array/audio_extraction_type_entry_values"
-            android:defaultValue="@string/audio_extraction_type_default" />
-        
-        <ListPreference
-            android:key="mp3_bitrate"
-            android:title="@string/mp3_bitrate_title"
-            android:dialogTitle="@string/mp3_bitrate_title"
-            android:entries="@array/mp3_bitrate_entries"
-            android:entryValues="@array/mp3_bitrate_entry_values"
-            android:defaultValue="@string/mp3_bitrate_default" />
-            
-	</PreferenceCategory>
-	
+
 </PreferenceScreen>
