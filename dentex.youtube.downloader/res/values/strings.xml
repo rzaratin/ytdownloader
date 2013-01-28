@@ -46,7 +46,7 @@
     <string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.</string>
     <string name="chooser_location_summary_init">Long-press to select a folder.</string>
 
-    <!-- ### MitShowActivity ### -->
+    <!-- ### Licenses ### -->
 
     <string name="mit_text">
 		Copyright &#169; 2012 Hai Bison
