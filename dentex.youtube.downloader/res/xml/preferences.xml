@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
     <PreferenceCategory
-        android:title="@string/settings_cat1">
+        android:title="@string/settings_cat_tutorials">
          
         <Preference 
             android:key="quick_start"
@@ -24,7 +24,7 @@
     </PreferenceCategory>
     
     <PreferenceCategory
-    	android:title="@string/settings_cat2">
+    	android:title="@string/settings_cat_folder">
 
         <ListPreference
             android:dependency="swap_location"
@@ -50,7 +50,7 @@
     </PreferenceCategory>
     
     <PreferenceCategory
-        android:title="@string/settings_cat3">
+        android:title="@string/settings_cat_naming">
             
     	<CheckBoxPreference
         	android:key="enable_q_suffix"
@@ -64,6 +64,21 @@
         	android:summary="@string/enable_rename_summary"
         	android:defaultValue="false" />
     	
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:title="@string/settings_cat_about">
+    	
+        <Preference
+            android:key="gpl"
+            android:title="@string/GPL_title"
+            android:summary="@string/GPL_summary" />
+        
+        <Preference
+            android:key="mit"
+            android:title="@string/MIT_title"
+            android:summary="@string/MIT_summary" />
+    
     </PreferenceCategory>
 
 </PreferenceScreen>

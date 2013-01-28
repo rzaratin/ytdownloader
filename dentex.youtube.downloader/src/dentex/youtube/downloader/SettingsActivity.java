@@ -54,6 +54,8 @@ public class SettingsActivity extends Activity {
     	private static final String DEBUG_TAG = "SettingsActivity";
 		private Preference filechooser;
 		private Preference quickStart;
+		private Preference gpl;
+		private Preference mit;
 		private int icon;
 
 		
@@ -94,6 +96,26 @@ public class SettingsActivity extends Activity {
 					return true;
 				}
 			});
+            
+            gpl = (Preference) findPreference("gpl");
+            gpl.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	Intent intent = new Intent(getActivity(),  GplShowActivity.class);
+            		startActivity(intent);
+                    return true;
+                }
+            });
+            
+            mit = (Preference) findPreference("mit");
+            mit.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	Intent intent = new Intent(getActivity(),  MitShowActivity.class);
+            		startActivity(intent);
+                    return true;
+                }
+            });
         }
 
 		private void initSwapPreference() {

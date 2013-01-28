@@ -74,7 +74,7 @@ public class ShareActivity extends Activity {
     private DownloadManager downloadManager;
     private long enqueue;
 	String vfilename = "video";
-	String composedFilename;
+	String composedFilename = "";
     private Uri videoUri;
     private int icon;
 	public CheckBox showAgain1;
@@ -290,7 +290,7 @@ public class ShareActivity extends Activity {
                     helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
                     helpBuilder.setMessage(titleRaw + "\n\n\tCodec: " + codecs.get(position) + "\n\tQuality: " + qualities.get(position));
 
-                    helpBuilder.setPositiveButton(getString(R.string.list_click_dialog_positive), new DialogInterface.OnClickListener() {
+                    helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
                         	if (pathCheckOK() == true) {
@@ -324,7 +324,7 @@ public class ShareActivity extends Activity {
                         }
                     });
 
-                    helpBuilder.setNeutralButton(getString(R.string.list_click_dialog_neutral), new DialogInterface.OnClickListener() {
+                    helpBuilder.setNeutralButton(getString(R.string.list_click_download_ssh), new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
                         	String wgetCmd;
@@ -404,8 +404,8 @@ public class ShareActivity extends Activity {
     	    Log.d(DEBUG_TAG, "filename: " + vfilename);
     	    return vfilename;
         }
-        
-        void callDownloadManager() {
+
+		void callDownloadManager() {
         	ytVideoLink = links.get(pos);
             downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             Request request = new Request(Uri.parse(ytVideoLink));

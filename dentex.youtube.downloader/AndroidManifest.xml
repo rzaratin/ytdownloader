@@ -52,6 +52,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="dentex.youtube.downloader.GplShowActivity"
+            android:label="@string/title_activity_gpl_show" 
+            android:theme="@style/LicenseTheme" >
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.MitShowActivity"
+            android:label="@string/title_activity_mit_show"
+            android:theme="@style/LicenseTheme"  >
+        </activity>
     </application>
 
 </manifest>
