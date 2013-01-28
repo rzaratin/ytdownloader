@@ -16,24 +16,18 @@
     <string name="error">Error!</string>
     <string name="information">Information</string>
     <string name="dialogs_negative">Cancel</string>
-
     <string name="invalid_url">Unable to retrieve web page. URL may be invalid."</string>
-    
     <string name="bad_link">Check the provided link.</string>
     <string name="bad_link_dialog_msg">Not a valid YouTube link.</string>
-    
     <string name="no_net">No connection available.</string>
     <string name="no_net_dialog_msg">Please, enable a network connection first.</string>
-    
     <string name="list_click_dialog_title">Confirm Download for:</string>
     <string name="list_click_download_local">Download here</string>
     <string name="list_click_download_ssh">Send via SSH</string>
     <string name="rename_dialog_title">New filename:</string>
     <string name="rename_dialog_msg">Do not enter the file extension (like .mp4 or .flv).</string>
-    
     <string name="unable_save">Unable to save the video!</string>
     <string name="unable_save_dialog_msg">Destination folder is NOT available and/or NOT writable.</string>
-    
     <string name="ssh_info_tutorial_title">Send via SSH How-To</string>
     <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
         \n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
@@ -41,7 +35,6 @@
     <string name="callConnectBot_dialog_title">ConnectBot not installed!</string>
     <string name="callConnectBot_dialog_msg">You need this free App to send the video download via SSH.</string>
     <string name="callConnectBot_dialog_positive">Install ConnectBot</string>
-    
     <string name="download_complete_dialog_msg1">Youtube Video:\n</string>
     <string name="download_complete_dialog_msg2">\nSuccessfully downloaded.</string>
     <string name="download_complete_dialog_positive">Open</string>
@@ -50,15 +43,52 @@
 
     <string name="attention">Attention!</string>
     <string name="extsdcard_warning">This App cannot write files on the external (removable) sdcard.\nStay on the standard sdcard.</string>
-	<string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.</string>
-	<string name="chooser_location_summary_init">Long-press to select a folder.</string>
+    <string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.</string>
+    <string name="chooser_location_summary_init">Long-press to select a folder.</string>
 
-	<!-- ### MitShowActivity ### -->
-	
-	<string name="mit_text">Hello world!</string>
+    <!-- ### MitShowActivity ### -->
+
+    <string name="mit_text">
+		Copyright &#169; 2012 Hai Bison
+		\n\n
+		Permission is hereby granted, free of charge, to any person obtaining a copy of
+		this software and associated documentation files (the "Software"), to deal in
+		the Software without restriction, including without limitation the rights to
+		use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+		the Software, and to permit persons to whom the Software is furnished to do so,
+		subject to the following conditions:
+		\n\n
+		The above copyright notice and this permission notice shall be included in all
+		copies or substantial portions of the Software.
+		\n\n
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+		FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+		COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+		IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+		CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+	</string>
+    <string name="gpl_text">
+		Copyright &#169; 2013  Samuele Rini
+		\n\n
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+		\n\n
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+		\n\n
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http>http://www.gnu.org/licenses/</http>.
+	</string>
     <string name="title_activity_mit_show">MIT License</string>
-	
+    <string name="title_activity_gpl_show">GPL-v3.0</string>
+
     <!-- ### preferences ### -->
+
 
     <!-- @1 -->
     <string name="settings_cat_tutorials">Tutorials</string>
@@ -70,9 +100,7 @@
         \n\nYou can also share any YouTube plain text link via any other App: i.e. your browser.</string>
     <string name="general_info_title">Enable General how-to</string>
     <string name="general_info_summary">Show a general App tutorial on startup</string>
-    
     <string name="show_again_checkbox">Show again next time</string>
-    
     <string name="ssh_info_title">Enable SSH how-to</string>
     <string name="ssh_info_summary">Show a quick tip about remote downloading via SSH</string>
 
@@ -80,9 +108,7 @@
     <string name="settings_cat_folder">Download folder</string>
     <string name="standard_location_title">Choose standard folder</string>
     <string name="standard_location_default">Downloads</string>
-    
     <string name="chooser_swap_title">Swap chooser</string>
-    
     <string name="chooser_location_title">Open file-chooser</string>
     <string name="chooser_location_summary">Long-press to select a folder</string>
 
@@ -99,5 +125,6 @@
     <string name="GPL_summary">GPL-3.0</string>
     <string name="MIT_title">File-chooser\'s Licence</string>
     <string name="MIT_summary">MIT License</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
