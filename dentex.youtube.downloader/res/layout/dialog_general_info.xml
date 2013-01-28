@@ -6,7 +6,7 @@
     android:id="@+id/layout_root" >
 
     <CheckBox 
-        android:text="@string/general_info_checkbox" 
+        android:text="@string/show_again_checkbox" 
         android:id="@+id/showAgain1" 
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content" />

@@ -66,12 +66,12 @@
         \n\n(You can also share any YouTube plain text link via any other App).</string>
       
     <string name="general_info_title">Enable General how-to</string>
-    <string name="general_info_summary">Whether to show a general App tutorial on startup.</string>
-    <string name="general_info_checkbox">Show again next time</string>
+    <string name="general_info_summary">Show a general App tutorial on startup</string>
+    
+    <string name="show_again_checkbox">Show again next time</string>
     
     <string name="ssh_info_title">Enable SSH how-to</string>
     <string name="ssh_info_summary">Whether to show a quick tip about remote downloading via SSH.</string>
-    <string name="ssh_info_checkbox">Show again next time</string>
     
     <string name="settings_cat2">Downloads folder</string>
 
