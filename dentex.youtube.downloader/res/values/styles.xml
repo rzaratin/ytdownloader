@@ -3,6 +3,7 @@
     <style name="AppTheme" parent="android:Theme.DeviceDefault" />
     <style name="AppThemeDark" parent="android:Theme.Holo" />
     <style name="BoxTheme" parent="android:Theme.DeviceDefault.Dialog" />
-    <style name="LicenseTheme" parent="android:Theme.Holo" />
+    <!-- <style name="LicenseTheme" parent="android:Theme.Holo" /> -->
+    <style name="LicenseTheme" parent="android:Theme.NoTitleBar" />
 
 </resources>

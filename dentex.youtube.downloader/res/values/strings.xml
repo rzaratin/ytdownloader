@@ -46,49 +46,7 @@
     <string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.</string>
     <string name="chooser_location_summary_init">Long-press to select a folder.</string>
 
-    <!-- ### Licenses ### -->
-
-    <string name="mit_text">
-		Copyright &#169; 2012 Hai Bison
-		\n\n
-		Permission is hereby granted, free of charge, to any person obtaining a copy of
-		this software and associated documentation files (the "Software"), to deal in
-		the Software without restriction, including without limitation the rights to
-		use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-		the Software, and to permit persons to whom the Software is furnished to do so,
-		subject to the following conditions:
-		\n\n
-		The above copyright notice and this permission notice shall be included in all
-		copies or substantial portions of the Software.
-		\n\n
-		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-		FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-		COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-		IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-		CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
-	</string>
-    <string name="gpl_text">
-		Copyright &#169; 2013  Samuele Rini
-		\n\n
-		This program is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
-		\n\n
-		This program is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-		GNU General Public License for more details.
-		\n\n
-		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http>http://www.gnu.org/licenses/</http>.
-	</string>
-    <string name="title_activity_mit_show">MIT License</string>
-    <string name="title_activity_gpl_show">GPL-v3.0</string>
-
     <!-- ### preferences ### -->
-
 
     <!-- @1 -->
     <string name="settings_cat_tutorials">Tutorials</string>
@@ -120,11 +78,69 @@
     <string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)</string>
 
     <!-- @5 -->
-    <string name="settings_cat_about">About</string>
-    <string name="GPL_title">YTD\'s Licence</string>
-    <string name="GPL_summary">GPL-3.0</string>
-    <string name="MIT_title">File-chooser\'s Licence</string>
-    <string name="MIT_summary">MIT License</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="settings_cat_licenses">Licenses</string>
+    <string name="gpl_title">YTD\'s License</string>
+    <string name="gpl_summary">GPL-3.0</string>
+    <string name="title_activity_gpl_show">GPL-3.0</string>
+    <string name="gpl_text">
+        GNU GENERAL PUBLIC LICENSE
+        \n\n
+		Copyright &#169; 2013  Samuele Rini
+		\n\n
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+		\n\n
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+		\n\n
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http>http://www.gnu.org/licenses</http>.
+	</string>
+    <string name="mit_title">Filechooser\'s Licence</string>
+    <string name="mit_summary">MIT License</string>
+    <string name="title_activity_mit_show">MIT License</string>
+    <string name="mit_text">
+        The MIT License (MIT)
+        \n\n
+		Copyright &#169; 2012 Hai Bison
+		\n\n
+		Permission is hereby granted, free of charge, to any person obtaining a copy of
+		this software and associated documentation files (the "Software"), to deal in
+		the Software without restriction, including without limitation the rights to
+		use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+		the Software, and to permit persons to whom the Software is furnished to do so,
+		subject to the following conditions:
+		\n\n
+		The above copyright notice and this permission notice shall be included in all
+		copies or substantial portions of the Software.
+		\n\n
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+		FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+		COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+		IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+		CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	</string>
+	
+    <!-- @6 -->
+    <string name="settings_cat_code">Source Code</string>
+    
+	<string name="ytd_code_git_title">YTD at GitHub</string>
+	<string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
+	<string name="ytd_code_hg_title">YTD at Sourceforge</string>
+	<string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
+	<string name="chooser_code_title">Filechooser at Google Code</string>
+	<string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
+	
+	<!-- @7 -->
+    <string name="settings_cat_social">Social</string>
+    
+    <string name="share_title">Share this App</string>
+    <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230; </string>
+	<string name="share_warning">No suitable Apps found.</string>
+	<string name="share_message">Easy to use Android App to download YouTube video!\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
 </resources>

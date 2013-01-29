@@ -11,10 +11,12 @@ import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -56,6 +58,10 @@ public class SettingsActivity extends Activity {
 		private Preference quickStart;
 		private Preference gpl;
 		private Preference mit;
+		private Preference git;
+		private Preference hg;
+		private Preference gc;
+		private Preference share;
 		private int icon;
 
 		
@@ -116,6 +122,63 @@ public class SettingsActivity extends Activity {
                     return true;
                 }
             });
+            
+            git = (Preference) findPreference("ytd_code_git");
+            git.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	String url = "https://github.com/dentex/ytdownloader/";
+                	Intent i = new Intent(Intent.ACTION_VIEW);
+                	i.setData(Uri.parse(url));
+                	startActivity(i);
+                	return true;
+                }
+            });
+            
+            hg = (Preference) findPreference("ytd_code_hg");
+            hg.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	String url = "https://sourceforge.net/projects/ytdownloader/";
+                	Intent i = new Intent(Intent.ACTION_VIEW);
+                	i.setData(Uri.parse(url));
+                	startActivity(i);
+                	return true;
+                }
+            });
+            
+            gc = (Preference) findPreference("chooser_code");
+            gc.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	String url = "https://code.google.com/p/android-filechooser/";
+                	Intent i = new Intent(Intent.ACTION_VIEW);
+                	i.setData(Uri.parse(url));
+                	startActivity(i);
+                	return true;
+                }
+            });
+            
+            share = (Preference) findPreference("share");
+            share.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                    try {
+                    	Intent shareIntent =   
+                    	new Intent(android.content.Intent.ACTION_SEND);   
+                    	shareIntent.setType("text/plain");  
+                    	shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "YouTube Downloader");
+                    	String shareMessage = getString(R.string.share_message);
+                    	shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
+                    	startActivity(Intent.createChooser(shareIntent, "Share this YTD"));
+                    } catch (final ActivityNotFoundException e) {
+                    	Log.d(DEBUG_TAG, "No suitable Apps found.");
+                    	showPopUp(getString(R.string.attention), getString(R.string.share_warning), "alert");
+                    }
+                	return true;
+                }
+            });
+            
         }
 
 		private void initSwapPreference() {
