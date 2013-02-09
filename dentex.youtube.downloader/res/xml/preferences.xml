@@ -67,41 +67,52 @@
     </PreferenceCategory>
     
     <PreferenceCategory 
-        android:title="@string/settings_cat_licenses">
-    	
-        <Preference
-            android:key="gpl"
-            android:title="@string/gpl_title"
-            android:summary="@string/gpl_summary" />
-        
-        <Preference
-            android:key="mit"
-            android:title="@string/mit_title"
-            android:summary="@string/mit_summary" />
+    	android:title="@string/settings_cat_about" >
     
-    </PreferenceCategory>
-    
-    <PreferenceCategory 
-        android:title="@string/settings_cat_code">
-        
-        <Preference 
-            android:key="ytd_code_git"
-            android:title="@string/ytd_code_git_title"
-            android:summary="@string/ytd_code_git_summary" />
-        
-        <Preference 
-            android:key="ytd_code_hg"
-            android:title="@string/ytd_code_hg_title"
-            android:summary="@string/ytd_code_hg_summary" />
-                
-        <Preference 
-            android:key="chooser_code"
-            android:title="@string/chooser_code_title"
-            android:summary="@string/chooser_code_summary" />
-        
-    </PreferenceCategory>
-    
-    <PreferenceCategory 
+	    <PreferenceScreen
+	        android:key="licenses_code"
+	        android:title="@string/screen_licences_code_title" >
+	    
+		    <PreferenceCategory 
+		        android:title="@string/settings_cat_licenses">
+		    	
+		        <Preference
+		            android:key="gpl"
+		            android:title="@string/gpl_title"
+		            android:summary="@string/gpl_summary" />
+		        
+		        <Preference
+		            android:key="mit"
+		            android:title="@string/mit_title"
+		            android:summary="@string/mit_summary" />
+		    
+		    </PreferenceCategory>
+		    
+		    <PreferenceCategory 
+		        android:title="@string/settings_cat_code">
+		        
+		        <Preference 
+		            android:key="ytd_code_git"
+		            android:title="@string/ytd_code_git_title"
+		            android:summary="@string/ytd_code_git_summary" />
+		        
+		        <Preference 
+		            android:key="ytd_code_hg"
+		            android:title="@string/ytd_code_hg_title"
+		            android:summary="@string/ytd_code_hg_summary" />
+		                
+		        <Preference 
+		            android:key="chooser_code"
+		            android:title="@string/chooser_code_title"
+		            android:summary="@string/chooser_code_summary" />
+		        
+		    </PreferenceCategory>
+		
+		</PreferenceScreen>
+		
+	</PreferenceCategory>
+	
+   	<PreferenceCategory 
         android:title="@string/settings_cat_social">
         
         <Preference

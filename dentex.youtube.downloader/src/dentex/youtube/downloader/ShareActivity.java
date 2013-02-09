@@ -89,6 +89,7 @@ public class ShareActivity extends Activity {
 	boolean generalInfoCheckboxEnabled;
 	boolean fileRenameEnabled;
 	public File chooserFolder;
+	private AsyncDownload ytQuery;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,6 +121,7 @@ public class ShareActivity extends Activity {
             }
         }
         registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        registerReceiver(cl_receiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)); //TODO
     }
 
     @Override
@@ -137,15 +139,16 @@ public class ShareActivity extends Activity {
     protected void onResume() {
         super.onResume();
         registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        registerReceiver(cl_receiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)); //TODO
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(receiver);
+        //unregisterReceiver(receiver);
+        //unregisterReceiver(cl_receiver);
     }
-
-
+    
     void handleSendText(Intent intent) throws IOException {
 
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -158,7 +161,8 @@ public class ShareActivity extends Activity {
                 showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert");
             } else if (sharedText != null) {
             	showGeneralInfoTutorial();
-                new AsyncDownload().execute(validatedLink);
+            	ytQuery = new AsyncDownload();
+            	ytQuery.execute(validatedLink);
                 //Toast.makeText(this, "Please wait...", Toast.LENGTH_LONG).show();
             }
         } else {
@@ -414,6 +418,8 @@ public class ShareActivity extends Activity {
             request.setDestinationUri(videoUri);
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setDescription(getString(R.string.downloading));
+            request.setTitle(vfilename);
         	enqueue = downloadManager.enqueue(request);
         }
 
@@ -517,9 +523,9 @@ public class ShareActivity extends Activity {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            //createExternalStorageLogFile(stringToIs(Arrays.toString(links)), "ytd_links.txt");
-            //createExternalStorageLogFile(stringToIs(Arrays.toString(codecs.toArray())), "ytd_codecs.txt");
-            //createExternalStorageLogFile(stringToIs(Arrays.toString(qualities.toArray())), "ytd_qualities.txt");
+            //createLogFile(stringToIs(Arrays.toString(links)), "ytd_links.txt");
+            //createLogFile(stringToIs(Arrays.toString(codecs.toArray())), "ytd_codecs.txt");
+            //createLogFile(stringToIs(Arrays.toString(qualities.toArray())), "ytd_qualities.txt");
             return "Match!";
         } else {
             return "No Match";
@@ -616,7 +622,7 @@ public class ShareActivity extends Activity {
         return isFromString;
     }
 
-    void createExternalStorageLogFile(InputStream stream, String filename) {
+    void createLogFile(InputStream stream, String filename) {
         File file = new File(path, filename);
 
         try {
@@ -658,7 +664,7 @@ public class ShareActivity extends Activity {
         }
 
         helpBuilder.setIcon(icon);
-        helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
                 // Do nothing but close the dialog
@@ -680,7 +686,8 @@ public class ShareActivity extends Activity {
                 if (c.moveToFirst()) {
                     int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
                     if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
-                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
+                    	//createLogFile(stringToIs(vfilename + " Downlownload SUCCESSFUL"), "YTD_log.txt"); //TODO
+                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getApplicationContext());
                         helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                         helpBuilder.setTitle(getString(R.string.information));
                         helpBuilder.setMessage(getString(R.string.download_complete_dialog_msg1) + titleRaw + getString(R.string.download_complete_dialog_msg2));
@@ -704,9 +711,51 @@ public class ShareActivity extends Activity {
                         AlertDialog helpDialog = helpBuilder.create();
                         helpDialog.show();
                     }
+                    /*if (DownloadManager.STATUS_FAILED == c.getInt(columnIndex)) {
+                    	createLogFile(stringToIs(vfilename + " Downlownload FAILED"), "YTD_log.txt");
+                    }*/	//TODO
+                    
                 }
             }
         }
     };
+    
+    BroadcastReceiver cl_receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (DownloadManager.ACTION_NOTIFICATION_CLICKED.equals(action)) {
+            	Query query = new Query();
+	            query.setFilterById(enqueue);
+	            Cursor c = downloadManager.query(query);
+	            if (c.moveToFirst()) {
+	            	int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+	                if (DownloadManager.STATUS_RUNNING == c.getInt(columnIndex) ||
+	                	DownloadManager.STATUS_PAUSED == c.getInt(columnIndex) ||
+	                	DownloadManager.STATUS_PENDING == c.getInt(columnIndex)) {
+	                	AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getApplicationContext());
+	                	helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
+                        helpBuilder.setTitle(getString(R.string.cancel_download_dialog_title));
+                        helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                    			downloadManager.remove(enqueue);
+                            	Log.d(DEBUG_TAG, "download cancelled");
+                            }
+                        });
+                        
+                        helpBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+
+                        AlertDialog helpDialog = helpBuilder.create();
+                        helpDialog.show();
+                    }
+	            }
+            }
+        }
+	};
 
 }

@@ -226,7 +226,7 @@ public class SettingsActivity extends Activity {
         		ListPreference listPref = (ListPreference) p;
         	    p.setSummary(listPref.getEntry());
         	}
-        	if (p instanceof PreferenceScreen) {
+        	if (p instanceof PreferenceScreen && p.getKey().equals("open_chooser")) {
         		p.setSummary(chooserSummary);
         	}
         }
