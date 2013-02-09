@@ -54,6 +54,7 @@ public class SettingsActivity extends Activity {
     public static class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
     	
     	private static final String DEBUG_TAG = "SettingsActivity";
+		private Preference dm;
 		private Preference filechooser;
 		private Preference quickStart;
 		private Preference gpl;
@@ -70,6 +71,16 @@ public class SettingsActivity extends Activity {
             super.onCreate(savedInstanceState);
 
             addPreferencesFromResource(R.xml.preferences);
+            
+            dm = (Preference) findPreference("dm");
+            dm.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
+                    return true;
+                }
+            });
+            
             String cf = settings.getString("CHOOSER_FOLDER", "");
             if (cf.isEmpty()) {
             	chooserSummary = getString(R.string.chooser_location_summary_init);

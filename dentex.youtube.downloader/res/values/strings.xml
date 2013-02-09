@@ -49,6 +49,11 @@
     <string name="chooser_location_summary_init">Long-press to select a folder.</string>
 
     <!-- ### preferences ### -->
+    
+    <!-- @0 -->
+    <string name="dm_title">View Downloads</string>
+    <string name="dm_title_condensed">Downloads</string>
+    <string name="dm_summary">Open system\'s Download Manager</string>
 
     <!-- @1 -->
     <string name="settings_cat_tutorials">Tutorials</string>

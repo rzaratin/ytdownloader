@@ -11,6 +11,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -90,6 +91,8 @@ public class ShareActivity extends Activity {
 	boolean fileRenameEnabled;
 	public File chooserFolder;
 	private AsyncDownload ytQuery;
+	private AsyncSizeReq sizeQuery;
+	public CharSequence videoFileSize;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -121,7 +124,7 @@ public class ShareActivity extends Activity {
             }
         }
         registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        registerReceiver(cl_receiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)); //TODO
+        registerReceiver(c_receiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
     }
 
     @Override
@@ -130,25 +133,39 @@ public class ShareActivity extends Activity {
         return true;
     }
     
-    public void settingsClick(MenuItem item) {
-        Intent c_intent = new Intent(this, SettingsActivity.class);
-        startActivity(c_intent);
-    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch(item.getItemId()){
+        	case R.id.menu_settings:
+        		startActivity(new Intent(this, SettingsActivity.class));
+        	return true;
+        	case R.id.menu_dm:
+        		startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
+        	return true;
+        	default:
+        		return super.onOptionsItemSelected(item);
+        }
 
+    }
+ 
+    
     @Override
     protected void onResume() {
         super.onResume();
         registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        registerReceiver(cl_receiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED)); //TODO
+        registerReceiver(c_receiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        //unregisterReceiver(receiver);
-        //unregisterReceiver(cl_receiver);
+    protected void onStop() {
+        unregisterReceiver(receiver);
+        unregisterReceiver(c_receiver);
+        Log.d(DEBUG_TAG, "Receivers unregistered");
+        super.onStop();
     }
-    
+
+
     void handleSendText(Intent intent) throws IOException {
 
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -251,6 +268,14 @@ public class ShareActivity extends Activity {
         }
         Log.d(DEBUG_TAG, "path: " + path);
     }
+    
+    void avoidArrayIndexOutOfBounds(int position, String[] listOfdata){
+        if(position>(listOfdata.length-1)){
+
+            position = listOfdata.length-1;
+        }
+
+    }
 
     private class AsyncDownload extends AsyncTask<String, Void, String> {
 
@@ -274,7 +299,7 @@ public class ShareActivity extends Activity {
                 showPopUp(getString(R.string.error), getString(R.string.invalid_url), "alert");
             }
 
-            String[] lv_arr = CQchoices.toArray(new String[0]);
+            final String[] lv_arr = CQchoices.toArray(new String[0]);
             lv.setAdapter(new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr));
             Log.d(DEBUG_TAG, "LISTview done with " + lv_arr.length + " items.");
 
@@ -286,8 +311,11 @@ public class ShareActivity extends Activity {
 					
 					assignPath();
                     
-                    //createExternalStorageLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
+                    //createLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
+					
                     pos = position;
+                    avoidArrayIndexOutOfBounds(pos, lv_arr);
+                    
                     AlertDialog.Builder helpBuilder = new AlertDialog.Builder(ShareActivity.this);
 
                     helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
@@ -314,12 +342,22 @@ public class ShareActivity extends Activity {
 		                    	    	public void onClick(DialogInterface dialog, int which) {
 		                    	    		title = userFilename.getText().toString();
 		                    	    		composedFilename = composeFilename();
-		                    	    		callDownloadManager();
+		                    	    		try {
+												callDownloadManager();
+											} catch (IOException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
 		                    	    	}
 		                    	    });
 		                    	    adb.show();
 	                            } else {
-	                            	callDownloadManager();
+	                            	try {
+										callDownloadManager();
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
 	                            }
                             } else {
                             	Log.d(DEBUG_TAG, "Destination folder is NOT available and/or NOT writable");
@@ -409,7 +447,7 @@ public class ShareActivity extends Activity {
     	    return vfilename;
         }
 
-		void callDownloadManager() {
+		void callDownloadManager() throws IOException {
         	ytVideoLink = links.get(pos);
             downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             Request request = new Request(Uri.parse(ytVideoLink));
@@ -418,8 +456,10 @@ public class ShareActivity extends Activity {
             request.setDestinationUri(videoUri);
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDescription(getString(R.string.downloading));
             request.setTitle(vfilename);
+            sizeQuery = new AsyncSizeReq();
+        	sizeQuery.execute(ytVideoLink);
+            request.setDescription(videoFileSize);
         	enqueue = downloadManager.enqueue(request);
         }
 
@@ -489,6 +529,39 @@ public class ShareActivity extends Activity {
         }
     }
 
+    private class AsyncSizeReq extends AsyncTask<String, Void, String> {
+
+		protected String doInBackground(String... urls) {
+            // params comes from the execute() call: params[0] is the url.
+            try {
+                Log.d(DEBUG_TAG, "doInBackground...");
+                return getVideoFileSize(urls[0]);
+            } catch (IOException e) {
+                return "e";
+            }
+        }
+		
+		private String getVideoFileSize(String link) throws IOException {
+			final URL uri = new URL(link);
+			URLConnection ucon;
+			try {
+				ucon=uri.openConnection();
+				ucon.connect();
+				int file_size = ucon.getContentLength();
+				Log.d(DEBUG_TAG, "videoFileSize = " + videoFileSize);
+				return Integer.toString(file_size);
+			} catch(final IOException e1) {
+				return "Unknown";
+			}
+		}
+
+        @Override
+        protected void onPostExecute(String result) {
+        	videoFileSize = result;
+        	Log.d(DEBUG_TAG, "videoFileSize = " + videoFileSize);
+        }
+	}
+    
     // Reads an InputStream and converts it to a String.
     public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
         Reader reader = null;
@@ -676,7 +749,8 @@ public class ShareActivity extends Activity {
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
+
+		@Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
@@ -686,8 +760,9 @@ public class ShareActivity extends Activity {
                 if (c.moveToFirst()) {
                     int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
                     if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
+                    	//Toast.makeText(getApplicationContext(), "Download Completed", Toast.LENGTH_LONG).show();
                     	//createLogFile(stringToIs(vfilename + " Downlownload SUCCESSFUL"), "YTD_log.txt"); //TODO
-                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getApplicationContext());
+                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
                         helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                         helpBuilder.setTitle(getString(R.string.information));
                         helpBuilder.setMessage(getString(R.string.download_complete_dialog_msg1) + titleRaw + getString(R.string.download_complete_dialog_msg2));
@@ -711,30 +786,26 @@ public class ShareActivity extends Activity {
                         AlertDialog helpDialog = helpBuilder.create();
                         helpDialog.show();
                     }
-                    /*if (DownloadManager.STATUS_FAILED == c.getInt(columnIndex)) {
-                    	createLogFile(stringToIs(vfilename + " Downlownload FAILED"), "YTD_log.txt");
-                    }*/	//TODO
-                    
                 }
             }
         }
     };
-    
-    BroadcastReceiver cl_receiver = new BroadcastReceiver() {
+            
+    BroadcastReceiver c_receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
+            String action = intent.getAction();            
             if (DownloadManager.ACTION_NOTIFICATION_CLICKED.equals(action)) {
             	Query query = new Query();
 	            query.setFilterById(enqueue);
-	            Cursor c = downloadManager.query(query);
-	            if (c.moveToFirst()) {
-	            	int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-	                if (DownloadManager.STATUS_RUNNING == c.getInt(columnIndex) ||
-	                	DownloadManager.STATUS_PAUSED == c.getInt(columnIndex) ||
-	                	DownloadManager.STATUS_PENDING == c.getInt(columnIndex)) {
-	                	AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getApplicationContext());
-	                	helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
+	            Cursor c2 = downloadManager.query(query);
+	            if (c2.moveToFirst()) {
+	            	int columnIndex = c2.getColumnIndex(DownloadManager.COLUMN_STATUS);
+	                if (DownloadManager.STATUS_RUNNING == c2.getInt(columnIndex) ||
+	                	DownloadManager.STATUS_PAUSED == c2.getInt(columnIndex) ||
+	                	DownloadManager.STATUS_PENDING == c2.getInt(columnIndex)) {
+	                	AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
+	                	helpBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         helpBuilder.setTitle(getString(R.string.cancel_download_dialog_title));
                         helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
@@ -752,10 +823,9 @@ public class ShareActivity extends Activity {
 
                         AlertDialog helpDialog = helpBuilder.create();
                         helpDialog.show();
-                    }
+	                }
 	            }
             }
         }
 	};
-
 }

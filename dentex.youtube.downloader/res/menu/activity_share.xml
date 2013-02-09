@@ -1,8 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        
     <item android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:orderInCategory="100"
-        android:onClick="settingsClick"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:showAsAction="ifRoom" />
+        android:showAsAction="collapseActionView" />
+
+    <item android:id="@+id/menu_dm"
+        android:title="@string/dm_title"
+        android:titleCondensed="@string/dm_title_condensed"
+        android:orderInCategory="10"
+        android:icon="@android:drawable/ic_menu_more"
+        android:showAsAction="collapseActionView" />
+    
 </menu>

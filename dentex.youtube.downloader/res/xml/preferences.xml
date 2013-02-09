@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
+    <Preference 
+        android:key="dm"
+        android:title="@string/dm_title"
+        android:summary="@string/dm_summary" />
+    
     <PreferenceCategory
         android:title="@string/settings_cat_tutorials">
          
