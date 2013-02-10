@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -65,6 +66,7 @@ public class ShareActivity extends Activity {
     List<String> links = new ArrayList<String>();
     List<String> codecs = new ArrayList<String>();
     List<String> qualities = new ArrayList<String>();
+    List<String> Sizes = new ArrayList<String>();
     List<String> CQchoices = new ArrayList<String>();
     private String titleRaw;
     private String title;
@@ -92,7 +94,8 @@ public class ShareActivity extends Activity {
 	public File chooserFolder;
 	private AsyncDownload ytQuery;
 	private AsyncSizeReq sizeQuery;
-	public CharSequence videoFileSize;
+	public CharSequence videoFileSize = "first_run";
+	private boolean online;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -158,11 +161,19 @@ public class ShareActivity extends Activity {
     }
 
     @Override
+    protected void onPause() {
+    	super.onPause();
+    	if (online == true ) sizeQuery.cancel(true);
+    }
+    @Override
     protected void onStop() {
-        unregisterReceiver(receiver);
-        unregisterReceiver(c_receiver);
-        Log.d(DEBUG_TAG, "Receivers unregistered");
         super.onStop();
+        if (online == true ) {
+        	sizeQuery.cancel(true);
+        	unregisterReceiver(receiver);
+        	unregisterReceiver(c_receiver);
+        	Log.d(DEBUG_TAG, "Receivers unregistered");
+        }
     }
 
 
@@ -171,6 +182,7 @@ public class ShareActivity extends Activity {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
+        	online = true;
             String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
             if (linkValidator(sharedText) == "not_a_valid_youtube_link") {
             	progressBar1.setVisibility(View.GONE);
@@ -268,14 +280,6 @@ public class ShareActivity extends Activity {
         }
         Log.d(DEBUG_TAG, "path: " + path);
     }
-    
-    void avoidArrayIndexOutOfBounds(int position, String[] listOfdata){
-        if(position>(listOfdata.length-1)){
-
-            position = listOfdata.length-1;
-        }
-
-    }
 
     private class AsyncDownload extends AsyncTask<String, Void, String> {
 
@@ -306,21 +310,26 @@ public class ShareActivity extends Activity {
             tv.setText(titleRaw);
 
             lv.setOnItemClickListener(new OnItemClickListener() {
-                
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            	
+            	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					
 					assignPath();
-                    
                     //createLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
 					
                     pos = position;
-                    avoidArrayIndexOutOfBounds(pos, lv_arr);
+                    
+                    SizesFinder(links.get(pos));
                     
                     AlertDialog.Builder helpBuilder = new AlertDialog.Builder(ShareActivity.this);
-
+                    
                     helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                     helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
-                    helpBuilder.setMessage(titleRaw + "\n\n\tCodec: " + codecs.get(position) + "\n\tQuality: " + qualities.get(position));
+                    
+                    helpBuilder.setMessage(titleRaw + 
+                    						"\n\n\tCodec: " + codecs.get(position) + 
+                    						"\n\tQuality: " + qualities.get(position) +
+                    						"\n\tSize: " + videoFileSize);
+                    						//"\n\tSize: " + Sizes.get(position));
 
                     helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
 
@@ -342,22 +351,12 @@ public class ShareActivity extends Activity {
 		                    	    	public void onClick(DialogInterface dialog, int which) {
 		                    	    		title = userFilename.getText().toString();
 		                    	    		composedFilename = composeFilename();
-		                    	    		try {
-												callDownloadManager();
-											} catch (IOException e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
+											callDownloadManager();
 		                    	    	}
 		                    	    });
 		                    	    adb.show();
 	                            } else {
-	                            	try {
-										callDownloadManager();
-									} catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
+									callDownloadManager();
 	                            }
                             } else {
                             	Log.d(DEBUG_TAG, "Destination folder is NOT available and/or NOT writable");
@@ -447,7 +446,7 @@ public class ShareActivity extends Activity {
     	    return vfilename;
         }
 
-		void callDownloadManager() throws IOException {
+		void callDownloadManager() {
         	ytVideoLink = links.get(pos);
             downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             Request request = new Request(Uri.parse(ytVideoLink));
@@ -457,9 +456,7 @@ public class ShareActivity extends Activity {
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             request.setTitle(vfilename);
-            sizeQuery = new AsyncSizeReq();
-        	sizeQuery.execute(ytVideoLink);
-            request.setDescription(videoFileSize);
+            
         	enqueue = downloadManager.enqueue(request);
         }
 
@@ -534,33 +531,47 @@ public class ShareActivity extends Activity {
 		protected String doInBackground(String... urls) {
             // params comes from the execute() call: params[0] is the url.
             try {
-                Log.d(DEBUG_TAG, "doInBackground...");
                 return getVideoFileSize(urls[0]);
             } catch (IOException e) {
                 return "e";
             }
         }
-		
-		private String getVideoFileSize(String link) throws IOException {
-			final URL uri = new URL(link);
-			URLConnection ucon;
-			try {
-				ucon=uri.openConnection();
-				ucon.connect();
-				int file_size = ucon.getContentLength();
-				Log.d(DEBUG_TAG, "videoFileSize = " + videoFileSize);
-				return Integer.toString(file_size);
-			} catch(final IOException e1) {
-				return "Unknown";
-			}
-		}
 
         @Override
         protected void onPostExecute(String result) {
         	videoFileSize = result;
-        	Log.d(DEBUG_TAG, "videoFileSize = " + videoFileSize);
+        	//Sizes.add(videoFileSize.toString());
+        	Log.d(DEBUG_TAG, "videoFileSize_onPostExecute = " + videoFileSize);
         }
 	}
+    
+	private String getVideoFileSize(String link) throws IOException {
+		final URL uri = new URL(link);
+		URLConnection ucon;
+		try {
+			ucon=uri.openConnection();
+			ucon.connect();
+			int file_size = ucon.getContentLength();
+			return MakeSizeHumanReabable(file_size, true);
+		} catch(final IOException e) {
+			return "e";
+		}
+	}
+	
+	@SuppressLint("DefaultLocale")
+	private String MakeSizeHumanReabable(int bytes, boolean si) {
+		int unit = si ? 1000 : 1024;
+	    if (bytes < unit) return bytes + " B";
+	    int exp = (int) (Math.log(bytes) / Math.log(unit));
+	    String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+	    return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+	}
+	
+	private void SizesFinder(String link) {
+    		sizeQuery = new AsyncSizeReq();
+    		sizeQuery.execute(link);
+    		
+    }
     
     // Reads an InputStream and converts it to a String.
     public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
@@ -659,7 +670,9 @@ public class ShareActivity extends Activity {
     			String sig = sigMatcher.group();
     			//Log.d(DEBUG_TAG, "sig: " + sig);
     			String linkToAdd = url + "&" + sig;
-    			links.add(linkToAdd.replaceAll("&itag=[0-9][0-9]&signature", "&signature"));
+    			linkToAdd = linkToAdd.replaceAll("&itag=[0-9][0-9]&signature", "&signature");
+    			links.add(linkToAdd);
+    			//SizesFinder(linkToAdd);
     		}
     	}
 	}
