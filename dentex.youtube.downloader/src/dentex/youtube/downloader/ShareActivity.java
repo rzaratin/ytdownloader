@@ -66,8 +66,8 @@ public class ShareActivity extends Activity {
     List<String> links = new ArrayList<String>();
     List<String> codecs = new ArrayList<String>();
     List<String> qualities = new ArrayList<String>();
-    List<String> Sizes = new ArrayList<String>();
-    List<String> CQchoices = new ArrayList<String>();
+    List<String> sizes = new ArrayList<String>();
+    List<String> cqsChoices = new ArrayList<String>();
     private String titleRaw;
     private String title;
     public int pos;
@@ -93,9 +93,11 @@ public class ShareActivity extends Activity {
 	boolean fileRenameEnabled;
 	public File chooserFolder;
 	private AsyncDownload ytQuery;
+	public String videoFileSize = "empty";
 	private AsyncSizeReq sizeQuery;
-	public CharSequence videoFileSize = "first_run";
-	private boolean online;
+	public AlertDialog helpDialog;
+	private AlertDialog.Builder  helpBuilder;
+	public View SizeView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -161,19 +163,11 @@ public class ShareActivity extends Activity {
     }
 
     @Override
-    protected void onPause() {
-    	super.onPause();
-    	if (online == true ) sizeQuery.cancel(true);
-    }
-    @Override
     protected void onStop() {
         super.onStop();
-        if (online == true ) {
-        	sizeQuery.cancel(true);
-        	unregisterReceiver(receiver);
-        	unregisterReceiver(c_receiver);
-        	Log.d(DEBUG_TAG, "Receivers unregistered");
-        }
+    	unregisterReceiver(receiver);
+    	unregisterReceiver(c_receiver);
+    	Log.d(DEBUG_TAG, "Receivers unregistered_onStop");
     }
 
 
@@ -182,7 +176,6 @@ public class ShareActivity extends Activity {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-        	online = true;
             String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
             if (linkValidator(sharedText) == "not_a_valid_youtube_link") {
             	progressBar1.setVisibility(View.GONE);
@@ -303,33 +296,34 @@ public class ShareActivity extends Activity {
                 showPopUp(getString(R.string.error), getString(R.string.invalid_url), "alert");
             }
 
-            final String[] lv_arr = CQchoices.toArray(new String[0]);
+            final String[] lv_arr = cqsChoices.toArray(new String[0]);
             lv.setAdapter(new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr));
             Log.d(DEBUG_TAG, "LISTview done with " + lv_arr.length + " items.");
 
             tv.setText(titleRaw);
-
             lv.setOnItemClickListener(new OnItemClickListener() {
             	
-            	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            	//private String currentSize;
+
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					
 					assignPath();
                     //createLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
 					
-                    pos = position;
-                    
-                    SizesFinder(links.get(pos));
-                    
-                    AlertDialog.Builder helpBuilder = new AlertDialog.Builder(ShareActivity.this);
+                    pos = position;                    
+                    helpBuilder = new AlertDialog.Builder(ShareActivity.this);
                     
                     helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                     helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
                     
-                    helpBuilder.setMessage(titleRaw + 
-                    						"\n\n\tCodec: " + codecs.get(position) + 
-                    						"\n\tQuality: " + qualities.get(position) +
-                    						"\n\tSize: " + videoFileSize);
-                    						//"\n\tSize: " + Sizes.get(position));
+                    if (settings.getBoolean("show_size", false) == false) {
+                    	helpBuilder.setMessage(titleRaw + 
+        						"\n\n\tCodec: " + codecs.get(position) + 
+        						"\n\tQuality: " + qualities.get(position));
+                    } else {
+                    	sizeQuery = new AsyncSizeReq();
+                    	sizeQuery.execute(links.get(position));
+                    }
 
                     helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
 
@@ -423,9 +417,11 @@ public class ShareActivity extends Activity {
                             //Toast.makeText(ShareActivity.this, "Download canceled...", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-                    AlertDialog helpDialog = helpBuilder.create();
-                    helpDialog.show();
+                    if (settings.getBoolean("show_size", false) == false) {
+                    	helpDialog = helpBuilder.create();
+                    	helpDialog.show();
+                    }
+                    
                 }
             });
         }
@@ -456,7 +452,6 @@ public class ShareActivity extends Activity {
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             request.setTitle(vfilename);
-            
         	enqueue = downloadManager.enqueue(request);
         }
 
@@ -525,53 +520,6 @@ public class ShareActivity extends Activity {
             }
         }
     }
-
-    private class AsyncSizeReq extends AsyncTask<String, Void, String> {
-
-		protected String doInBackground(String... urls) {
-            // params comes from the execute() call: params[0] is the url.
-            try {
-                return getVideoFileSize(urls[0]);
-            } catch (IOException e) {
-                return "e";
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-        	videoFileSize = result;
-        	//Sizes.add(videoFileSize.toString());
-        	Log.d(DEBUG_TAG, "videoFileSize_onPostExecute = " + videoFileSize);
-        }
-	}
-    
-	private String getVideoFileSize(String link) throws IOException {
-		final URL uri = new URL(link);
-		URLConnection ucon;
-		try {
-			ucon=uri.openConnection();
-			ucon.connect();
-			int file_size = ucon.getContentLength();
-			return MakeSizeHumanReabable(file_size, true);
-		} catch(final IOException e) {
-			return "e";
-		}
-	}
-	
-	@SuppressLint("DefaultLocale")
-	private String MakeSizeHumanReabable(int bytes, boolean si) {
-		int unit = si ? 1000 : 1024;
-	    if (bytes < unit) return bytes + " B";
-	    int exp = (int) (Math.log(bytes) / Math.log(unit));
-	    String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
-	    return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
-	}
-	
-	private void SizesFinder(String link) {
-    		sizeQuery = new AsyncSizeReq();
-    		sizeQuery.execute(link);
-    		
-    }
     
     // Reads an InputStream and converts it to a String.
     public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
@@ -632,25 +580,25 @@ public class ShareActivity extends Activity {
         Pattern trimPattern = Pattern.compile(",");
         Matcher matcher = trimPattern.matcher(contentDecoded);
         if (matcher.find()) {
-            String[] CQ = contentDecoded.split(trimPattern.toString());
-            Log.d(DEBUG_TAG, "number of CQ found: " + (CQ.length-1));
+            String[] CQS = contentDecoded.split(trimPattern.toString());
+            Log.d(DEBUG_TAG, "number of CQ found: " + (CQS.length-1));
             int index = 0;
-            while ((index+1) < CQ.length) {
-                codecMatcher(CQ[index], index);
-                qualityMatcher(CQ[index], index);
-                linksComposer(CQ[index], index);
-                //Log.d(DEBUG_TAG, "block " + index + ": " + CQ[index]);
+            while ((index+1) < CQS.length) {
+                codecMatcher(CQS[index], index);
+                qualityMatcher(CQS[index], index);
+                linksComposer(CQS[index], index);
+                //Log.d(DEBUG_TAG, "block " + index + ": " + CQS[index]);
                 index++;
             }
-            CQchoiceBuilder();
+            cqsChoicesBuilder();
         }
     }
 
-    private void CQchoiceBuilder() {
+    private void cqsChoicesBuilder() {
         Iterator<String> codecsIter = codecs.iterator();
         Iterator<String> qualitiesIter = qualities.iterator();
         while (codecsIter.hasNext()) {
-            CQchoices.add(codecsIter.next() + " - " + qualitiesIter.next());
+            cqsChoices.add(codecsIter.next() + "\t-\t" + qualitiesIter.next());// + "\t-\t" + sizesIter.next());
         }
     }
 
@@ -672,9 +620,64 @@ public class ShareActivity extends Activity {
     			String linkToAdd = url + "&" + sig;
     			linkToAdd = linkToAdd.replaceAll("&itag=[0-9][0-9]&signature", "&signature");
     			links.add(linkToAdd);
-    			//SizesFinder(linkToAdd);
     		}
     	}
+	}
+    
+    private class AsyncSizeReq extends AsyncTask<String, Void, String> {
+
+		protected String doInBackground(String... urls) {
+            // params comes from the execute() call: params[0] is the url.
+            try {
+                return getVideoFileSizeAsync(urls[0]);
+            } catch (IOException e) {
+                return "e";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+        	videoFileSize = result;
+        	
+        	helpBuilder.setMessage(titleRaw + 
+					"\n\n\tCodec: " + codecs.get(pos) + 
+					"\n\tQuality: " + qualities.get(pos) +
+					"\n\tSize: " + videoFileSize);
+        	helpDialog = helpBuilder.create();
+            helpDialog.show();
+        	
+        	Log.d(DEBUG_TAG, "result = " + result);
+        }
+	}
+    
+    private String getVideoFileSizeAsync(String link) throws IOException {
+		final URL uri = new URL(link);
+		URLConnection ucon;
+		try {
+			ucon=uri.openConnection();
+			ucon.connect();
+			int file_size = ucon.getContentLength();
+			return MakeSizeHumanReabable(file_size, true);
+		} catch(final IOException e) {
+			return "e";
+		}
+	}
+	
+	@SuppressLint("DefaultLocale")
+	private String MakeSizeHumanReabable(int bytes, boolean si) {
+		int unit = si ? 1000 : 1024;
+	    if (bytes < unit) return bytes + " B";
+	    int exp = (int) (Math.log(bytes) / Math.log(unit));
+	    String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+	    String hr = String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+	    
+	    Pattern minusPattern = Pattern.compile("-1 B");
+	    Matcher minusMatcher = minusPattern.matcher(hr);
+	    if (minusMatcher.find()) {
+	    	return "n.a.";
+	    } else {
+	    	return hr;
+	    }
 	}
 
     private void codecMatcher(String currentCQ, int i) {
@@ -712,7 +715,6 @@ public class ShareActivity extends Activity {
         File file = new File(path, filename);
 
         try {
-            // Make sure the directory exists.
             path.mkdirs();
 
             // If external storage is not currently mounted this will silently fail.
@@ -793,6 +795,7 @@ public class ShareActivity extends Activity {
                         helpBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
+                            	// cancel
                             }
                         });
 

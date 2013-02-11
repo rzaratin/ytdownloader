@@ -63,6 +63,7 @@ public class SettingsActivity extends Activity {
 		private Preference hg;
 		private Preference gc;
 		private Preference share;
+		private Preference cl;
 		private int icon;
 
 		
@@ -190,6 +191,15 @@ public class SettingsActivity extends Activity {
                 }
             });
             
+            cl = (Preference) findPreference("changelog");
+            cl.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	Intent intent = new Intent(getActivity(),  ChangelogActivity.class);
+                	startActivity(intent);
+                    return true;
+                }
+            });
         }
 
 		private void initSwapPreference() {

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <Preference 
-        android:key="dm"
-        android:title="@string/dm_title"
-        android:summary="@string/dm_summary" />
+    <Preference    
+	        android:key="dm"
+	        android:title="@string/dm_title"
+	        android:summary="@string/dm_summary" />
     
-    <PreferenceCategory
+	<PreferenceCategory
         android:title="@string/settings_cat_tutorials">
          
         <Preference 
@@ -55,7 +55,7 @@
     </PreferenceCategory>
     
     <PreferenceCategory
-        android:title="@string/settings_cat_naming">
+        android:title="@string/settings_cat_files">
             
     	<CheckBoxPreference
         	android:key="enable_q_suffix"
@@ -68,7 +68,13 @@
         	android:title="@string/enable_rename_title"
         	android:summary="@string/enable_rename_summary"
         	android:defaultValue="false" />
-    	
+	            
+        <CheckBoxPreference
+            android:key="show_size"
+            android:title="@string/show_size_title"
+            android:summary="@string/show_size_summary" 
+            android:defaultValue="false"/>
+    
     </PreferenceCategory>
     
     <PreferenceCategory 
@@ -114,6 +120,10 @@
 		    </PreferenceCategory>
 		
 		</PreferenceScreen>
+		
+	    <Preference 
+	        android:key="changelog"
+	        android:title="@string/title_changelog"/>
 		
 	</PreferenceCategory>
 	

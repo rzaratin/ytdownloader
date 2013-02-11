@@ -49,7 +49,8 @@
     <string name="chooser_location_summary_init">Long-press to select a folder.</string>
 
     <!-- ### preferences ### -->
-    
+
+
     <!-- @0 -->
     <string name="dm_title">View Downloads</string>
     <string name="dm_title_condensed">Downloads</string>
@@ -57,7 +58,6 @@
 
     <!-- @1 -->
     <string name="settings_cat_tutorials">Tutorials</string>
-    
     <string name="quick_start_title">Quick start</string>
     <string name="quick_start_summ">Open a quick start tutorial</string>
     <string name="quick_start_text">Here are just the preferences for \"YouTube Downloader\".
@@ -72,7 +72,6 @@
 
     <!-- @2 -->
     <string name="settings_cat_folder">Download folder</string>
-    
     <string name="standard_location_title">Choose standard folder</string>
     <string name="standard_location_default">Downloads</string>
     <string name="chooser_swap_title">Swap chooser</string>
@@ -80,26 +79,78 @@
     <string name="chooser_location_summary">Long-press to select a folder</string>
 
     <!-- @3 -->
-    <string name="settings_cat_naming">Video files naming</string>
-    
+    <string name="settings_cat_files">Video files</string>
     <string name="enable_q_suffix_title">Append quality suffix</string>
     <string name="enable_q_suffix_summary">Append the video quality type to the file name</string>
     <string name="enable_rename_title">Enable file rename</string>
     <string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)</string>
-    
+    <string name="show_size_title">Show file size</string>
+    <string name="show_size_summary">Fetch the video file size on download confirmation message (slower)</string>
+
     <!-- @5 -->
     <string name="settings_cat_about">About</string>
-    
+    <string name="title_changelog">Changelog</string>
+    <string name="changelog">
+        	\n  v1.5		- Jan XX 2013
+        	\n------------------------------------
+			\n* option to fetch filesizes
+			\n* stop download on click
+			\n* DM link in preferences
+			\n* overflow menu for settings and DM
+			\n
+			\n  v1.4		- Jan 29 2013
+			\n------------------------------------
+			\n* licenses and code links
+			\n* \'Share this App\' option
+			\n
+			\n  v1.3.1		- Jan 19 2013
+			\n------------------------------------
+			\n* handle again http|https links
+			\n  (thanks Reiner)
+			\n
+			\n  v1.3		- Jan 18 2013
+			\n------------------------------------
+			\n* share via mobile links support
+			\n
+			\n  v1.2		- Dec 25 2012
+			\n------------------------------------
+			\n* fix for YouTube webpage changes
+			\n
+			\n  v1.1.1		- Dec 16 2012
+			\n------------------------------------
+			\n* fix in preferences
+			\n
+			\n  v1.1 		- Dec 13 2012
+			\n------------------------------------
+			\n* all text strings exported
+			\n* preferences modification
+			\n* quick start tutorial
+			\n
+			\n  v1.0.1		- Dec 11 2012
+			\n------------------------------------
+			\n* bad typo fixed
+			\n* new folder icons for file-chooser
+			\n
+			\n  v1.0 		- Dec 11 2012
+			\n------------------------------------
+			\n* FIRST PUBLIC RELEASE
+			\n* send download via SSH
+			\n* JB compatibility
+			\n* SSH send how-to dialog
+			\n* standard download locations
+			\n* file-chooser for download location
+			\n* add quality suffix options
+			\n* file renaming options
+			\n------------------------------------
+	</string>
     <string name="screen_licences_code_title">Licenses and Code</string>
 
-	    <!-- @5.1 -->
-	    <string name="settings_cat_licenses">Licenses</string>
-	    
-	    <string name="gpl_title">YTD\'s License</string>
-	    <string name="gpl_summary">GPL-3.0</string>
-	    <string name="title_activity_gpl_show">GPL-3.0</string>
-	    <string name="gpl_text">
-	        GNU GENERAL PUBLIC LICENSE
+    <!-- @5.1 -->
+    <string name="settings_cat_licenses">Licenses</string>
+    <string name="gpl_title">YTD\'s License</string>
+    <string name="gpl_summary">GPL-3.0</string>
+    <string name="title_activity_gpl_show">GPL-3.0</string>
+    <string name="gpl_text">	        GNU GENERAL PUBLIC LICENSE
 	        \n\n
 			Copyright &#169; 2013  Samuele Rini
 			\n\n
@@ -114,13 +165,11 @@
 			GNU General Public License for more details.
 			\n\n
 			You should have received a copy of the GNU General Public License
-			along with this program.  If not, see <http>http://www.gnu.org/licenses</http>.
-		</string>
-	    <string name="mit_title">Filechooser\'s Licence</string>
-	    <string name="mit_summary">MIT License</string>
-	    <string name="title_activity_mit_show">MIT License</string>
-	    <string name="mit_text">
-	        The MIT License (MIT)
+			along with this program.  If not, see <http>http://www.gnu.org/licenses</http>.</string>
+    <string name="mit_title">Filechooser\'s Licence</string>
+    <string name="mit_summary">MIT License</string>
+    <string name="title_activity_mit_show">MIT License</string>
+    <string name="mit_text">	        The MIT License (MIT)
 	        \n\n
 			Copyright &#169; 2012 Hai Bison
 			\n\n
@@ -139,24 +188,24 @@
 			FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 			COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 			IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-			CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-		</string>
-		
-	    <!-- @5.2 -->
-	    <string name="settings_cat_code">Source Code</string>
-	    
-		<string name="ytd_code_git_title">YTD at GitHub</string>
-		<string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
-		<string name="ytd_code_hg_title">YTD at Sourceforge</string>
-		<string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
-		<string name="chooser_code_title">Filechooser at Google Code</string>
-		<string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
-	
-	<!-- @6 -->
+			CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+
+    <!-- @5.2 -->
+    <string name="settings_cat_code">Source Code</string>
+    <string name="ytd_code_git_title">YTD at GitHub</string>
+    <string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
+    <string name="ytd_code_hg_title">YTD at Sourceforge</string>
+    <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
+    <string name="chooser_code_title">Filechooser at Google Code</string>
+    <string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
+
+    <!-- @6 -->
     <string name="settings_cat_social">Social</string>
-    
     <string name="share_title">Share this App</string>
     <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230; </string>
-	<string name="share_warning">No suitable Apps found.</string>
-	<string name="share_message">Easy to use Android App to download YouTube video!\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+    <string name="share_warning">No suitable Apps found.</string>
+    <string name="share_message">YTD - YouTube Downloader
+	    	\nFree and Open-Source Android App to download from YouTube video!
+	    	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+
 </resources>

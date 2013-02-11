@@ -29,10 +29,10 @@
         </activity>
         <activity
             android:name="dentex.youtube.downloader.ShareActivity"
-            android:label="@string/title_activity_share"
-            android:screenOrientation="portrait"
             android:exported="true"
+            android:label="@string/title_activity_share"
             android:permission="android.permission.INTERNET"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeDark" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -54,12 +54,17 @@
         </activity>
         <activity
             android:name="dentex.youtube.downloader.GplShowActivity"
-            android:label="@string/title_activity_gpl_show" 
+            android:label="@string/title_activity_gpl_show"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
             android:name="dentex.youtube.downloader.MitShowActivity"
             android:label="@string/title_activity_mit_show"
+            android:theme="@style/LicenseTheme" >
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.ChangelogActivity"
+            android:label="@string/title_changelog"
             android:theme="@style/LicenseTheme"  >
         </activity>
     </application>
