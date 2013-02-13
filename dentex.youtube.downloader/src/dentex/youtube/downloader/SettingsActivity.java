@@ -28,6 +28,9 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+import dentex.youtube.downloader.docs.ChangelogActivity;
+import dentex.youtube.downloader.docs.GplShowActivity;
+import dentex.youtube.downloader.docs.MitShowActivity;
 
 public class SettingsActivity extends Activity {
 	
@@ -53,7 +56,8 @@ public class SettingsActivity extends Activity {
     
     public static class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
     	
-    	private static final String DEBUG_TAG = "SettingsActivity";
+    	public static final String EXT_CARD_NAMES = "(extSdCard|sdcard1|emmc|ext_card)";
+		private static final String DEBUG_TAG = "SettingsActivity";
 		private Preference dm;
 		private Preference filechooser;
 		private Preference quickStart;
@@ -65,7 +69,6 @@ public class SettingsActivity extends Activity {
 		private Preference share;
 		private Preference cl;
 		private int icon;
-
 		
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -262,7 +265,7 @@ public class SettingsActivity extends Activity {
                     for (File f : files) {
                     	if (f.canWrite()) {
                         	Log.d(DEBUG_TAG, "Chosen folder is writable");
-                        	Pattern extPattern = Pattern.compile("(extSdCard|sdcard1|emmc)");
+                        	Pattern extPattern = Pattern.compile(SettingsFragment.EXT_CARD_NAMES);
                         	Matcher extMatcher = extPattern.matcher(f.toString());
                         	if (extMatcher.find()) {
                         		showPopUp(getString(R.string.attention), getString(R.string.extsdcard_warning), "alert");
@@ -309,6 +312,5 @@ public class SettingsActivity extends Activity {
             AlertDialog helpDialog = helpBuilder.create();
             helpDialog.show();
         }
-
-     }
+	}
 }

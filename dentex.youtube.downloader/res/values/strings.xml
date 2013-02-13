@@ -1,211 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+	<resources>
 
-    <string name="app_name">YouTube Downloader</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_share">YouTube Downloader</string>
-    <string name="title_activity_settings">YouTube Downloader Settings</string>
-    <string name="VideoTitle">Loading&#8230;</string>
+	<string name="app_name">YouTube Downloader	</string>
+	<string name="menu_settings">Settings	</string>
+	<string name="title_activity_share">YouTube Downloader	</string>
+	<string name="title_activity_settings">YouTube Downloader Settings	</string>
+	<string name="VideoTitle">Loading&#8230;	</string>
 
-    <!-- ### ShareActivity ### -->
+	<!-- ### ShareActivity ### -->
 
-    <string name="tutorial_title">General App tutorial</string>
-    <string name="tutorial_msg">Now you will see a list with all the codecs and qualities available for the selected video.
-        \n\nChoose one item and you will be asked to download the video locally (on the phone) or to send the download via SSH to a linux machine.
-        \n\nDestination linux-box requirements: Bash and Wget. Additional SSH info further on.</string>
-    <string name="error">Error!</string>
-    <string name="information">Information</string>
-    <string name="dialogs_negative">Cancel</string>
-    <string name="invalid_url">Unable to retrieve web page. URL may be invalid."</string>
-    <string name="bad_link">Check the provided link.</string>
-    <string name="bad_link_dialog_msg">Not a valid YouTube link.</string>
-    <string name="no_net">No connection available.</string>
-    <string name="no_net_dialog_msg">Please, enable a network connection first.</string>
-    <string name="list_click_dialog_title">Confirm Download for:</string>
-    <string name="list_click_download_local">Download here</string>
-    <string name="list_click_download_ssh">Send via SSH</string>
-    <string name="rename_dialog_title">New filename:</string>
-    <string name="rename_dialog_msg">Do not enter the file extension (like .mp4 or .flv).</string>
-    <string name="unable_save">Unable to save the video!</string>
-    <string name="unable_save_dialog_msg">Destination folder is NOT available and/or NOT writable.</string>
-    <string name="ssh_info_tutorial_title">Send via SSH How-To</string>
-    <string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
-        \n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
-        directory, PASTE the command (use the menu button) and push ENTER.</string>
-    <string name="callConnectBot_dialog_title">ConnectBot not installed!</string>
-    <string name="callConnectBot_dialog_msg">You need this free App to send the video download via SSH.</string>
-    <string name="callConnectBot_dialog_positive">Install ConnectBot</string>
-    <string name="download_complete_dialog_msg1">Youtube Video:\n</string>
-    <string name="download_complete_dialog_msg2">\nSuccessfully downloaded.</string>
-    <string name="download_complete_dialog_positive">Open</string>
-    <string name="downloading">Downloading&#8230;</string>
-    <string name="cancel_download_dialog_title">Cancel Download?</string>
+	<string name="tutorial_title">General App tutorial	</string>
+	<string name="tutorial_msg">Now you will see a list with all the codecs and qualities available for the selected video.
+		\n\nChoose one item and you will be asked to download the video locally (on the phone) or to send the download via SSH to a linux machine.
+		\n\nDestination linux-box requirements: Bash and Wget. Additional SSH info further on.	</string>
+	<string name="error">Error!	</string>
+	<string name="information">Information	</string>
+	<string name="dialogs_negative">Cancel	</string>
+	<string name="invalid_url">Unable to retrieve web page. URL may be invalid."	</string>
+	<string name="bad_link">Check the provided link.	</string>
+	<string name="bad_link_dialog_msg">Not a valid YouTube link.	</string>
+	<string name="no_net">No connection available.	</string>
+	<string name="no_net_dialog_msg">Please, enable a network connection first.	</string>
+	<string name="list_click_dialog_title">Confirm Download for:	</string>
+	<string name="list_click_download_local">Download here	</string>
+	<string name="list_click_download_ssh">Send via SSH	</string>
+	<string name="rename_dialog_title">New filename:	</string>
+	<string name="rename_dialog_msg">Do not enter the file extension (like .mp4 or .flv).	</string>
+	<string name="unable_save">Unable to save the video!	</string>
+	<string name="unable_save_dialog_msg">Destination folder is NOT available and/or NOT writable.	</string>
+	<string name="ssh_info_tutorial_title">Send via SSH How-To	</string>
+	<string name="ssh_info_tutorial_msg">A single long command has been loaded in the clipboard.
+		\n\nChoose a profile in ConnectBot and once in your remote shell, browse to the desired 
+		directory, PASTE the command (use the menu button) and push ENTER.	</string>
+	<string name="callConnectBot_dialog_title">ConnectBot not installed!	</string>
+	<string name="callConnectBot_dialog_msg">You need this free App to send the video download via SSH.	</string>
+	<string name="callConnectBot_dialog_positive">Install ConnectBot	</string>
+	<string name="download_complete_dialog_msg1">Youtube Video:\n	</string>
+	<string name="download_complete_dialog_msg2">\nSuccessfully downloaded.	</string>
+	<string name="download_complete_dialog_positive">Open	</string>
+	<string name="downloading">Downloading&#8230;	</string>
+	<string name="cancel_download_dialog_title">Cancel Download?	</string>
 
-    <!-- ### SettingsActivity ### -->
+	<!-- ### SettingsActivity ### -->
 
-    <string name="attention">Attention!</string>
-    <string name="extsdcard_warning">This App cannot write files on the external (removable) sdcard.\nStay on the standard sdcard.</string>
-    <string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.</string>
-    <string name="chooser_location_summary_init">Long-press to select a folder.</string>
+	<string name="attention">Attention!	</string>
+	<string name="extsdcard_warning">This App cannot write files on the external (removable) sdcard.\nStay on the standard sdcard.	</string>
+	<string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.	</string>
+	<string name="chooser_location_summary_init">Long-press to select a folder.	</string>
 
-    <!-- ### preferences ### -->
+	<!-- ### preferences ### -->
 
+	<!-- @0 -->
+	<string name="dm_title">View Downloads	</string>
+	<string name="dm_title_condensed">Downloads	</string>
+	<string name="dm_summary">Open system\'s Download Manager	</string>
 
-    <!-- @0 -->
-    <string name="dm_title">View Downloads</string>
-    <string name="dm_title_condensed">Downloads</string>
-    <string name="dm_summary">Open system\'s Download Manager</string>
+	<!-- @1 -->
+	<string name="settings_cat_tutorials">Tutorials	</string>
+	<string name="quick_start_title">Quick start	</string>
+	<string name="quick_start_summ">Open a quick start tutorial	</string>
+	<string name="quick_start_text">Here are just the preferences for \"YouTube Downloader\".
+		\n\nThe actual App can be accessed via the sharing button in the YouTube App, while watching a video.
+		\n\nThen simply choose \"YouTube Downloader\" and you will have further usage info.
+		\n\nYou can also share any YouTube plain text link via any other App: i.e. your browser.	</string>
+	<string name="general_info_title">Enable General how-to	</string>
+	<string name="general_info_summary">Show a general App tutorial on startup	</string>
+	<string name="show_again_checkbox">Show again next time	</string>
+	<string name="ssh_info_title">Enable SSH how-to	</string>
+	<string name="ssh_info_summary">Show a quick tip about remote downloading via SSH	</string>
 
-    <!-- @1 -->
-    <string name="settings_cat_tutorials">Tutorials</string>
-    <string name="quick_start_title">Quick start</string>
-    <string name="quick_start_summ">Open a quick start tutorial</string>
-    <string name="quick_start_text">Here are just the preferences for \"YouTube Downloader\".
-        \n\nThe actual App can be accessed via the sharing button in the YouTube App, while watching a video.
-        \n\nThen simply choose \"YouTube Downloader\" and you will have further usage info.
-        \n\nYou can also share any YouTube plain text link via any other App: i.e. your browser.</string>
-    <string name="general_info_title">Enable General how-to</string>
-    <string name="general_info_summary">Show a general App tutorial on startup</string>
-    <string name="show_again_checkbox">Show again next time</string>
-    <string name="ssh_info_title">Enable SSH how-to</string>
-    <string name="ssh_info_summary">Show a quick tip about remote downloading via SSH</string>
+	<!-- @2 -->
+	<string name="settings_cat_folder">Download folder	</string>
+	<string name="standard_location_title">Choose standard folder	</string>
+	<string name="standard_location_default">Downloads	</string>
+	<string name="chooser_swap_title">Swap chooser	</string>
+	<string name="chooser_location_title">Open file-chooser	</string>
+	<string name="chooser_location_summary">Long-press to select a folder	</string>
 
-    <!-- @2 -->
-    <string name="settings_cat_folder">Download folder</string>
-    <string name="standard_location_title">Choose standard folder</string>
-    <string name="standard_location_default">Downloads</string>
-    <string name="chooser_swap_title">Swap chooser</string>
-    <string name="chooser_location_title">Open file-chooser</string>
-    <string name="chooser_location_summary">Long-press to select a folder</string>
+	<!-- @3 -->
+	<string name="settings_cat_files">Video files	</string>
+	<string name="enable_q_suffix_title">Append quality suffix	</string>
+	<string name="enable_q_suffix_summary">Append the video quality type to the file name	</string>
+	<string name="enable_rename_title">Enable file rename	</string>
+	<string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)	</string>
+	<string name="show_size_title">Show file size	</string>
+	<string name="show_size_summary">Fetch the video file size on download confirmation message (slower)	</string>
 
-    <!-- @3 -->
-    <string name="settings_cat_files">Video files</string>
-    <string name="enable_q_suffix_title">Append quality suffix</string>
-    <string name="enable_q_suffix_summary">Append the video quality type to the file name</string>
-    <string name="enable_rename_title">Enable file rename</string>
-    <string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)</string>
-    <string name="show_size_title">Show file size</string>
-    <string name="show_size_summary">Fetch the video file size on download confirmation message (slower)</string>
+	<!-- @5 -->
+	<string name="settings_cat_about">About	</string>
+	<string name="title_changelog">Changelog	</string>
+	<string name="changelog">
+		\n v1.5 - Jan XX 2013
+		\n------------------------------------
+		\n[x] option to fetch filesizes
+		\n[x] stop download on click
+		\n[x] DM link in preferences
+		\n[x] overflow menu for settings, DM
+		\n
+		\n v1.4 - Jan 29 2013
+		\n------------------------------------
+		\n[x] licenses and code links
+		\n[x] Share this App option
+		\n
+		\n v1.3.1 - Jan 19 2013
+		\n------------------------------------
+		\n[x] handle again http|https links
+		\n (thanks Reiner)
+		\n
+		\n v1.3 - Jan 18 2013
+		\n------------------------------------
+		\n[x] share via mobile links support
+		\n
+		\n v1.2 - Dec 25 2012
+		\n------------------------------------
+		\n[x] fix for YouTube webpage changes
+		\n
+		\n v1.1.1 - Dec 16 2012
+		\n------------------------------------
+		\n[x] fix in preferences
+		\n
+		\n v1.1 - Dec 13 2012
+		\n------------------------------------
+		\n[x] all text strings exported
+		\n[x] preferences modification
+		\n[x] quick start tutorial
+		\n
+		\n v1.0.1 - Dec 11 2012
+		\n------------------------------------
+		\n[x] bad typo fixed
+		\n[x] new folder icons in file-chooser
+		\n
+		\n v1.0 - Dec 11 2012
+		\n------------------------------------
+		\n[x] FIRST PUBLIC RELEASE
+		\n[x] send download via SSH
+		\n[x] JB compatibility
+		\n[x] SSH send how-to dialog
+		\n[x] standard download locations
+		\n[x] file-chooser for download dest.
+		\n[x] add quality suffix options
+		\n[x] file renaming options
+		\n------------------------------------
+		</string>
+	<string name="screen_licences_code_title">Licenses and Code	</string>
 
-    <!-- @5 -->
-    <string name="settings_cat_about">About</string>
-    <string name="title_changelog">Changelog</string>
-    <string name="changelog">
-        	\n  v1.5		- Jan XX 2013
-        	\n------------------------------------
-			\n* option to fetch filesizes
-			\n* stop download on click
-			\n* DM link in preferences
-			\n* overflow menu for settings and DM
-			\n
-			\n  v1.4		- Jan 29 2013
-			\n------------------------------------
-			\n* licenses and code links
-			\n* \'Share this App\' option
-			\n
-			\n  v1.3.1		- Jan 19 2013
-			\n------------------------------------
-			\n* handle again http|https links
-			\n  (thanks Reiner)
-			\n
-			\n  v1.3		- Jan 18 2013
-			\n------------------------------------
-			\n* share via mobile links support
-			\n
-			\n  v1.2		- Dec 25 2012
-			\n------------------------------------
-			\n* fix for YouTube webpage changes
-			\n
-			\n  v1.1.1		- Dec 16 2012
-			\n------------------------------------
-			\n* fix in preferences
-			\n
-			\n  v1.1 		- Dec 13 2012
-			\n------------------------------------
-			\n* all text strings exported
-			\n* preferences modification
-			\n* quick start tutorial
-			\n
-			\n  v1.0.1		- Dec 11 2012
-			\n------------------------------------
-			\n* bad typo fixed
-			\n* new folder icons for file-chooser
-			\n
-			\n  v1.0 		- Dec 11 2012
-			\n------------------------------------
-			\n* FIRST PUBLIC RELEASE
-			\n* send download via SSH
-			\n* JB compatibility
-			\n* SSH send how-to dialog
-			\n* standard download locations
-			\n* file-chooser for download location
-			\n* add quality suffix options
-			\n* file renaming options
-			\n------------------------------------
-	</string>
-    <string name="screen_licences_code_title">Licenses and Code</string>
+	<!-- @5.1 -->
+	<string name="settings_cat_licenses">Licenses	</string>
+	<string name="gpl_title">YTD\'s License	</string>
+	<string name="gpl_summary">GPL-3.0	</string>
+	<string name="title_activity_gpl_show">GPL-3.0	</string>
+	<string name="gpl_text">	GNU GENERAL PUBLIC LICENSE
+		\n\n
+		Copyright &#169; 2013 Samuele Rini
+		\n\n
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+		\n\n
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+		GNU General Public License for more details.
+		\n\n
+		You should have received a copy of the GNU General Public License
+		along with this program. If not, see	<http>http://www.gnu.org/licenses	</http>.	</string>
+	<string name="mit_title">Filechooser\'s Licence	</string>
+	<string name="mit_summary">MIT License	</string>
+	<string name="title_activity_mit_show">MIT License	</string>
+	<string name="mit_text">	The MIT License (MIT)
+		\n\n
+		Copyright &#169; 2012 Hai Bison
+		\n\n
+		Permission is hereby granted, free of charge, to any person obtaining a copy of
+		this software and associated documentation files (the "Software"), to deal in
+		the Software without restriction, including without limitation the rights to
+		use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+		the Software, and to permit persons to whom the Software is furnished to do so,
+		subject to the following conditions:
+		\n\n
+		The above copyright notice and this permission notice shall be included in all
+		copies or substantial portions of the Software.
+		\n\n
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+		FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+		COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+		IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+		CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.	</string>
 
-    <!-- @5.1 -->
-    <string name="settings_cat_licenses">Licenses</string>
-    <string name="gpl_title">YTD\'s License</string>
-    <string name="gpl_summary">GPL-3.0</string>
-    <string name="title_activity_gpl_show">GPL-3.0</string>
-    <string name="gpl_text">	        GNU GENERAL PUBLIC LICENSE
-	        \n\n
-			Copyright &#169; 2013  Samuele Rini
-			\n\n
-			This program is free software: you can redistribute it and/or modify
-			it under the terms of the GNU General Public License as published by
-			the Free Software Foundation, either version 3 of the License, or
-			(at your option) any later version.
-			\n\n
-			This program is distributed in the hope that it will be useful,
-			but WITHOUT ANY WARRANTY; without even the implied warranty of
-			MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-			GNU General Public License for more details.
-			\n\n
-			You should have received a copy of the GNU General Public License
-			along with this program.  If not, see <http>http://www.gnu.org/licenses</http>.</string>
-    <string name="mit_title">Filechooser\'s Licence</string>
-    <string name="mit_summary">MIT License</string>
-    <string name="title_activity_mit_show">MIT License</string>
-    <string name="mit_text">	        The MIT License (MIT)
-	        \n\n
-			Copyright &#169; 2012 Hai Bison
-			\n\n
-			Permission is hereby granted, free of charge, to any person obtaining a copy of
-			this software and associated documentation files (the "Software"), to deal in
-			the Software without restriction, including without limitation the rights to
-			use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-			the Software, and to permit persons to whom the Software is furnished to do so,
-			subject to the following conditions:
-			\n\n
-			The above copyright notice and this permission notice shall be included in all
-			copies or substantial portions of the Software.
-			\n\n
-			THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-			IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-			FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-			COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-			IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-			CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+	<!-- @5.2 -->
+	<string name="settings_cat_code">Source Code	</string>
+	<string name="ytd_code_git_title">YTD at GitHub	</string>
+	<string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/	</string>
+	<string name="ytd_code_hg_title">YTD at Sourceforge	</string>
+	<string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/	</string>
+	<string name="chooser_code_title">Filechooser at Google Code	</string>
+	<string name="chooser_code_summary">https://code.google.com/p/android-filechooser/	</string>
 
-    <!-- @5.2 -->
-    <string name="settings_cat_code">Source Code</string>
-    <string name="ytd_code_git_title">YTD at GitHub</string>
-    <string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
-    <string name="ytd_code_hg_title">YTD at Sourceforge</string>
-    <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
-    <string name="chooser_code_title">Filechooser at Google Code</string>
-    <string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
-
-    <!-- @6 -->
-    <string name="settings_cat_social">Social</string>
-    <string name="share_title">Share this App</string>
-    <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230; </string>
-    <string name="share_warning">No suitable Apps found.</string>
-    <string name="share_message">YTD - YouTube Downloader
-	    	\nFree and Open-Source Android App to download from YouTube video!
-	    	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+	<!-- @6 -->
+	<string name="settings_cat_social">Social	</string>
+	<string name="share_title">Share this App	</string>
+	<string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230;	</string>
+	<string name="share_warning">No suitable Apps found.	</string>
+	<string name="share_message">YTD - #YouTubeDownloader
+	 	\nFree and Open-Source Android App to download from YouTube video!
+	 	\nhttps://sourceforge.net/projects/ytdownloader/files/	</string>
 
 </resources>

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dentex.youtube.downloader"
     android:installLocation="auto"
-    android:versionCode="32"
-    android:versionName="1.4" >
+    android:versionCode="31"
+    android:versionName="1.3.1" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -53,17 +53,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="dentex.youtube.downloader.GplShowActivity"
+            android:name="dentex.youtube.downloader.docs.GplShowActivity"
             android:label="@string/title_activity_gpl_show"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
-            android:name="dentex.youtube.downloader.MitShowActivity"
+            android:name="dentex.youtube.downloader.docs.MitShowActivity"
             android:label="@string/title_activity_mit_show"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
-            android:name="dentex.youtube.downloader.ChangelogActivity"
+            android:name="dentex.youtube.downloader.docs.ChangelogActivity"
             android:label="@string/title_changelog"
             android:theme="@style/LicenseTheme"  >
         </activity>

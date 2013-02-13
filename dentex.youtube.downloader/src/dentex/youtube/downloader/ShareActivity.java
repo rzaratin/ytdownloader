@@ -1,6 +1,5 @@
 package dentex.youtube.downloader;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,6 +33,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.Signature;
 import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
@@ -54,15 +55,18 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 
 public class ShareActivity extends Activity {
 	
+	//private static final int YTD_SIG_HASH = -1892118308; // final string
+	private static final int YTD_SIG_HASH = -118685648; // dev test
 	private ProgressBar progressBar1;
     public static final String USER_AGENT_FIREFOX = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729)";
     private static final String DEBUG_TAG = "ShareActivity";
     private TextView tv;
     private ListView lv;
-    private InputStream isFromString;
+    //private InputStream isFromString;
     List<String> links = new ArrayList<String>();
     List<String> codecs = new ArrayList<String>();
     List<String> qualities = new ArrayList<String>();
@@ -72,7 +76,7 @@ public class ShareActivity extends Activity {
     private String title;
     public int pos;
     public File path;
-    private String ytVideoLink;
+    //private String ytVideoLink;
     public String validatedLink;
     private DownloadManager downloadManager;
     private long enqueue;
@@ -83,7 +87,7 @@ public class ShareActivity extends Activity {
 	public CheckBox showAgain1;
 	public CheckBox showAgain2;
 	public TextView userFilename;
-	public static SharedPreferences settings;
+	public SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
 	public final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	public final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
@@ -92,12 +96,15 @@ public class ShareActivity extends Activity {
 	boolean generalInfoCheckboxEnabled;
 	boolean fileRenameEnabled;
 	public File chooserFolder;
-	private AsyncDownload ytQuery;
+	private AsyncDownload asyncDownload;
 	public String videoFileSize = "empty";
-	private AsyncSizeReq sizeQuery;
+	private AsyncSizeQuery sizeQuery;
 	public AlertDialog helpDialog;
 	private AlertDialog.Builder  helpBuilder;
 	public View SizeView;
+	private int currentHashCode;
+	private boolean ytdSigned = false;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,8 +135,8 @@ public class ShareActivity extends Activity {
                 }
             }
         }
-        registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        registerReceiver(c_receiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+        registerReceiver(completeReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        registerReceiver(clickReceiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
     }
 
     @Override
@@ -158,15 +165,15 @@ public class ShareActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        registerReceiver(c_receiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+        registerReceiver(completeReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        registerReceiver(clickReceiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-    	unregisterReceiver(receiver);
-    	unregisterReceiver(c_receiver);
+    	unregisterReceiver(completeReceiver);
+    	unregisterReceiver(clickReceiver);
     	Log.d(DEBUG_TAG, "Receivers unregistered_onStop");
     }
 
@@ -180,12 +187,22 @@ public class ShareActivity extends Activity {
             if (linkValidator(sharedText) == "not_a_valid_youtube_link") {
             	progressBar1.setVisibility(View.GONE);
             	tv.setText(getString(R.string.bad_link));
-                showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert");
+            	showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert");
             } else if (sharedText != null) {
             	showGeneralInfoTutorial();
-            	ytQuery = new AsyncDownload();
-            	ytQuery.execute(validatedLink);
-                //Toast.makeText(this, "Please wait...", Toast.LENGTH_LONG).show();
+            	// YouTube job
+            	asyncDownload = new AsyncDownload();
+            	asyncDownload.execute(validatedLink);
+            	
+            	// Update job
+            	if (getSigHash() == YTD_SIG_HASH) {
+            		ytdSigned  = true;
+            		Log.d(DEBUG_TAG, "Found YTD signature: proceding with update check...");
+            		asyncDownload = new AsyncDownload();
+            		asyncDownload.execute("http://sourceforge.net/projects/ytdownloader/files/");
+            	} else {
+            		Log.d(DEBUG_TAG, "Found different signature: " + currentHashCode + " (F-Droid?). Update check cancelled.");
+            	}
             }
         } else {
         	progressBar1.setVisibility(View.GONE);
@@ -193,6 +210,19 @@ public class ShareActivity extends Activity {
         	showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert");
         }
     }
+
+	private int getSigHash() {
+		try {
+			Signature[] sigs = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES).signatures;
+			for (Signature sig : sigs) {
+				currentHashCode = sig.hashCode();
+			}
+		} catch (NameNotFoundException e) {
+		    Log.e("signature not found", e.getMessage());
+		    currentHashCode = 0;
+		}
+		return currentHashCode;
+	}
     
     void showGeneralInfoTutorial() {
         generalInfoCheckboxEnabled = settings.getBoolean("general_info", true);
@@ -236,7 +266,7 @@ public class ShareActivity extends Activity {
     public boolean pathCheckOK() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state) && path.canWrite()) {
-        	Pattern extPattern = Pattern.compile("(extSdCard|sdcard1|emmc)");
+        	Pattern extPattern = Pattern.compile(SettingsFragment.EXT_CARD_NAMES);
         	Matcher extMatcher = extPattern.matcher(path.toString());
         	if (extMatcher.find()) {
         		return false;
@@ -279,7 +309,7 @@ public class ShareActivity extends Activity {
 		protected String doInBackground(String... urls) {
             // params comes from the execute() call: params[0] is the url.
             try {
-                Log.d(DEBUG_TAG, "doInBackground...");
+            	Log.d(DEBUG_TAG, "doInBackground...");
                 return downloadUrl(urls[0]);
             } catch (IOException e) {
                 return "e";
@@ -321,7 +351,7 @@ public class ShareActivity extends Activity {
         						"\n\n\tCodec: " + codecs.get(position) + 
         						"\n\tQuality: " + qualities.get(position));
                     } else {
-                    	sizeQuery = new AsyncSizeReq();
+                    	sizeQuery = new AsyncSizeQuery();
                     	sizeQuery.execute(links.get(position));
                     }
 
@@ -332,6 +362,7 @@ public class ShareActivity extends Activity {
                             	Log.d(DEBUG_TAG, "Destination folder is available and writable");
                         		composedFilename = composeFilename();
 	                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
+	                            //ytVideoLink = links.get(pos);
 	                            if (fileRenameEnabled == true) {
 	                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
 	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
@@ -345,12 +376,12 @@ public class ShareActivity extends Activity {
 		                    	    	public void onClick(DialogInterface dialog, int which) {
 		                    	    		title = userFilename.getText().toString();
 		                    	    		composedFilename = composeFilename();
-											callDownloadManager();
+											callDownloadManager(links.get(pos));
 		                    	    	}
 		                    	    });
 		                    	    adb.show();
 	                            } else {
-									callDownloadManager();
+									callDownloadManager(links.get(pos));
 	                            }
                             } else {
                             	Log.d(DEBUG_TAG, "Destination folder is NOT available and/or NOT writable");
@@ -442,19 +473,6 @@ public class ShareActivity extends Activity {
     	    return vfilename;
         }
 
-		void callDownloadManager() {
-        	ytVideoLink = links.get(pos);
-            downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-            Request request = new Request(Uri.parse(ytVideoLink));
-			videoUri = Uri.parse(path.toURI() + composedFilename);
-            Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
-            request.setDestinationUri(videoUri);
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setTitle(vfilename);
-        	enqueue = downloadManager.enqueue(request);
-        }
-
 		void callConnectBot() {
         	Context context = getApplicationContext();
     		PackageManager pm = context.getPackageManager();
@@ -485,6 +503,18 @@ public class ShareActivity extends Activity {
     	        helpDialog.show();
     		}
         }
+    }
+    
+    void callDownloadManager(String link) {
+        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        Request request = new Request(Uri.parse(link));
+		videoUri = Uri.parse(path.toURI() + composedFilename);
+        Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
+        request.setDestinationUri(videoUri);
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setTitle(vfilename);
+    	enqueue = downloadManager.enqueue(request);
     }
 
     // Given a URL, establishes an HttpUrlConnection and retrieves
@@ -528,10 +558,38 @@ public class ShareActivity extends Activity {
         char[] buffer = new char[len];
         reader.read(buffer);
         String content = new String(buffer);
-        return urlBlockMatchAndDecode(content);
+        
+        if (ytdSigned == true) {
+	        //Pattern pattern = Pattern.compile("http://sourceforge.net/projects/ytdownloader/files/dentex.youtube.downloader_v(.*).apk/download");
+	        Pattern pattern = Pattern.compile("versionName=(.*)</p>");
+	        Matcher matcher = pattern.matcher(content);
+	        if (matcher.find()) {
+	        	return OnlineUpdateCheck(matcher.group(1));
+	        } else {
+	        	return urlBlockMatchAndDecode(content);
+	        }
+        } else {
+        	return urlBlockMatchAndDecode(content);
+        }
     }
 
-    public String urlBlockMatchAndDecode(String content) {
+    private String OnlineUpdateCheck(String onlineVersion) {
+    	Log.d(DEBUG_TAG, "on-line version: " + onlineVersion);
+    	String currentVersion = null;
+		try {
+		    currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+		    Log.d(DEBUG_TAG, "current version: " + currentVersion);
+		} catch (NameNotFoundException e) {
+		    Log.e("version not read", e.getMessage());
+		    currentVersion = "100";
+		}
+    	
+    	// TODO 
+    	//Utils.VersionComparator.compare(onlineVersion, currentVersion);
+		return onlineVersion;
+	}
+
+	public String urlBlockMatchAndDecode(String content) {
 
         findVideoFilename(content);
 
@@ -598,7 +656,7 @@ public class ShareActivity extends Activity {
         Iterator<String> codecsIter = codecs.iterator();
         Iterator<String> qualitiesIter = qualities.iterator();
         while (codecsIter.hasNext()) {
-            cqsChoices.add(codecsIter.next() + "\t-\t" + qualitiesIter.next());// + "\t-\t" + sizesIter.next());
+            cqsChoices.add(codecsIter.next() + "\t-\t" + qualitiesIter.next());
         }
     }
 
@@ -624,7 +682,7 @@ public class ShareActivity extends Activity {
     	}
 	}
     
-    private class AsyncSizeReq extends AsyncTask<String, Void, String> {
+    private class AsyncSizeQuery extends AsyncTask<String, Void, String> {
 
 		protected String doInBackground(String... urls) {
             // params comes from the execute() call: params[0] is the url.
@@ -646,7 +704,7 @@ public class ShareActivity extends Activity {
         	helpDialog = helpBuilder.create();
             helpDialog.show();
         	
-        	Log.d(DEBUG_TAG, "result = " + result);
+        	Log.d(DEBUG_TAG, "video File Size: " + videoFileSize);
         }
 	}
     
@@ -657,27 +715,25 @@ public class ShareActivity extends Activity {
 			ucon=uri.openConnection();
 			ucon.connect();
 			int file_size = ucon.getContentLength();
-			return MakeSizeHumanReabable(file_size, true);
+			return MakeSizeHumanReadable(file_size, true);
 		} catch(final IOException e) {
-			return "e";
+			return "n.a.";
 		}
 	}
 	
 	@SuppressLint("DefaultLocale")
-	private String MakeSizeHumanReabable(int bytes, boolean si) {
+	private String MakeSizeHumanReadable(int bytes, boolean si) {
+		String hr;
 		int unit = si ? 1000 : 1024;
-	    if (bytes < unit) return bytes + " B";
-	    int exp = (int) (Math.log(bytes) / Math.log(unit));
-	    String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
-	    String hr = String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
-	    
-	    Pattern minusPattern = Pattern.compile("-1 B");
-	    Matcher minusMatcher = minusPattern.matcher(hr);
-	    if (minusMatcher.find()) {
-	    	return "n.a.";
-	    } else {
-	    	return hr;
-	    }
+	    if (bytes < unit) {
+	    	hr = bytes + " B";
+		} else {
+			int exp = (int) (Math.log(bytes) / Math.log(unit));
+			String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+			hr = String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+		}
+		hr = hr.replace("-1 B", "n.a.");
+	    return hr;
 	}
 
     private void codecMatcher(String currentCQ, int i) {
@@ -702,14 +758,14 @@ public class ShareActivity extends Activity {
         //Log.d(DEBUG_TAG, "CQ index: " + i + ", Quality: " + qualities.get(i));
     }
 
-    public InputStream stringToIs(String text) {
+    /*public InputStream stringToIs(String text) {
         try {
             isFromString = new ByteArrayInputStream(text.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return isFromString;
-    }
+    }*/
 
     void createLogFile(InputStream stream, String filename) {
         File file = new File(path, filename);
@@ -740,30 +796,7 @@ public class ShareActivity extends Activity {
         }
     }
 
-    private void showPopUp(String title, String message, String type) {
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
-        helpBuilder.setTitle(title);
-        helpBuilder.setMessage(message);
-
-        if ( type == "alert" ) {
-            icon = android.R.drawable.ic_dialog_alert;
-        } else if ( type == "info" ) {
-            icon = android.R.drawable.ic_dialog_info;
-        }
-
-        helpBuilder.setIcon(icon);
-        helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
-            }
-        });
-
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
-    }
-
-    BroadcastReceiver receiver = new BroadcastReceiver() {
+    BroadcastReceiver completeReceiver = new BroadcastReceiver() {
 
 		@Override
         public void onReceive(Context context, Intent intent) {
@@ -775,8 +808,6 @@ public class ShareActivity extends Activity {
                 if (c.moveToFirst()) {
                     int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
                     if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
-                    	//Toast.makeText(getApplicationContext(), "Download Completed", Toast.LENGTH_LONG).show();
-                    	//createLogFile(stringToIs(vfilename + " Downlownload SUCCESSFUL"), "YTD_log.txt"); //TODO
                         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
                         helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                         helpBuilder.setTitle(getString(R.string.information));
@@ -807,7 +838,7 @@ public class ShareActivity extends Activity {
         }
     };
             
-    BroadcastReceiver c_receiver = new BroadcastReceiver() {
+    BroadcastReceiver clickReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();            
@@ -822,7 +853,7 @@ public class ShareActivity extends Activity {
 	                	DownloadManager.STATUS_PENDING == c2.getInt(columnIndex)) {
 	                	AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
 	                	helpBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        helpBuilder.setTitle(getString(R.string.cancel_download_dialog_title));
+	                	helpBuilder.setTitle(getString(R.string.cancel_download_dialog_title));
                         helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
@@ -844,4 +875,27 @@ public class ShareActivity extends Activity {
             }
         }
 	};
+	
+    private void showPopUp(String title, String message, String type) {
+        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
+        helpBuilder.setTitle(title);
+        helpBuilder.setMessage(message);
+
+        if ( type == "alert" ) {
+            icon = android.R.drawable.ic_dialog_alert;
+        } else if ( type == "info" ) {
+            icon = android.R.drawable.ic_dialog_info;
+        }
+
+        helpBuilder.setIcon(icon);
+        helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+            }
+        });
+
+        AlertDialog helpDialog = helpBuilder.create();
+        helpDialog.show();
+    }
 }
