@@ -56,11 +56,13 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
+import dentex.youtube.downloader.utils.Utils;
 
 public class ShareActivity extends Activity {
 	
 	//private static final int YTD_SIG_HASH = -1892118308; // final string
-	private static final int YTD_SIG_HASH = -118685648; // dev test
+	//private static final int YTD_SIG_HASH = -118685648; // dev test desktop
+	private static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 	private ProgressBar progressBar1;
     public static final String USER_AGENT_FIREFOX = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729)";
     private static final String DEBUG_TAG = "ShareActivity";
@@ -79,10 +81,13 @@ public class ShareActivity extends Activity {
     //private String ytVideoLink;
     public String validatedLink;
     private DownloadManager downloadManager;
+    private DownloadManager downloadManager2;
     private long enqueue;
+    private long enqueue2;
 	String vfilename = "video";
 	String composedFilename = "";
     private Uri videoUri;
+    private Uri fileUri;
     private int icon;
 	public CheckBox showAgain1;
 	public CheckBox showAgain2;
@@ -104,7 +109,9 @@ public class ShareActivity extends Activity {
 	public View SizeView;
 	private int currentHashCode;
 	private boolean ytdSigned = false;
-
+	public String upgrading = "not_updating";
+	private String currentVersion;
+	private String apkFilename;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,6 +144,7 @@ public class ShareActivity extends Activity {
         }
         registerReceiver(completeReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         registerReceiver(clickReceiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+        //registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     @Override
@@ -167,6 +175,7 @@ public class ShareActivity extends Activity {
         super.onResume();
         registerReceiver(completeReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         registerReceiver(clickReceiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+        //registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     @Override
@@ -174,6 +183,7 @@ public class ShareActivity extends Activity {
         super.onStop();
     	unregisterReceiver(completeReceiver);
     	unregisterReceiver(clickReceiver);
+    	//unregisterReceiver(apkReceiver);
     	Log.d(DEBUG_TAG, "Receivers unregistered_onStop");
     }
 
@@ -306,7 +316,7 @@ public class ShareActivity extends Activity {
 
     private class AsyncDownload extends AsyncTask<String, Void, String> {
 
-		protected String doInBackground(String... urls) {
+    	protected String doInBackground(String... urls) {
             // params comes from the execute() call: params[0] is the url.
             try {
             	Log.d(DEBUG_TAG, "doInBackground...");
@@ -319,6 +329,10 @@ public class ShareActivity extends Activity {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
+        	
+        	/*if (upgrading.equals("updating")) {
+        		Toast.makeText(ShareActivity.this, "Downloading new apk...", Toast.LENGTH_LONG).show();
+        	} else {*/
         	
         	progressBar1.setVisibility(View.GONE);
         	
@@ -456,6 +470,7 @@ public class ShareActivity extends Activity {
                 }
             });
         }
+        }
         
         public boolean useQualitySuffix() {
         	boolean qualitySuffixEnabled = settings.getBoolean("enable_q_suffix", true);
@@ -503,7 +518,7 @@ public class ShareActivity extends Activity {
     	        helpDialog.show();
     		}
         }
-    }
+	//}
     
     void callDownloadManager(String link) {
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -540,8 +555,7 @@ public class ShareActivity extends Activity {
             is = conn.getInputStream();
 
             //Convert the InputStream into a string
-            String contentAsString = readIt(is, len);
-            return contentAsString;
+            return readIt(is, len);
 
             //Makes sure that the InputStream is closed after the app is finished using it.
         } finally {
@@ -561,7 +575,7 @@ public class ShareActivity extends Activity {
         
         if (ytdSigned == true) {
 	        //Pattern pattern = Pattern.compile("http://sourceforge.net/projects/ytdownloader/files/dentex.youtube.downloader_v(.*).apk/download");
-	        Pattern pattern = Pattern.compile("versionName=(.*)</p>");
+	        Pattern pattern = Pattern.compile("versionName=\\\"(.*)\\\"</p>");
 	        Matcher matcher = pattern.matcher(content);
 	        if (matcher.find()) {
 	        	return OnlineUpdateCheck(matcher.group(1));
@@ -575,7 +589,6 @@ public class ShareActivity extends Activity {
 
     private String OnlineUpdateCheck(String onlineVersion) {
     	Log.d(DEBUG_TAG, "on-line version: " + onlineVersion);
-    	String currentVersion = null;
 		try {
 		    currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 		    Log.d(DEBUG_TAG, "current version: " + currentVersion);
@@ -584,9 +597,25 @@ public class ShareActivity extends Activity {
 		    currentVersion = "100";
 		}
     	
-    	// TODO 
-    	//Utils.VersionComparator.compare(onlineVersion, currentVersion);
-		return onlineVersion;
+    	String res = Utils.VersionComparator.compare(onlineVersion, currentVersion);
+    	Log.d(DEBUG_TAG, "version comparison: " + onlineVersion + " " + res + " " + currentVersion);
+
+    	if (res.contentEquals(">")) {	// TODO dialogo per conferma download
+    		File dir = dir_Downloads;
+    		String apklink = "http://sourceforge.net/projects/ytdownloader/files/dentex.youtube.downloader_v" + onlineVersion + ".apk/download";
+    		apkFilename = "dentex.youtube.downloader_v" + onlineVersion + ".apk";
+    		downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+	        Request request2 = new Request(Uri.parse(apklink));
+	        fileUri = Uri.parse(dir.toURI() + apkFilename);
+	        request2.setDestinationUri(fileUri);
+	        //request.allowScanningByMediaScanner();
+	        //request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+	        request2.setTitle("YTD v" + onlineVersion); // <-- TODO controllare se il titolo cambia anche il nome de file
+	        request2.setTitle(apkFilename);
+	        enqueue = downloadManager.enqueue(request2);
+    		Log.d(DEBUG_TAG, "apk file enqueued");
+    	}
+    	return "";
 	}
 
 	public String urlBlockMatchAndDecode(String content) {
@@ -820,6 +849,12 @@ public class ShareActivity extends Activity {
                                 v_intent.setAction(android.content.Intent.ACTION_VIEW);
                                 v_intent.setDataAndType(videoUri, "video/*");
                                 startActivity(v_intent);
+
+                                // TODO titolo e msg dialogo download completo
+                                Intent intent = new Intent();
+                                intent.setAction(android.content.Intent.ACTION_VIEW);
+                            	intent.setDataAndType(fileUri, "application/vnd.android.package-archive");
+                            	startActivity(intent);
                             }
                         });
 
@@ -875,8 +910,8 @@ public class ShareActivity extends Activity {
             }
         }
 	};
-	
-    private void showPopUp(String title, String message, String type) {
+
+	private void showPopUp(String title, String message, String type) {
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
         helpBuilder.setTitle(title);
         helpBuilder.setMessage(message);
