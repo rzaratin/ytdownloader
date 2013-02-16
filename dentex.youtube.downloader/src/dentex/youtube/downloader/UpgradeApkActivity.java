@@ -1,14 +1,18 @@
 package dentex.youtube.downloader;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashSet;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +34,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore.Files;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -267,9 +270,19 @@ public class UpgradeApkActivity extends Activity {
                         helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
-                            
                             	
-                            	
+                            	try {
+									//byte[] md5 = digest(fileUri);
+									String md5 = digest(fileUri);
+									Log.d(DEBUG_TAG, "digest: " + md5);
+								} catch (NoSuchAlgorithmException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
                                 Intent intent = new Intent();
                                 intent.setAction(android.content.Intent.ACTION_VIEW);
                             	intent.setDataAndType(fileUri, "application/vnd.android.package-archive");
@@ -316,4 +329,21 @@ public class UpgradeApkActivity extends Activity {
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
     }
+
+	//public byte[] digest(Uri uri) throws NoSuchAlgorithmException, IOException {
+	public String digest(Uri uri) throws NoSuchAlgorithmException, IOException {	
+		InputStream is = new FileInputStream(new File(uri.getPath()));
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		try {
+		      is = new DigestInputStream(is, md);
+		      // read stream to EOF as normal...
+		    }
+		finally {
+		      is.close();
+		   }
+		//byte[] digest = md.digest();
+		String md5 = new BigInteger(1, md.digest()).toString(16) ;
+		//return digest;
+		return md5;
+	}
 }
