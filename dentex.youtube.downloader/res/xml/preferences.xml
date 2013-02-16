@@ -2,31 +2,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
     <Preference    
-	        android:key="dm"
-	        android:title="@string/dm_title"
-	        android:summary="@string/dm_summary" />
-    
-	<PreferenceCategory
-        android:title="@string/settings_cat_tutorials">
-         
-        <Preference 
-            android:key="quick_start"
-            android:title="@string/quick_start_title" 
-            android:summary="@string/quick_start_summ" />
-               	
-    	<CheckBoxPreference
-        	android:key="general_info"
-        	android:title="@string/general_info_title"
-        	android:summary="@string/general_info_summary"
-        	android:defaultValue="true" />
-    	
-    	<CheckBoxPreference
-        	android:key="ssh_info"
-        	android:title="@string/ssh_info_title"
-        	android:summary="@string/ssh_info_summary"
-        	android:defaultValue="true" />
-
-    </PreferenceCategory>
+		android:key="dm"
+		android:title="@string/dm_title"
+		android:summary="@string/dm_summary" />
     
     <PreferenceCategory
     	android:title="@string/settings_cat_folder">
@@ -77,9 +55,39 @@
     
     </PreferenceCategory>
     
+    <PreferenceCategory
+        android:title="@string/settings_cat_tutorials">
+         
+        <Preference 
+            android:key="quick_start"
+            android:title="@string/quick_start_title" 
+            android:summary="@string/quick_start_summ" />
+               	
+    	<CheckBoxPreference
+        	android:key="general_info"
+        	android:title="@string/general_info_title"
+        	android:summary="@string/general_info_summary"
+        	android:defaultValue="true" />
+    	
+    	<CheckBoxPreference
+        	android:key="ssh_info"
+        	android:title="@string/ssh_info_title"
+        	android:summary="@string/ssh_info_summary"
+        	android:defaultValue="true" />
+
+    </PreferenceCategory>
+    
     <PreferenceCategory 
     	android:title="@string/settings_cat_about" >
-    
+    	
+        <Preference 
+        	android:key="update"
+			android:title="@string/update_title" />
+		
+	    <Preference 
+	        android:key="changelog"
+	        android:title="@string/title_changelog"/>
+	    
 	    <PreferenceScreen
 	        android:key="licenses_code"
 	        android:title="@string/screen_licences_code_title" >
@@ -120,10 +128,6 @@
 		    </PreferenceCategory>
 		
 		</PreferenceScreen>
-		
-	    <Preference 
-	        android:key="changelog"
-	        android:title="@string/title_changelog"/>
 		
 	</PreferenceCategory>
 	

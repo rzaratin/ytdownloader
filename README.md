@@ -7,11 +7,11 @@ YouTube Downloader - Android App to download videos from YouTube
 
 ################################################################
 
-versionCode="33"
-versionName="1.5" >
+versionCode="32"
+versionName="1.3.55" >
 
 LICENSE
--------
+================================================================
 Copyright (C) 2012  Samuele Rini
 
     This program is free software: you can redistribute it and/or modify
@@ -29,14 +29,17 @@ Copyright (C) 2012  Samuele Rini
 
 
 CHANGELOG
----------
+================================================================
     
      v1.5 - Jan XX 2013 
     ------------------------------------ 
+    [x] online update check 
     [x] option to fetch filesizes 
     [x] stop download on click 
-    [x] DM link in preferences 
-    [x] overflow menu for settings, DM 
+    [x] DownloadManager quick links 
+    [x] overflow menu x settings and DM 
+    [x] reordered preferences 
+    [x] general code cleanup 
      
      v1.4 - Jan 29 2013 
     ------------------------------------ 
@@ -80,5 +83,4 @@ CHANGELOG
     [x] standard download locations 
     [x] file-chooser for download dest. 
     [x] add quality suffix options 
-    [x] file renaming options 
-    ------------------------------------
+    [x] file renaming options

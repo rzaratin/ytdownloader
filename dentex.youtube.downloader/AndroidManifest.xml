@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dentex.youtube.downloader"
     android:installLocation="auto"
-    android:versionCode="31"
-    android:versionName="1.3.5" >
+    android:versionCode="32"
+    android:versionName="1.3.55" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -45,6 +45,7 @@
         <activity
             android:name="dentex.youtube.downloader.SettingsActivity"
             android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"
             android:theme="@style/AppThemeDark" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,17 +56,26 @@
         <activity
             android:name="dentex.youtube.downloader.docs.GplShowActivity"
             android:label="@string/title_activity_gpl_show"
+            android:screenOrientation="portrait"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
             android:name="dentex.youtube.downloader.docs.MitShowActivity"
             android:label="@string/title_activity_mit_show"
+            android:screenOrientation="portrait"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
             android:name="dentex.youtube.downloader.docs.ChangelogActivity"
             android:label="@string/title_changelog"
-            android:theme="@style/LicenseTheme"  >
+            android:screenOrientation="portrait"
+            android:theme="@style/LicenseTheme" >
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.UpgradeApkActivity"
+            android:label="@string/title_activity_upgrade_apk" 
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDark" >
         </activity>
     </application>
 

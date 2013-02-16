@@ -10,9 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -31,6 +29,7 @@ import android.util.Log;
 import dentex.youtube.downloader.docs.ChangelogActivity;
 import dentex.youtube.downloader.docs.GplShowActivity;
 import dentex.youtube.downloader.docs.MitShowActivity;
+import dentex.youtube.downloader.utils.Utils;
 
 public class SettingsActivity extends Activity {
 	
@@ -68,7 +67,7 @@ public class SettingsActivity extends Activity {
 		private Preference gc;
 		private Preference share;
 		private Preference cl;
-		private int icon;
+		private Preference up;
 		
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -113,7 +112,7 @@ public class SettingsActivity extends Activity {
             quickStart.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 				
 				public boolean onPreferenceClick(Preference preference) {
-					showPopUp(getString(R.string.quick_start_title), getString(R.string.quick_start_text), "info");
+					Utils.showPopUpInFragment(getString(R.string.quick_start_title), getString(R.string.quick_start_text), "info", SettingsFragment.this);
 					return true;
 				}
 			});
@@ -188,7 +187,7 @@ public class SettingsActivity extends Activity {
                     	startActivity(Intent.createChooser(shareIntent, "Share this YTD"));
                     } catch (final ActivityNotFoundException e) {
                     	Log.d(DEBUG_TAG, "No suitable Apps found.");
-                    	showPopUp(getString(R.string.attention), getString(R.string.share_warning), "alert");
+                    	Utils.showPopUpInFragment(getString(R.string.attention), getString(R.string.share_warning), "alert", SettingsFragment.this);
                     }
                 	return true;
                 }
@@ -201,6 +200,16 @@ public class SettingsActivity extends Activity {
                 	Intent intent = new Intent(getActivity(),  ChangelogActivity.class);
                 	startActivity(intent);
                     return true;
+                }
+            });
+            
+            up = (Preference) findPreference("update");
+            up.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+		            Intent intent = new Intent(getActivity(),  UpgradeApkActivity.class);
+		            startActivity(intent);
+		            return true;
                 }
             });
         }
@@ -268,12 +277,12 @@ public class SettingsActivity extends Activity {
                         	Pattern extPattern = Pattern.compile(SettingsFragment.EXT_CARD_NAMES);
                         	Matcher extMatcher = extPattern.matcher(f.toString());
                         	if (extMatcher.find()) {
-                        		showPopUp(getString(R.string.attention), getString(R.string.extsdcard_warning), "alert");
+                        		Utils.showPopUpInFragment(getString(R.string.attention), getString(R.string.extsdcard_warning), "alert", SettingsFragment.this);
                         		Log.d(DEBUG_TAG, "...but it's on removable sdcard");
                         	}
                         } else { 
                     		Log.d(DEBUG_TAG, "Chosen folder is NOT writable");
-                    		showPopUp(getString(R.string.attention), getString(R.string.system_warning), "alert");
+                    		Utils.showPopUpInFragment(getString(R.string.attention), getString(R.string.system_warning), "alert", SettingsFragment.this);
                         }
                     	
                     	chooserSummary = f.toString();
@@ -290,7 +299,7 @@ public class SettingsActivity extends Activity {
             }
         }
         
-        private void showPopUp(String title, String message, String type) {
+        /*private void showPopUp(String title, String message, String type) {
             AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getActivity());
             helpBuilder.setTitle(title);
             helpBuilder.setMessage(message);
@@ -311,6 +320,6 @@ public class SettingsActivity extends Activity {
 
             AlertDialog helpDialog = helpBuilder.create();
             helpDialog.show();
-        }
+        }*/
 	}
 }

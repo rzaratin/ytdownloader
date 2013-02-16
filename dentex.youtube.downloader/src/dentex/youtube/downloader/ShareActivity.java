@@ -24,6 +24,7 @@ import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.DownloadManager.Request;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -33,8 +34,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.Signature;
 import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
@@ -60,9 +59,6 @@ import dentex.youtube.downloader.utils.Utils;
 
 public class ShareActivity extends Activity {
 	
-	//private static final int YTD_SIG_HASH = -1892118308; // final string
-	//private static final int YTD_SIG_HASH = -118685648; // dev test desktop
-	private static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 	private ProgressBar progressBar1;
     public static final String USER_AGENT_FIREFOX = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729)";
     private static final String DEBUG_TAG = "ShareActivity";
@@ -78,16 +74,12 @@ public class ShareActivity extends Activity {
     private String title;
     public int pos;
     public File path;
-    //private String ytVideoLink;
     public String validatedLink;
     private DownloadManager downloadManager;
-    private DownloadManager downloadManager2;
     private long enqueue;
-    private long enqueue2;
 	String vfilename = "video";
 	String composedFilename = "";
     private Uri videoUri;
-    private Uri fileUri;
     private int icon;
 	public CheckBox showAgain1;
 	public CheckBox showAgain2;
@@ -106,12 +98,8 @@ public class ShareActivity extends Activity {
 	private AsyncSizeQuery sizeQuery;
 	public AlertDialog helpDialog;
 	private AlertDialog.Builder  helpBuilder;
-	public View SizeView;
-	private int currentHashCode;
-	private boolean ytdSigned = false;
-	public String upgrading = "not_updating";
-	private String currentVersion;
-	private String apkFilename;
+	protected boolean downloadingApk = false;
+	public static String onlineVersion;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -197,42 +185,19 @@ public class ShareActivity extends Activity {
             if (linkValidator(sharedText) == "not_a_valid_youtube_link") {
             	progressBar1.setVisibility(View.GONE);
             	tv.setText(getString(R.string.bad_link));
-            	showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert");
+            	Utils.showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert", this);
             } else if (sharedText != null) {
             	showGeneralInfoTutorial();
             	// YouTube job
             	asyncDownload = new AsyncDownload();
             	asyncDownload.execute(validatedLink);
-            	
-            	// Update job
-            	if (getSigHash() == YTD_SIG_HASH) {
-            		ytdSigned  = true;
-            		Log.d(DEBUG_TAG, "Found YTD signature: proceding with update check...");
-            		asyncDownload = new AsyncDownload();
-            		asyncDownload.execute("http://sourceforge.net/projects/ytdownloader/files/");
-            	} else {
-            		Log.d(DEBUG_TAG, "Found different signature: " + currentHashCode + " (F-Droid?). Update check cancelled.");
-            	}
             }
         } else {
         	progressBar1.setVisibility(View.GONE);
         	tv.setText(getString(R.string.no_net));
-        	showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert");
+        	Utils.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
         }
     }
-
-	private int getSigHash() {
-		try {
-			Signature[] sigs = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES).signatures;
-			for (Signature sig : sigs) {
-				currentHashCode = sig.hashCode();
-			}
-		} catch (NameNotFoundException e) {
-		    Log.e("signature not found", e.getMessage());
-		    currentHashCode = 0;
-		}
-		return currentHashCode;
-	}
     
     void showGeneralInfoTutorial() {
         generalInfoCheckboxEnabled = settings.getBoolean("general_info", true);
@@ -329,15 +294,12 @@ public class ShareActivity extends Activity {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-        	
-        	/*if (upgrading.equals("updating")) {
-        		Toast.makeText(ShareActivity.this, "Downloading new apk...", Toast.LENGTH_LONG).show();
-        	} else {*/
-        	
+
         	progressBar1.setVisibility(View.GONE);
         	
             if (result == "e") {
-                showPopUp(getString(R.string.error), getString(R.string.invalid_url), "alert");
+            	tv.setText(getString(R.string.invalid_url_short));
+                Utils.showPopUp(getString(R.string.error), getString(R.string.invalid_url), "alert", ShareActivity.this);
             }
 
             final String[] lv_arr = cqsChoices.toArray(new String[0]);
@@ -376,7 +338,7 @@ public class ShareActivity extends Activity {
                             	Log.d(DEBUG_TAG, "Destination folder is available and writable");
                         		composedFilename = composeFilename();
 	                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
-	                            //ytVideoLink = links.get(pos);
+
 	                            if (fileRenameEnabled == true) {
 	                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
 	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
@@ -399,7 +361,7 @@ public class ShareActivity extends Activity {
 	                            }
                             } else {
                             	Log.d(DEBUG_TAG, "Destination folder is NOT available and/or NOT writable");
-                            	showPopUp(getString(R.string.unable_save), getString(R.string.unable_save_dialog_msg), "alert");
+                            	Utils.showPopUp(getString(R.string.unable_save), getString(R.string.unable_save_dialog_msg), "alert", ShareActivity.this);
                             }
                         }
                     });
@@ -470,7 +432,6 @@ public class ShareActivity extends Activity {
                 }
             });
         }
-        }
         
         public boolean useQualitySuffix() {
         	boolean qualitySuffixEnabled = settings.getBoolean("enable_q_suffix", true);
@@ -504,8 +465,12 @@ public class ShareActivity extends Activity {
     	        cb.setPositiveButton(getString(R.string.callConnectBot_dialog_positive), new DialogInterface.OnClickListener() {
     	            public void onClick(DialogInterface dialog, int which) {
     	            	Intent intent = new Intent(Intent.ACTION_VIEW); 
-    	            	intent.setData(Uri.parse("market://details?id=org.connectbot")); 
-    	            	startActivity(intent);
+    	            	intent.setData(Uri.parse("market://details?id=org.connectbot"));
+    	            	try {
+    	            		startActivity(intent);
+    	            	} catch (ActivityNotFoundException exception){
+    	            		Utils.showPopUp(getString(R.string.no_market), getString(R.string.no_net_dialog_msg), "alert", ShareActivity.this);
+    	            	}
     	            }
     	        });
     	        cb.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
@@ -518,7 +483,7 @@ public class ShareActivity extends Activity {
     	        helpDialog.show();
     		}
         }
-	//}
+	}
     
     void callDownloadManager(String link) {
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -530,6 +495,7 @@ public class ShareActivity extends Activity {
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setTitle(vfilename);
     	enqueue = downloadManager.enqueue(request);
+    	downloadingApk = false;
     }
 
     // Given a URL, establishes an HttpUrlConnection and retrieves
@@ -572,51 +538,8 @@ public class ShareActivity extends Activity {
         char[] buffer = new char[len];
         reader.read(buffer);
         String content = new String(buffer);
-        
-        if (ytdSigned == true) {
-	        //Pattern pattern = Pattern.compile("http://sourceforge.net/projects/ytdownloader/files/dentex.youtube.downloader_v(.*).apk/download");
-	        Pattern pattern = Pattern.compile("versionName=\\\"(.*)\\\"</p>");
-	        Matcher matcher = pattern.matcher(content);
-	        if (matcher.find()) {
-	        	return OnlineUpdateCheck(matcher.group(1));
-	        } else {
-	        	return urlBlockMatchAndDecode(content);
-	        }
-        } else {
-        	return urlBlockMatchAndDecode(content);
-        }
+       	return urlBlockMatchAndDecode(content);
     }
-
-    private String OnlineUpdateCheck(String onlineVersion) {
-    	Log.d(DEBUG_TAG, "on-line version: " + onlineVersion);
-		try {
-		    currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-		    Log.d(DEBUG_TAG, "current version: " + currentVersion);
-		} catch (NameNotFoundException e) {
-		    Log.e("version not read", e.getMessage());
-		    currentVersion = "100";
-		}
-    	
-    	String res = Utils.VersionComparator.compare(onlineVersion, currentVersion);
-    	Log.d(DEBUG_TAG, "version comparison: " + onlineVersion + " " + res + " " + currentVersion);
-
-    	if (res.contentEquals(">")) {	// TODO dialogo per conferma download
-    		File dir = dir_Downloads;
-    		String apklink = "http://sourceforge.net/projects/ytdownloader/files/dentex.youtube.downloader_v" + onlineVersion + ".apk/download";
-    		apkFilename = "dentex.youtube.downloader_v" + onlineVersion + ".apk";
-    		downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-	        Request request2 = new Request(Uri.parse(apklink));
-	        fileUri = Uri.parse(dir.toURI() + apkFilename);
-	        request2.setDestinationUri(fileUri);
-	        //request.allowScanningByMediaScanner();
-	        //request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-	        request2.setTitle("YTD v" + onlineVersion); // <-- TODO controllare se il titolo cambia anche il nome de file
-	        request2.setTitle(apkFilename);
-	        enqueue = downloadManager.enqueue(request2);
-    		Log.d(DEBUG_TAG, "apk file enqueued");
-    	}
-    	return "";
-	}
 
 	public String urlBlockMatchAndDecode(String content) {
 
@@ -849,12 +772,6 @@ public class ShareActivity extends Activity {
                                 v_intent.setAction(android.content.Intent.ACTION_VIEW);
                                 v_intent.setDataAndType(videoUri, "video/*");
                                 startActivity(v_intent);
-
-                                // TODO titolo e msg dialogo download completo
-                                Intent intent = new Intent();
-                                intent.setAction(android.content.Intent.ACTION_VIEW);
-                            	intent.setDataAndType(fileUri, "application/vnd.android.package-archive");
-                            	startActivity(intent);
                             }
                         });
 
@@ -911,7 +828,7 @@ public class ShareActivity extends Activity {
         }
 	};
 
-	private void showPopUp(String title, String message, String type) {
+	/*private void showPopUp(String title, String message, String type) {
         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
         helpBuilder.setTitle(title);
         helpBuilder.setMessage(message);
@@ -932,5 +849,5 @@ public class ShareActivity extends Activity {
 
         AlertDialog helpDialog = helpBuilder.create();
         helpDialog.show();
-    }
+    }*/
 }
