@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +30,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore.Files;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -91,19 +93,6 @@ public class UpgradeApkActivity extends Activity {
         }
 	}
 
-	/*private int getSigHash() {
-		try {
-			Signature[] sigs = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES).signatures;
-			for (Signature sig : sigs) {
-				currentHashCode = sig.hashCode();
-			}
-		} catch (NameNotFoundException e) {
-		    Log.e("signature not found", e.getMessage());
-		    currentHashCode = 0;
-		}
-		return currentHashCode;
-	}*/
-
 	@Override
     protected void onResume() {
         super.onResume();
@@ -125,7 +114,7 @@ public class UpgradeApkActivity extends Activity {
             	Log.d(DEBUG_TAG, "doInBackground...");
                 return downloadUrl(urls[0]);
             } catch (IOException e) {
-                return 0;
+                return 1;
             }
         }
 
@@ -164,7 +153,8 @@ public class UpgradeApkActivity extends Activity {
         }
         @Override
         protected void onPostExecute(Integer result) {
-
+        	
+        	Log.d(DEBUG_TAG, "result: " + result);
         	progressBar2.setVisibility(View.GONE);
         	
         	try {
@@ -235,12 +225,12 @@ public class UpgradeApkActivity extends Activity {
 	    	} else {
 	    		matchedChangeLog = "not_found";
 	    		Log.d(DEBUG_TAG, "no_changelog");
-	    		return 2;
+	    		return 1;
 	    	}
 	    } else {
         	matchedVersion = "not_found";
         	Log.d(DEBUG_TAG, "on-line version: not_found");
-        	return 1;
+        	return 2;
         }
     }
 	
@@ -256,7 +246,6 @@ public class UpgradeApkActivity extends Activity {
 	    request.setTitle("YouTube Downloader v" + ver);
 	    enqueue = downloadManager.enqueue(request);
 		Log.d(DEBUG_TAG, "apk file enqueued");
-	
 	}
 
 	BroadcastReceiver apkReceiver = new BroadcastReceiver() {
@@ -278,7 +267,9 @@ public class UpgradeApkActivity extends Activity {
                         helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
-                                // TODO titolo e msg dialogo download completo
+                            
+                            	
+                            	
                                 Intent intent = new Intent();
                                 intent.setAction(android.content.Intent.ACTION_VIEW);
                             	intent.setDataAndType(fileUri, "application/vnd.android.package-archive");
