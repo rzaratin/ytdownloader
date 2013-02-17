@@ -52,6 +52,7 @@
     <string name="extsdcard_warning">This App cannot write files on the external (removable) sdcard.\nStay on the standard sdcard.</string>
     <string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.</string>
     <string name="chooser_location_summary_init">Long-press to select a folder.</string>
+    <string name="update_disabled_summary">Found different signature (F-Droid?)</string>
     
     <!-- ### UpgradeApkActivity ### -->
     
@@ -64,6 +65,7 @@
     <string name="upgraded_dialog_negative">Later\n(manually)</string>
     <string name="upgrade_latest_installed">Latest version is already installed!</string>
     <string name="upgrade_network_error">Unable to retrieve update data</string>
+    <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again</string>
     
     <!-- ### preferences ### -->
 

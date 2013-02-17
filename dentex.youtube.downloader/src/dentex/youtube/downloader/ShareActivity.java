@@ -84,7 +84,7 @@ public class ShareActivity extends Activity {
 	public CheckBox showAgain1;
 	public CheckBox showAgain2;
 	public TextView userFilename;
-	public SharedPreferences settings;
+	public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
 	public final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	public final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);

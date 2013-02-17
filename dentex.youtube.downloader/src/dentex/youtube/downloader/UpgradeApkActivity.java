@@ -1,18 +1,13 @@
 package dentex.youtube.downloader;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.DigestInputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,14 +36,8 @@ import android.widget.TextView;
 import dentex.youtube.downloader.utils.Utils;
 
 public class UpgradeApkActivity extends Activity {
-	//TODO
-	//private static final int YTD_SIG_HASH = -1892118308; // final string
-	
-	private static final int YTD_SIG_HASH = -118685648; // dev test desktop
-	//private static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 	
 	private ProgressBar progressBar2;
-	private int currentHashCode;
 	private String currentVersion;
 	private String apkFilename;
 	private static final String DEBUG_TAG = "UpgradeApkActivity";
@@ -80,19 +69,12 @@ public class UpgradeApkActivity extends Activity {
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-			if (Utils.getSigHash(this) == YTD_SIG_HASH) {
-				Log.d(DEBUG_TAG, "Found YTD signature: proceding with update check...");
-	    		asyncDownload = new AsyncDownload();
-	    		asyncDownload.execute("http://sourceforge.net/projects/ytdownloader/files/");
-	    	} else {
-	    		progressBar2.setVisibility(View.GONE);
-	    		Log.d(DEBUG_TAG, "Found different signature: " + currentHashCode + " (F-Droid?). Update check cancelled.");
-	    		showPopUp("Found different signature (F-Droid?)", "Update check cancelled.", "info");
-	    	}
+	    	asyncDownload = new AsyncDownload();
+	    	asyncDownload.execute("http://sourceforge.net/projects/ytdownloader/files/");
         } else {
         	progressBar2.setVisibility(View.GONE);
         	tv.setText(getString(R.string.no_net));
-        	showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert");
+        	Utils.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
         }
 	}
 
@@ -117,6 +99,7 @@ public class UpgradeApkActivity extends Activity {
             	Log.d(DEBUG_TAG, "doInBackground...");
                 return downloadUrl(urls[0]);
             } catch (IOException e) {
+            	Log.e(DEBUG_TAG, "doInBackground: " + e.getMessage());
                 return 1;
             }
         }
@@ -195,7 +178,7 @@ public class UpgradeApkActivity extends Activity {
 		            helpDialog.show();
             
 		    	} else if (res.contentEquals("==")) {
-		    		Utils.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", UpgradeApkActivity.this); //TODO
+		    		Utils.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", UpgradeApkActivity.this);
 		    		Log.d(DEBUG_TAG, "version comparison: latest version is already installed!");
 		    	} else {
 		    		// No need for a popup...
@@ -203,11 +186,11 @@ public class UpgradeApkActivity extends Activity {
 		    	}
 		    	
 			} catch (NameNotFoundException e) {
-			    Log.e("version not read", e.getMessage());
+			    Log.e(DEBUG_TAG, "version not read: " + e.getMessage());
 			    currentVersion = "100";
 			} catch (NullPointerException e) {
-				Utils.showPopUp(getString(R.string.error), getString(R.string.upgrade_network_error), "alert", UpgradeApkActivity.this); //TODO
-				Log.d(DEBUG_TAG, "unable to retrieve update data");
+				Utils.showPopUp(getString(R.string.error), getString(R.string.upgrade_network_error), "alert", UpgradeApkActivity.this);
+				Log.e(DEBUG_TAG, "unable to retrieve update data: " + e.getMessage());
 			}
         }   
 	}
@@ -263,87 +246,59 @@ public class UpgradeApkActivity extends Activity {
                 if (c.moveToFirst()) {
                     int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
                     if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
-                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
-                        helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
-                        helpBuilder.setTitle(getString(R.string.information));
-                        helpBuilder.setMessage(getString(R.string.upgraded_dialog_msg));
-                        helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int which) {
-                            	
-                            	try {
-									//byte[] md5 = digest(fileUri);
-									String md5 = digest(fileUri);
-									Log.d(DEBUG_TAG, "digest: " + md5);
-								} catch (NoSuchAlgorithmException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-
-                                Intent intent = new Intent();
-                                intent.setAction(android.content.Intent.ACTION_VIEW);
-                            	intent.setDataAndType(fileUri, "application/vnd.android.package-archive");
-                            	startActivity(intent);
-                            }
-                        });
-
-                        helpBuilder.setNegativeButton(getString(R.string.upgraded_dialog_negative), new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int which) {
-                            	// cancel
-                            }
-                        });
-
-                        AlertDialog helpDialog = helpBuilder.create();
-                        helpDialog.show();
+                    	
+                    	if (Utils.checkMD5("-TODO_-_MD5-string-from-webpage-", new File(dir + "/" + apkFilename))) { //TODO
+                    	
+	                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
+	                        helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
+	                        helpBuilder.setTitle(getString(R.string.information));
+	                        helpBuilder.setMessage(getString(R.string.upgraded_dialog_msg));
+	                        helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	
+	                            public void onClick(DialogInterface dialog, int which) {
+	
+	                                Intent intent = new Intent();
+	                                intent.setAction(android.content.Intent.ACTION_VIEW);
+	                            	intent.setDataAndType(fileUri, "application/vnd.android.package-archive");
+	                            	startActivity(intent);
+	                            }
+	                        });
+	
+	                        helpBuilder.setNegativeButton(getString(R.string.upgraded_dialog_negative), new DialogInterface.OnClickListener() {
+	
+	                            public void onClick(DialogInterface dialog, int which) {
+	                            	// cancel
+	                            }
+	                        });
+	
+	                        AlertDialog helpDialog = helpBuilder.create();
+	                        helpDialog.show();
+                        
+                    	} else {
+                    		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
+	                        helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
+	                        helpBuilder.setTitle(getString(R.string.information));
+	                        helpBuilder.setMessage(getString(R.string.upgrade_bad_md5_dialog_msg));
+	                        helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+	                        	
+	                            public void onClick(DialogInterface dialog, int which) {
+	                            	callDownloadApk(matchedVersion);
+	                            }
+	                        });
+	
+	                        helpBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+	
+	                            public void onClick(DialogInterface dialog, int which) {
+	                            	// cancel
+	                            }
+	                        });
+	
+	                        AlertDialog helpDialog = helpBuilder.create();
+	                        helpDialog.show();
+                    	}
                     }
                 }
             }
 		}
 	};
-
-	private int icon;
-	
-	private void showPopUp(String title, String message, String type) {
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
-        helpBuilder.setTitle(title);
-        helpBuilder.setMessage(message);
-
-        if ( type == "alert" ) {
-            icon = android.R.drawable.ic_dialog_alert;
-        } else if ( type == "info" ) {
-            icon = android.R.drawable.ic_dialog_info;
-        }
-
-        helpBuilder.setIcon(icon);
-        helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
-            }
-        });
-
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
-    }
-
-	//public byte[] digest(Uri uri) throws NoSuchAlgorithmException, IOException {
-	public String digest(Uri uri) throws NoSuchAlgorithmException, IOException {	
-		InputStream is = new FileInputStream(new File(uri.getPath()));
-		MessageDigest md = MessageDigest.getInstance("MD5");
-		try {
-		      is = new DigestInputStream(is, md);
-		      // read stream to EOF as normal...
-		    }
-		finally {
-		      is.close();
-		   }
-		//byte[] digest = md.digest();
-		String md5 = new BigInteger(1, md.digest()).toString(16) ;
-		//return digest;
-		return md5;
-	}
 }

@@ -1,5 +1,10 @@
 package dentex.youtube.downloader.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -9,16 +14,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.util.Log;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
+import dentex.youtube.downloader.ShareActivity;
 
 public class Utils extends Activity{
 	
-	//private static final String DEBUG_TAG = "Utils";
-	
+	private static final String DEBUG_TAG = "Utils";
+	public static SharedPreferences settings = ShareActivity.settings;
+	public final static String PREFS_NAME = ShareActivity.PREFS_NAME;
 	private static int icon;
 
 	public static void showPopUp(String title, String message, String type, Context context) {
@@ -94,32 +102,77 @@ public class Utils extends Activity{
     }
 
 	public static int currentHashCode;
-    
-	public static int getSigHash(Context context) {
+	
+	public static int getSigHash(SettingsFragment sf) {
+
 		try {
-			Signature[] sigs = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
+			Signature[] sigs = sf.getActivity().getPackageManager().getPackageInfo(sf.getActivity().getPackageName(), PackageManager.GET_SIGNATURES).signatures;
 			for (Signature sig : sigs) {
 				currentHashCode = sig.hashCode();
+				Log.e(DEBUG_TAG, "getSigHash: App signature " + currentHashCode);
 			}
 		} catch (NameNotFoundException e) {
-		    Log.e("signature not found", e.getMessage());
-		    currentHashCode = 0;
+		    Log.e(DEBUG_TAG, "getSigHash: App signature not found; " + e.getMessage());
 		}
 		return currentHashCode;
 	}
-	
-	public static String getMD5EncryptedString(String encTarget){ //TODO
-        MessageDigest mdEnc = null;
-        try {
-            mdEnc = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-        	Log.e("Exception while encrypting to md5", e.getMessage());
-            e.printStackTrace();
-        }
-        // Encryption algorithm
-        mdEnc.update(encTarget.getBytes(), 0, encTarget.length());
-        String md5 = new BigInteger(1, mdEnc.digest()).toString(16) ;
-        return md5;
-    }
+
+		public static boolean checkMD5(String md5, File updateFile) { //TODO aggiugnere crediti alla CM
+	        if (md5 == null || md5.equals("") || updateFile == null) {
+	            Log.e(DEBUG_TAG, "MD5 String NULL or UpdateFile NULL");
+	            return false;
+	        }
+
+	        String calculatedDigest = calculateMD5(updateFile);
+	        if (calculatedDigest == null) {
+	            Log.e(DEBUG_TAG, "calculatedDigest NULL");
+	            return false;
+	        }
+
+	        Log.i(DEBUG_TAG, "Calculated digest: " + calculatedDigest);
+	        Log.i(DEBUG_TAG, "Provided digest: " + md5);
+
+	        return calculatedDigest.equalsIgnoreCase(md5);
+	    }
+
+	    public static String calculateMD5(File updateFile) {
+	        MessageDigest digest;
+	        try {
+	            digest = MessageDigest.getInstance("MD5");
+	        } catch (NoSuchAlgorithmException e) {
+	            Log.e(DEBUG_TAG, "Exception while getting Digest", e);
+	            return null;
+	        }
+
+	        InputStream is;
+	        try {
+	            is = new FileInputStream(updateFile);
+	        } catch (FileNotFoundException e) {
+	            Log.e(DEBUG_TAG, "Exception while getting FileInputStream", e);
+	            return null;
+	        }
+
+	        byte[] buffer = new byte[8192];
+	        int read;
+	        try {
+	            while ((read = is.read(buffer)) > 0) {
+	                digest.update(buffer, 0, read);
+	            }
+	            byte[] md5sum = digest.digest();
+	            BigInteger bigInt = new BigInteger(1, md5sum);
+	            String output = bigInt.toString(16);
+	            // Fill to 32 chars
+	            output = String.format("%32s", output).replace(' ', '0');
+	            return output;
+	        } catch (IOException e) {
+	            throw new RuntimeException("Unable to process file for MD5", e);
+	        } finally {
+	            try {
+	                is.close();
+	            } catch (IOException e) {
+	                Log.e(DEBUG_TAG, "Exception on closing MD5 input stream", e);
+	            }
+	        }
+	    }
     
 }

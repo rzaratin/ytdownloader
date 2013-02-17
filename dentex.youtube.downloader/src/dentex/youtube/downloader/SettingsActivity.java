@@ -35,8 +35,8 @@ public class SettingsActivity extends Activity {
 	
 	private static final int _ReqChooseFile = 0;
 	public static String chooserSummary;
-    public static SharedPreferences settings;
-	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
+    public static SharedPreferences settings = ShareActivity.settings;
+	public final String PREFS_NAME = ShareActivity.PREFS_NAME;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,10 @@ public class SettingsActivity extends Activity {
 		private Preference share;
 		private Preference cl;
 		private Preference up;
+		//TODO
+		//public static final int YTD_SIG_HASH = -1892118308; // final string
+		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
+		public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 		
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +87,7 @@ public class SettingsActivity extends Activity {
                     return true;
                 }
             });
-            
+
             String cf = settings.getString("CHOOSER_FOLDER", "");
             if (cf.isEmpty()) {
             	chooserSummary = getString(R.string.chooser_location_summary_init);
@@ -91,6 +95,7 @@ public class SettingsActivity extends Activity {
             	chooserSummary = settings.getString("CHOOSER_FOLDER", "");
             }
             initSwapPreference();
+            //initUpdatePreference();
             
             for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
                 initSummary(getPreferenceScreen().getPreference(i));
@@ -212,7 +217,42 @@ public class SettingsActivity extends Activity {
 		            return true;
                 }
             });
-        }
+ 
+			int prefSig = settings.getInt("APP_SIGNATURE", 0);
+			Log.d(DEBUG_TAG, "prefSig: " + prefSig);
+			
+			if (prefSig == 0 ) {
+				if (Utils.getSigHash(SettingsFragment.this) == YTD_SIG_HASH) {
+					Log.d(DEBUG_TAG, "Found YTD signature: update check possile");
+					up.setEnabled(true);
+		    	} else {
+		    		Log.d(DEBUG_TAG, "Found different signature: " + Utils.currentHashCode + " (F-Droid?). Update check cancelled.");
+		    		up.setEnabled(false);
+		    		up.setSummary(R.string.update_disabled_summary);
+		    	}
+				SharedPreferences.Editor editor = settings.edit();
+		    	editor.putInt("APP_SIGNATURE", Utils.currentHashCode);
+		    	if (editor.commit()) Log.d(DEBUG_TAG, "saving sig pref...");
+			} else {
+				if (prefSig == YTD_SIG_HASH) {
+					Log.d(DEBUG_TAG, "YTD signature in prefs: update check possile");
+					up.setEnabled(true);
+				} else {
+					Log.d(DEBUG_TAG, "diffrent YTD signature in prefs (F-Droid?). Update check cancelled.");
+					up.setEnabled(false);
+				}
+			}
+			
+			/*if (Utils.getSigHash(SettingsFragment.this) == YTD_SIG_HASH) {
+				Log.d(DEBUG_TAG, "Found YTD signature: update check possile");
+				up.setEnabled(true);
+	    	} else {
+	    		Log.d(DEBUG_TAG, "Found different signature: " + currentHashCode + " (F-Droid?). Update check cancelled.");
+	    		up.setEnabled(false);
+	    		up.setSummary(R.string.update_disabled_summary);
+	    	}*/
+			
+		}
 
 		private void initSwapPreference() {
 			boolean swap = settings.getBoolean("swap_location", false);
@@ -298,28 +338,5 @@ public class SettingsActivity extends Activity {
                 break;
             }
         }
-        
-        /*private void showPopUp(String title, String message, String type) {
-            AlertDialog.Builder helpBuilder = new AlertDialog.Builder(getActivity());
-            helpBuilder.setTitle(title);
-            helpBuilder.setMessage(message);
-
-            if ( type == "alert" ) {
-                icon = android.R.drawable.ic_dialog_alert;
-            } else if ( type == "info" ) {
-                icon = android.R.drawable.ic_dialog_info;
-            }
-
-            helpBuilder.setIcon(icon);
-            helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-                public void onClick(DialogInterface dialog, int which) {
-                    // Do nothing but close the dialog
-                }
-            });
-
-            AlertDialog helpDialog = helpBuilder.create();
-            helpDialog.show();
-        }*/
 	}
 }
