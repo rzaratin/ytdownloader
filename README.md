@@ -1,14 +1,15 @@
-ytdownloader
+YouTube Downloader
 ================================================================
 
-YouTube Downloader - Android App to download videos from YouTube
-
-['for Android 3+]
+Android 3+ App to download videos from YouTube
 
 ################################################################
 
-versionCode="32"
-versionName="1.4" >
+`versionCode="32"`
+
+`versionName="1.3.55"`
+
+MD5 checksum: `d7ef1e4668b24517fb54231571b4a74f` dentex.youtube.downloader_v1.4.apk
 
 LICENSE
 ================================================================
@@ -31,9 +32,9 @@ Copyright (C) 2012  Samuele Rini
 CHANGELOG
 ================================================================
     
-     v1.5 - TO BE RELEASED
+     v1.5 - Jan XX 2013 
     ------------------------------------ 
-    [ ] online update check _ wip
+    [x] online update check 
     [x] option to fetch filesizes 
     [x] stop download on click 
     [x] DownloadManager quick links 

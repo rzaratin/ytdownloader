@@ -3,16 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="5dip"
     tools:context=".UpgradeApkActivity" >
-    
-	<TextView
-        android:id="@+id/upgrade_textview1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="#303030"
-        android:text="@string/upgrade_text" 
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:id="@+id/hor"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/upgrade_upper_text"
+            android:layout_width="200dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#303030"
+            android:textAlignment="center"
+            android:textIsSelectable="true" 
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <View
+            android:layout_width="5dp" 
+            android:layout_height="58dp" />
+
+        <Button
+            android:id="@+id/upgrade_button"
+            android:layout_width="100dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/upgrade_button_init"
+            android:enabled="true"
+            android:onClick="upgradeButtonClick"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar2"
@@ -20,19 +44,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
-    
-    <ScrollView
-		android:orientation="vertical"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" >
-	
-		<TextView
-		    android:id="@+id/upgrade_textview2"
-		    android:textIsSelectable="true"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:typeface="monospace" />
 
-	</ScrollView>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/upgrade_textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:typeface="monospace" />
+        
+    </ScrollView>
 
 </LinearLayout>

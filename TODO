@@ -1,5 +1,12 @@
 
+- ASAP: fix F.C. when switching back and forth between video list and apk upgrade activities !!!
+
+- auto update-check once a day
+- change to library project "aFilechooser" instead of "android-filechooser" currently in use
 - downloads log
 - use icon to identify codecs available
 - use thumbnail for video preview
+- make tablet friendly
+
+
 - AUDIO EXTRACTION !!!

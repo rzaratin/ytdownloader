@@ -60,6 +60,7 @@ import dentex.youtube.downloader.utils.Utils;
 public class ShareActivity extends Activity {
 	
 	private ProgressBar progressBar1;
+	private ProgressBar filesizeProgressBar;
     public static final String USER_AGENT_FIREFOX = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729)";
     private static final String DEBUG_TAG = "ShareActivity";
     private TextView tv;
@@ -97,7 +98,9 @@ public class ShareActivity extends Activity {
 	public String videoFileSize = "empty";
 	private AsyncSizeQuery sizeQuery;
 	public AlertDialog helpDialog;
+	public AlertDialog waitBox;
 	private AlertDialog.Builder  helpBuilder;
+	private AlertDialog.Builder  waitBuilder;
 	protected boolean downloadingApk = false;
 	public static String onlineVersion;
 
@@ -109,7 +112,6 @@ public class ShareActivity extends Activity {
     	settings = getSharedPreferences(PREFS_NAME, 0);
         
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
-        progressBar1.setVisibility(View.VISIBLE);
         
         lv = (ListView) findViewById(R.id.list);
         tv = (TextView) findViewById(R.id.textView1);
@@ -132,7 +134,6 @@ public class ShareActivity extends Activity {
         }
         registerReceiver(completeReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         registerReceiver(clickReceiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
-        //registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     @Override
@@ -147,23 +148,20 @@ public class ShareActivity extends Activity {
         switch(item.getItemId()){
         	case R.id.menu_settings:
         		startActivity(new Intent(this, SettingsActivity.class));
-        	return true;
+        		return true;
         	case R.id.menu_dm:
         		startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
-        	return true;
+        		return true;
         	default:
         		return super.onOptionsItemSelected(item);
         }
-
     }
- 
     
     @Override
     protected void onResume() {
         super.onResume();
         registerReceiver(completeReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         registerReceiver(clickReceiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
-        //registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     @Override
@@ -171,7 +169,6 @@ public class ShareActivity extends Activity {
         super.onStop();
     	unregisterReceiver(completeReceiver);
     	unregisterReceiver(clickReceiver);
-    	//unregisterReceiver(apkReceiver);
     	Log.d(DEBUG_TAG, "Receivers unregistered_onStop");
     }
 
@@ -188,7 +185,6 @@ public class ShareActivity extends Activity {
             	Utils.showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert", this);
             } else if (sharedText != null) {
             	showGeneralInfoTutorial();
-            	// YouTube job
             	asyncDownload = new AsyncDownload();
             	asyncDownload.execute(validatedLink);
             }
@@ -281,6 +277,11 @@ public class ShareActivity extends Activity {
 
     private class AsyncDownload extends AsyncTask<String, Void, String> {
 
+    	protected void onPreExecute() {
+    		tv.setText(R.string.loading);
+    		progressBar1.setVisibility(View.VISIBLE);
+    	}
+    	
     	protected String doInBackground(String... urls) {
             // params comes from the execute() call: params[0] is the url.
             try {
@@ -308,8 +309,6 @@ public class ShareActivity extends Activity {
 
             tv.setText(titleRaw);
             lv.setOnItemClickListener(new OnItemClickListener() {
-            	
-            	//private String currentSize;
 
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					
@@ -635,6 +634,22 @@ public class ShareActivity extends Activity {
 	}
     
     private class AsyncSizeQuery extends AsyncTask<String, Void, String> {
+    	
+    	protected void onPreExecute() {
+    		waitBuilder = new AlertDialog.Builder(ShareActivity.this);
+    		LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
+    	    View barView = adbInflater.inflate(R.layout.wait_for_filesize, null);
+    	    filesizeProgressBar = (ProgressBar) barView.findViewById(R.id.filesizeProgressBar);
+    	    filesizeProgressBar.setVisibility(View.VISIBLE);
+    	    waitBuilder.setView(barView);
+    	    waitBuilder.setIcon(android.R.drawable.ic_dialog_info);
+    	    waitBuilder.setTitle(R.string.wait);
+    	    waitBuilder.setMessage(titleRaw + 
+					"\n\n\tCodec: " + codecs.get(pos) + 
+					"\n\tQuality: " + qualities.get(pos));
+    	    waitBox = waitBuilder.create();
+    	    waitBox.show();
+    	}
 
 		protected String doInBackground(String... urls) {
             // params comes from the execute() call: params[0] is the url.
@@ -647,6 +662,10 @@ public class ShareActivity extends Activity {
 
         @Override
         protected void onPostExecute(String result) {
+        	
+        	filesizeProgressBar.setVisibility(View.GONE);
+        	waitBox.dismiss();
+        	
         	videoFileSize = result;
         	
         	helpBuilder.setMessage(titleRaw + 
@@ -791,6 +810,7 @@ public class ShareActivity extends Activity {
     };
             
     BroadcastReceiver clickReceiver = new BroadcastReceiver() {
+    	
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();            
@@ -827,27 +847,4 @@ public class ShareActivity extends Activity {
             }
         }
 	};
-
-	/*private void showPopUp(String title, String message, String type) {
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
-        helpBuilder.setTitle(title);
-        helpBuilder.setMessage(message);
-
-        if ( type == "alert" ) {
-            icon = android.R.drawable.ic_dialog_alert;
-        } else if ( type == "info" ) {
-            icon = android.R.drawable.ic_dialog_info;
-        }
-
-        helpBuilder.setIcon(icon);
-        helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
-            }
-        });
-
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
-    }*/
 }

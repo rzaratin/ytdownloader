@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="#303030"
-        android:text="@string/VideoTitle"
+        android:textIsSelectable="true" 
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ProgressBar

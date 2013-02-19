@@ -70,8 +70,8 @@ public class SettingsActivity extends Activity {
 		private Preference up;
 		//TODO
 		//public static final int YTD_SIG_HASH = -1892118308; // final string
-		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
-		public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
+		public static final int YTD_SIG_HASH = -118685648; // dev test desktop
+		//public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 		
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,6 @@ public class SettingsActivity extends Activity {
             	chooserSummary = settings.getString("CHOOSER_FOLDER", "");
             }
             initSwapPreference();
-            //initUpdatePreference();
             
             for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
                 initSummary(getPreferenceScreen().getPreference(i));
@@ -241,17 +240,7 @@ public class SettingsActivity extends Activity {
 					Log.d(DEBUG_TAG, "diffrent YTD signature in prefs (F-Droid?). Update check cancelled.");
 					up.setEnabled(false);
 				}
-			}
-			
-			/*if (Utils.getSigHash(SettingsFragment.this) == YTD_SIG_HASH) {
-				Log.d(DEBUG_TAG, "Found YTD signature: update check possile");
-				up.setEnabled(true);
-	    	} else {
-	    		Log.d(DEBUG_TAG, "Found different signature: " + currentHashCode + " (F-Droid?). Update check cancelled.");
-	    		up.setEnabled(false);
-	    		up.setSummary(R.string.update_disabled_summary);
-	    	}*/
-			
+			}			
 		}
 
 		private void initSwapPreference() {

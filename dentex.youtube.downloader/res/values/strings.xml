@@ -6,7 +6,6 @@
     <string name="title_activity_share">YouTube Downloader</string>
     <string name="title_activity_settings">YouTube Downloader Settings</string>
     <string name="title_activity_upgrade_apk">YouTube Downloader Upgrade</string>
-    <string name="md5sum">md5sum: d7ef1e4668b24517fb54231571b4a74f dentex.youtube.downloader_v1.4.apk</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -14,10 +13,11 @@
     <string name="tutorial_msg">Now you will see a list with all the codecs and qualities available for the selected video.
 		\n\nChoose one item and you will be asked to download the video locally (on the phone) or to send the download via SSH to a linux machine.
 		\n\nDestination linux-box requirements: Bash and Wget. Additional SSH info further on.</string>
-    <string name="VideoTitle">Loading&#8230;</string>
+    <string name="loading">Loading&#8230;</string>
     <string name="error">Error!</string>
     <string name="information">Information</string>
     <string name="dialogs_negative">Cancel</string>
+    <string name="wait">Please wait&#8230;</string>
     <string name="invalid_url">Unable to retrieve web page. URL may be invalid."</string>
     <string name="invalid_url_short">Unable to retrieve web page."</string>
     <string name="bad_link">Check the provided link.</string>
@@ -56,15 +56,18 @@
     
     <!-- ### UpgradeApkActivity ### -->
     
-    <string name="upgrade_text">Searching&#8230;</string>
-    <string name="upgrade_dialog_msg">New version available: v</string>
+    <string name="upgrade_button_init">Update</string>
+    <string name="upgrade_button_clicked">Download\nand install</string>
+    <string name="upgrade_uppertext_searching">Searching&#8230;</string>
+    <string name="upgrade_uppertext_init">Installed version:\n</string>
+    <string name="upgrade_dialog_msg">New version available:\t</string>
     <string name="upgrade_dialog_positive">Download</string>
-	<string name="upgrade_latest">Latest:      v</string>
-    <string name="upgrade_installed">\nInstalled:  v</string>
+	<string name="upgrade_latest">Latest: </string>
+    <string name="upgrade_installed">\nInstalled: </string>
     <string name="upgraded_dialog_msg">New version stored in standard sdcard \'Download\' folder.\n\nInstall now?</string>
     <string name="upgraded_dialog_negative">Later\n(manually)</string>
     <string name="upgrade_latest_installed">Latest version is already installed!</string>
-    <string name="upgrade_network_error">Unable to retrieve update data</string>
+    <string name="upgrade_network_error">Unable to retrieve update data.\nRetry later</string>
     <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again</string>
     
     <!-- ### preferences ### -->
@@ -112,8 +115,8 @@
     <string name="title_changelog">Changelog</string>
     <string name="changelog">		
 		\n v1.5 - Jan XX 2013
-		\n------------------------------------
-		\n[x] online update check
+		\n-----------------------------------
+		\n[ ] online update check _ wip
 		\n[x] option to fetch filesizes
 		\n[x] stop download on click
 		\n[x] DownloadManager quick links
@@ -122,40 +125,40 @@
 		\n[x] general code cleanup
 		\n
 		\n v1.4 - Jan 29 2013
-		\n------------------------------------
+		\n-----------------------------------
 		\n[x] licenses and code links
 		\n[x] Share this App option
 		\n
 		\n v1.3.1 - Jan 19 2013
-		\n------------------------------------
+		\n-----------------------------------
 		\n[x] handle again http|https links
 		\n (thanks Reiner)
 		\n
 		\n v1.3 - Jan 18 2013
-		\n------------------------------------
+		\n-----------------------------------
 		\n[x] share via mobile links support
 		\n
 		\n v1.2 - Dec 25 2012
-		\n------------------------------------
+		\n-----------------------------------
 		\n[x] fix for YouTube webpage changes
 		\n
 		\n v1.1.1 - Dec 16 2012
-		\n------------------------------------
+		\n-----------------------------------
 		\n[x] fix in preferences
 		\n
 		\n v1.1 - Dec 13 2012
-		\n------------------------------------
+		\n-----------------------------------
 		\n[x] all text strings exported
 		\n[x] preferences modification
 		\n[x] quick start tutorial
 		\n
 		\n v1.0.1 - Dec 11 2012
-		\n------------------------------------
+		\n-----------------------------------
 		\n[x] bad typo fixed
 		\n[x] new folder icons in file-chooser
 		\n
 		\n v1.0 - Dec 11 2012
-		\n------------------------------------
+		\n-----------------------------------
 		\n[x] FIRST PUBLIC RELEASE
 		\n[x] send download via SSH
 		\n[x] JB compatibility
@@ -164,7 +167,7 @@
 		\n[x] file-chooser for download dest.
 		\n[x] add quality suffix options
 		\n[x] file renaming options
-		\n------------------------------------</string>
+		\n-----------------------------------</string>
     <string name="screen_licences_code_title">Licenses and Code</string>
 
     <!-- @5.1 -->
