@@ -32,8 +32,8 @@ Copyright (C) 2012  Samuele Rini
 CHANGELOG
 ================================================================
     
-     v1.5 - Jan XX 2013 
-    ------------------------------------ 
+     v1.5 - TO BE RELEASED 
+    ----------------------------------- 
     [x] online update check 
     [x] option to fetch filesizes 
     [x] stop download on click 
@@ -43,40 +43,40 @@ CHANGELOG
     [x] general code cleanup 
      
      v1.4 - Jan 29 2013 
-    ------------------------------------ 
+    ----------------------------------- 
     [x] licenses and code links 
     [x] Share this App option 
      
      v1.3.1 - Jan 19 2013 
-    ------------------------------------ 
+    ----------------------------------- 
     [x] handle again http|https links 
      (thanks Reiner) 
      
      v1.3 - Jan 18 2013 
-    ------------------------------------ 
+    ----------------------------------- 
     [x] share via mobile links support 
      
      v1.2 - Dec 25 2012 
-    ------------------------------------ 
+    ----------------------------------- 
     [x] fix for YouTube webpage changes 
      
      v1.1.1 - Dec 16 2012 
-    ------------------------------------ 
+    ----------------------------------- 
     [x] fix in preferences 
      
      v1.1 - Dec 13 2012 
-    ------------------------------------ 
+    ----------------------------------- 
     [x] all text strings exported 
     [x] preferences modification 
     [x] quick start tutorial 
      
      v1.0.1 - Dec 11 2012 
-    ------------------------------------ 
+    ----------------------------------- 
     [x] bad typo fixed 
     [x] new folder icons in file-chooser 
      
      v1.0 - Dec 11 2012 
-    ------------------------------------ 
+    ----------------------------------- 
     [x] FIRST PUBLIC RELEASE 
     [x] send download via SSH 
     [x] JB compatibility 
