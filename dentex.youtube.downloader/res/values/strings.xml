@@ -62,8 +62,8 @@
     <string name="upgrade_uppertext_init">Installed version:\n</string>
     <string name="upgrade_dialog_msg">New version available:\t</string>
     <string name="upgrade_dialog_positive">Download</string>
-	<string name="upgrade_latest">Latest: </string>
-    <string name="upgrade_installed">\nInstalled: </string>
+    <string name="upgrade_latest">Latest:\t</string>
+    <string name="upgrade_installed">\nInstalled:\t</string>
     <string name="upgraded_dialog_msg">New version stored in standard sdcard \'Download\' folder.\n\nInstall now?</string>
     <string name="upgraded_dialog_negative">Later\n(manually)</string>
     <string name="upgrade_latest_installed">Latest version is already installed!</string>
@@ -114,9 +114,9 @@
     <string name="settings_cat_about">About</string>
     <string name="title_changelog">Changelog</string>
     <string name="changelog">		
-		\n v1.5 - Jan XX 2013
+		\n v1.5 - TO BE RELEASED
 		\n-----------------------------------
-		\n[ ] online update check _ wip
+		\n[x] online update check
 		\n[x] option to fetch filesizes
 		\n[x] stop download on click
 		\n[x] DownloadManager quick links
