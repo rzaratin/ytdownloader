@@ -51,7 +51,7 @@ public class UpgradeApkActivity extends Activity {
 	File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 	public long enqueue;
 	private Uri fileUri;
-	private AsyncDownload asyncDownload;
+	private AsyncUpdate asyncUpdate;
 	public String onlineVersion;
 	public String onlineChangelog;
 	public String matchedVersion;
@@ -80,8 +80,6 @@ public class UpgradeApkActivity extends Activity {
         tv.setText(getString(R.string.upgrade_uppertext_init) + currentVersion);
         
         cl = (TextView) findViewById(R.id.upgrade_textview2);
-        
-		registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 		
 	}
 
@@ -99,8 +97,8 @@ public class UpgradeApkActivity extends Activity {
 					matchedVersion = null;
 					cl.setText("");
 					
-					asyncDownload = new AsyncDownload();
-					asyncDownload.execute("http://sourceforge.net/projects/ytdownloader/files/");
+					asyncUpdate = new AsyncUpdate();
+					asyncUpdate.execute("http://sourceforge.net/projects/ytdownloader/files/");
 				} else {
 					buttonClickedOnce = false;
 					String res = Utils.VersionComparator.compare(matchedVersion, currentVersion);
@@ -131,21 +129,37 @@ public class UpgradeApkActivity extends Activity {
 	}
 	
 	@Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        Log.v(DEBUG_TAG, "_onStart");
+    }
+	
+    @Override
+    protected void onRestart() {
+    	super.onRestart();
+    	Log.v(DEBUG_TAG, "_onRestart");
     }
 
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	//asyncUpdate.cancel(true);
+    	Log.v(DEBUG_TAG, "_onPause");
+    }
+    
     @Override
     protected void onStop() {
         super.onStop();
     	unregisterReceiver(apkReceiver);
-    	Log.d(DEBUG_TAG, "apkReceiver unregistered_onStop");
+    	Log.v(DEBUG_TAG, "_onStop");
+    	asyncUpdate.cancel(true);
     }
 	
-	private class AsyncDownload extends AsyncTask<String, Void, Integer> {
+	private class AsyncUpdate extends AsyncTask<String, Void, Integer> {
 		
 		protected void onPreExecute() {
+			upgradeButton.setEnabled(false);
 			progressBar2.setVisibility(View.VISIBLE);
 			tv.setText(R.string.upgrade_uppertext_searching);
 		}
@@ -179,7 +193,13 @@ public class UpgradeApkActivity extends Activity {
                 int response = conn.getResponseCode();
                 Log.d(DEBUG_TAG, "The response is: " + response);
                 is = conn.getInputStream();
-                return readIt(is, len);
+                if (!asyncUpdate.isCancelled()) {
+                	return readIt(is, len);
+                } else {
+                	Log.d(DEBUG_TAG, "asyncUpdate cancelled @ 'return readIt'");
+                	return 3;
+                }
+                
             } finally {
                 if (is != null) {
                     is.close();
@@ -195,71 +215,30 @@ public class UpgradeApkActivity extends Activity {
             String content = new String(buffer);
            	return OnlineUpdateCheck(content);
         }
+        
         @Override
         protected void onPostExecute(Integer result) {
         	
         	progressBar2.setVisibility(View.GONE);
-        	upgradeButton.setText(getString(R.string.upgrade_button_clicked));
         	
-        	//try {
-			    /*currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-			    Log.d(DEBUG_TAG, "current version: " + currentVersion);*/
+        	upgradeButton.setEnabled(true);
+        	upgradeButton.setText(getString(R.string.upgrade_button_clicked));
 			
         	tv.setText(getString(R.string.upgrade_latest) + matchedVersion + getString(R.string.upgrade_installed) + currentVersion);
 	        cl.setText(matchedChangeLog);
-			    
-	        	/*String res = Utils.VersionComparator.compare(matchedVersion, currentVersion);
-		    	Log.d(DEBUG_TAG, "version comparison: " + matchedVersion + " " + res + " " + currentVersion);
-		    	
-		    	if (res.contentEquals(">")) {
-		    		
-		        	AlertDialog.Builder helpBuilder = new AlertDialog.Builder(UpgradeApkActivity.this);
-		        	helpBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-		        	helpBuilder.setTitle(getString(R.string.information));
-		        	helpBuilder.setMessage(getString(R.string.upgrade_dialog_msg) + matchedVersion);
-		            helpBuilder.setPositiveButton(getString(R.string.upgrade_dialog_positive), new DialogInterface.OnClickListener() {
-		
-		                public void onClick(DialogInterface dialog, int which) {
-		                	Log.d(DEBUG_TAG, "version comparison: downloading latest version...");
-				    		callDownloadApk(matchedVersion);
-		                }
-		            });
-		            
-		            helpBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
-		
-		                public void onClick(DialogInterface dialog, int which) {
-		                	// close
-		                }
-		            });
-		
-		            AlertDialog helpDialog = helpBuilder.create();
-		            helpDialog.show();
-            
-		    	} else if (res.contentEquals("==")) {
-		    		Utils.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", UpgradeApkActivity.this);
-		    		Log.d(DEBUG_TAG, "version comparison: latest version is already installed!");
-		    	} else {
-		    		// No need for a popup...
-		    		Log.d(DEBUG_TAG, "version comparison: installed higher than the one online? ...this should not happen...");
-		    	}*/
-		    	
-			/*} catch (NameNotFoundException e) {
-			    Log.e(DEBUG_TAG, "version not read: " + e.getMessage());
-			    currentVersion = "100";*/
-			/*} catch (NullPointerException e) {
-				Utils.showPopUp(getString(R.string.error), getString(R.string.upgrade_network_error), "alert", UpgradeApkActivity.this);
-				Log.e(DEBUG_TAG, "unable to retrieve update data: " + e.getMessage());
-			}*/
         }   
 	}
 	
 	private int OnlineUpdateCheck(String content) {
 		int res = 3;
-		
+		if (asyncUpdate.isCancelled()) {
+			Log.d(DEBUG_TAG, "asyncUpdate cancelled @ 'OnlineUpdateCheck' begin");
+			return 3;
+		}
 		// match version name
 		Pattern v_pattern = Pattern.compile("versionName=\\\"(.*)\\\"");
         Matcher v_matcher = v_pattern.matcher(content);
-        if (v_matcher.find()) {
+        if (v_matcher.find() && !asyncUpdate.isCancelled()) {
         	matchedVersion = v_matcher.group(1);
 	    	Log.i(DEBUG_TAG, "_on-line version: " + matchedVersion);
 	    	res = res - 1;
@@ -271,7 +250,7 @@ public class UpgradeApkActivity extends Activity {
         // match changelog
         Pattern cl_pattern = Pattern.compile("<pre><code> v(.*?)</code></pre>", Pattern.DOTALL);
     	Matcher cl_matcher = cl_pattern.matcher(content);
-    	if (cl_matcher.find()) {
+    	if (cl_matcher.find() && !asyncUpdate.isCancelled()) {
     		matchedChangeLog = " v" + cl_matcher.group(1);
     		Log.i(DEBUG_TAG, "_online changelog...");
     		res = res - 1;
@@ -284,7 +263,7 @@ public class UpgradeApkActivity extends Activity {
     	// checksum: <code>d7ef1e4668b24517fb54231571b4a74f</code> dentex.youtube.downloader_v
     	Pattern md5_pattern = Pattern.compile("checksum: <code>(.{32})</code> dentex.youtube.downloader_v");
     	Matcher md5_matcher = md5_pattern.matcher(content);
-    	if (md5_matcher.find()) {
+    	if (md5_matcher.find() && !asyncUpdate.isCancelled()) {
     		matchedMd5 = md5_matcher.group(1);
     		Log.i(DEBUG_TAG, "_online md5sum: " + matchedMd5);
     		res = res - 1;
@@ -311,16 +290,17 @@ public class UpgradeApkActivity extends Activity {
 	BroadcastReceiver apkReceiver = new BroadcastReceiver() {
 
 		@Override
-		public void onReceive(final Context context, final Intent intent) {
-			String action = intent.getAction();
-            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-            	Query query = new Query();
-                query.setFilterById(enqueue);
-                Cursor c = downloadManager.query(query);
-                if (c.moveToFirst()) {
-                	int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                    int status = c.getInt(columnIndex);
-                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
+        public void onReceive(final Context context, final Intent intent) {
+	        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -2);
+	        if (enqueue != -1 && id != -2 && id == enqueue) {
+	            Query query = new Query();
+	            query.setFilterById(id);
+	            DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+	            Cursor c = dm.query(query);
+	            if (c.moveToFirst()) {
+	                int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+	                int status = c.getInt(columnIndex);
+	                if (status == DownloadManager.STATUS_SUCCESSFUL) {
                     	
                     	upgradeButton.setText(getString(R.string.upgrade_button_init));
                     	upgradeButton.setEnabled(true);
@@ -350,7 +330,9 @@ public class UpgradeApkActivity extends Activity {
 	                        });
 	
 	                        AlertDialog helpDialog = helpBuilder.create();
-	                        helpDialog.show();
+	                        if (! ((Activity) context).isFinishing()) {
+	                        	helpDialog.show();
+	                        }
                         
                     	} else {
                     		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
@@ -375,7 +357,9 @@ public class UpgradeApkActivity extends Activity {
 	                        });
 
 	                        AlertDialog helpDialog = helpBuilder.create();
-	                        helpDialog.show();
+	                        if (! ((Activity) context).isFinishing()) {
+	                        	helpDialog.show();
+	                        }
                     	}
                     } else if (status == DownloadManager.STATUS_FAILED) {
                     	deleteBadDownload(context, intent);

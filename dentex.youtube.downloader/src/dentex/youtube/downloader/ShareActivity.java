@@ -132,8 +132,6 @@ public class ShareActivity extends Activity {
                 }
             }
         }
-        registerReceiver(completeReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        registerReceiver(clickReceiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
     }
 
     @Override
@@ -158,20 +156,44 @@ public class ShareActivity extends Activity {
     }
     
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         registerReceiver(completeReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         registerReceiver(clickReceiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
+        Log.v(DEBUG_TAG, "_onStart");
+    }
+    
+    @Override
+    protected void onRestart() {
+    	super.onRestart();
+    	Log.v(DEBUG_TAG, "_onRestart");
     }
 
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	Log.v(DEBUG_TAG, "_onPause");
+    }
+    
     @Override
     protected void onStop() {
         super.onStop();
     	unregisterReceiver(completeReceiver);
     	unregisterReceiver(clickReceiver);
-    	Log.d(DEBUG_TAG, "Receivers unregistered_onStop");
+    	Log.v(DEBUG_TAG, "_onStop");
     }
-
+    
+    @Override
+	public void onBackPressed() {
+    	super.onBackPressed();
+    	/*
+    	 * The next call is here onBackPressed(), and NOT in onStop() because 
+    	 * I want to calcel the asyncDownload task only on back button pressed,
+    	 * and not whenswitching to Preferences or D.M. from this activity.
+    	 */
+		asyncDownload.cancel(true);
+		Log.i(DEBUG_TAG, "_onBackPressed");
+	}
 
     void handleSendText(Intent intent) throws IOException {
 
@@ -504,29 +526,39 @@ public class ShareActivity extends Activity {
         // Only display the first "len" characters of the retrieved web page content.
         int len = 2000000;
         Log.d(DEBUG_TAG, "The link is: " + myurl);
-        try {
-            URL url = new URL(myurl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("User-Agent","<em>" + USER_AGENT_FIREFOX + "</em>");
-            conn.setReadTimeout(20000 /* milliseconds */);
-            conn.setConnectTimeout(30000 /* milliseconds */);
-            conn.setInstanceFollowRedirects(false);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            //Starts the query
-            conn.connect();
-            int response = conn.getResponseCode();
-            Log.d(DEBUG_TAG, "The response is: " + response);
-            is = conn.getInputStream();
-
-            //Convert the InputStream into a string
-            return readIt(is, len);
-
-            //Makes sure that the InputStream is closed after the app is finished using it.
-        } finally {
-            if (is != null) {
-                is.close();
-            }
+        if (!asyncDownload.isCancelled()) {
+	        try {
+	            URL url = new URL(myurl);
+	            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	            conn.setRequestProperty("User-Agent","<em>" + USER_AGENT_FIREFOX + "</em>");
+	            conn.setReadTimeout(20000 /* milliseconds */);
+	            conn.setConnectTimeout(30000 /* milliseconds */);
+	            conn.setInstanceFollowRedirects(false);
+	            conn.setRequestMethod("GET");
+	            conn.setDoInput(true);
+	            //Starts the query
+	            conn.connect();
+	            int response = conn.getResponseCode();
+	            Log.d(DEBUG_TAG, "The response is: " + response);
+	            is = conn.getInputStream();
+	
+	            //Convert the InputStream into a string
+	            if (!asyncDownload.isCancelled()) {
+	            	return readIt(is, len);
+	            } else {
+	            	Log.d(DEBUG_TAG, "asyncDownload cancelled @ 'return readIt'");
+	            	return null;
+	            }
+	
+	            //Makes sure that the InputStream is closed after the app is finished using it.
+	        } finally {
+	            if (is != null) {
+	                is.close();
+	            }
+	        }
+        } else {
+        	Log.d(DEBUG_TAG, "asyncDownload cancelled @ 'downloadUrl' begin");
+        	return null;
         }
     }
     
@@ -541,7 +573,12 @@ public class ShareActivity extends Activity {
     }
 
 	public String urlBlockMatchAndDecode(String content) {
-
+		
+		if (asyncDownload.isCancelled()) {
+			Log.d(DEBUG_TAG, "asyncDownload cancelled @ urlBlockMatchAndDecode begin");
+			return "Cancelled!";
+		}
+		
         findVideoFilename(content);
 
         Pattern startPattern = Pattern.compile("url_encoded_fmt_stream_map\\\": \\\"");
@@ -588,7 +625,7 @@ public class ShareActivity extends Activity {
     private void findCodecAndQualityAndLinks(String contentDecoded) {
         Pattern trimPattern = Pattern.compile(",");
         Matcher matcher = trimPattern.matcher(contentDecoded);
-        if (matcher.find()) {
+        if (matcher.find() && !asyncDownload.isCancelled()) {
             String[] CQS = contentDecoded.split(trimPattern.toString());
             Log.d(DEBUG_TAG, "number of CQ found: " + (CQS.length-1));
             int index = 0;
@@ -600,6 +637,8 @@ public class ShareActivity extends Activity {
                 index++;
             }
             cqsChoicesBuilder();
+        } else {
+        	Log.d(DEBUG_TAG, "asyncDownload cancelled @ 'findCodecAndQualityAndLinks' match");
         }
     }
 
@@ -771,14 +810,16 @@ public class ShareActivity extends Activity {
 
 		@Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-                Query query = new Query();
-                query.setFilterById(enqueue);
-                Cursor c = downloadManager.query(query);
-                if (c.moveToFirst()) {
-                    int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                    if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
+	        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -2);
+	        if (enqueue != -1 && id != -2 && id == enqueue) {
+	            Query query = new Query();
+	            query.setFilterById(id);
+	            DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+	            Cursor c = dm.query(query);
+	            if (c.moveToFirst()) {
+	                int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+	                int status = c.getInt(columnIndex);
+	                if (status == DownloadManager.STATUS_SUCCESSFUL) {
                         AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
                         helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                         helpBuilder.setTitle(getString(R.string.information));
@@ -841,7 +882,9 @@ public class ShareActivity extends Activity {
                         });
 
                         AlertDialog helpDialog = helpBuilder.create();
-                        helpDialog.show();
+                        if (! ((Activity) context).isFinishing()) {
+                        	helpDialog.show();
+                        }
 	                }
 	            }
             }

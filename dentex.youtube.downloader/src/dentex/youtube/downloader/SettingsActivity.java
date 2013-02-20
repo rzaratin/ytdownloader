@@ -70,8 +70,8 @@ public class SettingsActivity extends Activity {
 		private Preference up;
 		//TODO
 		//public static final int YTD_SIG_HASH = -1892118308; // final string
-		public static final int YTD_SIG_HASH = -118685648; // dev test desktop
-		//public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
+		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
+		public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 		
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -253,18 +253,32 @@ public class SettingsActivity extends Activity {
             }
 		}
         
+		@Override
+	    public void onStart() {
+	        super.onStart();
+	        Log.v(DEBUG_TAG, "_onStart");
+	    }
+	    
         @Override
         public void onResume(){
         	super.onResume();
         	// Set up a listener whenever a key changes            
         	getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        	Log.v(DEBUG_TAG, "_onResume");
         }
        
         @Override
         public void onPause() {
         	super.onPause();
         	// Unregister the listener whenever a key changes            
-        	getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);    
+        	getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        	Log.v(DEBUG_TAG, "_onPause");
+        }
+        
+        @Override
+        public void onStop() {
+            super.onStop();
+        	Log.v(DEBUG_TAG, "_onStop");
         }
         
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
