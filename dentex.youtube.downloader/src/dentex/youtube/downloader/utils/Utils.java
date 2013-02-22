@@ -109,7 +109,7 @@ public class Utils extends Activity{
 			Signature[] sigs = sf.getActivity().getPackageManager().getPackageInfo(sf.getActivity().getPackageName(), PackageManager.GET_SIGNATURES).signatures;
 			for (Signature sig : sigs) {
 				currentHashCode = sig.hashCode();
-				Log.e(DEBUG_TAG, "getSigHash: App signature " + currentHashCode);
+				Log.d(DEBUG_TAG, "getSigHash: App signature " + currentHashCode);
 			}
 		} catch (NameNotFoundException e) {
 		    Log.e(DEBUG_TAG, "getSigHash: App signature not found; " + e.getMessage());

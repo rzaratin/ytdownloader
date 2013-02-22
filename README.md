@@ -36,11 +36,10 @@ CHANGELOG
     ----------------------------------- 
     [x] online update check 
     [x] option to fetch filesizes 
-    [x] stop download on click 
+    [x] stop download on click (on ICS) 
     [x] DownloadManager quick links 
-    [x] overflow menu x settings and DM 
+    [x] settings and DM overflow menu 
     [x] reordered preferences 
-    [x] general code cleanup 
      
      v1.4 - Jan 29 2013 
     ----------------------------------- 
@@ -62,7 +61,7 @@ CHANGELOG
      
      v1.1.1 - Dec 16 2012 
     ----------------------------------- 
-    [x] fix in preferences 
+    [x] preferences fix 
      
      v1.1 - Dec 13 2012 
     ----------------------------------- 
@@ -73,7 +72,7 @@ CHANGELOG
      v1.0.1 - Dec 11 2012 
     ----------------------------------- 
     [x] bad typo fixed 
-    [x] new folder icons in file-chooser 
+    [x] file-chooser new folder icons 
      
      v1.0 - Dec 11 2012 
     ----------------------------------- 
@@ -85,3 +84,22 @@ CHANGELOG
     [x] file-chooser for download dest. 
     [x] add quality suffix options 
     [x] file renaming options
+
+TO-DO LIST
+================================================================
+
+    [ ] fix stop download on click, now works on ICS only
+    [ ] auto update-check once a day
+    [ ] external (removable) sd-card supports
+    [ ] handle SourceForge servers down; fallback on GitHub for apk download:
+	    page: https://github.com/dentex/ytdownloader
+	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v1.4.apk?raw=true
+    [ ] change to library project "aFilechooser" instead of "android-filechooser" currently in use
+    [ ] downloads log
+    [ ] use icon/logo to identify codecs available
+    [ ] use thumbnail for video preview
+    [ ] make the App tablet friendly
+    [ ] new App's ICON
+    [ ] make all row in video-list clickable
+    [ ] handle YT links that require login
+    [ ] audio extraction

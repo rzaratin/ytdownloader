@@ -76,7 +76,7 @@ public class ShareActivity extends Activity {
     public int pos;
     public File path;
     public String validatedLink;
-    private DownloadManager downloadManager;
+    private DownloadManager dm;
     private long enqueue;
 	String vfilename = "video";
 	String composedFilename = "";
@@ -352,35 +352,40 @@ public class ShareActivity extends Activity {
                     helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
-                        	if (pathCheckOK() == true) {
-                            	Log.d(DEBUG_TAG, "Destination folder is available and writable");
-                        		composedFilename = composeFilename();
-	                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
-
-	                            if (fileRenameEnabled == true) {
-	                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
-	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
-		                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
-		                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
-		                    	    userFilename.setText(title);
-		                    	    adb.setView(inputFilename);
-		                    	    adb.setTitle(getString(R.string.rename_dialog_title));
-		                    	    adb.setMessage(getString(R.string.rename_dialog_msg));
-		                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-		                    	    	public void onClick(DialogInterface dialog, int which) {
-		                    	    		title = userFilename.getText().toString();
-		                    	    		composedFilename = composeFilename();
-											callDownloadManager(links.get(pos));
-		                    	    	}
-		                    	    });
-		                    	    adb.show();
+                        	try {
+	                        	if (pathCheckOK() == true) {
+	                            	Log.d(DEBUG_TAG, "Destination folder is available and writable");
+	                        		composedFilename = composeFilename();
+		                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
+	
+		                            if (fileRenameEnabled == true) {
+		                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+		                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
+			                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
+			                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
+			                    	    userFilename.setText(title);
+			                    	    adb.setView(inputFilename);
+			                    	    adb.setTitle(getString(R.string.rename_dialog_title));
+			                    	    adb.setMessage(getString(R.string.rename_dialog_msg));
+			                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			                    	    	public void onClick(DialogInterface dialog, int which) {
+			                    	    		title = userFilename.getText().toString();
+			                    	    		composedFilename = composeFilename();
+												callDownloadManager(links.get(pos));
+			                    	    	}
+			                    	    });
+			                    	    adb.show();
+		                            } else {
+										callDownloadManager(links.get(pos));
+		                            }
 	                            } else {
-									callDownloadManager(links.get(pos));
+	                            	Log.d(DEBUG_TAG, "Destination folder is NOT available and/or NOT writable");
+	                            	Utils.showPopUp(getString(R.string.unable_save), getString(R.string.unable_save_dialog_msg), "alert", ShareActivity.this);
 	                            }
-                            } else {
-                            	Log.d(DEBUG_TAG, "Destination folder is NOT available and/or NOT writable");
-                            	Utils.showPopUp(getString(R.string.unable_save), getString(R.string.unable_save_dialog_msg), "alert", ShareActivity.this);
-                            }
+                        	} catch (IndexOutOfBoundsException e) {
+                        		Log.e(DEBUG_TAG, e.getMessage()); 
+                        		// TODO
+                        	}
                         }
                     });
 
@@ -504,7 +509,7 @@ public class ShareActivity extends Activity {
 	}
     
     void callDownloadManager(String link) {
-        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         Request request = new Request(Uri.parse(link));
 		videoUri = Uri.parse(path.toURI() + composedFilename);
         Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
@@ -512,7 +517,7 @@ public class ShareActivity extends Activity {
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setTitle(vfilename);
-    	enqueue = downloadManager.enqueue(request);
+    	enqueue = dm.enqueue(request);
     	downloadingApk = false;
     }
 
@@ -807,17 +812,18 @@ public class ShareActivity extends Activity {
 
 		@Override
         public void onReceive(Context context, Intent intent) {
+			Log.d(DEBUG_TAG, "completeReceiver: onReceive CALLED");
 	        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -2);
 	        if (enqueue != -1 && id != -2 && id == enqueue) {
 	            Query query = new Query();
 	            query.setFilterById(id);
-	            DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+	            dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 	            Cursor c = dm.query(query);
 	            if (c.moveToFirst()) {
 	                int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
 	                int status = c.getInt(columnIndex);
 	                if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
+                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(ShareActivity.this);
                         helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                         helpBuilder.setTitle(getString(R.string.information));
                         helpBuilder.setMessage(getString(R.string.download_complete_dialog_msg1) + titleRaw + getString(R.string.download_complete_dialog_msg2));
@@ -851,27 +857,28 @@ public class ShareActivity extends Activity {
             
     BroadcastReceiver clickReceiver = new BroadcastReceiver() {
     	
-        @Override
-        public void onReceive(Context context, Intent intent) {
+    	@Override
+    	public void onReceive(Context context, Intent intent) {
+    		Log.d(DEBUG_TAG, "clickReceiver: onReceive CALLED");
 	        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -2);
 	        if (enqueue != -1 && id != -2 && id == enqueue) {
 	            Query query = new Query();
 	            query.setFilterById(id);
-	            DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+	            dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 	            Cursor c = dm.query(query);
 	            if (c.moveToFirst()) {
 	                int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
 	                int status = c.getInt(columnIndex);
-	                if (status == DownloadManager.STATUS_RUNNING ||
-	                	status == DownloadManager.STATUS_PAUSED ||
-	                	status == DownloadManager.STATUS_PENDING) {
-	                	AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
-	                	helpBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+    				if (status == DownloadManager.STATUS_RUNNING ||
+    						status == DownloadManager.STATUS_PAUSED ||
+    						status == DownloadManager.STATUS_PENDING) {
+	                	AlertDialog.Builder helpBuilder = new AlertDialog.Builder(ShareActivity.this);
+	                	helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
 	                	helpBuilder.setTitle(getString(R.string.cancel_download_dialog_title));
-                        helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+	                	helpBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
-                    			downloadManager.remove(enqueue);
+                            	dm.remove(enqueue);
                             	Log.d(DEBUG_TAG, "download cancelled");
                             }
                         });
@@ -879,6 +886,7 @@ public class ShareActivity extends Activity {
                         helpBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
+                            	// cancel
                             }
                         });
 
@@ -886,9 +894,9 @@ public class ShareActivity extends Activity {
                         if (! ((Activity) context).isFinishing()) {
                         	helpDialog.show();
                         }
-	                }
+                    }
 	            }
             }
         }
-	};
+    };
 }

@@ -59,7 +59,7 @@ public class UpgradeApkActivity extends Activity {
 	public String matchedChangeLog;
 	public String matchedMd5;
 	boolean isAsyncTaskRunning = false;
-	private String compRes;
+	private String compRes = "init";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +83,6 @@ public class UpgradeApkActivity extends Activity {
         tv.setText(getString(R.string.upgrade_uppertext_init) + currentVersion);
         
         cl = (TextView) findViewById(R.id.upgrade_textview2);
-		
 	}
 
 	public void upgradeButtonClick(View v) {
@@ -221,6 +220,10 @@ public class UpgradeApkActivity extends Activity {
         	tv.setText(getString(R.string.upgrade_latest) + matchedVersion + getString(R.string.upgrade_installed) + currentVersion);
 	        cl.setText(matchedChangeLog);
 	        
+	        if (matchedVersion.contentEquals("n.a.")) {
+	        	Toast.makeText(UpgradeApkActivity.this, "Invalid HTTP server response", Toast.LENGTH_LONG).show();
+	        }
+	        
 	        if (compRes.contentEquals(">")) {
 		        Log.d(DEBUG_TAG, "version comparison: downloading latest version...");
 			    upgradeButton.setEnabled(true);
@@ -229,15 +232,19 @@ public class UpgradeApkActivity extends Activity {
 	    		Utils.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", UpgradeApkActivity.this);
 	    		Log.d(DEBUG_TAG, "version comparison: latest version is already installed!");
 	    		upgradeButton.setEnabled(false);
-	    	} else {
+	    	} else if (compRes.contentEquals("<")) {
 	    		// No need for a popup...
 	    		Log.d(DEBUG_TAG, "version comparison: installed higher than the one online? ...this should not happen...");
+	    		upgradeButton.setEnabled(false);
+	    	} else if (compRes.contentEquals("init")) {
+	    		Log.d(DEBUG_TAG, "version comparison not tested");
 	    		upgradeButton.setEnabled(false);
 	    	}
         }   
 	}
 	
 	private int OnlineUpdateCheck(String content) {
+		Log.d(DEBUG_TAG, "OnlineUpdateCheck");
 		int res = 3;
 		if (asyncUpdate.isCancelled()) {
 			Log.d(DEBUG_TAG, "asyncUpdate cancelled @ 'OnlineUpdateCheck' begin");
