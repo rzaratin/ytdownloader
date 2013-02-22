@@ -5,9 +5,9 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="32"`
+`versionCode="33"`
 
-`versionName="1.4"`
+`versionName="1.5"`
 
 MD5 checksum: `d7ef1e4668b24517fb54231571b4a74f` dentex.youtube.downloader_v1.4.apk
 
@@ -32,7 +32,7 @@ Copyright (C) 2012  Samuele Rini
 CHANGELOG
 ================================================================
     
-     v1.5 - TO BE RELEASED 
+     v1.5 - Feb 22 2013 
     ----------------------------------- 
     [x] online update check 
     [x] option to fetch filesizes 
