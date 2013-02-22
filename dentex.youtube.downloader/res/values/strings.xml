@@ -118,10 +118,12 @@
 		\n-----------------------------------
 		\n[x] online update check
 		\n[x] option to fetch filesizes
-		\n[x] stop download on click (on ICS)
+		\n[x] stop download on click
+		\n (maybe doesn\'t work on JB)
 		\n[x] DownloadManager quick links
 		\n[x] settings and DM overflow menu
 		\n[x] reordered preferences
+		\n[x] small fixes
 		\n
 		\n v1.4 - Jan 29 2013
 		\n-----------------------------------

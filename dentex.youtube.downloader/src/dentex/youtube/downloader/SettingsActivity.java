@@ -68,9 +68,9 @@ public class SettingsActivity extends Activity {
 		private Preference share;
 		private Preference cl;
 		private Preference up;
-		//TODO
-		//public static final int YTD_SIG_HASH = -1892118308; // final string
-		public static final int YTD_SIG_HASH = -118685648; // dev test desktop
+
+		public static final int YTD_SIG_HASH = -1892118308; // final string
+		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
 		//public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 		
         @Override
@@ -253,11 +253,11 @@ public class SettingsActivity extends Activity {
             }
 		}
         
-		@Override
+		/*@Override
 	    public void onStart() {
 	        super.onStart();
 	        Log.v(DEBUG_TAG, "_onStart");
-	    }
+	    }*/
 	    
         @Override
         public void onResume(){
@@ -275,11 +275,11 @@ public class SettingsActivity extends Activity {
         	Log.v(DEBUG_TAG, "_onPause");
         }
         
-        @Override
+        /*@Override
         public void onStop() {
             super.onStop();
         	Log.v(DEBUG_TAG, "_onStop");
-        }
+        }*/
         
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         	updatePrefSummary(findPreference(key));
