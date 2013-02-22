@@ -9,7 +9,7 @@ Android 3+ App to download videos from YouTube
 
 `versionName="1.5"`
 
-MD5 checksum: `d7ef1e4668b24517fb54231571b4a74f` dentex.youtube.downloader_v1.4.apk
+MD5 checksum: `ebedd0c041386aeb52ad5d20eec5c3d7` dentex.youtube.downloader_v1.5.apk
 
 LICENSE
 ================================================================
@@ -32,14 +32,16 @@ Copyright (C) 2012  Samuele Rini
 CHANGELOG
 ================================================================
     
-     v1.5 - Feb 22 2013 
+     v1.5 - TO BE RELEASED 
     ----------------------------------- 
     [x] online update check 
     [x] option to fetch filesizes 
-    [x] stop download on click (on ICS) 
+    [x] stop download on click 
+     (maybe doesn\'t work on JB) 
     [x] DownloadManager quick links 
     [x] settings and DM overflow menu 
     [x] reordered preferences 
+    [x] small fixes 
      
      v1.4 - Jan 29 2013 
     ----------------------------------- 
