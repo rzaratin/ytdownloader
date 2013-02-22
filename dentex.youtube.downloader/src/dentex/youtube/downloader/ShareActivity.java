@@ -116,7 +116,6 @@ public class ShareActivity extends Activity {
         lv = (ListView) findViewById(R.id.list);
         tv = (TextView) findViewById(R.id.textView1);
         
-        
         // Get intent, action and MIME type
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -305,7 +304,6 @@ public class ShareActivity extends Activity {
     	}
     	
     	protected String doInBackground(String... urls) {
-            // params comes from the execute() call: params[0] is the url.
             try {
             	Log.d(DEBUG_TAG, "doInBackground...");
                 return downloadUrl(urls[0]);
@@ -314,7 +312,6 @@ public class ShareActivity extends Activity {
             }
         }
 
-        // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
 
@@ -843,7 +840,9 @@ public class ShareActivity extends Activity {
                         });
 
                         AlertDialog helpDialog = helpBuilder.create();
-                        helpDialog.show();
+                        if (! ((Activity) context).isFinishing()) {
+                        	helpDialog.show();
+                        }
                     }
                 }
             }
@@ -854,16 +853,18 @@ public class ShareActivity extends Activity {
     	
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();            
-            if (DownloadManager.ACTION_NOTIFICATION_CLICKED.equals(action)) {
-            	Query query = new Query();
-	            query.setFilterById(enqueue);
-	            Cursor c2 = downloadManager.query(query);
-	            if (c2.moveToFirst()) {
-	            	int columnIndex = c2.getColumnIndex(DownloadManager.COLUMN_STATUS);
-	                if (DownloadManager.STATUS_RUNNING == c2.getInt(columnIndex) ||
-	                	DownloadManager.STATUS_PAUSED == c2.getInt(columnIndex) ||
-	                	DownloadManager.STATUS_PENDING == c2.getInt(columnIndex)) {
+	        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -2);
+	        if (enqueue != -1 && id != -2 && id == enqueue) {
+	            Query query = new Query();
+	            query.setFilterById(id);
+	            DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+	            Cursor c = dm.query(query);
+	            if (c.moveToFirst()) {
+	                int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+	                int status = c.getInt(columnIndex);
+	                if (status == DownloadManager.STATUS_RUNNING ||
+	                	status == DownloadManager.STATUS_PAUSED ||
+	                	status == DownloadManager.STATUS_PENDING) {
 	                	AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
 	                	helpBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 	                	helpBuilder.setTitle(getString(R.string.cancel_download_dialog_title));

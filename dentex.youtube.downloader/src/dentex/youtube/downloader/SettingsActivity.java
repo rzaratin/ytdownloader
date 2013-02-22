@@ -70,8 +70,8 @@ public class SettingsActivity extends Activity {
 		private Preference up;
 		//TODO
 		//public static final int YTD_SIG_HASH = -1892118308; // final string
-		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
-		public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
+		public static final int YTD_SIG_HASH = -118685648; // dev test desktop
+		//public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 		
         @Override
         public void onCreate(Bundle savedInstanceState) {

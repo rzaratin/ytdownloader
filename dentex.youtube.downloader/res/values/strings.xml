@@ -57,7 +57,7 @@
     <!-- ### UpgradeApkActivity ### -->
     
     <string name="upgrade_button_init">Update</string>
-    <string name="upgrade_button_clicked">Download\nand install</string>
+    <string name="upgrade_button_download">Download\nand install</string>
     <string name="upgrade_uppertext_searching">Searching&#8230;</string>
     <string name="upgrade_uppertext_init">Installed version:\n</string>
     <string name="upgrade_dialog_msg">New version available:\t</string>
@@ -229,8 +229,8 @@
     <string name="share_title">Share this App</string>
     <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230;</string>
     <string name="share_warning">No suitable Apps found.</string>
-    <string name="share_message">YTD - #YouTubeDownloader
-	 	\nFree and Open-Source Android App to download from YouTube video!
+    <string name="share_message">#YouTubeDownloader
+	 	\nFree and Open-Source Android App to download YouTube video!
 	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
 
 </resources>

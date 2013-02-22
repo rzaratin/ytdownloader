@@ -49,6 +49,7 @@ public class UpgradeApkActivity extends Activity {
 	public Button upgradeButton;
 	private DownloadManager downloadManager;
 	File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+	private String webPage;
 	public long enqueue;
 	private Uri fileUri;
 	private AsyncUpdate asyncUpdate;
@@ -57,6 +58,8 @@ public class UpgradeApkActivity extends Activity {
 	public String matchedVersion;
 	public String matchedChangeLog;
 	public String matchedMd5;
+	boolean isAsyncTaskRunning = false;
+	private String compRes;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,32 +101,22 @@ public class UpgradeApkActivity extends Activity {
 					cl.setText("");
 					
 					asyncUpdate = new AsyncUpdate();
-					asyncUpdate.execute("http://sourceforge.net/projects/ytdownloader/files/");
+					webPage = "http://sourceforge.net/projects/ytdownloader/files/";
+					asyncUpdate.execute(webPage);
 				} else {
 					buttonClickedOnce = false;
-					String res = Utils.VersionComparator.compare(matchedVersion, currentVersion);
-			    	Log.d(DEBUG_TAG, "version comparison: " + matchedVersion + " " + res + " " + currentVersion);
-			    	
-			    	if (res.contentEquals(">")) {
-				        Log.d(DEBUG_TAG, "version comparison: downloading latest version...");
-					    callDownloadApk(matchedVersion);
-					    upgradeButton.setEnabled(false);
-			    	} else if (res.contentEquals("==")) {
-			    		Utils.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", UpgradeApkActivity.this);
-			    		Log.d(DEBUG_TAG, "version comparison: latest version is already installed!");
-			    	} else {
-			    		// No need for a popup...
-			    		Log.d(DEBUG_TAG, "version comparison: installed higher than the one online? ...this should not happen...");
-			    	}
+					callDownloadApk(matchedVersion);
+				    upgradeButton.setEnabled(false);
 				}
 			} catch (NullPointerException e) {
 				Utils.showPopUp(getString(R.string.error), getString(R.string.upgrade_network_error), "alert", UpgradeApkActivity.this);
 				Log.e(DEBUG_TAG, "unable to retrieve update data.");
+				
 			}
 		} else {
 			progressBar2.setVisibility(View.GONE);
 			tv.setText(getString(R.string.no_net));
-			//upgradeButton.setEnabled(false);
+			upgradeButton.setEnabled(false);
 			Utils.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
 		}
 	}
@@ -144,7 +137,6 @@ public class UpgradeApkActivity extends Activity {
     @Override
     public void onPause() {
     	super.onPause();
-    	//asyncUpdate.cancel(true);
     	Log.v(DEBUG_TAG, "_onPause");
     }
     
@@ -153,7 +145,11 @@ public class UpgradeApkActivity extends Activity {
         super.onStop();
     	unregisterReceiver(apkReceiver);
     	Log.v(DEBUG_TAG, "_onStop");
-    	asyncUpdate.cancel(true);
+    	
+    	if (isAsyncTaskRunning) {
+    		asyncUpdate.cancel(true);
+    		isAsyncTaskRunning = false;
+    	}
     }
 	
 	private class AsyncUpdate extends AsyncTask<String, Void, Integer> {
@@ -162,6 +158,7 @@ public class UpgradeApkActivity extends Activity {
 			upgradeButton.setEnabled(false);
 			progressBar2.setVisibility(View.VISIBLE);
 			tv.setText(R.string.upgrade_uppertext_searching);
+			isAsyncTaskRunning = true;
 		}
 
     	protected Integer doInBackground(String... urls) {
@@ -220,12 +217,23 @@ public class UpgradeApkActivity extends Activity {
         protected void onPostExecute(Integer result) {
         	
         	progressBar2.setVisibility(View.GONE);
-        	
-        	upgradeButton.setEnabled(true);
-        	upgradeButton.setText(getString(R.string.upgrade_button_clicked));
 			
         	tv.setText(getString(R.string.upgrade_latest) + matchedVersion + getString(R.string.upgrade_installed) + currentVersion);
 	        cl.setText(matchedChangeLog);
+	        
+	        if (compRes.contentEquals(">")) {
+		        Log.d(DEBUG_TAG, "version comparison: downloading latest version...");
+			    upgradeButton.setEnabled(true);
+			    upgradeButton.setText(getString(R.string.upgrade_button_download));
+	    	} else if (compRes.contentEquals("==")) {
+	    		Utils.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", UpgradeApkActivity.this);
+	    		Log.d(DEBUG_TAG, "version comparison: latest version is already installed!");
+	    		upgradeButton.setEnabled(false);
+	    	} else {
+	    		// No need for a popup...
+	    		Log.d(DEBUG_TAG, "version comparison: installed higher than the one online? ...this should not happen...");
+	    		upgradeButton.setEnabled(false);
+	    	}
         }   
 	}
 	
@@ -260,7 +268,7 @@ public class UpgradeApkActivity extends Activity {
     	}
     	
     	// match md5
-    	// checksum: <code>d7ef1e4668b24517fb54231571b4a74f</code> dentex.youtube.downloader_v
+    	// checksum: <code>d7ef1e4668b24517fb54231571b4a74f</code> dentex.youtube.downloader_v1.4
     	Pattern md5_pattern = Pattern.compile("checksum: <code>(.{32})</code> dentex.youtube.downloader_v");
     	Matcher md5_matcher = md5_pattern.matcher(content);
     	if (md5_matcher.find() && !asyncUpdate.isCancelled()) {
@@ -271,6 +279,10 @@ public class UpgradeApkActivity extends Activity {
     		matchedMd5 = "not_found";
     		Log.e(DEBUG_TAG, "_online md5sum not found!");
     	}
+    	
+    	compRes = Utils.VersionComparator.compare(matchedVersion, currentVersion);
+    	Log.d(DEBUG_TAG, "version comparison: " + matchedVersion + " " + compRes + " " + currentVersion);
+    	
     	return res;
     }
 	
