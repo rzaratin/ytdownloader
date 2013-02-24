@@ -67,6 +67,7 @@ public class ShareActivity extends Activity {
     private static final String DEBUG_TAG = "ShareActivity";
     private TextView tv;
     private ListView lv;
+    public ArrayAdapter<String> aA;
     //private InputStream isFromString;
     List<String> links = new ArrayList<String>();
     List<String> codecs = new ArrayList<String>();
@@ -97,6 +98,7 @@ public class ShareActivity extends Activity {
 	boolean fileRenameEnabled;
 	public File chooserFolder;
 	private AsyncDownload asyncDownload;
+	public boolean isAsyncDownloadRunning = false;
 	public String videoFileSize = "empty";
 	private AsyncSizeQuery sizeQuery;
 	public AlertDialog helpDialog;
@@ -193,7 +195,9 @@ public class ShareActivity extends Activity {
     	 * I want to calcel the asyncDownload task only on back button pressed,
     	 * and not whenswitching to Preferences or D.M. from this activity.
     	 */
-		asyncDownload.cancel(true);
+    	if (isAsyncDownloadRunning) {
+    		asyncDownload.cancel(true);
+    	}
 		Log.i(DEBUG_TAG, "_onBackPressed");
 	}
 
@@ -302,6 +306,7 @@ public class ShareActivity extends Activity {
     private class AsyncDownload extends AsyncTask<String, Void, String> {
 
     	protected void onPreExecute() {
+    		isAsyncDownloadRunning = true;
     		tv.setText(R.string.loading);
     		progressBar1.setVisibility(View.VISIBLE);
     	}
@@ -319,6 +324,7 @@ public class ShareActivity extends Activity {
         protected void onPostExecute(String result) {
 
         	progressBar1.setVisibility(View.GONE);
+        	isAsyncDownloadRunning = false;
         	
             if (result == "e") {
             	tv.setText(getString(R.string.invalid_url_short));
@@ -327,7 +333,8 @@ public class ShareActivity extends Activity {
             }
 
             final String[] lv_arr = cqsChoices.toArray(new String[0]);
-            lv.setAdapter(new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr));
+            aA = new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr);
+            lv.setAdapter(aA);
             Log.d(DEBUG_TAG, "LISTview done with " + lv_arr.length + " items.");
 
             tv.setText(titleRaw);
@@ -451,15 +458,16 @@ public class ShareActivity extends Activity {
                         	helpDialog = helpBuilder.create();
                         	helpDialog.show();
                         }
-					} catch (IndexOutOfBoundsException e) {
-						Toast.makeText(ShareActivity.this, "Error creating video list", Toast.LENGTH_SHORT).show();
-						try {
-		                    handleSendText(SharingIntent);
-		                } catch (IOException e2) {
-		                    e.printStackTrace();
-		                    Log.d(DEBUG_TAG, "Error: " + e2.toString());
-		                }
-					}
+				    } catch (IndexOutOfBoundsException e) {
+					    Toast.makeText(ShareActivity.this, "Error creating video list", Toast.LENGTH_SHORT).show();
+					    aA.clear();
+					    /*try {
+	                        handleSendText(SharingIntent);
+	                    } catch (IOException e2) {
+	                        e.printStackTrace();
+	                        Log.d(DEBUG_TAG, "Error: " + e2.toString());
+	                    }*/
+				    }
                 }
             });
         }
@@ -825,7 +833,7 @@ public class ShareActivity extends Activity {
 	        if (enqueue != -1 && id != -2 && id == enqueue) {
 	            Query query = new Query();
 	            query.setFilterById(id);
-	            dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+	            //dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 	            Cursor c = dm.query(query);
 	            if (c.moveToFirst()) {
 	                int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
@@ -872,7 +880,7 @@ public class ShareActivity extends Activity {
 	        if (enqueue != -1 && id != -2 && id == enqueue) {
 	            Query query = new Query();
 	            query.setFilterById(id);
-	            dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+	            //dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
 	            Cursor c = dm.query(query);
 	            if (c.moveToFirst()) {
 	                int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);

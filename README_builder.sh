@@ -14,7 +14,7 @@ code=`grep -oE 'versionCode=".+"' dentex.youtube.downloader/AndroidManifest.xml`
 
 name=`grep -oE 'versionName=".+"' dentex.youtube.downloader/AndroidManifest.xml`
 
-md5=`md5sum dentex.youtube.downloader_v1.5.apk | sed 's/  /\` /'`
+md5=`md5sum dentex.youtube.downloader_v*.apk | sed 's/  /\` /'`
 
 echo '`'$code'`' >> $dest
 

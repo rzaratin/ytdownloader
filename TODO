@@ -1,5 +1,5 @@
 
-    [ ] fix stop download on click, now works on ICS only
+    [ ] fix stop download on click (maybe not working in CyanogenMod ROM only)
     [ ] auto update-check once a day
     [ ] external (removable) sd-card supports
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
