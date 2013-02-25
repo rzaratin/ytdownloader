@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dentex.youtube.downloader"
     android:installLocation="auto"
-    android:versionCode="34"
-    android:versionName="1.5.1" >
+    android:versionCode="35"
+    android:versionName="1.5.2" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -77,6 +77,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeDark" >
         </activity>
+        <service android:name="dentex.youtube.downloader.service.NotificationClickService" />
     </application>
 
 </manifest>

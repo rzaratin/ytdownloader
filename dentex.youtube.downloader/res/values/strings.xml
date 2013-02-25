@@ -114,17 +114,24 @@
     <string name="settings_cat_about">About</string>
     <string name="title_changelog">Changelog</string>
     <string name="changelog">
+        \n v1.5.2 - Feb 25 2013
+		\n-----------------------------------
+		\n[x] better fix on bad video list
+		\n[x] remove stop download on click
+		\n[x] -> open DM on notif. bar click
+		\n    (still not working in CM ROM)
+		\n
         \n v1.5.1 - Feb 24 2013
 		\n-----------------------------------
 		\n[x] fix crash when no net is avail.
-		\n[x] fix crash on video not avail.
+		\n[x] fix crash on bad video list
 		\n
 		\n v1.5 - Feb 22 2013
 		\n-----------------------------------
 		\n[x] online update check
 		\n[x] option to fetch filesizes
 		\n[x] stop download on click
-		\n (maybe not working in CM 10.1)
+		\n    (maybe not working in CM 10.1)
 		\n[x] DownloadManager quick links
 		\n[x] settings and DM overflow menu
 		\n[x] reordered preferences
@@ -138,7 +145,7 @@
 		\n v1.3.1 - Jan 19 2013
 		\n-----------------------------------
 		\n[x] handle again http|https links
-		\n (thanks Reiner)
+		\n    (thanks Reiner)
 		\n
 		\n v1.3 - Jan 18 2013
 		\n-----------------------------------

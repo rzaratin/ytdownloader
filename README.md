@@ -5,11 +5,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="34"`
+`versionCode="35"`
 
-`versionName="1.5.1"`
+`versionName="1.5.2"`
 
-MD5 checksum: `8cc49429f31ef65d5f40ffc45ff7bf7d` dentex.youtube.downloader_v1.5.1.apk
+MD5 checksum: `d263532e99f28d21315beb41a3bdff26` dentex.youtube.downloader_v1.5.2.apk
 
 LICENSE
 ================================================================
@@ -32,10 +32,17 @@ Copyright (C) 2012  Samuele Rini
 CHANGELOG
 ================================================================
     
+     v1.5.2 - Feb 25 2013 
+    ----------------------------------- 
+    [x] better fix on bad video list 
+    [x] remove stop download on click 
+    [x] -> open DM on notif. bar click 
+     (still not working in CM ROM) 
+     
      v1.5.1 - Feb 24 2013 
     ----------------------------------- 
     [x] fix crash when no net is avail. 
-    [x] fix crash on video not avail. 
+    [x] fix crash on bad video list 
      
      v1.5 - Feb 22 2013 
     ----------------------------------- 
@@ -95,7 +102,7 @@ CHANGELOG
 TO-DO LIST
 ================================================================
 
-    [ ] fix stop download on click (maybe not working in CyanogenMod ROM only)
+    [ ] fix open DownloadManager on NotificationBar click, not working in CyanogenMod ROMs.
     [ ] auto update-check once a day
     [ ] external (removable) sd-card supports
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
