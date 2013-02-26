@@ -22,19 +22,17 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
-import android.app.DownloadManager.Query;
 import android.app.DownloadManager.Request;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -42,6 +40,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -56,7 +55,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
-import dentex.youtube.downloader.service.NotificationClickService;
+import dentex.youtube.downloader.service.DownloadsService;
 import dentex.youtube.downloader.utils.Utils;
 
 public class ShareActivity extends Activity {
@@ -84,7 +83,7 @@ public class ShareActivity extends Activity {
     public static long enqueue;
 	String vfilename = "video";
 	String composedFilename = "";
-    private Uri videoUri;
+    public static Uri videoUri;
     private int icon;
 	public CheckBox showAgain1;
 	public CheckBox showAgain2;
@@ -106,7 +105,9 @@ public class ShareActivity extends Activity {
 	public AlertDialog waitBox;
 	private AlertDialog.Builder  helpBuilder;
 	private AlertDialog.Builder  waitBuilder;
-	protected boolean downloadingApk = false;
+	public static int mId;
+	public static NotificationManager mNotificationManager;
+	public static NotificationCompat.Builder mBuilder;
 	public static String onlineVersion;
 
     @Override
@@ -163,7 +164,7 @@ public class ShareActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        registerReceiver(inAppCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        //registerReceiver(inAppCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         Log.v(DEBUG_TAG, "_onStart");
     }
     
@@ -182,7 +183,7 @@ public class ShareActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-    	unregisterReceiver(inAppCompleteReceiver);
+    	//unregisterReceiver(inAppCompleteReceiver);
     	Log.v(DEBUG_TAG, "_onStop");
     }
     
@@ -528,7 +529,7 @@ public class ShareActivity extends Activity {
 	}
     
     void callDownloadManager(String link) {
-    	Intent intent = new Intent(ShareActivity.this, NotificationClickService.class);
+    	Intent intent = new Intent(ShareActivity.this, DownloadsService.class);
         startService(intent);
         
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -537,13 +538,34 @@ public class ShareActivity extends Activity {
         Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
         request.setDestinationUri(videoUri);
         request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setTitle(vfilename);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
     	enqueue = dm.enqueue(request);
-    	downloadingApk = false;
+    	
+    	NotificationHelper();
+
     }
 
-    // Given a URL, establishes an HttpUrlConnection and retrieves
+    private void NotificationHelper() {
+    	mBuilder =  new NotificationCompat.Builder(this);
+    	
+    	mBuilder.setSmallIcon(R.drawable.ic_tab_download)
+    	        .setContentTitle(composedFilename)
+    	        .setContentText("Downloading...");
+    	
+    	mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    	
+    	mId = (int) enqueue;
+    	
+    	Intent notificationIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
+    	notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    	PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+    	mBuilder.setContentIntent(contentIntent);
+    	
+    	// mId allows you to update the notification later on.
+    	mNotificationManager.notify(mId, mBuilder.build());
+	}
+
+	// Given a URL, establishes an HttpUrlConnection and retrieves
     // the web page content as a InputStream, which it returns as a string.
     private String downloadUrl(String myurl) throws IOException {
         InputStream is = null;
@@ -830,7 +852,7 @@ public class ShareActivity extends Activity {
         }
     }
 
-    BroadcastReceiver inAppCompleteReceiver = new BroadcastReceiver() {
+    /*BroadcastReceiver inAppCompleteReceiver = new BroadcastReceiver() {
 
 		@Override
         public void onReceive(Context context, Intent intent) {
@@ -875,5 +897,5 @@ public class ShareActivity extends Activity {
                 }
             }
         }
-    };
+    };*/
 }
