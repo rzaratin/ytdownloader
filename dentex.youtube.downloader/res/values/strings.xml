@@ -245,5 +245,10 @@
     <string name="share_message">#YouTubeDownloader
 	 	\nFree and Open-Source Android App to download YouTube video!
 	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
-
+	 	
+    <!-- @7 -->
+	<string name="settings_cat_advanced">Advanced</string>
+	<string name="su_title">Root test</string>
+	<string name="su_summary">Test for SU and BusyBox binaries</string>
+	
 </resources>
