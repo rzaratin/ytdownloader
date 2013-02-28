@@ -173,6 +173,5 @@ public class Utils extends Activity{
                 Log.e(DEBUG_TAG, "Exception on closing MD5 input stream", e);
             }
         }
-    }
-    
+    }    
 }

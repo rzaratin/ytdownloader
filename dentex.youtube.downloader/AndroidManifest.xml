@@ -79,6 +79,7 @@
             android:theme="@style/AppThemeDark" >
         </activity>
         <service android:name="dentex.youtube.downloader.service.DownloadsService" />
+        <service android:name="dentex.youtube.downloader.service.ObserverService" />
     </application>
 
 </manifest>

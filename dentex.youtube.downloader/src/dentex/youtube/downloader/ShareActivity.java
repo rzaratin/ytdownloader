@@ -56,6 +56,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 import dentex.youtube.downloader.service.DownloadsService;
+import dentex.youtube.downloader.service.ObserverService;
 import dentex.youtube.downloader.utils.Utils;
 
 public class ShareActivity extends Activity {
@@ -105,10 +106,11 @@ public class ShareActivity extends Activity {
 	public AlertDialog waitBox;
 	private AlertDialog.Builder  helpBuilder;
 	private AlertDialog.Builder  waitBuilder;
-	public static int mId;
+	public static int mId = 0;
 	public static NotificationManager mNotificationManager;
 	public static NotificationCompat.Builder mBuilder;
 	public static String onlineVersion;
+	public static List<Long> sequence = new ArrayList<Long>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -529,32 +531,38 @@ public class ShareActivity extends Activity {
 	}
     
     void callDownloadManager(String link) {
-    	Intent intent = new Intent(ShareActivity.this, DownloadsService.class);
-        startService(intent);
+    	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
+        startService(intent1);
+
+		videoUri = Uri.parse(path.toURI() + composedFilename);
+        Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
         
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         Request request = new Request(Uri.parse(link));
-		videoUri = Uri.parse(path.toURI() + composedFilename);
-        Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
         request.setDestinationUri(videoUri);
         request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE); //VISIBILITY_HIDDEN);
+        
     	enqueue = dm.enqueue(request);
+    	
+    	sequence.add(enqueue);
+    	
+    	Intent intent2 = new Intent(ShareActivity.this, ObserverService.class);
+    	//intent2.putExtra("video_uri", videoUri);
+    	startService(intent2);
     	
     	NotificationHelper();
 
     }
-
+    // TODO: wip - notification
     private void NotificationHelper() {
     	mBuilder =  new NotificationCompat.Builder(this);
     	
     	mBuilder.setSmallIcon(R.drawable.ic_tab_download)
-    	        .setContentTitle(composedFilename)
-    	        .setContentText("Downloading...");
+    	        .setContentTitle(getString(R.string.app_name))
+    	        .setContentText("Downloading " + sequence.size() + " video files");
     	
     	mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-    	
-    	mId = (int) enqueue;
     	
     	Intent notificationIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
     	notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -563,6 +571,8 @@ public class ShareActivity extends Activity {
     	
     	// mId allows you to update the notification later on.
     	mNotificationManager.notify(mId, mBuilder.build());
+    	
+    	Log.d(DEBUG_TAG, "_ID " + enqueue + " enqueued");
 	}
 
 	// Given a URL, establishes an HttpUrlConnection and retrieves
