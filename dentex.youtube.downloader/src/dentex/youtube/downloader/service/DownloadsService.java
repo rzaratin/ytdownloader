@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.os.IBinder;
 import android.util.Log;
 import dentex.youtube.downloader.ShareActivity;
+import dentex.youtube.downloader.utils.Utils;
 
 public class DownloadsService extends Service {
 	
@@ -44,43 +45,34 @@ public class DownloadsService extends Service {
 	    Log.d(DEBUG_TAG, "service destroyed");
 	    unregisterReceiver(downloadComplete);
 	}
-	
+
 	BroadcastReceiver downloadComplete = new BroadcastReceiver() {
     	
     	@Override
     	public void onReceive(Context context, Intent intent) {
     		Log.d(DEBUG_TAG, "downloadComplete: onReceive CALLED");
     		long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-	        	
+	        
 			Query query = new Query();
 			query.setFilterById(id);
 			Cursor c = ShareActivity.dm.query(query);
 			if (c.moveToFirst()) {
 				int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
 				int status = c.getInt(columnIndex);
-				
+				Log.d(DEBUG_TAG, "status: " + status);
 				switch (status) {
 				
 				case DownloadManager.STATUS_SUCCESSFUL:
-					Log.d(DEBUG_TAG, "_ID " + id + " SUCCESSFULLY COMPLETED");
-				
+					Log.d(DEBUG_TAG, "_ID " + id + " SUCCESSFUL");
+					break;
 				case DownloadManager.STATUS_FAILED:
 					Log.d(DEBUG_TAG, "_ID " + id + " FAILED");
-					
+					break;
 				default:
-					Log.d(DEBUG_TAG, "_ID completed; status: " + status);
+					Log.d(DEBUG_TAG, "_ID completed with status " + status);
 				}
 				
-				if (ShareActivity.sequence.remove(id)) Log.d(DEBUG_TAG, "_ID " + id + " REMOVED");
-				
-				if (ShareActivity.sequence.size() > 0) {
-					ShareActivity.mBuilder.setContentText("Downloading " + ShareActivity.sequence.size() + " video files");
-					ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
-				} else {
-					ShareActivity.mBuilder.setContentText("All downloads completed");
-					ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
-					//stopSelf();
-				}
+				Utils.removeIdUpdateNotification(id);
 	        }
     	}
     };

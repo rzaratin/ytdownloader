@@ -56,8 +56,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 import dentex.youtube.downloader.service.DownloadsService;
-import dentex.youtube.downloader.service.ObserverService;
 import dentex.youtube.downloader.utils.Utils;
+import dentex.youtube.downloader.utils.Utils.delFileObserver;
 
 public class ShareActivity extends Activity {
 	
@@ -78,7 +78,7 @@ public class ShareActivity extends Activity {
     private String titleRaw;
     private String title;
     public int pos;
-    public File path;
+    public static File path;
     public String validatedLink;
     public static DownloadManager dm;
     public static long enqueue;
@@ -106,6 +106,7 @@ public class ShareActivity extends Activity {
 	public AlertDialog waitBox;
 	private AlertDialog.Builder  helpBuilder;
 	private AlertDialog.Builder  waitBuilder;
+	public static delFileObserver fileObserver;
 	public static int mId = 0;
 	public static NotificationManager mNotificationManager;
 	public static NotificationCompat.Builder mBuilder;
@@ -541,15 +542,19 @@ public class ShareActivity extends Activity {
         Request request = new Request(Uri.parse(link));
         request.setDestinationUri(videoUri);
         request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE); //VISIBILITY_HIDDEN);
+        
+        //request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        //request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
         
     	enqueue = dm.enqueue(request);
     	
     	sequence.add(enqueue);
     	
-    	Intent intent2 = new Intent(ShareActivity.this, ObserverService.class);
-    	//intent2.putExtra("video_uri", videoUri);
-    	startService(intent2);
+    	settings.edit().putLong(composedFilename, enqueue).apply();
+    	Log.d(DEBUG_TAG, "videoUri.getEncodedPath: " + videoUri.getEncodedPath());
+    	fileObserver = new Utils.delFileObserver(path.getAbsolutePath());
+		fileObserver.startWatching();
     	
     	NotificationHelper();
 

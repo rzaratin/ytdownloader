@@ -18,6 +18,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.os.FileObserver;
 import android.util.Log;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 import dentex.youtube.downloader.ShareActivity;
@@ -173,5 +174,62 @@ public class Utils extends Activity{
                 Log.e(DEBUG_TAG, "Exception on closing MD5 input stream", e);
             }
         }
-    }    
+    }
+    
+    public static class delFileObserver extends FileObserver {
+        static final String TAG="FileObserver: ";
+
+    	String rootPath;
+    	static final int mask = (FileObserver.CREATE | FileObserver.DELETE | FileObserver.DELETE_SELF); 
+    	
+    	public delFileObserver(String root){
+    		super(root, mask);
+
+    		if (! root.endsWith(File.separator)){
+    			root += File.separator;
+    		}
+    		rootPath = root;
+    	}
+
+    	public void onEvent(int event, String path) {
+    		Log.d(DEBUG_TAG, TAG + "onEvent " + event + ", " + path);
+    		
+    		if (event == FileObserver.CREATE) {
+    			Log.d(DEBUG_TAG, TAG + "file " + path + " CREATED");
+    		}
+    		
+    		if (event == FileObserver.DELETE || event == FileObserver.DELETE_SELF){
+    			Log.d(DEBUG_TAG, TAG + "file " + path + " DELETED");
+    			
+    			long id = settings.getLong(path, 0);
+    			Log.d(DEBUG_TAG, TAG + "id: " +  id);
+    			Utils.removeIdUpdateNotification(id);
+    		}
+    	}
+
+    	public void close(){
+    		super.finalize();
+    	}
+    }
+    
+    public static void removeIdUpdateNotification(long id) {
+		if (ShareActivity.sequence.remove(id)) {
+			Log.d(DEBUG_TAG, "_ID " + id + " REMOVED from Notification");
+		} else {
+			Log.e(DEBUG_TAG, "_ID " + id + " NOT REMOVED from Notification");
+		}
+		
+		if (ShareActivity.sequence.size() > 0) {
+			ShareActivity.mBuilder.setContentText("Downloading " + ShareActivity.sequence.size() + " video files");
+			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
+			Log.d(DEBUG_TAG, "Notification: video num. updated");
+		} else {
+			ShareActivity.mBuilder.setContentText("All downloads completed");
+			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
+			Log.d(DEBUG_TAG, "Notification: all downloads completed");
+			
+			//stopSelf();
+			//ShareActivity.fileObserver.stopWatching();
+		}
+	}
 }
