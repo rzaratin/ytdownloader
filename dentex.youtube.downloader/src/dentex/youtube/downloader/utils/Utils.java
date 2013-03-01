@@ -117,7 +117,7 @@ public class Utils extends Activity{
 		}
 		return currentHashCode;
 	}
-	//TODO aggiugnere crediti alla CM
+
 	public static boolean checkMD5(String md5, File updateFile) {
         if (md5 == null || md5.equals("") || updateFile == null) {
             Log.e(DEBUG_TAG, "MD5 String NULL or UpdateFile NULL");
@@ -192,11 +192,11 @@ public class Utils extends Activity{
     	}
 
     	public void onEvent(int event, String path) {
-    		Log.d(DEBUG_TAG, TAG + "onEvent " + event + ", " + path);
+    		/*Log.d(DEBUG_TAG, TAG + "onEvent " + event + ", " + path);
     		
     		if (event == FileObserver.CREATE) {
     			Log.d(DEBUG_TAG, TAG + "file " + path + " CREATED");
-    		}
+    		}*/
     		
     		if (event == FileObserver.DELETE || event == FileObserver.DELETE_SELF){
     			Log.d(DEBUG_TAG, TAG + "file " + path + " DELETED");
@@ -213,23 +213,25 @@ public class Utils extends Activity{
     }
     
     public static void removeIdUpdateNotification(long id) {
-		if (ShareActivity.sequence.remove(id)) {
-			Log.d(DEBUG_TAG, "_ID " + id + " REMOVED from Notification");
+    	
+		if (id != 0) {
+			if (ShareActivity.sequence.remove(id)) {
+				Log.d(DEBUG_TAG, "_ID " + id + " REMOVED from Notification");
+			} else {
+				Log.d(DEBUG_TAG, "_ID " + id + " Already REMOVED from Notification");
+			}
 		} else {
-			Log.e(DEBUG_TAG, "_ID " + id + " NOT REMOVED from Notification");
+			Log.e(DEBUG_TAG, "_ID  not found!");
 		}
 		
 		if (ShareActivity.sequence.size() > 0) {
-			ShareActivity.mBuilder.setContentText("Downloading " + ShareActivity.sequence.size() + " video files");
+			ShareActivity.mBuilder.setContentText("Downloading " + ShareActivity.sequence.size() + " video files.");
 			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
 			Log.d(DEBUG_TAG, "Notification: video num. updated");
 		} else {
-			ShareActivity.mBuilder.setContentText("All downloads completed");
+			ShareActivity.mBuilder.setContentText("No downloads in progress.");
 			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
-			Log.d(DEBUG_TAG, "Notification: all downloads completed");
-			
-			//stopSelf();
-			//ShareActivity.fileObserver.stopWatching();
+			Log.d(DEBUG_TAG, "Notification: no downloads in progress");
 		}
 	}
 }

@@ -1,7 +1,5 @@
 package dentex.youtube.downloader.service;
 
-import java.util.Arrays;
-
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.Service;
@@ -31,17 +29,12 @@ public class DownloadsService extends Service {
 	@Override
 	public void onCreate() {
 		settings = getSharedPreferences(PREFS_NAME, 0);
-		
-		//Toast.makeText(this, "NotificationClickReceiver service created", Toast.LENGTH_SHORT).show();
 		Log.d(DEBUG_TAG, "service created");
-		//registerReceiver(NotificationClickReceiver, new IntentFilter(DownloadManager.ACTION_NOTIFICATION_CLICKED));
 		registerReceiver(downloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-		registerReceiver(downloadClicked, new IntentFilter(DownloadManager. ACTION_NOTIFICATION_CLICKED));
 	}
 	
 	@Override
 	  public void onDestroy() {
-	    //Toast.makeText(this, "NotificationClickReceiver service destroyed", Toast.LENGTH_SHORT).show();
 	    Log.d(DEBUG_TAG, "service destroyed");
 	    unregisterReceiver(downloadComplete);
 	}
@@ -57,7 +50,8 @@ public class DownloadsService extends Service {
 			query.setFilterById(id);
 			Cursor c = ShareActivity.dm.query(query);
 			if (c.moveToFirst()) {
-				int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+				
+				/*int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
 				int status = c.getInt(columnIndex);
 				Log.d(DEBUG_TAG, "status: " + status);
 				switch (status) {
@@ -70,28 +64,10 @@ public class DownloadsService extends Service {
 					break;
 				default:
 					Log.d(DEBUG_TAG, "_ID completed with status " + status);
-				}
+				}*/
 				
 				Utils.removeIdUpdateNotification(id);
 	        }
     	}
-    };
-    
-    BroadcastReceiver downloadClicked = new BroadcastReceiver() {
-    	
-    	@Override
-    	public void onReceive(Context context, Intent intent) {
-    		Log.d(DEBUG_TAG, "downloadClicked: onReceive CALLED");
-    		long[] id = intent.getLongArrayExtra(DownloadManager.EXTRA_NOTIFICATION_CLICK_DOWNLOAD_IDS);
-    		Log.d(DEBUG_TAG, "_downloads clicked: " + Arrays.toString(id));
-    		Query query = new Query();
-			query.setFilterById(id);
-			Cursor c = ShareActivity.dm.query(query);
-			if (c.moveToFirst()) {
-				int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_DESCRIPTION);
-				Log.d(DEBUG_TAG, "_COLUMN_DESCRIPTION: " + columnIndex);
-			}
-    	}
-    };
-    
+    };    
 }

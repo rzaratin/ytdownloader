@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dentex.youtube.downloader"
     android:installLocation="auto"
-    android:versionCode="35"
-    android:versionName="1.5.2" >
+    android:versionCode="36"
+    android:versionName="1.6" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -63,6 +63,12 @@
         <activity
             android:name="dentex.youtube.downloader.docs.MitShowActivity"
             android:label="@string/title_activity_mit_show"
+            android:screenOrientation="portrait"
+            android:theme="@style/LicenseTheme" >
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.docs.CreditsShowActivity"
+            android:label="@string/title_activity_credits_show"
             android:screenOrientation="portrait"
             android:theme="@style/LicenseTheme" >
         </activity>

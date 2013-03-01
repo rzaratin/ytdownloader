@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -27,6 +28,7 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import dentex.youtube.downloader.docs.ChangelogActivity;
+import dentex.youtube.downloader.docs.CreditsShowActivity;
 import dentex.youtube.downloader.docs.GplShowActivity;
 import dentex.youtube.downloader.docs.MitShowActivity;
 import dentex.youtube.downloader.utils.Utils;
@@ -62,12 +64,14 @@ public class SettingsActivity extends Activity {
 		private Preference quickStart;
 		private Preference gpl;
 		private Preference mit;
+		private Preference credits;
 		private Preference git;
 		private Preference hg;
 		private Preference gc;
 		private Preference share;
 		private Preference cl;
 		private Preference up;
+		private CheckBoxPreference ownNot;
 
 		public static final int YTD_SIG_HASH = -1892118308; // final string
 		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
@@ -136,6 +140,16 @@ public class SettingsActivity extends Activity {
             	
                 public boolean onPreferenceClick(Preference preference) {
                 	Intent intent = new Intent(getActivity(),  MitShowActivity.class);
+            		startActivity(intent);
+                    return true;
+                }
+            });
+            
+            credits = (Preference) findPreference("credits");
+            credits.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	Intent intent = new Intent(getActivity(),  CreditsShowActivity.class);
             		startActivity(intent);
                     return true;
                 }
@@ -214,6 +228,18 @@ public class SettingsActivity extends Activity {
 		            Intent intent = new Intent(getActivity(),  UpgradeApkActivity.class);
 		            startActivity(intent);
 		            return true;
+                }
+            });
+            
+            ownNot = (CheckBoxPreference) findPreference("enable_own_notification");
+            ownNot.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	if (!ownNot.isChecked() && ShareActivity.mId == 1) {
+                		ShareActivity.mNotificationManager.cancelAll();
+                		ShareActivity.mId = 0;
+                	}
+					return true;
                 }
             });
  
@@ -333,9 +359,7 @@ public class SettingsActivity extends Activity {
                     	for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
                             initSummary(getPreferenceScreen().getPreference(i));
                         }
-                    	SharedPreferences.Editor editor = settings.edit();
-                    	editor.putString("CHOOSER_FOLDER", chooserSummary);
-                    	editor.commit();
+                    	settings.edit().putString("CHOOSER_FOLDER", chooserSummary).apply();
                     }
                 }
                 break;

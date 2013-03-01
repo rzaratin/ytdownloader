@@ -5,11 +5,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="35"`
+`versionCode="36"`
 
-`versionName="1.5.2"`
+`versionName="1.6"`
 
-MD5 checksum: `d263532e99f28d21315beb41a3bdff26` dentex.youtube.downloader_v1.5.2.apk
+MD5 checksum: `dbffe489f8b28511bcd4fe6a3a331f88` dentex.youtube.downloader_v1.6.apk
 
 LICENSE
 ================================================================
@@ -32,16 +32,22 @@ Copyright (C) 2012  Samuele Rini
 CHANGELOG
 ================================================================
     
+     v1.6 - Mar 01 2013 
+    ----------------------------------- 
+    [x] own YTD notification bar 
+    [x] options for own and sys notif. 
+    [x] added some credits 
+     
      v1.5.2 - Feb 25 2013 
     ----------------------------------- 
     [x] better fix on bad video list 
     [x] remove stop download on click 
-    [x] -> open DM on notif. bar click 
+    [x] open DM on notif. bar click 
      (still not working in CM ROM) 
      
      v1.5.1 - Feb 24 2013 
     ----------------------------------- 
-    [x] fix crash when no net is avail. 
+    [x] fix crash if no net is avail. 
     [x] fix crash on bad video list 
      
      v1.5 - Feb 22 2013 
@@ -102,7 +108,6 @@ CHANGELOG
 TO-DO LIST
 ================================================================
 
-    [ ] fix open DownloadManager on NotificationBar click, not working in CyanogenMod ROMs.
     [ ] auto update-check once a day
     [ ] external (removable) sd-card supports
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
@@ -110,6 +115,7 @@ TO-DO LIST
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v1.4.apk?raw=true
     [ ] change to library project "aFilechooser" instead of "android-filechooser" currently in use
     [ ] downloads log
+    [ ] Italian translation
     [ ] use icon/logo to identify codecs available
     [ ] use thumbnail for video preview
     [ ] make the App tablet friendly

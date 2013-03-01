@@ -22,17 +22,21 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.app.DownloadManager.Query;
 import android.app.DownloadManager.Request;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -167,7 +171,7 @@ public class ShareActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        //registerReceiver(inAppCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        registerReceiver(inAppCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         Log.v(DEBUG_TAG, "_onStart");
     }
     
@@ -186,7 +190,7 @@ public class ShareActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-    	//unregisterReceiver(inAppCompleteReceiver);
+    	unregisterReceiver(inAppCompleteReceiver);
     	Log.v(DEBUG_TAG, "_onStop");
     }
     
@@ -532,9 +536,6 @@ public class ShareActivity extends Activity {
 	}
     
     void callDownloadManager(String link) {
-    	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
-        startService(intent1);
-
 		videoUri = Uri.parse(path.toURI() + composedFilename);
         Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
         
@@ -543,23 +544,39 @@ public class ShareActivity extends Activity {
         request.setDestinationUri(videoUri);
         request.allowScanningByMediaScanner();
         
-        //request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        //request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
+        String visValue = settings.getString("download_manager_notification", "VISIBLE");
+        int vis;
+		if (visValue.equals("VISIBLE_NOTIFY_COMPLETED")) {
+			vis = DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
+		} else if (visValue.equals("HIDDEN")) {
+			vis = DownloadManager.Request.VISIBILITY_HIDDEN;
+		} else {
+			vis = DownloadManager.Request.VISIBILITY_VISIBLE;
+		}
+        request.setNotificationVisibility(vis);
         
     	enqueue = dm.enqueue(request);
+    	Log.d(DEBUG_TAG, "_ID " + enqueue + " enqueued");
     	
-    	sequence.add(enqueue);
+    	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	
-    	settings.edit().putLong(composedFilename, enqueue).apply();
-    	Log.d(DEBUG_TAG, "videoUri.getEncodedPath: " + videoUri.getEncodedPath());
-    	fileObserver = new Utils.delFileObserver(path.getAbsolutePath());
-		fileObserver.startWatching();
-    	
-    	NotificationHelper();
+    	if (settings.getBoolean("enable_own_notification", true) == true) {
+            startService(intent1);
+            
+			sequence.add(enqueue);
+			settings.edit().putLong(composedFilename, enqueue).apply();
+			//Log.d(DEBUG_TAG, "videoUri.getEncodedPath: " + videoUri.getEncodedPath());
+			
+			fileObserver = new Utils.delFileObserver(path.getAbsolutePath());
+			fileObserver.startWatching();
+			
+			NotificationHelper();
+		} else {
+			stopService(intent1);
+		}
 
     }
-    // TODO: wip - notification
+
     private void NotificationHelper() {
     	mBuilder =  new NotificationCompat.Builder(this);
     	
@@ -573,11 +590,8 @@ public class ShareActivity extends Activity {
     	notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
     	PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
     	mBuilder.setContentIntent(contentIntent);
-    	
-    	// mId allows you to update the notification later on.
+    	mId = 1;
     	mNotificationManager.notify(mId, mBuilder.build());
-    	
-    	Log.d(DEBUG_TAG, "_ID " + enqueue + " enqueued");
 	}
 
 	// Given a URL, establishes an HttpUrlConnection and retrieves
@@ -867,16 +881,16 @@ public class ShareActivity extends Activity {
         }
     }
 
-    /*BroadcastReceiver inAppCompleteReceiver = new BroadcastReceiver() {
+    BroadcastReceiver inAppCompleteReceiver = new BroadcastReceiver() {
 
 		@Override
         public void onReceive(Context context, Intent intent) {
-			Log.d(DEBUG_TAG, "inAppCompleteReceiver: onReceive CALLED");
+			//Log.d(DEBUG_TAG, "inAppCompleteReceiver: onReceive CALLED");
 	        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -2);
 	        if (enqueue != -1 && id != -2 && id == enqueue) {
 	            Query query = new Query();
 	            query.setFilterById(id);
-	            //dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+
 	            Cursor c = dm.query(query);
 	            if (c.moveToFirst()) {
 	                int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
@@ -912,5 +926,5 @@ public class ShareActivity extends Activity {
                 }
             }
         }
-    };*/
+    };
 }
