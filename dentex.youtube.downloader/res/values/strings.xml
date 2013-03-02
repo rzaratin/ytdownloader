@@ -11,22 +11,22 @@
 
     <string name="tutorial_title">General App tutorial</string>
     <string name="tutorial_msg">Now you will see a list with all the codecs and qualities available for the selected video.
-		\n\nChoose one item and you will be asked to download the video locally (on the phone) or to send the download via SSH to a linux machine.
+		\n\nChoose one item and you will be asked to download the video locally (on the device) or to send the download via SSH to a linux machine.
 		\n\nDestination linux-box requirements: Bash and Wget. Additional SSH info further on.</string>
     <string name="loading">Loading&#8230;</string>
     <string name="error">Error!</string>
     <string name="information">Information</string>
     <string name="dialogs_negative">Cancel</string>
     <string name="wait">Please wait&#8230;</string>
-    <string name="invalid_url">Unable to retrieve web page. URL may be invalid."</string>
-    <string name="invalid_url_short">Unable to retrieve web page."</string>
+    <string name="invalid_url">Unable to retrieve web page. URL may be invalid.</string>
+    <string name="invalid_url_short">Unable to retrieve web page.</string>
     <string name="bad_link">Check the provided link.</string>
     <string name="bad_link_dialog_msg">Not a valid YouTube link.</string>
     <string name="no_net">No connection available.</string>
     <string name="no_net_dialog_msg">Please, enable a network connection first.</string>
     <string name="no_market">No market App available.</string>
     <string name="no_market_dialog_msg">Please, install Google Play</string>
-    <string name="list_click_dialog_title">Confirm Download for:</string>
+    <string name="list_click_dialog_title">Confirm download for:</string>
     <string name="list_click_download_local">Download here</string>
     <string name="list_click_download_ssh">Send via SSH</string>
     <string name="rename_dialog_title">New filename:</string>
@@ -40,18 +40,18 @@
     <string name="callConnectBot_dialog_title">ConnectBot not installed!</string>
     <string name="callConnectBot_dialog_msg">You need this free App to send the video download via SSH.</string>
     <string name="callConnectBot_dialog_positive">Install ConnectBot</string>
-    <string name="download_complete_dialog_msg1">Youtube Video:\n</string>
+    <string name="download_complete_dialog_msg1">YouTube Video:\n</string>
     <string name="download_complete_dialog_msg2">\nSuccessfully downloaded.</string>
     <string name="download_complete_dialog_positive">Open</string>
     <string name="downloading">Downloading&#8230;</string>
-    <string name="cancel_download_dialog_title">Cancel Download?</string>
+    <string name="cancel_download_dialog_title">Cancel download?</string>
 
     <!-- ### SettingsActivity ### -->
 
     <string name="attention">Attention!</string>
     <string name="extsdcard_warning">This App cannot write files on the external (removable) sdcard.\nStay on the standard sdcard.</string>
     <string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.</string>
-    <string name="chooser_location_summary_init">Long-press to select a folder.</string>
+    <string name="chooser_location_summary_init">Long-press a folder to select.</string>
     <string name="update_disabled_summary">Found different signature (F-Droid?)</string>
     
     <!-- ### UpgradeApkActivity ### -->
@@ -67,8 +67,8 @@
     <string name="upgraded_dialog_msg">New version stored in standard sdcard \'Download\' folder.\n\nInstall now?</string>
     <string name="upgraded_dialog_negative">Later\n(manually)</string>
     <string name="upgrade_latest_installed">Latest version is already installed!</string>
-    <string name="upgrade_network_error">Unable to retrieve update data.\nRetry later</string>
-    <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again</string>
+    <string name="upgrade_network_error">Unable to retrieve update data.\nRetry later.</string>
+    <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again.</string>
     
     <!-- ### preferences ### -->
 
@@ -83,9 +83,9 @@
     <string name="settings_cat_tutorials">Tutorials</string>
     <string name="quick_start_title">Quick start</string>
     <string name="quick_start_summ">Open a quick start tutorial</string>
-    <string name="quick_start_text">Here are just the preferences for \"YouTube Downloader\".
-		\n\nThe actual App can be accessed via the sharing button in the YouTube App, while watching a video.
-		\n\nThen simply choose \"YouTube Downloader\" and you will have further usage info.
+    <string name="quick_start_text">Here are just the preferences for \'YouTube Downloader\'.
+		\n\nThe actual App can be accessed via the share button in the YouTube App, while watching a video.
+		\n\nThen choose \'YouTube Downloader\' and you will have further usage info.
 		\n\nYou can also share any YouTube plain text link via any other App: i.e. your browser.</string>
     <string name="general_info_title">Enable General how-to</string>
     <string name="general_info_summary">Show a general App tutorial on startup</string>
@@ -112,14 +112,14 @@
     
     <!-- @4 -->
     <string name="settings_cat_notifications">Notifications</string>
-    <string name="enable_own_notification_title">Enable own Notification</string>
+    <string name="enable_own_notification_title">Enable own notification</string>
     <string name="enable_own_notification_summary">Show a comprehensive notification about all YTD downloads</string>
     <string name="download_manager_notification_title">Manage system\'s notifications</string>
-    <string name="download_manager_notification_dialog_title">When to show system\'s Download Manager notifications:</string>
+    <string name="download_manager_notification_dialog_title">Show system\'s Download Manager notifications:</string>
     <string name="download_manager_notification_default">VISIBLE</string>
 
     <!-- @5 -->
-    <string name="settings_cat_about">About</string>
+    <string name="settings_cat_about">About this App</string>
     <string name="title_changelog">Changelog</string>
     <string name="changelog">
         \n v1.6 - Mar 01 2013
@@ -217,7 +217,7 @@
 		GNU General Public License for more details.
 		\n\n
 		You should have received a copy of the GNU General Public License
-		along with this program. If not, see <http>http://www.gnu.org/licenses</http>.</string>
+		along with this program. If not, see <http>http://www.gnu.org/licenses</http></string>
     <string name="mit_title">Filechooser\'s Licence</string>
     <string name="mit_summary">MIT License</string>
     <string name="title_activity_mit_show">MIT License</string>
@@ -244,18 +244,18 @@
 
     <string name="credits_title">Other credits</string>
     <string name="credits_summary">Code excerpts License</string>
-    <string name="title_activity_credits_show">Code excerpts License and Other Credits</string>
+    <string name="title_activity_credits_show">Code excerpts License and other Credits</string>
     <string name="credits_text"> Code excerpts License
         \n\n
         This App uses some code excerpts from the CyanogenMod custom ROM;
         \n\n
         Specifically the methods to calculate and then compare the MD5 
-        checksum for downloaded upgrade packages are taken from che CMUpdater App
+        checksum for downloaded upgrade packages are taken from che \'CMUpdater\' App
         (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>).
         \n\n
         Copyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
 		\n\n
-		The text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http>.</string>
+		The text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
         
     <!-- @5.2 -->
     <string name="settings_cat_code">Source Code</string>

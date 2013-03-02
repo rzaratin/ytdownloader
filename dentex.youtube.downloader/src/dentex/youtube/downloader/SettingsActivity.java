@@ -94,7 +94,7 @@ public class SettingsActivity extends Activity {
 
             String cf = settings.getString("CHOOSER_FOLDER", "");
             if (cf.isEmpty()) {
-            	chooserSummary = getString(R.string.chooser_location_summary_init);
+            	chooserSummary = getString(R.string.chooser_location_summary);
             } else {
             	chooserSummary = settings.getString("CHOOSER_FOLDER", "");
             }
