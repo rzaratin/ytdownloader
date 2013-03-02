@@ -20,6 +20,7 @@
     <string name="wait">Please wait&#8230;</string>
     <string name="invalid_url">Unable to retrieve web page. URL may be invalid.</string>
     <string name="invalid_url_short">Unable to retrieve web page.</string>
+    <string name="invalid_response">Invalid HTTP server response.</string>
     <string name="bad_link">Check the provided link.</string>
     <string name="bad_link_dialog_msg">Not a valid YouTube link.</string>
     <string name="no_net">No connection available.</string>
@@ -45,13 +46,16 @@
     <string name="download_complete_dialog_positive">Open</string>
     <string name="downloading">Downloading&#8230;</string>
     <string name="cancel_download_dialog_title">Cancel download?</string>
-
+    <string name="video_list_error_toast">Error in video list</string>
+    <string name="codec">\n\n\tCodec: </string>
+    <string name="quality">\n\tQuality: </string>
+    <string name="size">\n\tSize: </string>
+    
     <!-- ### SettingsActivity ### -->
 
     <string name="attention">Attention!</string>
     <string name="extsdcard_warning">This App cannot write files on the external (removable) sdcard.\nStay on the standard sdcard.</string>
     <string name="system_warning">It\'s not possible to write files in a system folder.\nStay on the standard sdcard.</string>
-    <string name="chooser_location_summary_init">Long-press a folder to select.</string>
     <string name="update_disabled_summary">Found different signature (F-Droid?)</string>
     
     <!-- ### UpgradeApkActivity ### -->
@@ -69,6 +73,11 @@
     <string name="upgrade_latest_installed">Latest version is already installed!</string>
     <string name="upgrade_network_error">Unable to retrieve update data.\nRetry later.</string>
     <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again.</string>
+    
+    <!-- ### Utils ### -->
+    <string name="notification_downloading_pt1">Downloading</string>
+    <string name="notification_downloading_pt2">video files</string>
+    <string name="notification_no_downloads">No downloads in progress</string>
     
     <!-- ### preferences ### -->
 

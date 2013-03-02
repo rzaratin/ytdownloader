@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">YouTube Downloader</string>
+    <string name="menu_settings">Definições</string>
+    <string name="title_activity_share">YouTube Downloader</string>
+    <string name="title_activity_settings">Definições do YouTube Downloader</string>
+    <string name="title_activity_upgrade_apk">Atualização do YouTube Downloader</string>
+
+    <!-- ### ShareActivity ### -->
+
+    <string name="tutorial_title">Tutorial geral da aplicação</string>
+    <string name="tutorial_msg">Agora vai ver uma lista com todos os codecs e qualidades disponiveis para o video selecionado.
+		\n\nEscolha uma opção e vai ser questionado onde guardar o video localmente (no telemovel) ou para o enviar para download via SSH para um dispositivo linux.
+		\n\nRequesitos do destino linux-box: Bash e Wget. Mais informação SSH mais a frente.</string>
+    <string name="loading">Carregando&#8230;</string>
+    <string name="error">Erro!</string>
+    <string name="information">Informação</string>
+    <string name="dialogs_negative">Cancelar</string>
+    <string name="wait">Por favor aguarde&#8230;</string>
+    <string name="invalid_url">Incapaz de proceder á extração da pagina web. URL poderá ser invalido."</string>
+    <string name="invalid_url_short">Incapaz de proceder á extração da pagina web."</string>
+    <string name="invalid_response">Resposta do servidor HTTP inválida.</string>
+    <string name="bad_link">Reveja o link fornecido.</string>
+    <string name="bad_link_dialog_msg">Não é um link do YouTube válido.</string>
+    <string name="no_net">Nenhuma coneção disponivel.</string>
+    <string name="no_net_dialog_msg">Por favor, habilite uma coneção de rede primeiro.</string>
+    <string name="no_market">Nenhuma aplicação no market disponivel.</string>
+    <string name="no_market_dialog_msg">Por favor, instale o Google Play</string>
+    <string name="list_click_dialog_title">Confirme o Download para:</string>
+    <string name="list_click_download_local">Download aqui</string>
+    <string name="list_click_download_ssh">Enviar via SSH</string>
+    <string name="rename_dialog_title">Novo nome de ficheiro:</string>
+    <string name="rename_dialog_msg">Não escreva a extenção de ficheiro (como .mp4 ou .flv).</string>
+    <string name="unable_save">Incapaz de guardar o video!</string>
+    <string name="unable_save_dialog_msg">Pasta de destino NÃO disponivel e/ou NÃO permite a escrita.</string>
+    <string name="ssh_info_tutorial_title">Como enviar via SSH</string>
+    <string name="ssh_info_tutorial_msg">Um unico comando longo foi carregado na area de tranferencia.
+		\n\nEscolha um perfil no ConnectBot e quando na sua Shell remota, navegue para o desejado 
+		destino, COLE o comando (use o botão do menu) e faça ENTER.</string>
+    <string name="callConnectBot_dialog_title">ConnectBot não instalado!</string>
+    <string name="callConnectBot_dialog_msg">Precisa desta aplicação gratis para enviar o download do video via SSH.</string>
+    <string name="callConnectBot_dialog_positive">Instalar ConnectBot</string>
+    <string name="download_complete_dialog_msg1">Video Youtube:\n</string>
+    <string name="download_complete_dialog_msg2">\nDescarregado com Sucesso.</string>
+    <string name="download_complete_dialog_positive">Abrir</string>
+    <string name="downloading">Descarregando&#8230;</string>
+    <string name="cancel_download_dialog_title">Cancelar Download?</string>
+    <string name="video_list_error_toast">Erro na lista dos videos</string>
+    <string name="codec">\n\n\tCodec:</string>
+    <string name="quality">\n\tQualidade:</string>
+    <string name="size">\n\tTamanho:</string>
+    
+    <!-- ### SettingsActivity ### -->
+
+    <string name="attention">Atenção!</string>
+    <string name="extsdcard_warning">Esta aplicação não pode gravar ficheiros em cartões SD externos (removiveis).\nFique no cartão SD predefinido.</string>
+    <string name="system_warning">Não é possivel gravar ficheiros numa pasta de sistema.\nFique no cartão SD predefinido.</string>
+    <string name="update_disabled_summary">Assinatura diferente encontrada (F-Droid?)</string>
+    
+    <!-- ### UpgradeApkActivity ### -->
+    
+    <string name="upgrade_button_init">Actualizar</string>
+    <string name="upgrade_button_download">Download\ninstalação nand</string>
+    <string name="upgrade_uppertext_searching">Procurando&#8230;</string>
+    <string name="upgrade_uppertext_init">Versão instalada:\n</string>
+    <string name="upgrade_dialog_msg">Nova versão disponivel:\t</string>
+    <string name="upgrade_dialog_positive">Download</string>
+    <string name="upgrade_latest">Mais recente:\t</string>
+    <string name="upgrade_installed">\nInstalda:\t</string>
+    <string name="upgraded_dialog_msg">Nova versão armazenada no cartão SD prédefinido, pasta \'Download\'.\n\nInstalar agora?</string>
+    <string name="upgraded_dialog_negative">Mais tarde\n(manualmente)</string>
+    <string name="upgrade_latest_installed">A versão mais recente ja está instalada!</string>
+    <string name="upgrade_network_error">Incapaz de proceder à extração das informações de actualização.\nTente de novo mais tarde.</string>
+    <string name="upgrade_bad_md5_dialog_msg">Pacote descarregado corrompido.\nSerá apagado agora.\nPressione OK para descarregar de novo</string>
+    
+    <!-- ### Utils ### -->
+    <string name="notification_downloading_pt1">A descarregar</string>
+    <string name="notification_downloading_pt2">Ficheiros de video</string>
+    <string name="notification_no_downloads">Nenhuns downloads em progresso</string>
+    
+    <!-- ### preferences ### -->
+
+    <!-- @0 -->
+    <string name="dm_title">Ver Downloads</string>
+    <string name="dm_title_condensed">Downloads</string>
+    <string name="dm_summary">Abrir o Gestor de Transferencias do sistema</string>
+    <string name="update_title">Procurar actualizações</string>
+    <string name="update_title_condensed">Actualizar</string>
+    
+    <!-- @1 -->
+    <string name="settings_cat_tutorials">Tutoriais</string>
+    <string name="quick_start_title">Começo rapido</string>
+    <string name="quick_start_summ">Abrir um tutorial de começo rapido</string>
+    <string name="quick_start_text">Aqui estão só as preferencias para o \"YouTube Downloader\".
+		\n\nA verdadeira aplicação pode ser acedida através do botão de partilha na aplicação dp YouTube, enquanto vendo um video.
+		\n\nDepois simplesmente escolha \"YouTube Downloader\" e terá mais informação de uso.
+		\n\nTambem pode partilhar qualquer link do YouTube em texto através de qualquer outra aplicação: como por exemplo o seu browser.</string>
+    <string name="general_info_title">Ligar dicas gerais sobre como utilizar</string>
+    <string name="general_info_summary">Mostrar um toturail geral da aplicação ao arrancar</string>
+    <string name="show_again_checkbox">Mostrar de novo da proxima vez</string>
+    <string name="ssh_info_title">Ligar como utilzar o SSH</string>
+    <string name="ssh_info_summary">Mostrar dica rapida sobre como fazer downloads remotos via SSH</string>
+
+    <!-- @2 -->
+    <string name="settings_cat_folder">Pasta de download</string>
+    <string name="standard_location_title">Escolher pasta pré-definida</string>
+    <string name="standard_location_default">Downloads</string>
+    <string name="chooser_swap_title">Trocar escolhedor</string>
+    <string name="chooser_location_title">Abrir escolhedor de ficheiros</string>
+    <string name="chooser_location_summary">Pressionar um pouco para escolher uma pasta</string>
+
+    <!-- @3 -->
+    <string name="settings_cat_files">Ficheiros de video</string>
+    <string name="enable_q_suffix_title">Adicionar sufixo da qualidade</string>
+    <string name="enable_q_suffix_summary">Adicionar o tipo de qualidade do video ao nome do ficheiro</string>
+    <string name="enable_rename_title">Habilitar o renomeamento do ficheiro</string>
+    <string name="enable_rename_summary">Renomear o ficheiro de video antes do download(apenas para downloads locais)</string>
+    <string name="show_size_title">Mostrar tamanho do ficheiro</string>
+    <string name="show_size_summary">Recolher o tamanho do ficheiro de video na mensagem de confirmação do download (mais lento)</string>
+    
+    <!-- @4 -->
+    <string name="settings_cat_notifications">Notificações</string>
+    <string name="enable_own_notification_title">Permitir propria notificação</string>
+    <string name="enable_own_notification_summary">Mostrar uma notificação sobre todos os downloads do YTD</string>
+    <string name="download_manager_notification_title">Gerir notificações de sistema</string>
+    <string name="download_manager_notification_dialog_title">Quando mostrar as notificações do Gestor de Ficheiros do sistema:</string>
+    <string name="download_manager_notification_default">VISIBLE</string>
+
+    <!-- @5 -->
+    <string name="settings_cat_about">Sobre</string>
+    <string name="title_changelog">Changelog</string>
+    <string name="changelog">
+        \n v1.6 - Mar 01 2013
+		\n-----------------------------------
+		\n[x] own YTD notification bar
+		\n[x] options for own and sys notif.
+		\n[x] added some credits
+		\n
+        \n v1.5.2 - Feb 25 2013
+		\n-----------------------------------
+		\n[x] better fix on bad video list
+		\n[x] remove stop download on click
+		\n[x] open DM on notif. bar click
+		\n    (still not working in CM ROM)
+		\n
+        \n v1.5.1 - Feb 24 2013
+		\n-----------------------------------
+		\n[x] fix crash if no net is avail.
+		\n[x] fix crash on bad video list
+		\n
+		\n v1.5 - Feb 22 2013
+		\n-----------------------------------
+		\n[x] online update check
+		\n[x] option to fetch filesizes
+		\n[x] stop download on click
+		\n    (maybe not working in CM 10.1)
+		\n[x] DownloadManager quick links
+		\n[x] settings and DM overflow menu
+		\n[x] reordered preferences
+		\n[x] small fixes
+		\n
+		\n v1.4 - Jan 29 2013
+		\n-----------------------------------
+		\n[x] licenses and code links
+		\n[x] Share this App option
+		\n
+		\n v1.3.1 - Jan 19 2013
+		\n-----------------------------------
+		\n[x] handle again http|https links
+		\n    (thanks Reiner)
+		\n
+		\n v1.3 - Jan 18 2013
+		\n-----------------------------------
+		\n[x] share via mobile links support
+		\n
+		\n v1.2 - Dec 25 2012
+		\n-----------------------------------
+		\n[x] fix for YouTube webpage changes
+		\n
+		\n v1.1.1 - Dec 16 2012
+		\n-----------------------------------
+		\n[x] preferences fix
+		\n
+		\n v1.1 - Dec 13 2012
+		\n-----------------------------------
+		\n[x] all text strings exported
+		\n[x] preferences modification
+		\n[x] quick start tutorial
+		\n
+		\n v1.0.1 - Dec 11 2012
+		\n-----------------------------------
+		\n[x] bad typo fixed
+		\n[x] file-chooser new folder icons
+		\n
+		\n v1.0 - Dec 11 2012
+		\n-----------------------------------
+		\n[x] FIRST PUBLIC RELEASE
+		\n[x] send download via SSH
+		\n[x] JB compatibility
+		\n[x] SSH send how-to dialog
+		\n[x] standard download locations
+		\n[x] file-chooser for download dest.
+		\n[x] add quality suffix options
+		\n[x] file renaming options
+		\n-----------------------------------</string>
+    <string name="screen_licences_code_title">Licenças e codigo</string>
+
+    <!-- @5.1 -->
+    <string name="settings_cat_licenses">Licenças</string>
+    <string name="gpl_title">Licença do YTD</string>
+    <string name="gpl_summary">GPL-3.0</string>
+    <string name="title_activity_gpl_show">GPL-3.0</string>
+    <string name="gpl_text"> GNU GENERAL PUBLIC LICENSE
+		\n\n
+		Copyright &#169; 2013 Samuele Rini
+		\n\n
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+		\n\n
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+		GNU General Public License for more details.
+		\n\n
+		You should have received a copy of the GNU General Public License
+		along with this program. If not, see <http>http://www.gnu.org/licenses</http>.</string>
+    <string name="mit_title">Licença do escolhedor de ficheiros</string>
+    <string name="mit_summary">Licença do MIT</string>
+    <string name="title_activity_mit_show">Licença do MIT</string>
+    <string name="mit_text"> The MIT License (MIT)
+		\n\n
+		Copyright &#169; 2012 Hai Bison
+		\n\n
+		Permission is hereby granted, free of charge, to any person obtaining a copy of
+		this software and associated documentation files (the "Software"), to deal in
+		the Software without restriction, including without limitation the rights to
+		use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+		the Software, and to permit persons to whom the Software is furnished to do so,
+		subject to the following conditions:
+		\n\n
+		The above copyright notice and this permission notice shall be included in all
+		copies or substantial portions of the Software.
+		\n\n
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+		FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+		COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+		IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+		CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+
+    <string name="credits_title">Outros créditos</string>
+    <string name="credits_summary">Licença de excertos do código</string>
+    <string name="title_activity_credits_show">Licença de excertos do código e outros créditos</string>
+    <string name="credits_text"> Code excerpts License
+        \n\n
+        This App uses some code excerpts from the CyanogenMod custom ROM;
+        \n\n
+        Specifically the methods to calculate and then compare the MD5 
+        checksum for downloaded upgrade packages are taken from che CMUpdater App
+        (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>).
+        \n\n
+        Copyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
+		\n\n
+		The text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http>.</string>
+        
+    <!-- @5.2 -->
+    <string name="settings_cat_code">Código Fonte</string>
+    <string name="ytd_code_git_title">YTD no GitHub</string>
+    <string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
+    <string name="ytd_code_hg_title">YTD no Sourceforge</string>
+    <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
+    <string name="chooser_code_title">Escolhedor de ficheiros (Filechooser) no Google Code</string>
+    <string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
+
+    <!-- @6 -->
+    <string name="settings_cat_social">Social</string>
+    <string name="share_title">Partilhar esta aplicação</string>
+    <string name="share_summary">através de Twitter, Facebook, Gmail, etc&#8230;</string>
+    <string name="share_warning">Nenhumas aplicações adequadas encontradas.</string>
+    <string name="share_message">#YouTubeDownloader
+	 	\nFree and Open-Source Android App to download YouTube video!
+	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+
+</resources>

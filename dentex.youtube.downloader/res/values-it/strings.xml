@@ -20,6 +20,7 @@
     <string name="wait">Attendi&#8230;</string>
     <string name="invalid_url">Impossibile ottenere la pagina web. L\'URL potrebbe essere non valido.</string>
     <string name="invalid_url_short">Impossibile ottenere la pagina web.</string>
+    <string name="invalid_response">Risposta non valida dal server HTTP.</string>
     <string name="bad_link">Controlla il link fornito.</string>
     <string name="bad_link_dialog_msg">Link YouTube non valido.</string>
     <string name="no_net">Nessuna connessione disponibile.</string>
@@ -45,7 +46,11 @@
     <string name="download_complete_dialog_positive">Apri</string>
     <string name="downloading">In download&#8230;</string>
     <string name="cancel_download_dialog_title">Annullare il download?</string>
-
+    <string name="video_list_error_toast">Errore nella lista dei video</string>
+    <string name="codec">\n\n\tCodec:</string>
+    <string name="quality">\n\tQualità:</string>
+    <string name="size">\n\tDimensioni:</string>
+    
     <!-- ### SettingsActivity ### -->
 
     <string name="attention">Attention!</string>
@@ -68,6 +73,11 @@
     <string name="upgrade_latest_installed">L\'ultima versione è già installata!</string>
     <string name="upgrade_network_error">Impossibile ottenere dati sull\'aggiornamento.\nRiprova più tardi.</string>
     <string name="upgrade_bad_md5_dialog_msg">Il pacchetto scaricato è corrotto.\nVerrà cancellato adesso.\nPremi OK per scaricare di nuovo.</string>
+    
+    <!-- ### Utils ### -->
+    <string name="notification_downloading_pt1"> </string>
+    <string name="notification_downloading_pt2">file video in download</string>
+    <string name="notification_no_downloads">Nessun download in corso</string>
     
     <!-- ### preferences ### -->
 

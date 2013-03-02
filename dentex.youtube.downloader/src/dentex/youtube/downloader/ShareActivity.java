@@ -110,6 +110,9 @@ public class ShareActivity extends Activity {
 	public AlertDialog waitBox;
 	private AlertDialog.Builder  helpBuilder;
 	private AlertDialog.Builder  waitBuilder;
+	public static String pt1;
+	public static String pt2;
+	public static String noDownloads;
 	public static delFileObserver fileObserver;
 	public static int mId = 0;
 	public static NotificationManager mNotificationManager;
@@ -336,7 +339,7 @@ public class ShareActivity extends Activity {
             if (result == "e") {
             	tv.setText(getString(R.string.invalid_url_short));
                 Utils.showPopUp(getString(R.string.error), getString(R.string.invalid_url), "alert", ShareActivity.this);
-                titleRaw = "Invalid HTTP server response";
+                titleRaw = getString(R.string.invalid_response);
             }
 
             String[] lv_arr = cqsChoices.toArray(new String[0]);
@@ -363,14 +366,14 @@ public class ShareActivity extends Activity {
                         try {
 	                        if (settings.getBoolean("show_size", false) == false) {
 	                        	helpBuilder.setMessage(titleRaw + 
-	            						"\n\n\tCodec: " + codecs.get(position) + 
-	            						"\n\tQuality: " + qualities.get(position));
+	                        			getString(R.string.codec) + codecs.get(pos) + 
+	                					getString(R.string.quality) + qualities.get(pos));
 	                        } else {
 	                        	sizeQuery = new AsyncSizeQuery();
 	                        	sizeQuery.execute(links.get(position));
 	                        }
 						} catch (IndexOutOfBoundsException e) {
-				    		Toast.makeText(ShareActivity.this, "Error in video list", Toast.LENGTH_SHORT).show();
+				    		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
 				    	}
 
                         helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
@@ -406,7 +409,7 @@ public class ShareActivity extends Activity {
 		                            	Utils.showPopUp(getString(R.string.unable_save), getString(R.string.unable_save_dialog_msg), "alert", ShareActivity.this);
 		                            }
 	                        	} catch (IndexOutOfBoundsException e) {
-	    							Toast.makeText(ShareActivity.this, "Error in video list", Toast.LENGTH_SHORT).show();
+	    							Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
 	    						}
                             }
                         });
@@ -463,7 +466,7 @@ public class ShareActivity extends Activity {
 	                        	    	callConnectBot();
 	                        	    }
 	                        	} catch (IndexOutOfBoundsException e) {
-	                        		Toast.makeText(ShareActivity.this, "Error in video list", Toast.LENGTH_SHORT).show();
+	                        		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
 	                        	}
                             }
                         });
@@ -554,7 +557,7 @@ public class ShareActivity extends Activity {
 			vis = DownloadManager.Request.VISIBILITY_VISIBLE;
 		}
         request.setNotificationVisibility(vis);
-        
+        request.setTitle(vfilename);
     	enqueue = dm.enqueue(request);
     	Log.d(DEBUG_TAG, "_ID " + enqueue + " enqueued");
     	
@@ -578,11 +581,15 @@ public class ShareActivity extends Activity {
     }
 
     private void NotificationHelper() {
+    	pt1 = getString(R.string.notification_downloading_pt1);
+    	pt2 = getString(R.string.notification_downloading_pt2);
+    	noDownloads = getString(R.string.notification_no_downloads);
+    	
     	mBuilder =  new NotificationCompat.Builder(this);
     	
     	mBuilder.setSmallIcon(R.drawable.ic_tab_download)
     	        .setContentTitle(getString(R.string.app_name))
-    	        .setContentText("Downloading " + sequence.size() + " video files");
+    	        .setContentText(getString(R.string.notification_downloading_pt1) + " " + sequence.size() + " " + getString(R.string.notification_downloading_pt2));
     	
     	mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     	
@@ -759,8 +766,8 @@ public class ShareActivity extends Activity {
     	    waitBuilder.setIcon(android.R.drawable.ic_dialog_info);
     	    waitBuilder.setTitle(R.string.wait);
     	    waitBuilder.setMessage(titleRaw + 
-					"\n\n\tCodec: " + codecs.get(pos) + 
-					"\n\tQuality: " + qualities.get(pos));
+    	    		getString(R.string.codec) + codecs.get(pos) + 
+					getString(R.string.quality) + qualities.get(pos));
     	    waitBox = waitBuilder.create();
     	    waitBox.show();
     	}
@@ -783,9 +790,9 @@ public class ShareActivity extends Activity {
         	videoFileSize = result;
         	
         	helpBuilder.setMessage(titleRaw + 
-					"\n\n\tCodec: " + codecs.get(pos) + 
-					"\n\tQuality: " + qualities.get(pos) +
-					"\n\tSize: " + videoFileSize);
+        			getString(R.string.codec) + codecs.get(pos) + 
+					getString(R.string.quality) + qualities.get(pos) +
+					getString(R.string.size) + videoFileSize);
         	helpDialog = helpBuilder.create();
             helpDialog.show();
         	

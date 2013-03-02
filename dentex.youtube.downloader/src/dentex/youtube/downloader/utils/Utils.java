@@ -203,7 +203,7 @@ public class Utils extends Activity{
     			
     			long id = settings.getLong(path, 0);
     			Log.d(DEBUG_TAG, TAG + "id: " +  id);
-    			Utils.removeIdUpdateNotification(id);
+    			removeIdUpdateNotification(id);
     		}
     	}
 
@@ -225,11 +225,12 @@ public class Utils extends Activity{
 		}
 		
 		if (ShareActivity.sequence.size() > 0) {
-			ShareActivity.mBuilder.setContentText("Downloading " + ShareActivity.sequence.size() + " video files.");
+			//ShareActivity.mBuilder.setContentText("Downloading " + ShareActivity.sequence.size() + " video files.");
+			ShareActivity.mBuilder.setContentText(ShareActivity.pt1 + " " + ShareActivity.sequence.size() + " " + ShareActivity.pt2);
 			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
 			Log.d(DEBUG_TAG, "Notification: video num. updated");
 		} else {
-			ShareActivity.mBuilder.setContentText("No downloads in progress.");
+			ShareActivity.mBuilder.setContentText(ShareActivity.noDownloads);
 			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
 			Log.d(DEBUG_TAG, "Notification: no downloads in progress");
 		}

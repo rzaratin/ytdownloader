@@ -47,6 +47,8 @@ public class SettingsActivity extends Activity {
         // Load default preferences values
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         
+        this.setTitle(R.string.title_activity_settings);
+        
     	settings = getSharedPreferences(PREFS_NAME, 0);
 
         // Display the fragment as the main content.
