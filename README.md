@@ -115,14 +115,16 @@ TO-DO LIST
 ================================================================
 
     [ ] external (removable) sd-card support
+	[ ] copy to clipboard the URL of the selected quality via long-press on video list item
+	[ ] option to "use inside same LAN" for SSH send
+    [ ] use thumbnail for video preview
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
 	    page: https://github.com/dentex/ytdownloader
-	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v1.4.apk?raw=true
+	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
     [ ] auto update-check once a day
     [ ] change to library project "aFilechooser" instead of "android-filechooser" currently in use
     [ ] downloads log
     [ ] use icon/logo to identify codecs available
-    [ ] use thumbnail for video preview
     [ ] make the App tablet friendly
     [ ] new App's ICON
     [ ] make all row in video-list clickable
