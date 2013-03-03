@@ -45,7 +45,7 @@ echo "
 CHANGELOG
 ================================================================" >> $dest
 
-changelog=`sed -n '/string name="changelog"/,/<\/string>/p' dentex.youtube.downloader/res/values/strings.xml | grep -v -E '\/string|string name'`
+changelog=`sed -n '/string name="changelog"/,/<\/string>/p' dentex.youtube.downloader/res/values/not-to-localize_strings.xml | grep -v -E '\/string|string name'`
 
 echo -e $changelog | sed 's/^/    /' >> $dest
 
