@@ -5,11 +5,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="36"`
+`versionCode="37"`
 
-`versionName="1.6"`
+`versionName="1.7"`
 
-MD5 checksum: `dbffe489f8b28511bcd4fe6a3a331f88` dentex.youtube.downloader_v1.6.apk
+MD5 checksum: `310a73b1380cbe0cf011a91bd69e9995` dentex.youtube.downloader_v1.7.apk
 
 LICENSE
 ================================================================
@@ -32,90 +32,17 @@ Copyright (C) 2012  Samuele Rini
 CHANGELOG
 ================================================================
     
-     v1.6 - Mar 01 2013 
-    ----------------------------------- 
-    [x] own YTD notification bar 
-    [x] options for own and sys notif. 
-    [x] added some credits 
-     
-     v1.5.2 - Feb 25 2013 
-    ----------------------------------- 
-    [x] better fix on bad video list 
-    [x] remove stop download on click 
-    [x] open DM on notif. bar click 
-     (still not working in CM ROM) 
-     
-     v1.5.1 - Feb 24 2013 
-    ----------------------------------- 
-    [x] fix crash if no net is avail. 
-    [x] fix crash on bad video list 
-     
-     v1.5 - Feb 22 2013 
-    ----------------------------------- 
-    [x] online update check 
-    [x] option to fetch filesizes 
-    [x] stop download on click 
-     (maybe not working in CM 10.1) 
-    [x] DownloadManager quick links 
-    [x] settings and DM overflow menu 
-    [x] reordered preferences 
-    [x] small fixes 
-     
-     v1.4 - Jan 29 2013 
-    ----------------------------------- 
-    [x] licenses and code links 
-    [x] Share this App option 
-     
-     v1.3.1 - Jan 19 2013 
-    ----------------------------------- 
-    [x] handle again http|https links 
-     (thanks Reiner) 
-     
-     v1.3 - Jan 18 2013 
-    ----------------------------------- 
-    [x] share via mobile links support 
-     
-     v1.2 - Dec 25 2012 
-    ----------------------------------- 
-    [x] fix for YouTube webpage changes 
-     
-     v1.1.1 - Dec 16 2012 
-    ----------------------------------- 
-    [x] preferences fix 
-     
-     v1.1 - Dec 13 2012 
-    ----------------------------------- 
-    [x] all text strings exported 
-    [x] preferences modification 
-    [x] quick start tutorial 
-     
-     v1.0.1 - Dec 11 2012 
-    ----------------------------------- 
-    [x] bad typo fixed 
-    [x] file-chooser new folder icons 
-     
-     v1.0 - Dec 11 2012 
-    ----------------------------------- 
-    [x] FIRST PUBLIC RELEASE 
-    [x] send download via SSH 
-    [x] JB compatibility 
-    [x] SSH send how-to dialog 
-    [x] standard download locations 
-    [x] file-chooser for download dest. 
-    [x] add quality suffix options 
-    [x] file renaming options
 
 TO-DO LIST
 ================================================================
 
-    [ ] auto update-check once a day
-    [ ] external (removable) sd-card supports
+    [ ] external (removable) sd-card support
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v1.4.apk?raw=true
+    [ ] auto update-check once a day
     [ ] change to library project "aFilechooser" instead of "android-filechooser" currently in use
     [ ] downloads log
-    [ ] Italian translation
     [ ] use icon/logo to identify codecs available
     [ ] use thumbnail for video preview
     [ ] make the App tablet friendly

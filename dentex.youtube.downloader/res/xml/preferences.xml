@@ -5,6 +5,28 @@
 		android:key="dm"
 		android:title="@string/dm_title"
 		android:summary="@string/dm_summary" />
+
+	<PreferenceCategory
+        android:title="@string/settings_cat_tutorials">
+         
+        <Preference 
+            android:key="quick_start"
+            android:title="@string/quick_start_title" 
+            android:summary="@string/quick_start_summ" />
+               	
+    	<CheckBoxPreference
+        	android:key="general_info"
+        	android:title="@string/general_info_title"
+        	android:summary="@string/general_info_summary"
+        	android:defaultValue="true" />
+    	
+    	<CheckBoxPreference
+        	android:key="ssh_info"
+        	android:title="@string/ssh_info_title"
+        	android:summary="@string/ssh_info_summary"
+        	android:defaultValue="true" />
+
+    </PreferenceCategory>
     
     <PreferenceCategory
     	android:title="@string/settings_cat_folder">
@@ -74,34 +96,20 @@
         
     </PreferenceCategory>
     
-    <PreferenceCategory
-        android:title="@string/settings_cat_tutorials">
-         
-        <Preference 
-            android:key="quick_start"
-            android:title="@string/quick_start_title" 
-            android:summary="@string/quick_start_summ" />
-               	
-    	<CheckBoxPreference
-        	android:key="general_info"
-        	android:title="@string/general_info_title"
-        	android:summary="@string/general_info_summary"
-        	android:defaultValue="true" />
-    	
-    	<CheckBoxPreference
-        	android:key="ssh_info"
-        	android:title="@string/ssh_info_title"
-        	android:summary="@string/ssh_info_summary"
-        	android:defaultValue="true" />
-
-    </PreferenceCategory>
-    
     <PreferenceCategory 
     	android:title="@string/settings_cat_about" >
     	
         <Preference 
         	android:key="update"
 			android:title="@string/update_title" />
+        
+        <ListPreference 
+        	android:key="lang"
+			android:title="@string/lang_title" 
+			android:dialogTitle="@string/lang_dialog_title" 
+			android:entries="@array/lang_entries"
+            android:entryValues="@array/lang_entry_values"
+            android:defaultValue="@string/lang_default" />
 		
 	    <Preference 
 	        android:key="changelog"
@@ -162,6 +170,11 @@
             android:key="share"
             android:title="@string/share_title"
             android:summary="@string/share_summary" />
+        
+        <Preference
+            android:key="help_translate"
+            android:title="@string/help_translate_title"
+            android:summary="@string/help_translate_summary" />
         
     </PreferenceCategory>
 

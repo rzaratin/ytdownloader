@@ -1,12 +1,11 @@
 
-    [ ] auto update-check once a day
-    [ ] external (removable) sd-card supports
+    [ ] external (removable) sd-card support
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v1.4.apk?raw=true
+    [ ] auto update-check once a day
     [ ] change to library project "aFilechooser" instead of "android-filechooser" currently in use
     [ ] downloads log
-    [ ] Italian translation
     [ ] use icon/logo to identify codecs available
     [ ] use thumbnail for video preview
     [ ] make the App tablet friendly

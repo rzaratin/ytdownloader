@@ -3,7 +3,7 @@
     package="dentex.youtube.downloader"
     android:installLocation="auto"
     android:versionCode="37"
-    android:versionName="1.7 TESTING" >
+    android:versionName="1.7" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -34,6 +34,7 @@
             android:label="@string/title_activity_share"
             android:permission="android.permission.INTERNET"
             android:screenOrientation="portrait"
+            android:configChanges="locale"
             android:theme="@style/AppThemeDark" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -47,6 +48,7 @@
             android:name="dentex.youtube.downloader.SettingsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:configChanges="locale"
             android:theme="@style/AppThemeDark" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,6 +72,7 @@
             android:name="dentex.youtube.downloader.docs.CreditsShowActivity"
             android:label="@string/title_activity_credits_show"
             android:screenOrientation="portrait"
+            android:configChanges="locale"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
@@ -82,6 +85,7 @@
             android:name="dentex.youtube.downloader.UpgradeApkActivity"
             android:label="@string/title_activity_upgrade_apk" 
             android:screenOrientation="portrait"
+            android:configChanges="locale"
             android:theme="@style/AppThemeDark" >
         </activity>
         <service android:name="dentex.youtube.downloader.service.DownloadsService" />

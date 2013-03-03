@@ -15,6 +15,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +37,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
@@ -126,6 +128,16 @@ public class ShareActivity extends Activity {
         setContentView(R.layout.activity_share);
         
     	settings = getSharedPreferences(PREFS_NAME, 0);
+    	
+    	// Language init
+        String lang  = settings.getString("lang", "default");
+        if (!lang.equals("default")) {
+	        Locale locale = new Locale(lang);
+	        Locale.setDefault(locale);
+	        Configuration config = new Configuration();
+	        config.locale = locale;
+	        getBaseContext().getResources().updateConfiguration(config, null);
+        }
         
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
         

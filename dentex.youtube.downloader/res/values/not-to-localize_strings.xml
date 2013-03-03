@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="changelog">
+        \n v1.7 - Mar 03 2012
+        \n-----------------------------------
+        \n[x] Italian App translation
+        \n[x] Portuguese App translation
+        \n[x] option to force the locale
+        \n
+        \n v1.6 - Mar 01 2013
+		\n-----------------------------------
+		\n[x] own YTD notification bar
+		\n[x] options for own and sys notif.
+		\n[x] added some credits
+		\n
+        \n v1.5.2 - Feb 25 2013
+		\n-----------------------------------
+		\n[x] better fix on bad video list
+		\n[x] remove stop download on click
+		\n[x] open DM on notif. bar click
+		\n    (still not working in CM ROM)
+		\n
+        \n v1.5.1 - Feb 24 2013
+		\n-----------------------------------
+		\n[x] fix crash if no net is avail.
+		\n[x] fix crash on bad video list
+		\n
+		\n v1.5 - Feb 22 2013
+		\n-----------------------------------
+		\n[x] online update check
+		\n[x] option to fetch filesizes
+		\n[x] stop download on click
+		\n    (maybe not working in CM 10.1)
+		\n[x] DownloadManager quick links
+		\n[x] settings and DM overflow menu
+		\n[x] reordered preferences
+		\n[x] small fixes
+		\n
+		\n v1.4 - Jan 29 2013
+		\n-----------------------------------
+		\n[x] licenses and code links
+		\n[x] Share this App option
+		\n
+		\n v1.3.1 - Jan 19 2013
+		\n-----------------------------------
+		\n[x] handle again http|https links
+		\n    (thanks Reiner)
+		\n
+		\n v1.3 - Jan 18 2013
+		\n-----------------------------------
+		\n[x] share via mobile links support
+		\n
+		\n v1.2 - Dec 25 2012
+		\n-----------------------------------
+		\n[x] fix for YouTube webpage changes
+		\n
+		\n v1.1.1 - Dec 16 2012
+		\n-----------------------------------
+		\n[x] preferences fix
+		\n
+		\n v1.1 - Dec 13 2012
+		\n-----------------------------------
+		\n[x] all text strings exported
+		\n[x] preferences modification
+		\n[x] quick start tutorial
+		\n
+		\n v1.0.1 - Dec 11 2012
+		\n-----------------------------------
+		\n[x] bad typo fixed
+		\n[x] file-chooser new folder icons
+		\n
+		\n v1.0 - Dec 11 2012
+		\n-----------------------------------
+		\n[x] FIRST PUBLIC RELEASE
+		\n[x] send download via SSH
+		\n[x] JB compatibility
+		\n[x] SSH send how-to dialog
+		\n[x] standard download locations
+		\n[x] file-chooser for download dest.
+		\n[x] add quality suffix options
+		\n[x] file renaming options
+		\n-----------------------------------</string>
+		
+    <string name="gpl_text"> GNU GENERAL PUBLIC LICENSE
+		\n\n
+		Copyright &#169; 2013 Samuele Rini
+		\n\n
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+		\n\n
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+		GNU General Public License for more details.
+		\n\n
+		You should have received a copy of the GNU General Public License
+		along with this program. If not, see <http>http://www.gnu.org/licenses</http></string>
+
+    <string name="mit_text"> The MIT License (MIT)
+		\n\n
+		Copyright &#169; 2012 Hai Bison
+		\n\n
+		Permission is hereby granted, free of charge, to any person obtaining a copy of
+		this software and associated documentation files (the "Software"), to deal in
+		the Software without restriction, including without limitation the rights to
+		use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+		the Software, and to permit persons to whom the Software is furnished to do so,
+		subject to the following conditions:
+		\n\n
+		The above copyright notice and this permission notice shall be included in all
+		copies or substantial portions of the Software.
+		\n\n
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+		FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+		COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+		IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+		CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+		
+    <string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
+    <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
+    <string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
+		
+    <string name="credits_text2">(<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>).
+        \n\n
+        Copyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
+		\n\n
+		The text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+    
+    <string-array name="standard_location_entries">
+        <item>Downloads</item>
+        <item>DCIM</item>
+        <item>Movies</item>
+    </string-array>
+    
+    <string-array name="standard_location_entry_values">
+        <item>Downloads</item>
+        <item>DCIM</item>
+        <item>Movies</item>
+    </string-array>
+    
+    <string name="standard_location_default">Downloads</string>
+    
+    <string-array name="download_manager_notification_entry_values">
+        <item>VISIBLE_NOTIFY_COMPLETED</item>
+        <item>VISIBLE</item>
+        <item>HIDDEN</item>
+    </string-array>
+    
+    <string name="download_manager_notification_default">VISIBLE</string>
+    
+    <string-array name="lang_entry_values">
+        <item>default</item>
+        <item>en</item>
+        <item>it</item>
+        <item>pt</item>
+    </string-array>
+    
+    <string name="lang_default">default</string>
+</resources>

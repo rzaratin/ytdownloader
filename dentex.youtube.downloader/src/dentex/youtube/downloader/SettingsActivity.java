@@ -6,6 +6,7 @@ import group.pals.android.lib.ui.filechooser.services.IFileProvider;
 
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +15,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -50,6 +52,16 @@ public class SettingsActivity extends Activity {
         this.setTitle(R.string.title_activity_settings);
         
     	settings = getSharedPreferences(PREFS_NAME, 0);
+        
+        // Language init
+        String lang  = settings.getString("lang", "default");
+        if (!lang.equals("default")) {
+	        Locale locale = new Locale(lang);
+	        Locale.setDefault(locale);
+	        Configuration config = new Configuration();
+	        config.locale = locale;
+	        getBaseContext().getResources().updateConfiguration(config, null);
+        }
 
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
@@ -74,6 +86,7 @@ public class SettingsActivity extends Activity {
 		private Preference cl;
 		private Preference up;
 		private CheckBoxPreference ownNot;
+		private Preference loc;
 
 		public static final int YTD_SIG_HASH = -1892118308; // final string
 		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
@@ -209,6 +222,18 @@ public class SettingsActivity extends Activity {
                     	Log.d(DEBUG_TAG, "No suitable Apps found.");
                     	Utils.showPopUpInFragment(getString(R.string.attention), getString(R.string.share_warning), "alert", SettingsFragment.this);
                     }
+                	return true;
+                }
+            });
+            
+            loc = (Preference) findPreference("help_translate");
+            loc.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	String url = "http://www.getlocalization.com/ytdownloader/";
+                	Intent i = new Intent(Intent.ACTION_VIEW);
+                	i.setData(Uri.parse(url));
+                	startActivity(i);
                 	return true;
                 }
             });

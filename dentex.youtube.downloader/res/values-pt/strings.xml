@@ -50,6 +50,9 @@
     <string name="codec">\n\n\tCodec:</string>
     <string name="quality">\n\tQualidade:</string>
     <string name="size">\n\tTamanho:</string>
+    <string name="notification_downloading_pt1">A descarregar</string>
+    <string name="notification_downloading_pt2">Ficheiros de video</string>
+    <string name="notification_no_downloads">Nenhuns downloads em progresso</string>
     
     <!-- ### SettingsActivity ### -->
 
@@ -73,12 +76,7 @@
     <string name="upgrade_latest_installed">A versão mais recente ja está instalada!</string>
     <string name="upgrade_network_error">Incapaz de proceder à extração das informações de actualização.\nTente de novo mais tarde.</string>
     <string name="upgrade_bad_md5_dialog_msg">Pacote descarregado corrompido.\nSerá apagado agora.\nPressione OK para descarregar de novo</string>
-    
-    <!-- ### Utils ### -->
-    <string name="notification_downloading_pt1">A descarregar</string>
-    <string name="notification_downloading_pt2">Ficheiros de video</string>
-    <string name="notification_no_downloads">Nenhuns downloads em progresso</string>
-    
+
     <!-- ### preferences ### -->
 
     <!-- @0 -->
@@ -87,6 +85,15 @@
     <string name="dm_summary">Abrir o Gestor de Transferencias do sistema</string>
     <string name="update_title">Procurar actualizações</string>
     <string name="update_title_condensed">Actualizar</string>
+    <string name="lang_title">Idioma</string>
+    <string name="lang_dialog_title">Idioma (requer a reinicialização do aplicativo):</string>
+    
+    <string-array name="lang_entries">
+        <item>Padrão</item>
+        <item>Inglês</item>
+        <item>Italiano</item>
+        <item>Português</item>
+    </string-array>
     
     <!-- @1 -->
     <string name="settings_cat_tutorials">Tutoriais</string>
@@ -105,7 +112,6 @@
     <!-- @2 -->
     <string name="settings_cat_folder">Pasta de download</string>
     <string name="standard_location_title">Escolher pasta pré-definida</string>
-    <string name="standard_location_default">Downloads</string>
     <string name="chooser_swap_title">Trocar escolhedor</string>
     <string name="chooser_location_title">Abrir escolhedor de ficheiros</string>
     <string name="chooser_location_summary">Pressionar um pouco para escolher uma pasta</string>
@@ -125,85 +131,16 @@
     <string name="enable_own_notification_summary">Mostrar uma notificação sobre todos os downloads do YTD</string>
     <string name="download_manager_notification_title">Gerir notificações de sistema</string>
     <string name="download_manager_notification_dialog_title">Quando mostrar as notificações do Gestor de Ficheiros do sistema:</string>
-    <string name="download_manager_notification_default">VISIBLE</string>
+    
+    <string-array name="download_manager_notification_entries">
+        <item>Enquanto em progresso e depois de completo</item>
+        <item>Só enquanto em progresso</item>
+        <item>Nunca</item>
+    </string-array>
 
     <!-- @5 -->
     <string name="settings_cat_about">Sobre</string>
     <string name="title_changelog">Changelog</string>
-    <string name="changelog">
-        \n v1.6 - Mar 01 2013
-		\n-----------------------------------
-		\n[x] own YTD notification bar
-		\n[x] options for own and sys notif.
-		\n[x] added some credits
-		\n
-        \n v1.5.2 - Feb 25 2013
-		\n-----------------------------------
-		\n[x] better fix on bad video list
-		\n[x] remove stop download on click
-		\n[x] open DM on notif. bar click
-		\n    (still not working in CM ROM)
-		\n
-        \n v1.5.1 - Feb 24 2013
-		\n-----------------------------------
-		\n[x] fix crash if no net is avail.
-		\n[x] fix crash on bad video list
-		\n
-		\n v1.5 - Feb 22 2013
-		\n-----------------------------------
-		\n[x] online update check
-		\n[x] option to fetch filesizes
-		\n[x] stop download on click
-		\n    (maybe not working in CM 10.1)
-		\n[x] DownloadManager quick links
-		\n[x] settings and DM overflow menu
-		\n[x] reordered preferences
-		\n[x] small fixes
-		\n
-		\n v1.4 - Jan 29 2013
-		\n-----------------------------------
-		\n[x] licenses and code links
-		\n[x] Share this App option
-		\n
-		\n v1.3.1 - Jan 19 2013
-		\n-----------------------------------
-		\n[x] handle again http|https links
-		\n    (thanks Reiner)
-		\n
-		\n v1.3 - Jan 18 2013
-		\n-----------------------------------
-		\n[x] share via mobile links support
-		\n
-		\n v1.2 - Dec 25 2012
-		\n-----------------------------------
-		\n[x] fix for YouTube webpage changes
-		\n
-		\n v1.1.1 - Dec 16 2012
-		\n-----------------------------------
-		\n[x] preferences fix
-		\n
-		\n v1.1 - Dec 13 2012
-		\n-----------------------------------
-		\n[x] all text strings exported
-		\n[x] preferences modification
-		\n[x] quick start tutorial
-		\n
-		\n v1.0.1 - Dec 11 2012
-		\n-----------------------------------
-		\n[x] bad typo fixed
-		\n[x] file-chooser new folder icons
-		\n
-		\n v1.0 - Dec 11 2012
-		\n-----------------------------------
-		\n[x] FIRST PUBLIC RELEASE
-		\n[x] send download via SSH
-		\n[x] JB compatibility
-		\n[x] SSH send how-to dialog
-		\n[x] standard download locations
-		\n[x] file-chooser for download dest.
-		\n[x] add quality suffix options
-		\n[x] file renaming options
-		\n-----------------------------------</string>
     <string name="screen_licences_code_title">Licenças e codigo</string>
 
     <!-- @5.1 -->
@@ -211,69 +148,29 @@
     <string name="gpl_title">Licença do YTD</string>
     <string name="gpl_summary">GPL-3.0</string>
     <string name="title_activity_gpl_show">GPL-3.0</string>
-    <string name="gpl_text"> GNU GENERAL PUBLIC LICENSE
-		\n\n
-		Copyright &#169; 2013 Samuele Rini
-		\n\n
-		This program is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
-		\n\n
-		This program is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-		GNU General Public License for more details.
-		\n\n
-		You should have received a copy of the GNU General Public License
-		along with this program. If not, see <http>http://www.gnu.org/licenses</http>.</string>
+
     <string name="mit_title">Licença do escolhedor de ficheiros</string>
     <string name="mit_summary">Licença do MIT</string>
     <string name="title_activity_mit_show">Licença do MIT</string>
-    <string name="mit_text"> The MIT License (MIT)
-		\n\n
-		Copyright &#169; 2012 Hai Bison
-		\n\n
-		Permission is hereby granted, free of charge, to any person obtaining a copy of
-		this software and associated documentation files (the "Software"), to deal in
-		the Software without restriction, including without limitation the rights to
-		use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-		the Software, and to permit persons to whom the Software is furnished to do so,
-		subject to the following conditions:
-		\n\n
-		The above copyright notice and this permission notice shall be included in all
-		copies or substantial portions of the Software.
-		\n\n
-		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-		FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-		COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-		IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-		CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
 
     <string name="credits_title">Outros créditos</string>
-    <string name="credits_summary">Licença de excertos do código</string>
-    <string name="title_activity_credits_show">Licença de excertos do código e outros créditos</string>
-    <string name="credits_text"> Code excerpts License
+    <string name="credits_summary">Outras licenças e traduções</string>
+    <string name="title_activity_credits_show">Outras licenças e traduções</string>
+    <string name="credits_text1"> Licenças de excertos do código
         \n\n
-        This App uses some code excerpts from the CyanogenMod custom ROM;
+        Esta aplicação utiliza alguns excertos da ROM CyanogenMod;
         \n\n
-        Specifically the methods to calculate and then compare the MD5 
-        checksum for downloaded upgrade packages are taken from che CMUpdater App
-        (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>).
-        \n\n
-        Copyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
-		\n\n
-		The text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http>.</string>
+        Especificamente os metodos para calcular e comparar a checksum MD5
+        dos pacotes de actualização descarregados são tiradas da aplicação \'CMUpdater\'</string>
+    <string name="credits_translators">\n\n Traduções
+        \n\nAlém disso, pelas localizações adicionais obrigado a:
+        \n\nPLUG313 de <http>forum.xda-developers.com</http> pelo Português.</string>
         
     <!-- @5.2 -->
     <string name="settings_cat_code">Código Fonte</string>
     <string name="ytd_code_git_title">YTD no GitHub</string>
-    <string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
     <string name="ytd_code_hg_title">YTD no Sourceforge</string>
-    <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
     <string name="chooser_code_title">Escolhedor de ficheiros (Filechooser) no Google Code</string>
-    <string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
 
     <!-- @6 -->
     <string name="settings_cat_social">Social</string>
@@ -283,5 +180,7 @@
     <string name="share_message">#YouTubeDownloader
 	 	\nFree and Open-Source Android App to download YouTube video!
 	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+    <string name="help_translate_title">Ajudar a traduzir YTD</string>
+    <string name="help_translate_summary">Ir a www.getlocalization.com/ytdownloader</string>
 
 </resources>
