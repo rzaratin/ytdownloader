@@ -5,8 +5,10 @@ import group.pals.android.lib.ui.filechooser.io.localfile.LocalFile;
 import group.pals.android.lib.ui.filechooser.services.IFileProvider;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +31,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.exceptions.RootDeniedException;
+import com.stericson.RootTools.execution.CommandCapture;
+
 import dentex.youtube.downloader.docs.ChangelogActivity;
 import dentex.youtube.downloader.docs.CreditsShowActivity;
 import dentex.youtube.downloader.docs.GplShowActivity;
@@ -87,7 +95,8 @@ public class SettingsActivity extends Activity {
 		private Preference up;
 		private CheckBoxPreference ownNot;
 		private Preference loc;
-
+		private Preference su;
+		
 		public static final int YTD_SIG_HASH = -1892118308; // final string
 		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
 		//public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
@@ -97,6 +106,42 @@ public class SettingsActivity extends Activity {
             super.onCreate(savedInstanceState);
 
             addPreferencesFromResource(R.xml.preferences);
+            
+            su = (Preference) findPreference("su");
+            su.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public int res;
+
+				public boolean onPreferenceClick(Preference preference) {
+                	boolean BB = RootTools.isBusyboxAvailable();
+                	boolean SU = RootTools.isRootAvailable();
+                	if (BB && SU) {
+                		Toast.makeText(SettingsFragment.this.getActivity(), "BusyBox & SU binaries found", Toast.LENGTH_SHORT).show();
+                		CommandCapture command = new CommandCapture(0, "echo \"BB test command\" > /storage/sdcard1/testBB.txt");
+                		try {
+                			res = 4;
+							RootTools.getShell(true).add(command).waitForFinish();
+						} catch (InterruptedException e) {
+							res = res - 1;
+							e.printStackTrace();
+						} catch (IOException e) {
+							res = res - 1;
+							e.printStackTrace();
+						} catch (TimeoutException e) {
+							res = res - 1;
+							e.printStackTrace();
+						} catch (RootDeniedException e) {
+							res = res - 1;
+							e.printStackTrace();
+						} finally {
+							if (res == 4) {
+								Toast.makeText(SettingsFragment.this.getActivity(), "Test command finished without errors", Toast.LENGTH_SHORT).show();
+							}
+						}
+                	}
+                    return true;
+                }
+            });
             
             dm = (Preference) findPreference("dm");
             dm.setOnPreferenceClickListener(new OnPreferenceClickListener() {

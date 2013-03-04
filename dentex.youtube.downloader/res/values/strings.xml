@@ -182,5 +182,10 @@
 	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
     <string name="help_translate_title">Help translate this App</string>
     <string name="help_translate_summary">Go to www.getlocalization.com/ytdownloader</string>
-
+	 	
+    <!-- @7 -->
+	<string name="settings_cat_advanced">Advanced</string>
+	<string name="su_title">Root test</string>
+	<string name="su_summary">Test for SU and BusyBox binaries</string>
+	
 </resources>

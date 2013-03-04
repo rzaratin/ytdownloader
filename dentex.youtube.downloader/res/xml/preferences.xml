@@ -177,5 +177,15 @@
             android:summary="@string/help_translate_summary" />
         
     </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:title="@string/settings_cat_advanced">
+    
+	   	<Preference    
+			android:key="su"
+			android:title="@string/su_title"
+			android:summary="@string/su_summary" />
+	   	
+	</PreferenceCategory>
 
 </PreferenceScreen>
