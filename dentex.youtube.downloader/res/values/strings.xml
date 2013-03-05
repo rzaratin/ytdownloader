@@ -115,7 +115,9 @@
     <string name="chooser_swap_title">Swap chooser</string>
     <string name="chooser_location_title">Open file-chooser</string>
     <string name="chooser_location_summary">Long-press to select a folder</string>
-
+    <string name="su_cp_title">Use removable sdcard</string>
+	<string name="su_cp_summary">Enable removable sdcard support in file-chooser (Root required)</string>
+	
     <!-- @3 -->
     <string name="settings_cat_files">Video files</string>
     <string name="enable_q_suffix_title">Append quality suffix</string>
@@ -182,10 +184,5 @@
 	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
     <string name="help_translate_title">Help translate this App</string>
     <string name="help_translate_summary">Go to www.getlocalization.com/ytdownloader</string>
-	 	
-    <!-- @7 -->
-	<string name="settings_cat_advanced">Advanced</string>
-	<string name="su_title">Root test</string>
-	<string name="su_summary">Test for SU and BusyBox binaries</string>
 	
 </resources>

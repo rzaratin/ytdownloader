@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v1.8 - Mar 05 2013
+        \n-----------------------------------
+        \n[x] ExtSdCard support (Root)
+        \n
         \n v1.7 - Mar 03 2012
         \n-----------------------------------
         \n[x] Italian App translation

@@ -11,71 +11,20 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
-import android.os.FileObserver;
 import android.util.Log;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 import dentex.youtube.downloader.ShareActivity;
 
 public class Utils extends Activity{
 	
-	private static final String DEBUG_TAG = "Utils";
+	static final String DEBUG_TAG = "Utils";
 	public static SharedPreferences settings = ShareActivity.settings;
 	public final static String PREFS_NAME = ShareActivity.PREFS_NAME;
-	private static int icon;
 
-	public static void showPopUp(String title, String message, String type, Context context) {
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
-        helpBuilder.setTitle(title);
-        helpBuilder.setMessage(message);
-
-        if ( type == "alert" ) {
-            icon = android.R.drawable.ic_dialog_alert;
-        } else if ( type == "info" ) {
-            icon = android.R.drawable.ic_dialog_info;
-        }
-
-        helpBuilder.setIcon(icon);
-        helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
-            }
-        });
-
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
-    }
-	
-	public static void showPopUpInFragment(String title, String message, String type, SettingsFragment sf) {
-        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(sf.getActivity());
-        helpBuilder.setTitle(title);
-        helpBuilder.setMessage(message);
-
-        if ( type == "alert" ) {
-            icon = android.R.drawable.ic_dialog_alert;
-        } else if ( type == "info" ) {
-            icon = android.R.drawable.ic_dialog_info;
-        }
-
-        helpBuilder.setIcon(icon);
-        helpBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
-            }
-        });
-
-        AlertDialog helpDialog = helpBuilder.create();
-        helpDialog.show();
-    }
-	
 	static String onlineVersion;
     
     public static class VersionComparator {
@@ -175,64 +124,4 @@ public class Utils extends Activity{
             }
         }
     }
-    
-    public static class delFileObserver extends FileObserver {
-        static final String TAG="FileObserver: ";
-
-    	String rootPath;
-    	static final int mask = (FileObserver.CREATE | FileObserver.DELETE | FileObserver.DELETE_SELF); 
-    	
-    	public delFileObserver(String root){
-    		super(root, mask);
-
-    		if (! root.endsWith(File.separator)){
-    			root += File.separator;
-    		}
-    		rootPath = root;
-    	}
-
-    	public void onEvent(int event, String path) {
-    		/*Log.d(DEBUG_TAG, TAG + "onEvent " + event + ", " + path);
-    		
-    		if (event == FileObserver.CREATE) {
-    			Log.d(DEBUG_TAG, TAG + "file " + path + " CREATED");
-    		}*/
-    		
-    		if (event == FileObserver.DELETE || event == FileObserver.DELETE_SELF){
-    			Log.d(DEBUG_TAG, TAG + "file " + path + " DELETED");
-    			
-    			long id = settings.getLong(path, 0);
-    			Log.d(DEBUG_TAG, TAG + "id: " +  id);
-    			removeIdUpdateNotification(id);
-    		}
-    	}
-
-    	public void close(){
-    		super.finalize();
-    	}
-    }
-    
-    public static void removeIdUpdateNotification(long id) {
-    	
-		if (id != 0) {
-			if (ShareActivity.sequence.remove(id)) {
-				Log.d(DEBUG_TAG, "_ID " + id + " REMOVED from Notification");
-			} else {
-				Log.d(DEBUG_TAG, "_ID " + id + " Already REMOVED from Notification");
-			}
-		} else {
-			Log.e(DEBUG_TAG, "_ID  not found!");
-		}
-		
-		if (ShareActivity.sequence.size() > 0) {
-			//ShareActivity.mBuilder.setContentText("Downloading " + ShareActivity.sequence.size() + " video files.");
-			ShareActivity.mBuilder.setContentText(ShareActivity.pt1 + " " + ShareActivity.sequence.size() + " " + ShareActivity.pt2);
-			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
-			Log.d(DEBUG_TAG, "Notification: video num. updated");
-		} else {
-			ShareActivity.mBuilder.setContentText(ShareActivity.noDownloads);
-			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
-			Log.d(DEBUG_TAG, "Notification: no downloads in progress");
-		}
-	}
 }

@@ -12,7 +12,7 @@ import android.database.Cursor;
 import android.os.IBinder;
 import android.util.Log;
 import dentex.youtube.downloader.ShareActivity;
-import dentex.youtube.downloader.utils.Utils;
+import dentex.youtube.downloader.utils.Observer;
 
 public class DownloadsService extends Service {
 	
@@ -66,7 +66,7 @@ public class DownloadsService extends Service {
 					Log.d(DEBUG_TAG, "_ID completed with status " + status);
 				}*/
 				
-				Utils.removeIdUpdateNotification(id);
+				Observer.removeIdUpdateNotification(id);
 	        }
     	}
     };    

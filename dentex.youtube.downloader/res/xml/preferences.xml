@@ -51,6 +51,12 @@
 		<PreferenceScreen
 		    android:key="open_chooser"
 		    android:title="@string/chooser_location_title" />
+		        
+        <CheckBoxPreference    
+			android:key="su_cp"
+			android:title="@string/su_cp_title"
+			android:summary="@string/su_cp_summary"
+			android:defaultValue="false" />
 
     </PreferenceCategory>
     
@@ -73,7 +79,7 @@
             android:key="show_size"
             android:title="@string/show_size_title"
             android:summary="@string/show_size_summary" 
-            android:defaultValue="false"/>
+            android:defaultValue="false" />
     
     </PreferenceCategory>
     
@@ -177,15 +183,5 @@
             android:summary="@string/help_translate_summary" />
         
     </PreferenceCategory>
-    
-    <PreferenceCategory 
-        android:title="@string/settings_cat_advanced">
-    
-	   	<Preference    
-			android:key="su"
-			android:title="@string/su_title"
-			android:summary="@string/su_summary" />
-	   	
-	</PreferenceCategory>
 
 </PreferenceScreen>

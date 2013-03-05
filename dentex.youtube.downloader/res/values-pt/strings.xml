@@ -115,7 +115,9 @@
     <string name="chooser_swap_title">Trocar escolhedor</string>
     <string name="chooser_location_title">Abrir escolhedor de ficheiros</string>
     <string name="chooser_location_summary">Pressionar um pouco para escolher uma pasta</string>
-
+    <string name="su_cp_title">Use removable sdcard</string>
+	<string name="su_cp_summary">Enable removable sdcard support in file-chooser (Root required)</string>
+	
     <!-- @3 -->
     <string name="settings_cat_files">Ficheiros de video</string>
     <string name="enable_q_suffix_title">Adicionar sufixo da qualidade</string>
@@ -182,5 +184,5 @@
 	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
     <string name="help_translate_title">Ajudar a traduzir YTD</string>
     <string name="help_translate_summary">Ir a www.getlocalization.com/ytdownloader</string>
-
+	
 </resources>

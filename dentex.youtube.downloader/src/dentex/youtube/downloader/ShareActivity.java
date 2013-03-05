@@ -60,10 +60,9 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 import dentex.youtube.downloader.service.DownloadsService;
-import dentex.youtube.downloader.utils.Utils;
-import dentex.youtube.downloader.utils.Utils.delFileObserver;
+import dentex.youtube.downloader.utils.Observer;
+import dentex.youtube.downloader.utils.PopUps;
 
 public class ShareActivity extends Activity {
 	
@@ -97,13 +96,13 @@ public class ShareActivity extends Activity {
 	public TextView userFilename;
 	public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
-	public final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-	public final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-	public final File dir_Movies = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+	public static final File dir_Downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+	public static final File dir_DCIM = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+	public static final File dir_Movies = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
 	boolean sshInfoCheckboxEnabled;
 	boolean generalInfoCheckboxEnabled;
 	boolean fileRenameEnabled;
-	public File chooserFolder;
+	public static File chooserFolder;
 	private AsyncDownload asyncDownload;
 	public boolean isAsyncDownloadRunning = false;
 	public String videoFileSize = "empty";
@@ -115,7 +114,7 @@ public class ShareActivity extends Activity {
 	public static String pt1;
 	public static String pt2;
 	public static String noDownloads;
-	public static delFileObserver fileObserver;
+	public static Observer.delFileObserver fileObserver;
 	public static int mId = 0;
 	public static NotificationManager mNotificationManager;
 	public static NotificationCompat.Builder mBuilder;
@@ -232,7 +231,7 @@ public class ShareActivity extends Activity {
             if (linkValidator(sharedText) == "not_a_valid_youtube_link") {
             	progressBar1.setVisibility(View.GONE);
             	tv.setText(getString(R.string.bad_link));
-            	Utils.showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert", this);
+            	PopUps.showPopUp(getString(R.string.error), getString(R.string.bad_link_dialog_msg), "alert", this);
             } else if (sharedText != null) {
             	showGeneralInfoTutorial();
             	asyncDownload = new AsyncDownload();
@@ -241,7 +240,7 @@ public class ShareActivity extends Activity {
         } else {
         	progressBar1.setVisibility(View.GONE);
         	tv.setText(getString(R.string.no_net));
-        	Utils.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
+        	PopUps.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
         }
     }
     
@@ -283,23 +282,9 @@ public class ShareActivity extends Activity {
         return "not_a_valid_youtube_link";
     }
     
-    /* Checks if external storage is available for read and write */
-    public boolean pathCheckOK() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state) && path.canWrite()) {
-        	Pattern extPattern = Pattern.compile(SettingsFragment.EXT_CARD_NAMES);
-        	Matcher extMatcher = extPattern.matcher(path.toString());
-        	if (extMatcher.find()) {
-        		return false;
-        	} else {
-        		return true;
-        	}
-        } else {
-        	return false;
-        }
-    }
+
     
-    public void assignPath() {
+    public static void assignPath() {
     	boolean Location = settings.getBoolean("swap_location", false);
         
         if (Location == false) {
@@ -350,7 +335,7 @@ public class ShareActivity extends Activity {
         	
             if (result == "e") {
             	tv.setText(getString(R.string.invalid_url_short));
-                Utils.showPopUp(getString(R.string.error), getString(R.string.invalid_url), "alert", ShareActivity.this);
+                PopUps.showPopUp(getString(R.string.error), getString(R.string.invalid_url), "alert", ShareActivity.this);
                 titleRaw = getString(R.string.invalid_response);
             }
 
@@ -391,34 +376,29 @@ public class ShareActivity extends Activity {
                         helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                             	try {
-		                        	if (pathCheckOK() == true) {
-		                            	Log.d(DEBUG_TAG, "Destination folder is available and writable");
-		                        		composedFilename = composeFilename();
-			                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
-		
-			                            if (fileRenameEnabled == true) {
-			                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
-			                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
-				                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
-				                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
-				                    	    userFilename.setText(title);
-				                    	    adb.setView(inputFilename);
-				                    	    adb.setTitle(getString(R.string.rename_dialog_title));
-				                    	    adb.setMessage(getString(R.string.rename_dialog_msg));
-				                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-				                    	    	public void onClick(DialogInterface dialog, int which) {
-				                    	    		title = userFilename.getText().toString();
-				                    	    		composedFilename = composeFilename();
-													callDownloadManager(links.get(pos));
-				                    	    	}
-				                    	    });
-				                    	    adb.show();
-			                            } else {
-											callDownloadManager(links.get(pos));
-			                            }
+	                            	Log.d(DEBUG_TAG, "Destination folder is available and writable");
+	                        		composedFilename = composeFilename();
+		                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
+	
+		                            if (fileRenameEnabled == true) {
+		                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+		                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
+			                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
+			                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
+			                    	    userFilename.setText(title);
+			                    	    adb.setView(inputFilename);
+			                    	    adb.setTitle(getString(R.string.rename_dialog_title));
+			                    	    adb.setMessage(getString(R.string.rename_dialog_msg));
+			                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			                    	    	public void onClick(DialogInterface dialog, int which) {
+			                    	    		title = userFilename.getText().toString();
+			                    	    		composedFilename = composeFilename();
+												callDownloadManager(links.get(pos));
+			                    	    	}
+			                    	    });
+			                    	    adb.show();
 		                            } else {
-		                            	Log.d(DEBUG_TAG, "Destination folder is NOT available and/or NOT writable");
-		                            	Utils.showPopUp(getString(R.string.unable_save), getString(R.string.unable_save_dialog_msg), "alert", ShareActivity.this);
+										callDownloadManager(links.get(pos));
 		                            }
 	                        	} catch (IndexOutOfBoundsException e) {
 	    							Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
@@ -534,7 +514,7 @@ public class ShareActivity extends Activity {
     	            	try {
     	            		startActivity(intent);
     	            	} catch (ActivityNotFoundException exception){
-    	            		Utils.showPopUp(getString(R.string.no_market), getString(R.string.no_net_dialog_msg), "alert", ShareActivity.this);
+    	            		PopUps.showPopUp(getString(R.string.no_market), getString(R.string.no_net_dialog_msg), "alert", ShareActivity.this);
     	            	}
     	            }
     	        });
@@ -570,8 +550,13 @@ public class ShareActivity extends Activity {
 		}
         request.setNotificationVisibility(vis);
         request.setTitle(vfilename);
-    	enqueue = dm.enqueue(request);
-    	Log.d(DEBUG_TAG, "_ID " + enqueue + " enqueued");
+        
+        try {
+        	enqueue = dm.enqueue(request);
+        	Log.d(DEBUG_TAG, "_ID " + enqueue + " enqueued");
+        } catch (SecurityException e) {
+        	Toast.makeText(ShareActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     	
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	
@@ -582,7 +567,7 @@ public class ShareActivity extends Activity {
 			settings.edit().putLong(composedFilename, enqueue).apply();
 			//Log.d(DEBUG_TAG, "videoUri.getEncodedPath: " + videoUri.getEncodedPath());
 			
-			fileObserver = new Utils.delFileObserver(path.getAbsolutePath());
+			fileObserver = new Observer.delFileObserver(path.getAbsolutePath());
 			fileObserver.startWatching();
 			
 			NotificationHelper();

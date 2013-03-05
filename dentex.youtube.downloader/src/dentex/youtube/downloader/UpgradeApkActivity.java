@@ -35,6 +35,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
 public class UpgradeApkActivity extends Activity {
@@ -108,7 +109,7 @@ public class UpgradeApkActivity extends Activity {
 				    upgradeButton.setEnabled(false);
 				}
 			} catch (NullPointerException e) {
-				Utils.showPopUp(getString(R.string.error), getString(R.string.upgrade_network_error), "alert", UpgradeApkActivity.this);
+				PopUps.showPopUp(getString(R.string.error), getString(R.string.upgrade_network_error), "alert", UpgradeApkActivity.this);
 				Log.e(DEBUG_TAG, "unable to retrieve update data.");
 				
 			}
@@ -116,7 +117,7 @@ public class UpgradeApkActivity extends Activity {
 			progressBar2.setVisibility(View.GONE);
 			tv.setText(getString(R.string.no_net));
 			upgradeButton.setEnabled(false);
-			Utils.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
+			PopUps.showPopUp(getString(R.string.no_net), getString(R.string.no_net_dialog_msg), "alert", this);
 		}
 	}
 	
@@ -229,7 +230,7 @@ public class UpgradeApkActivity extends Activity {
 			    upgradeButton.setEnabled(true);
 			    upgradeButton.setText(getString(R.string.upgrade_button_download));
 	    	} else if (compRes.contentEquals("==")) {
-	    		Utils.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", UpgradeApkActivity.this);
+	    		PopUps.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", UpgradeApkActivity.this);
 	    		Log.d(DEBUG_TAG, "version comparison: latest version is already installed!");
 	    		upgradeButton.setEnabled(false);
 	    	} else if (compRes.contentEquals("<")) {
