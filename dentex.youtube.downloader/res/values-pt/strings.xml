@@ -117,6 +117,8 @@
     <string name="chooser_location_summary">Pressionar um pouco para escolher uma pasta</string>
     <string name="su_cp_title">Use removable sdcard</string>
 	<string name="su_cp_summary">Enable removable sdcard support in file-chooser (Root required)</string>
+	<string name="path_on_extsdcard_dialog_title">Selected path is NOT on standard sdcard</string>
+	<string name="path_on_extsdcard_dialog_msg">Enable removable sdcard support? (Root required)</string>
 	
     <!-- @3 -->
     <string name="settings_cat_files">Ficheiros de video</string>

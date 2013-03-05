@@ -30,7 +30,6 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -99,7 +98,6 @@ public class SettingsActivity extends Activity {
 		private boolean rooted;
 		private String rootTestDone;
 		protected boolean pathIsOnExtSdCard = false;
-		protected String LastExtLocation = "";
 		
 		public static final int YTD_SIG_HASH = -1892118308; // final string
 		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
@@ -125,12 +123,6 @@ public class SettingsActivity extends Activity {
 				        	 suCp.setEnabled(false);
 				         } else {
 				        	 Log.d(DEBUG_TAG, "Device is rooted");
-				         }
-				         
-				         if (!LastExtLocation.isEmpty()) {
-				        	 chooserSummary = LastExtLocation;
-				        	 setChooserPrefAndSummary();
-				        	 Log.d(DEBUG_TAG, "Setting LastExtLocation \"" + LastExtLocation + "\" in chooser summary");
 				         }
 					} else {
 						pathIsOnExtSdCard = settings.getBoolean("PATH_ON_EXTSDCARD", false);
@@ -357,7 +349,7 @@ public class SettingsActivity extends Activity {
 				settings.edit().putBoolean("ROOTED", true).apply();
 				rooted = true;
 				settings.edit().putString("ROOT_TEST_DONE", "done").commit();
-				Toast.makeText(SettingsFragment.this.getActivity(), "Rooted device successfully detected", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(SettingsFragment.this.getActivity(), "Rooted device successfully detected", Toast.LENGTH_SHORT).show();
 				return true;
 			} else {
 				settings.edit().putBoolean("ROOTED", false).apply();
@@ -470,7 +462,7 @@ public class SettingsActivity extends Activity {
 			chooserSummary = ShareActivity.dir_Downloads.getAbsolutePath();
 			setChooserPrefAndSummary();
 			pathIsOnExtSdCard = false;
-			Toast.makeText(SettingsFragment.this.getActivity(), "Falling-back on standard Download folder", Toast.LENGTH_SHORT).show();
+			//Toast.makeText(SettingsFragment.this.getActivity(), "Falling-back on standard Download folder", Toast.LENGTH_SHORT).show();
 		}
 
 		public void setChooserPrefAndSummary() {
@@ -484,17 +476,16 @@ public class SettingsActivity extends Activity {
         	if (!suCp.isChecked()) {
 				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SettingsFragment.this.getActivity());
 				dialogBuilder.setIcon(android.R.drawable.ic_dialog_info);
-				dialogBuilder.setTitle("path on ExtSdCard");
-				dialogBuilder.setMessage("go root?");
+				dialogBuilder.setTitle(getString(R.string.path_on_extsdcard_dialog_title));
+				dialogBuilder.setMessage(getString(R.string.path_on_extsdcard_dialog_msg));
 				
-				dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						initRootTest();
 						if (rooted) {
 							suCp.setChecked(true);
 							suCp.setEnabled(true);
 							settings.edit().putBoolean("PATH_ON_EXTSDCARD", true);
-							LastExtLocation = chooserSummary;
 						}
 					}
 				});
