@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -78,7 +79,8 @@ public class SettingsActivity extends Activity {
     
     public static class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
     	
-    	public static final String EXT_CARD_NAMES = "(extSdCard|sdcard1|emmc|ext_card)";
+    	//public static final String EXT_CARD_NAMES = "(extSdCard|sdcard1|emmc|ext_card)";
+    	public static final String EXT_CARD_NAMES = "(sdcard1|emmc|ext_card)";  //TODO rimettere a posto !!!!
 		private static final String DEBUG_TAG = "SettingsActivity";
 		private Preference dm;
 		private Preference filechooser;
@@ -94,10 +96,10 @@ public class SettingsActivity extends Activity {
 		private Preference up;
 		private CheckBoxPreference ownNot;
 		private Preference loc;
-		private static CheckBoxPreference suCp;
-		private boolean rooted;
+		public static CheckBoxPreference suCp;
+		public static boolean rooted;
 		private String rootTestDone;
-		protected boolean pathIsOnExtSdCard = false;
+		public static boolean pathIsOnExtSdCard = false;
 		
 		public static final int YTD_SIG_HASH = -1892118308; // final string
 		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
@@ -342,7 +344,7 @@ public class SettingsActivity extends Activity {
             }
 		}
 
-		private boolean rootTestOk() {
+		public static boolean rootTestOk(Context context) {
 			boolean BB = RootTools.isBusyboxAvailable();
 			boolean SU = RootTools.isRootAvailable();
 			if (BB && SU) {
@@ -354,7 +356,7 @@ public class SettingsActivity extends Activity {
 			} else {
 				settings.edit().putBoolean("ROOTED", false).apply();
 				settings.edit().putString("ROOT_TEST_DONE", "done").commit();
-				Toast.makeText(SettingsFragment.this.getActivity(), "Device NOT rooted", Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, "Device NOT rooted", Toast.LENGTH_SHORT).show();
 				return false;
 			}
 		}
@@ -448,10 +450,11 @@ public class SettingsActivity extends Activity {
                 		case 2:
                 			// system path
                 			standardDownloadFolderFallback();
+                			Toast.makeText(SettingsFragment.this.getActivity(), getString(R.string.system_warning), Toast.LENGTH_SHORT).show();
                 			break;
                 		case 3:
                 			// sdcard unmounted
-                			Toast.makeText(SettingsFragment.this.getActivity(), "Sdcard NOT mounted", Toast.LENGTH_SHORT).show();
+                			Toast.makeText(SettingsFragment.this.getActivity(), getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
                 	}
                 }
                 break;
@@ -504,7 +507,7 @@ public class SettingsActivity extends Activity {
         public void initRootTest() {
 			if (rootTestDone.isEmpty()) {
 				 Log.d(DEBUG_TAG, "Entering root test");
-				 rootTestOk();
+				 rootTestOk(SettingsFragment.this.getActivity());
 			 } else {
 				 Log.d(DEBUG_TAG, "Root test already done: skipping");
 			 }

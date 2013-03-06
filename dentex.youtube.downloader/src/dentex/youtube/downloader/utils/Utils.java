@@ -67,13 +67,13 @@ public class Utils extends Activity{
 		return currentHashCode;
 	}
 
-	public static boolean checkMD5(String md5, File updateFile) {
-        if (md5 == null || md5.equals("") || updateFile == null) {
-            Log.e(DEBUG_TAG, "MD5 String NULL or UpdateFile NULL");
+	public static boolean checkMD5(String md5, File file) {
+        if (md5 == null || md5.equals("") || file == null) {
+            Log.e(DEBUG_TAG, "MD5 String NULL or File NULL");
             return false;
         }
 
-        String calculatedDigest = calculateMD5(updateFile);
+        String calculatedDigest = calculateMD5(file);
         if (calculatedDigest == null) {
             Log.e(DEBUG_TAG, "calculatedDigest NULL");
             return false;
@@ -85,7 +85,7 @@ public class Utils extends Activity{
         return calculatedDigest.equalsIgnoreCase(md5);
     }
 
-    public static String calculateMD5(File updateFile) {
+    public static String calculateMD5(File file) {
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("MD5");
@@ -96,7 +96,7 @@ public class Utils extends Activity{
 
         InputStream is;
         try {
-            is = new FileInputStream(updateFile);
+            is = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             Log.e(DEBUG_TAG, "Exception while getting FileInputStream", e);
             return null;

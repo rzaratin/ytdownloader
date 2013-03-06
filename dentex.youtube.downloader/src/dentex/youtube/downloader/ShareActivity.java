@@ -46,6 +46,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.CheckBoxPreference;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,6 +61,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 import dentex.youtube.downloader.service.DownloadsService;
 import dentex.youtube.downloader.utils.Observer;
 import dentex.youtube.downloader.utils.PopUps;
@@ -88,7 +90,7 @@ public class ShareActivity extends Activity {
     public static DownloadManager dm;
     public static long enqueue;
 	String vfilename = "video";
-	String composedFilename = "";
+	public static String composedFilename = "";
     public static Uri videoUri;
     private int icon;
 	public CheckBox showAgain1;
@@ -532,7 +534,7 @@ public class ShareActivity extends Activity {
     
     void callDownloadManager(String link) {
 		videoUri = Uri.parse(path.toURI() + composedFilename);
-        Log.d(DEBUG_TAG, "downloadedVideoUri: " + videoUri);
+        Log.d(DEBUG_TAG, "videoUri: " + videoUri);
         
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         Request request = new Request(Uri.parse(link));
@@ -550,15 +552,23 @@ public class ShareActivity extends Activity {
 		}
         request.setNotificationVisibility(vis);
         request.setTitle(vfilename);
-        
-        try {
-        	enqueue = dm.enqueue(request);
-        	Log.d(DEBUG_TAG, "_ID " + enqueue + " enqueued");
-        } catch (SecurityException e) {
-        	Toast.makeText(ShareActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+        enqueueRequest(request);
+    }
+    
+    void enqueueRequest(Request currentRequest) {
     	
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
+    	intent1.putExtra("ROOT", false);
+    	
+		try {
+			enqueue = dm.enqueue(currentRequest);
+        	Log.d(DEBUG_TAG, "_ID " + enqueue + " enqueued");
+        } catch (SecurityException e) {
+        	Log.e(DEBUG_TAG, e.getMessage());
+        	intent1.putExtra("ROOT", true);
+        	downloadToStandardSdcard(currentRequest);
+        	//handleExtSdCardPath(currentRequest, intent1);
+        }
     	
     	if (settings.getBoolean("enable_own_notification", true) == true) {
             startService(intent1);
@@ -574,7 +584,56 @@ public class ShareActivity extends Activity {
 		} else {
 			stopService(intent1);
 		}
-
+    }
+    
+    void handleSuCpCheckbox(final Request request, final Intent intent1) {
+    	// Same as handleExtSdCardPath() from SettingsFragment
+    	final CheckBoxPreference suCp = SettingsActivity.SettingsFragment.suCp;
+    	if (!suCp.isChecked()) { // TODO spostare in enqueueRequest e/o callDownloadManager
+			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ShareActivity.this);
+			dialogBuilder.setIcon(android.R.drawable.ic_dialog_info);
+			dialogBuilder.setTitle(getString(R.string.path_on_extsdcard_dialog_title));
+			dialogBuilder.setMessage(getString(R.string.path_on_extsdcard_dialog_msg));
+			
+			dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					String rootTestDone = settings.getString("ROOT_TEST_DONE", "");
+					if (rootTestDone.isEmpty()) {
+						 Log.d(DEBUG_TAG, "Entering root test");
+						 SettingsFragment.rootTestOk(ShareActivity.this);
+					} else {
+						 Log.d(DEBUG_TAG, "Root test already done: skipping");
+					}
+					
+					if (SettingsFragment.rooted) {
+						suCp.setChecked(true);
+						suCp.setEnabled(true);
+						settings.edit().putBoolean("PATH_ON_EXTSDCARD", true);
+					}
+					intent1.putExtra("ROOT", true);
+					downloadToStandardSdcard(request);
+				}
+			});
+			
+			dialogBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					SettingsActivity.chooserSummary = dir_Downloads.getAbsolutePath();
+					SettingsFragment.pathIsOnExtSdCard = false;
+					
+					downloadToStandardSdcard(request);
+				}
+			});
+			
+			AlertDialog helpDialog = dialogBuilder.create();
+			helpDialog.show();
+		}
+    }
+    
+    private void downloadToStandardSdcard(Request request) {
+    	videoUri = Uri.parse(dir_Downloads.toURI() + composedFilename);
+        Log.d(DEBUG_TAG, "NEW videoUri: " + videoUri);
+        request.setDestinationUri(videoUri);
+        enqueue = dm.enqueue(request);
     }
 
     private void NotificationHelper() {

@@ -13,12 +13,14 @@ import android.os.IBinder;
 import android.util.Log;
 import dentex.youtube.downloader.ShareActivity;
 import dentex.youtube.downloader.utils.Observer;
+import dentex.youtube.downloader.utils.SuCommand;
 
 public class DownloadsService extends Service {
 	
 	private final String DEBUG_TAG = "DownloadsService";
 	public static SharedPreferences settings = ShareActivity.settings;
 	public final String PREFS_NAME = ShareActivity.PREFS_NAME;
+	public boolean rootCp;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -34,8 +36,19 @@ public class DownloadsService extends Service {
 	}
 	
 	@Override
-	  public void onDestroy() {
-	    Log.d(DEBUG_TAG, "service destroyed");
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		rootCp = intent.getExtras().getBoolean("ROOT");
+		if (rootCp == true) {
+			Log.d(DEBUG_TAG, "rootCp: true");
+		} else {
+			Log.d(DEBUG_TAG, "rootCp: false");
+		}
+		return super.onStartCommand(intent, flags, startId);
+	}
+	
+	@Override
+	public void onDestroy() {
+		Log.d(DEBUG_TAG, "service destroyed");
 	    unregisterReceiver(downloadComplete);
 	}
 
@@ -51,22 +64,31 @@ public class DownloadsService extends Service {
 			Cursor c = ShareActivity.dm.query(query);
 			if (c.moveToFirst()) {
 				
-				/*int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+				int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
 				int status = c.getInt(columnIndex);
-				Log.d(DEBUG_TAG, "status: " + status);
+
 				switch (status) {
-				
 				case DownloadManager.STATUS_SUCCESSFUL:
-					Log.d(DEBUG_TAG, "_ID " + id + " SUCCESSFUL");
+					Log.d(DEBUG_TAG, "_ID " + id + " SUCCESSFUL (status " + status + ")");
+					if (rootCp == true) {
+						Log.d(DEBUG_TAG, "rootCp true passed");
+						SuCommand.copyToExtSdcard(
+								context, 
+								ShareActivity.dir_Downloads.getAbsolutePath(), 
+								ShareActivity.path.getAbsolutePath(), 
+								ShareActivity.composedFilename);
+					}
 					break;
 				case DownloadManager.STATUS_FAILED:
-					Log.d(DEBUG_TAG, "_ID " + id + " FAILED");
+					Log.d(DEBUG_TAG, "_ID " + id + " FAILED (status " + status + ")");
 					break;
 				default:
-					Log.d(DEBUG_TAG, "_ID completed with status " + status);
-				}*/
+					Log.d(DEBUG_TAG, "_ID " + id + " completed with status " + status);
+				}
 				
 				Observer.removeIdUpdateNotification(id);
+				
+				
 	        }
     	}
     };    
