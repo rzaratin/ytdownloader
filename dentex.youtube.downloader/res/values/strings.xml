@@ -58,7 +58,8 @@
 
     <string name="attention">Attention!</string>
     <string name="extsdcard_warning">Unable to write files on the removable sdcard.\nFalling back on standard sdcard.</string>
-    <string name="system_warning">This is a system folder.\nFalling back on standard sdcard.</string>
+    <string name="system_warning_title">This is a system folder</string>
+    <string name="system_warning_msg">Chosen path will fall back on standard sdcard\'s Download folder.</string>
     <string name="sdcard_unmounted_warning">Sdcard NOT mounted</string>
     <string name="update_disabled_summary">Found different signature (F-Droid?)</string>
     
@@ -78,9 +79,11 @@
     <string name="upgrade_network_error">Unable to retrieve update data.\nRetry later.</string>
     <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again.</string>
     
-    <!-- ### SuCommand ### -->
-    <string name="su_copy_error">Error during file copy</string>
-    <string name="su_copy_ok">Video file successfully copied</string>
+    <!-- ### DownloadService ### -->
+    <string name="copy_error">Error during file copy</string>
+    <string name="copy_progress">Copy in progress&#8230;</string>
+    <string name="copy_ok">Successfully copied</string>
+    <string name="download_failed">YTD download failed!</string>
 
     <!-- ### preferences ### -->
 

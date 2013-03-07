@@ -115,10 +115,6 @@
     <string name="chooser_swap_title">Scambia selettore</string>
     <string name="chooser_location_title">Apri il file-chooser</string>
     <string name="chooser_location_summary">Tieni premuto su di una cartella per selezionarla</string>
-    <string name="su_cp_title">Usa sdcard estraibile</string>
-	<string name="su_cp_summary">Abilita supporto a sdcard estraibile nel file-chooser (richiesto Root)</string>
-	<string name="path_on_extsdcard_dialog_title">Il percorso selezionato NON è sulla sdcard standard.</string>
-	<string name="path_on_extsdcard_dialog_msg">Abilitare il supporto alla sdcard estraibile? (richiesto Root)</string>
 	
     <!-- @3 -->
     <string name="settings_cat_files">File video</string>

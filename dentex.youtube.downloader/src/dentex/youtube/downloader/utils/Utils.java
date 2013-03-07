@@ -3,21 +3,27 @@ package dentex.youtube.downloader.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.util.Log;
+import android.widget.Toast;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
+import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.ShareActivity;
+import dentex.youtube.downloader.service.DownloadsService;
 
 public class Utils extends Activity{
 	
@@ -124,4 +130,41 @@ public class Utils extends Activity{
             }
         }
     }
+    
+    @SuppressWarnings("resource")
+	public static void copyFile(File src, File dst, Context context) throws IOException {
+	    FileChannel inChannel = new FileInputStream(src).getChannel();
+	    FileChannel outChannel = new FileOutputStream(dst).getChannel();
+	    try {
+	        inChannel.transferTo(0, inChannel.size(), outChannel);
+	    } finally {
+	        if (inChannel != null) inChannel.close();
+	        if (outChannel != null) outChannel.close();
+	        
+	        //if (inChannel.size() == outChannel.size() {
+		        
+				
+	    }
+	}
+    
+    public static void removeIdUpdateNotification(long id) {
+		if (id != 0) {
+			if (ShareActivity.sequence.remove(id)) {
+				Log.d(Utils.DEBUG_TAG, "_ID " + id + " REMOVED from Notification");
+			} else {
+				Log.d(Utils.DEBUG_TAG, "_ID " + id + " Already REMOVED from Notification");
+			}
+		} else {
+			Log.e(Utils.DEBUG_TAG, "_ID  not found!");
+		}
+		
+		if (ShareActivity.sequence.size() > 0) {
+			ShareActivity.mBuilder.setContentText(ShareActivity.pt1 + " " + ShareActivity.sequence.size() + " " + ShareActivity.pt2);
+			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
+		} else {
+			ShareActivity.mBuilder.setContentText(ShareActivity.noDownloads);
+			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
+			Log.d(DEBUG_TAG, "Notification: no downloads in progress");
+		}
+	}
 }

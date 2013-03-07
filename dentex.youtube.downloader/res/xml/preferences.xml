@@ -51,12 +51,6 @@
 		<PreferenceScreen
 		    android:key="open_chooser"
 		    android:title="@string/chooser_location_title" />
-		        
-        <CheckBoxPreference    
-			android:key="su_cp"
-			android:title="@string/su_cp_title"
-			android:summary="@string/su_cp_summary"
-			android:defaultValue="false" />
 
     </PreferenceCategory>
     

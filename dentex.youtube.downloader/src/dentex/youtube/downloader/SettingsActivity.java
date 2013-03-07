@@ -7,14 +7,9 @@ import group.pals.android.lib.ui.filechooser.services.IFileProvider;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -33,9 +28,6 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.stericson.RootTools.RootTools;
-
 import dentex.youtube.downloader.docs.ChangelogActivity;
 import dentex.youtube.downloader.docs.CreditsShowActivity;
 import dentex.youtube.downloader.docs.GplShowActivity;
@@ -79,8 +71,6 @@ public class SettingsActivity extends Activity {
     
     public static class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
     	
-    	//public static final String EXT_CARD_NAMES = "(extSdCard|sdcard1|emmc|ext_card)";
-    	public static final String EXT_CARD_NAMES = "(sdcard1|emmc|ext_card)";  //TODO rimettere a posto !!!!
 		private static final String DEBUG_TAG = "SettingsActivity";
 		private Preference dm;
 		private Preference filechooser;
@@ -96,11 +86,7 @@ public class SettingsActivity extends Activity {
 		private Preference up;
 		private CheckBoxPreference ownNot;
 		private Preference loc;
-		public static CheckBoxPreference suCp;
-		public static boolean rooted;
-		private String rootTestDone;
-		public static boolean pathIsOnExtSdCard = false;
-		
+
 		public static final int YTD_SIG_HASH = -1892118308; // final string
 		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
 		//public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
@@ -111,37 +97,11 @@ public class SettingsActivity extends Activity {
 
             addPreferencesFromResource(R.xml.preferences);
             
-            suCp = (CheckBoxPreference) findPreference("su_cp");
-            
-            initSuCpCheckbox();
-            suCp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-				public boolean onPreferenceClick(Preference preference) {
-					if (suCp.isChecked()) {
-				         initRootTest();
-				            
-				         if (!rooted) {
-				        	 Log.d(DEBUG_TAG, "We don't have root: disabling suCp checkbox");
-				        	 suCp.setChecked(false);
-				        	 suCp.setEnabled(false);
-				         } else {
-				        	 Log.d(DEBUG_TAG, "Device is rooted");
-				         }
-					} else {
-						pathIsOnExtSdCard = settings.getBoolean("PATH_ON_EXTSDCARD", false);
-						if (!pathIsOnExtSdCard) {
-							standardDownloadFolderFallback();
-						}
-					}
-	                return true;
-                }
-            });
-            
             dm = (Preference) findPreference("dm");
             dm.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
                 public boolean onPreferenceClick(Preference preference) {
                 	startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
-                	suCp.setEnabled(false);
                     return true;
                 }
             });
@@ -335,32 +295,6 @@ public class SettingsActivity extends Activity {
 			}			
 		}
 
-		public void initSuCpCheckbox() {
-			rooted = settings.getBoolean("ROOTED", false);
-            rootTestDone = settings.getString("ROOT_TEST_DONE", "");
-            if (!rooted && !rootTestDone.isEmpty()) {
-            	suCp.setChecked(false);
-            	suCp.setEnabled(false);
-            }
-		}
-
-		public static boolean rootTestOk(Context context) {
-			boolean BB = RootTools.isBusyboxAvailable();
-			boolean SU = RootTools.isRootAvailable();
-			if (BB && SU) {
-				settings.edit().putBoolean("ROOTED", true).apply();
-				rooted = true;
-				settings.edit().putString("ROOT_TEST_DONE", "done").commit();
-				//Toast.makeText(SettingsFragment.this.getActivity(), "Rooted device successfully detected", Toast.LENGTH_SHORT).show();
-				return true;
-			} else {
-				settings.edit().putBoolean("ROOTED", false).apply();
-				settings.edit().putString("ROOT_TEST_DONE", "done").commit();
-				Toast.makeText(context, "Device NOT rooted", Toast.LENGTH_SHORT).show();
-				return false;
-			}
-		}
-
 		private void initSwapPreference() {
 			boolean swap = settings.getBoolean("swap_location", false);
 			PreferenceScreen p = (PreferenceScreen) findPreference("open_chooser");
@@ -439,34 +373,24 @@ public class SettingsActivity extends Activity {
                 	
                 	switch (pathCheck(chooserFolder)) {
                 		case 0:
-                			// standard sdcard
+                			// Path on standard sdcard
                 			setChooserPrefAndSummary();
 	                		break;
                 		case 1:
-                			// ExtSdCard
-                			handleExtSdCardPath();
+                			// Path not writable
+                			chooserSummary = ShareActivity.dir_Downloads.getAbsolutePath();
                 			setChooserPrefAndSummary();
+                			PopUps.showPopUpInFragment(getString(R.string.system_warning_title), getString(R.string.system_warning_msg), "alert", SettingsFragment.this);
+                			//Toast.makeText(SettingsFragment.this.getActivity(), getString(R.string.system_warning), Toast.LENGTH_SHORT).show();
                 			break;
                 		case 2:
-                			// system path
-                			standardDownloadFolderFallback();
-                			Toast.makeText(SettingsFragment.this.getActivity(), getString(R.string.system_warning), Toast.LENGTH_SHORT).show();
-                			break;
-                		case 3:
-                			// sdcard unmounted
+                			// Path not mounted
                 			Toast.makeText(SettingsFragment.this.getActivity(), getString(R.string.sdcard_unmounted_warning), Toast.LENGTH_SHORT).show();
                 	}
                 }
                 break;
             }
         }
-
-		public void standardDownloadFolderFallback() {
-			chooserSummary = ShareActivity.dir_Downloads.getAbsolutePath();
-			setChooserPrefAndSummary();
-			pathIsOnExtSdCard = false;
-			//Toast.makeText(SettingsFragment.this.getActivity(), "Falling-back on standard Download folder", Toast.LENGTH_SHORT).show();
-		}
 
 		public void setChooserPrefAndSummary() {
 			for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
@@ -475,66 +399,18 @@ public class SettingsActivity extends Activity {
 			settings.edit().putString("CHOOSER_FOLDER", chooserSummary).apply();
 		}
         
-        private void handleExtSdCardPath() {
-        	if (!suCp.isChecked()) {
-				AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SettingsFragment.this.getActivity());
-				dialogBuilder.setIcon(android.R.drawable.ic_dialog_info);
-				dialogBuilder.setTitle(getString(R.string.path_on_extsdcard_dialog_title));
-				dialogBuilder.setMessage(getString(R.string.path_on_extsdcard_dialog_msg));
-				
-				dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						initRootTest();
-						if (rooted) {
-							suCp.setChecked(true);
-							suCp.setEnabled(true);
-							settings.edit().putBoolean("PATH_ON_EXTSDCARD", true);
-						}
-					}
-				});
-				
-				dialogBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						standardDownloadFolderFallback();
-					}
-				});
-				
-				AlertDialog helpDialog = dialogBuilder.create();
-				helpDialog.show();
-			}
-		}
-        
-        public void initRootTest() {
-			if (rootTestDone.isEmpty()) {
-				 Log.d(DEBUG_TAG, "Entering root test");
-				 rootTestOk(SettingsFragment.this.getActivity());
-			 } else {
-				 Log.d(DEBUG_TAG, "Root test already done: skipping");
-			 }
-		}
-
-		/* Checks if external storage is available for read and write */
         public int pathCheck(File path) {
             String state = Environment.getExternalStorageState();
             if (Environment.MEDIA_MOUNTED.equals(state)) {
-            	
             	if (path.canWrite()) {
-					Pattern extPattern = Pattern.compile(SettingsFragment.EXT_CARD_NAMES);
-					Matcher extMatcher = extPattern.matcher(path.toString());
-					if (extMatcher.find()) {
-						Log.d(DEBUG_TAG, "Path on ExtSdCard");
-						return 1;
-					} else {
-						Log.d(DEBUG_TAG, "Path on standard sdcard");
-						return 0;
-					}
+					return 0;
 				} else {
-					Log.d(DEBUG_TAG, "Path not writable");
-					return 2;
+					Log.w(DEBUG_TAG, "Path not writable");
+					return 1;
 				}
             } else {
-            	Log.d(DEBUG_TAG, "Path not mounted");
-            	return 3;
+            	Log.w(DEBUG_TAG, "Path not mounted");
+            	return 2;
             }
         }
 	}
