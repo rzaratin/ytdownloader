@@ -80,10 +80,10 @@
     <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again.</string>
     
     <!-- ### DownloadService ### -->
-    <string name="copy_error">Error during file copy</string>
-    <string name="copy_progress">Copy in progress&#8230;</string>
-    <string name="copy_ok">Successfully copied</string>
-    <string name="download_failed">YTD download failed!</string>
+    <string name="copy_error">Error during copy</string>
+    <string name="copy_progress">YTD file copy in progress&#8230;</string>
+    <string name="copy_ok">Available on extSdCard.</string>
+    <string name="download_failed">Download failed!</string>
 
     <!-- ### preferences ### -->
 

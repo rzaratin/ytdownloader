@@ -26,7 +26,7 @@
             android:name="group.pals.android.lib.ui.filechooser.FileChooserActivity"
             android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
             android:exported="false"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Holo" >
         </activity>
         <activity
             android:name="dentex.youtube.downloader.ShareActivity"

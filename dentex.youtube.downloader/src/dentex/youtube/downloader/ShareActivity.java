@@ -54,6 +54,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -73,6 +74,7 @@ public class ShareActivity extends Activity {
     private static final String DEBUG_TAG = "ShareActivity";
     private TextView tv;
     private ListView lv;
+    private ListView llv;
     public ArrayAdapter<String> aA;
     //private InputStream isFromString;
     List<String> links = new ArrayList<String>();
@@ -90,6 +92,7 @@ public class ShareActivity extends Activity {
 	String vfilename = "video";
 	public static String composedFilename = "";
     public static Uri videoUri;
+	public boolean videoOnExt;
     private int icon;
 	public CheckBox showAgain1;
 	public CheckBox showAgain2;
@@ -141,6 +144,7 @@ public class ShareActivity extends Activity {
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
         
         lv = (ListView) findViewById(R.id.list);
+        llv = (ListView) findViewById(R.id.list);
         tv = (TextView) findViewById(R.id.textView1);
         
         // Get intent, action and MIME type
@@ -342,140 +346,154 @@ public class ShareActivity extends Activity {
             String[] lv_arr = cqsChoices.toArray(new String[0]);
             aA = new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr);
             lv.setAdapter(aA);
+            llv.setAdapter(aA);
+            llv.setLongClickable(true);
             Log.d(DEBUG_TAG, "LISTview done with " + lv_arr.length + " items.");
 
             tv.setText(titleRaw);
             
-	            lv.setOnItemClickListener(new OnItemClickListener() {
-	            	
-					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-						
-						assignPath();
-	                    //createLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
-						
-	                    pos = position;     
-	                    //pos = 45;		// to test IndexOutOfBound Exception...
-	                    
-                    	helpBuilder = new AlertDialog.Builder(ShareActivity.this);
-                        helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
-                        helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
-                        
-                        try {
-	                        if (settings.getBoolean("show_size", false) == false) {
-	                        	helpBuilder.setMessage(titleRaw + 
-	                        			getString(R.string.codec) + codecs.get(pos) + 
-	                					getString(R.string.quality) + qualities.get(pos));
-	                        } else {
-	                        	sizeQuery = new AsyncSizeQuery();
-	                        	sizeQuery.execute(links.get(position));
-	                        }
-						} catch (IndexOutOfBoundsException e) {
-				    		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
-				    	}
-
-                        helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                            	try {
-	                            	Log.d(DEBUG_TAG, "Destination folder is available and writable");
-	                        		composedFilename = composeFilename();
-		                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
-	
-		                            if (fileRenameEnabled == true) {
-		                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
-		                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
-			                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
-			                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
-			                    	    userFilename.setText(title);
-			                    	    adb.setView(inputFilename);
-			                    	    adb.setTitle(getString(R.string.rename_dialog_title));
-			                    	    adb.setMessage(getString(R.string.rename_dialog_msg));
-			                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			                    	    	public void onClick(DialogInterface dialog, int which) {
-			                    	    		title = userFilename.getText().toString();
-			                    	    		composedFilename = composeFilename();
-												callDownloadManager(links.get(pos));
-			                    	    	}
-			                    	    });
-			                    	    adb.show();
-		                            } else {
-										callDownloadManager(links.get(pos));
-		                            }
-	                        	} catch (IndexOutOfBoundsException e) {
-	    							Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
-	    						}
-                            }
-                        });
-						
-
-                        helpBuilder.setNeutralButton(getString(R.string.list_click_download_ssh), new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int which) {
-                            	try {
-	                            	String wgetCmd;
-	                            	composedFilename = composeFilename();
-	                            	
-	                            	wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
-	                            			validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'url_encoded_fmt_stream_map\": \".*\' | sed -e \'s/\", \".*//\'" + 
-	                            			" -e \'s/url_encoded_fmt_stream_map\": \"//\'` && urlarray=( `echo $urlblock | sed \'s/,/\\n\\n/g\'` ) && N=" + pos + 
-	                            			" && block=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\'" + 
-	                            			" -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/%253A/\\:/g\' -e \'s/\", \"/\"-\"/\' -e \'s/sig=/signature=/\'" + 
-	                            			" -e \'s/x-flv/flv/\' -e \'s/\\\\\\u0026/\\&/g\'` && url=`echo $block | grep -oE \'http://.*\' | sed -e \'s/&type=.*//\'" + 
-	                            			" -e \'s/&signature=.*//\' -e \'s/&quality=.*//\' -e \'s/&fallback_host=.*//\'` &&" + 
-	                            			" sig=`echo $block | grep -oE \'signature=.{81}\'` && downloadurl=`echo $url\\&$sig | sed \'s/&itag=[0-9][0-9]&signature/\\&signature/\'` && wget -e \"convert-links=off\"" +
-	                            			" --keep-session-cookies --save-cookies /dev/null --tries=5 --timeout=45 --no-check-certificate \"$downloadurl\" -O " + 
-	                            			composedFilename;
-	                            	
-	                            	//Log.d(DEBUG_TAG, "wgetCmd: " + wgetCmd);
-	                                
-	                            	ClipData cmd = ClipData.newPlainText("simple text", wgetCmd);
-	                                ClipboardManager cb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-	                                cb.setPrimaryClip(cmd);
-	                                
-	                                sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
-	                                if (sshInfoCheckboxEnabled == true) {
-	    	                            AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
-	    	                    	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
-	    	                    	    View sshInfo = adbInflater.inflate(R.layout.dialog_ssh_info, null);
-	    	                    	    showAgain2 = (CheckBox) sshInfo.findViewById(R.id.showAgain2);
-	    	                    	    showAgain2.setChecked(true);
-	    	                    	    adb.setView(sshInfo);
-	    	                    	    adb.setTitle(getString(R.string.ssh_info_tutorial_title));
-	    	                    	    adb.setMessage(getString(R.string.ssh_info_tutorial_msg));
-	    	                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-	    	                    	    	public void onClick(DialogInterface dialog, int which) {
-	    	                    	    		if (showAgain2.isChecked() == false) {
-	    	                    	    			SharedPreferences.Editor editor = settings.edit();
-	    	                    	    			editor.putBoolean("ssh_info", false);
-	    	                    	    			editor.commit();
-	    	                    	    			sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
-	    	                    	    			Log.d(DEBUG_TAG, "sshInfoCheckboxEnabled: " + sshInfoCheckboxEnabled);
-	    	                    	    		}
-	    	                    	    		callConnectBot(); 
-	    	                        		}
-	    	                        	});
-	    	                    	    adb.show();
-	                        	    } else {
-	                        	    	callConnectBot();
-	                        	    }
-	                        	} catch (IndexOutOfBoundsException e) {
-	                        		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
-	                        	}
-                            }
-                        });
-
-                        helpBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int which) {
-                                //Toast.makeText(ShareActivity.this, "Download canceled...", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        
+            lv.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					
+					assignPath();
+                    //createLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
+					
+                    pos = position;     
+                    //pos = 45;		// to test IndexOutOfBound Exception...
+                    
+                	helpBuilder = new AlertDialog.Builder(ShareActivity.this);
+                    helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
+                    helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
+                    
+                    try {
                         if (settings.getBoolean("show_size", false) == false) {
-                        	helpDialog = helpBuilder.create();
-                        	helpDialog.show();
+                        	helpBuilder.setMessage(titleRaw + 
+                        			getString(R.string.codec) + codecs.get(pos) + 
+                					getString(R.string.quality) + qualities.get(pos));
+                        } else {
+                        	sizeQuery = new AsyncSizeQuery();
+                        	sizeQuery.execute(links.get(position));
                         }
-	                }
-	            });
+					} catch (IndexOutOfBoundsException e) {
+			    		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
+			    	}
+
+                    helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        	try {
+                            	Log.d(DEBUG_TAG, "Destination folder is available and writable");
+                        		composedFilename = composeFilename();
+	                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
+
+	                            if (fileRenameEnabled == true) {
+	                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
+		                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
+		                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
+		                    	    userFilename.setText(title);
+		                    	    adb.setView(inputFilename);
+		                    	    adb.setTitle(getString(R.string.rename_dialog_title));
+		                    	    adb.setMessage(getString(R.string.rename_dialog_msg));
+		                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		                    	    	public void onClick(DialogInterface dialog, int which) {
+		                    	    		title = userFilename.getText().toString();
+		                    	    		composedFilename = composeFilename();
+											callDownloadManager(links.get(pos));
+		                    	    	}
+		                    	    });
+		                    	    adb.show();
+	                            } else {
+									callDownloadManager(links.get(pos));
+	                            }
+                        	} catch (IndexOutOfBoundsException e) {
+    							Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
+    						}
+                        }
+                    });
+					
+
+                    helpBuilder.setNeutralButton(getString(R.string.list_click_download_ssh), new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                        	try {
+                            	String wgetCmd;
+                            	composedFilename = composeFilename();
+                            	
+                            	wgetCmd = "REQ=`wget -q -e \"convert-links=off\" --keep-session-cookies --save-cookies /dev/null --no-check-certificate \'" + 
+                            			validatedLink + "\' -O-` && urlblock=`echo $REQ | grep -oE \'url_encoded_fmt_stream_map\": \".*\' | sed -e \'s/\", \".*//\'" + 
+                            			" -e \'s/url_encoded_fmt_stream_map\": \"//\'` && urlarray=( `echo $urlblock | sed \'s/,/\\n\\n/g\'` ) && N=" + pos + 
+                            			" && block=`echo \"${urlarray[$N]}\" | sed -e \'s/%3A/:/g\' -e \'s/%2F/\\//g\' -e \'s/%3F/\\?/g\' -e \'s/%3D/\\=/g\'" + 
+                            			" -e \'s/%252C/%2C/g\' -e \'s/%26/\\&/g\' -e \'s/%253A/\\:/g\' -e \'s/\", \"/\"-\"/\' -e \'s/sig=/signature=/\'" + 
+                            			" -e \'s/x-flv/flv/\' -e \'s/\\\\\\u0026/\\&/g\'` && url=`echo $block | grep -oE \'http://.*\' | sed -e \'s/&type=.*//\'" + 
+                            			" -e \'s/&signature=.*//\' -e \'s/&quality=.*//\' -e \'s/&fallback_host=.*//\'` &&" + 
+                            			" sig=`echo $block | grep -oE \'signature=.{81}\'` && downloadurl=`echo $url\\&$sig | sed \'s/&itag=[0-9][0-9]&signature/\\&signature/\'` && wget -e \"convert-links=off\"" +
+                            			" --keep-session-cookies --save-cookies /dev/null --tries=5 --timeout=45 --no-check-certificate \"$downloadurl\" -O " + 
+                            			composedFilename;
+                            	
+                            	//Log.d(DEBUG_TAG, "wgetCmd: " + wgetCmd);
+                                
+                            	ClipData cmd = ClipData.newPlainText("simple text", wgetCmd);
+                                ClipboardManager cb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                                cb.setPrimaryClip(cmd);
+                                
+                                sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
+                                if (sshInfoCheckboxEnabled == true) {
+    	                            AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+    	                    	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
+    	                    	    View sshInfo = adbInflater.inflate(R.layout.dialog_ssh_info, null);
+    	                    	    showAgain2 = (CheckBox) sshInfo.findViewById(R.id.showAgain2);
+    	                    	    showAgain2.setChecked(true);
+    	                    	    adb.setView(sshInfo);
+    	                    	    adb.setTitle(getString(R.string.ssh_info_tutorial_title));
+    	                    	    adb.setMessage(getString(R.string.ssh_info_tutorial_msg));
+    	                    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    	                    	    	public void onClick(DialogInterface dialog, int which) {
+    	                    	    		if (showAgain2.isChecked() == false) {
+    	                    	    			SharedPreferences.Editor editor = settings.edit();
+    	                    	    			editor.putBoolean("ssh_info", false);
+    	                    	    			editor.commit();
+    	                    	    			sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
+    	                    	    			Log.d(DEBUG_TAG, "sshInfoCheckboxEnabled: " + sshInfoCheckboxEnabled);
+    	                    	    		}
+    	                    	    		callConnectBot(); 
+    	                        		}
+    	                        	});
+    	                    	    adb.show();
+                        	    } else {
+                        	    	callConnectBot();
+                        	    }
+                        	} catch (IndexOutOfBoundsException e) {
+                        		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
+                        	}
+                        }
+                    });
+
+                    helpBuilder.setNegativeButton(getString(R.string.dialogs_negative), new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Toast.makeText(ShareActivity.this, "Download canceled...", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    
+                    if (settings.getBoolean("show_size", false) == false) {
+                    	helpDialog = helpBuilder.create();
+                    	helpDialog.show();
+                    }
+                }
+            });
+            
+            llv.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+				@Override
+				public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+					// TODO
+					Toast.makeText(ShareActivity.this, "position: " + position, Toast.LENGTH_SHORT).show();
+					
+					
+					
+					return true;
+				}
+    		});
         }
         
         public boolean useQualitySuffix() {
@@ -564,27 +582,26 @@ public class ShareActivity extends Activity {
         } catch (SecurityException e) {
         	Log.w(DEBUG_TAG, e.getMessage());
         	intent1.putExtra("COPY", true);
-        	downloadToStandardSdcard(currentRequest);
+        	videoOnExt = true;
+        	tempDownloadToSdcard(currentRequest);
         }
+		
+		startService(intent1);
 		
 		settings.edit().putString(String.valueOf(enqueue), composedFilename).apply();
     	
     	if (settings.getBoolean("enable_own_notification", true) == true) {
-            startService(intent1);
-            
 			sequence.add(enqueue);
-			settings.edit().putLong(composedFilename, enqueue).apply();
+			//settings.edit().putLong(composedFilename, enqueue).apply();
 			
-			fileObserver = new Observer.delFileObserver(path.getAbsolutePath());
+			fileObserver = new Observer.delFileObserver(videoUri.getPath());
 			fileObserver.startWatching();
 			
 			NotificationHelper();
-		} else {
-			stopService(intent1);
 		}
     }
       
-    private void downloadToStandardSdcard(Request request) {
+    private void tempDownloadToSdcard(Request request) {
     	videoUri = Uri.parse(dir_Downloads.toURI() + composedFilename);
         Log.d(DEBUG_TAG, "** NEW ** videoUri: " + videoUri);
         request.setDestinationUri(videoUri);
@@ -598,7 +615,7 @@ public class ShareActivity extends Activity {
     	
     	mBuilder =  new NotificationCompat.Builder(this);
     	
-    	mBuilder.setSmallIcon(R.drawable.ic_tab_download)
+    	mBuilder.setSmallIcon(R.drawable.icon_new)
     	        .setContentTitle(getString(R.string.app_name))
     	        .setContentText(getString(R.string.notification_downloading_pt1) + " " + sequence.size() + " " + getString(R.string.notification_downloading_pt2));
     	
@@ -905,7 +922,7 @@ public class ShareActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
 			//Log.d(DEBUG_TAG, "inAppCompleteReceiver: onReceive CALLED");
 	        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -2);
-	        if (enqueue != -1 && id != -2 && id == enqueue) {
+	        if (enqueue != -1 && id != -2 && id == enqueue && videoOnExt == false) {
 	            Query query = new Query();
 	            query.setFilterById(id);
 
