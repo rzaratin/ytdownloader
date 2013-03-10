@@ -24,7 +24,7 @@
 
         <activity
             android:name="group.pals.android.lib.ui.filechooser.FileChooserActivity"
-            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:exported="false"
             android:theme="@android:style/Theme.Holo" >
         </activity>
@@ -33,8 +33,7 @@
             android:exported="true"
             android:label="@string/title_activity_share"
             android:permission="android.permission.INTERNET"
-            android:screenOrientation="portrait"
-            android:configChanges="locale"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:theme="@style/AppThemeDark" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -47,8 +46,7 @@
         <activity
             android:name="dentex.youtube.downloader.SettingsActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:configChanges="locale"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:theme="@style/AppThemeDark" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,36 +57,35 @@
         <activity
             android:name="dentex.youtube.downloader.docs.GplShowActivity"
             android:label="@string/title_activity_gpl_show"
-            android:screenOrientation="portrait"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
             android:name="dentex.youtube.downloader.docs.MitShowActivity"
             android:label="@string/title_activity_mit_show"
-            android:screenOrientation="portrait"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
             android:name="dentex.youtube.downloader.docs.CreditsShowActivity"
             android:label="@string/title_activity_credits_show"
-            android:screenOrientation="portrait"
-            android:configChanges="locale"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
             android:name="dentex.youtube.downloader.docs.ChangelogActivity"
             android:label="@string/title_changelog"
-            android:screenOrientation="portrait"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:theme="@style/LicenseTheme" >
         </activity>
         <activity
             android:name="dentex.youtube.downloader.UpgradeApkActivity"
             android:label="@string/title_activity_upgrade_apk" 
-            android:screenOrientation="portrait"
-            android:configChanges="locale"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
             android:theme="@style/AppThemeDark" >
         </activity>
         <service android:name="dentex.youtube.downloader.service.DownloadsService" />
+        <service android:name="dentex.youtube.downloader.service.AutoUpgradeApkService" />
     </application>
 
 </manifest>

@@ -53,6 +53,14 @@
     <string name="notification_downloading_pt1">Downloading</string>
     <string name="notification_downloading_pt2">video files</string>
     <string name="notification_no_downloads">No downloads in progress</string>
+    <string name="long_click_title">Handle selected link:</string>
+    <string name="extsdcard_info_title">Selected path on removable sdcard</string>
+    <string name="extsdcard_info_msg">File is being downloaded initially in the standard sdcard and then will be moved to selected destination.</string>
+    
+    <string-array name="long_click_entries">
+        <item>Copy to clipboard</item>
+        <item>Share as text</item>
+    </string-array>
     
     <!-- ### SettingsActivity ### -->
 
@@ -62,6 +70,9 @@
     <string name="system_warning_msg">Chosen path will fall back on standard sdcard\'s Download folder.</string>
     <string name="sdcard_unmounted_warning">Sdcard NOT mounted</string>
     <string name="update_disabled_summary">Found different signature (F-Droid?)</string>
+    <string name="failed_download">Failed download removed</string>
+    <string name="new_v_download">found. Downloading&#8230;</string>
+    <string name="new_v_install">downloaded. Click to install.</string>
     
     <!-- ### UpgradeApkActivity ### -->
     
@@ -80,6 +91,7 @@
     <string name="upgrade_bad_md5_dialog_msg">Downloaded package corrupted.\nWill be deleted now.\nPress OK to download it again.</string>
     
     <!-- ### DownloadService ### -->
+    
     <string name="copy_error">Error during copy</string>
     <string name="copy_progress">YTD file copy in progress&#8230;</string>
     <string name="copy_ok">Available on extSdCard.</string>
@@ -93,6 +105,8 @@
     <string name="dm_summary">Open system\'s Download Manager</string>
     <string name="update_title">Check for updates</string>
     <string name="update_title_condensed">Update</string>
+    <string name="autoupdate_title">Enable auto-update</string>
+    <string name="autoupdate_summary">Check for updates on first application\'s run of the day (the new package will be auto-downloaded)</string>
     <string name="lang_title">Language</string>
     <string name="lang_dialog_title">Language (needs application\'s restart):</string>
     

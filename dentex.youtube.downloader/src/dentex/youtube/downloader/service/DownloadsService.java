@@ -43,13 +43,14 @@ public class DownloadsService extends Service {
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		copy = intent.getExtras().getBoolean("COPY");
+		copy = intent.getBooleanExtra("COPY", false);
 		if (copy == true) {
 			Log.d(DEBUG_TAG, "Copy to extSdcard: true");
 		} else {
 			Log.d(DEBUG_TAG, "Copy to extSdcard: false");
 		}
-		return super.onStartCommand(intent, flags, startId);
+		super.onStartCommand(intent, flags, startId);
+		return START_NOT_STICKY;
 	}
 	
 	@Override
@@ -87,7 +88,7 @@ public class DownloadsService extends Service {
 					cBuilder =  new NotificationCompat.Builder(context);
 					cNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 					
-			    	cBuilder.setSmallIcon(R.drawable.icon_new);
+			    	cBuilder.setSmallIcon(R.drawable.icon_nb);
 					cBuilder.setContentTitle(filename);
 					
 					if (copy == true) {

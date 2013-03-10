@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -26,17 +27,20 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
 import dentex.youtube.downloader.docs.ChangelogActivity;
 import dentex.youtube.downloader.docs.CreditsShowActivity;
 import dentex.youtube.downloader.docs.GplShowActivity;
 import dentex.youtube.downloader.docs.MitShowActivity;
+import dentex.youtube.downloader.service.AutoUpgradeApkService;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
 
 public class SettingsActivity extends Activity {
 	
+	public static final String DEBUG_TAG = "SettingsActivity";
 	private static final int _ReqChooseFile = 0;
 	public static String chooserSummary;
     public static SharedPreferences settings = ShareActivity.settings;
@@ -45,9 +49,6 @@ public class SettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // Load default preferences values
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         
         this.setTitle(R.string.title_activity_settings);
         
@@ -62,16 +63,18 @@ public class SettingsActivity extends Activity {
 	        config.locale = locale;
 	        getBaseContext().getResources().updateConfiguration(config, null);
         }
-
+        
+        // Load default preferences values
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();
     }
-    
-    public static class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
+
+	public static class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
     	
-		private static final String DEBUG_TAG = "SettingsActivity";
 		private Preference dm;
 		private Preference filechooser;
 		private Preference quickStart;
@@ -87,8 +90,8 @@ public class SettingsActivity extends Activity {
 		private CheckBoxPreference ownNot;
 		private Preference loc;
 
-		public static final int YTD_SIG_HASH = -1892118308; // final string
-		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
+		//public static final int YTD_SIG_HASH = -1892118308; // final string
+		public static final int YTD_SIG_HASH = -118685648; // dev test desktop
 		//public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 		
         @Override
@@ -276,6 +279,11 @@ public class SettingsActivity extends Activity {
 				if (Utils.getSigHash(SettingsFragment.this) == YTD_SIG_HASH) {
 					Log.d(DEBUG_TAG, "Found YTD signature: update check possile");
 					up.setEnabled(true);
+					
+					if (settings.getBoolean("autoupdate", false)) {
+						Log.i(DEBUG_TAG, "autoupdate enabled");
+						autoUpdate(getActivity());
+					}
 		    	} else {
 		    		Log.d(DEBUG_TAG, "Found different signature: " + Utils.currentHashCode + " (F-Droid?). Update check cancelled.");
 		    		up.setEnabled(false);
@@ -286,13 +294,18 @@ public class SettingsActivity extends Activity {
 		    	if (editor.commit()) Log.d(DEBUG_TAG, "saving sig pref...");
 			} else {
 				if (prefSig == YTD_SIG_HASH) {
-					Log.d(DEBUG_TAG, "YTD signature in prefs: update check possile");
+					Log.d(DEBUG_TAG, "YTD signature in PREFS: update check possile");
 					up.setEnabled(true);
+					
+					if (settings.getBoolean("autoupdate", false)) {
+						Log.i(DEBUG_TAG, "autoupdate enabled");
+						autoUpdate(getActivity());
+					}
 				} else {
 					Log.d(DEBUG_TAG, "diffrent YTD signature in prefs (F-Droid?). Update check cancelled.");
 					up.setEnabled(false);
 				}
-			}			
+			}
 		}
 
 		private void initSwapPreference() {
@@ -413,5 +426,20 @@ public class SettingsActivity extends Activity {
             	return 2;
             }
         }
+        
+        public void autoUpdate(Context context) {
+	        //long storedTime = settings.getLong("time", 0);
+	        long storedTime = 10000; //forces auto update for testing purposes
+	        
+	        boolean shouldCheckForUpdate = !DateUtils.isToday(storedTime);
+	        Log.i(DEBUG_TAG, "shouldCheckForUpdate: " + shouldCheckForUpdate);
+	        if (shouldCheckForUpdate) {
+	        	Intent intent = new Intent(context, AutoUpgradeApkService.class);
+	        	context.startService(intent);
+	        }
+	        
+	        long time = System.currentTimeMillis();
+	        if (settings.edit().putLong("time", time).commit()) Log.i(DEBUG_TAG, "time written in prefs");
+		}
 	}
 }

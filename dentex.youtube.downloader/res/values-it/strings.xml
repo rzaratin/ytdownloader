@@ -53,13 +53,26 @@
     <string name="notification_downloading_pt1"> </string>
     <string name="notification_downloading_pt2">file video in download</string>
     <string name="notification_no_downloads">Nessun download in corso</string>
+    <string name="long_click_title">Gestisci il link selezionato:</string>
+    <string name="extsdcard_info_title">Il percorso selezionato è sulla sdcard rimovibile</string>
+    <string name="extsdcard_info_msg">Il file è in download inizialmente sulla sdcard standard e dopo verrà spostato nella destinazione selezionata.</string>
+    
+    <string-array name="long_click_entries">
+        <item>Copia nella clipboard</item>
+        <item>Condividi come testo</item>
+    </string-array>
     
     <!-- ### SettingsActivity ### -->
 
-    <string name="attention">Attention!</string>
-    <string name="extsdcard_warning">Questa App non può scrivere file sulla sdcard esterna (rimovibile).\nRimani sulla sdcard standard.</string>
-    <string name="system_warning">Non è possibile scrivere file nelle cartelle di sistema.\nRimani sulla sdcard standard.</string>
+    <string name="attention">Attenzione!</string>
+    <string name="extsdcard_warning">Impossibile scrivere files sulla sdcard estraibile.\nRipiego sulla standard.</string>
+    <string name="system_warning_title">Questa è una cartella di sistema</string>
+    <string name="system_warning_msg">Il percorso selezionato viene sostituito con la cartella Download su sdcard standard.</string>
+    <string name="sdcard_unmounted_warning">Sdcard NON montata.</string>
     <string name="update_disabled_summary">Trovata una firma differente (F-Droid?)</string>
+    <string name="failed_download">Download fallito e rimosso</string>
+    <string name="new_v_download">trovata. In download&#8230;</string>
+    <string name="new_v_install">scaricata. Click per installare.</string>
     
     <!-- ### UpgradeApkActivity ### -->
     
@@ -76,6 +89,13 @@
     <string name="upgrade_latest_installed">L\'ultima versione è già installata!</string>
     <string name="upgrade_network_error">Impossibile ottenere dati sull\'aggiornamento.\nRiprova più tardi.</string>
     <string name="upgrade_bad_md5_dialog_msg">Il pacchetto scaricato è corrotto.\nVerrà cancellato adesso.\nPremi OK per scaricare di nuovo.</string>
+    
+    <!-- ### DownloadService ### -->
+    
+    <string name="copy_error">Errore durante la copia</string>
+    <string name="copy_progress">YTD: copia del file in corso&#8230;</string>
+    <string name="copy_ok">Disponibile su extSdCard.</string>
+    <string name="download_failed">Il download è fallito!</string>
 
     <!-- ### preferences ### -->
 
@@ -85,6 +105,8 @@
     <string name="dm_summary">Apri il Download Manager di sistema</string>
     <string name="update_title">Controlla aggiornamenti</string>
     <string name="update_title_condensed">Aggiorna</string>
+    <string name="autoupdate_title">Abilita aggiornamenti automatici</string>
+    <string name="autoupdate_summary">Controlla aggiornamenti al primo avvio dell\'applicazione della giornata (il nuovo pacchetto sarà scaricato automaticamente)</string>
     <string name="lang_title">Lingua</string>
     <string name="lang_dialog_title">Lingua (richiede riavvio dell\'applicazione):</string>
     
@@ -97,7 +119,7 @@
     
     <!-- @1 -->
     <string name="settings_cat_tutorials">Guide</string>
-    <string name="quick_start_title">Avvio veloce</string>
+    <string name="quick_start_title">Quick start</string>
     <string name="quick_start_summ">Apri una guida rapida</string>
     <string name="quick_start_text">Qui ci sono solo le preferenze per \'YouTube Downloader\'.
 		\n\nL\'App vera e propria è accessibile tramite il tasto condividi nella App di YouTube, mentre si guarda un video.
@@ -115,6 +137,10 @@
     <string name="chooser_swap_title">Scambia selettore</string>
     <string name="chooser_location_title">Apri il file-chooser</string>
     <string name="chooser_location_summary">Tieni premuto su di una cartella per selezionarla</string>
+    <string name="su_cp_title">Usa sdcard estraibile</string>
+	<string name="su_cp_summary">Abilita supporto a sdcard estraibile nel file-chooser (richiesto Root)</string>
+	<string name="path_on_extsdcard_dialog_title">Il percorso selezionato NON è sulla sdcard standard.</string>
+	<string name="path_on_extsdcard_dialog_msg">Abilitare il supporto alla sdcard estraibile? (richiesto Root)</string>
 	
     <!-- @3 -->
     <string name="settings_cat_files">File video</string>

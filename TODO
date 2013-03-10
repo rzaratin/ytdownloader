@@ -1,21 +1,15 @@
     
-    [v] external (removable) sd-card support
-
-    [ ] long-press on video list item: menu for "copy" and "share" link
-        advise on usage on the same LAN.
-    [ ] both portrait and landscape mode support
     [ ] default format/filter selection for video download
+    [ ] option to always download video locally
+    [ ] icons in prefs and other dialogs/menu
     [ ] option to "use inside same LAN" for SSH send
     [ ] use thumbnail for video preview
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
-    [ ] auto update-check once a day
-    [ ] change to library project "aFilechooser" instead of "android-filechooser" currently in use
     [ ] downloads log
     [ ] use icon/logo to identify codecs available
     [ ] make the App tablet friendly
-    [ ] new App's ICON
-    [ ] make all row in video-list clickable
+    [ ] new App's ICON [maybe not]
     [ ] handle YT links that require login (hard)
     [ ] audio extraction (hard too)

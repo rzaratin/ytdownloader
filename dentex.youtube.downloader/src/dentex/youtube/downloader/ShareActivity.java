@@ -70,8 +70,8 @@ public class ShareActivity extends Activity {
 	private Intent SharingIntent;
 	private ProgressBar progressBar1;
 	private ProgressBar filesizeProgressBar;
-    public static final String USER_AGENT_FIREFOX = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729)";
-    private static final String DEBUG_TAG = "ShareActivity";
+    public static final String USER_AGENT_FIREFOX = "Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0";
+	private static final String DEBUG_TAG = "ShareActivity";
     private TextView tv;
     private ListView lv;
     private ListView llv;
@@ -96,6 +96,7 @@ public class ShareActivity extends Activity {
     private int icon;
 	public CheckBox showAgain1;
 	public CheckBox showAgain2;
+	public CheckBox showAgain3;
 	public TextView userFilename;
 	public static SharedPreferences settings;
 	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
@@ -124,7 +125,8 @@ public class ShareActivity extends Activity {
 	public static String onlineVersion;
 	public static List<Long> sequence = new ArrayList<Long>();
 
-    @Override
+    @SuppressLint("CutPasteId")
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
@@ -146,6 +148,9 @@ public class ShareActivity extends Activity {
         lv = (ListView) findViewById(R.id.list);
         llv = (ListView) findViewById(R.id.list);
         tv = (TextView) findViewById(R.id.textView1);
+        
+        //Intent intentUp = new Intent(this, AutoUpgradeApkService.class);
+    	//startService(intentUp);
         
         // Get intent, action and MIME type
         Intent intent = getIntent();
@@ -484,14 +489,31 @@ public class ShareActivity extends Activity {
             
             llv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-				@Override
-				public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-					// TODO
-					Toast.makeText(ShareActivity.this, "position: " + position, Toast.LENGTH_SHORT).show();
-					
-					
-					
-					return true;
+            	@Override
+				public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(ShareActivity.this);
+				    builder.setTitle(R.string.long_click_title)
+				    	   //.setIcon(android.R.drawable.ic_menu_share)
+				           .setItems(R.array.long_click_entries, new DialogInterface.OnClickListener() {
+				               public void onClick(DialogInterface dialog, int which) {
+				            	   composedFilename = composeFilename();
+				            	   switch (which) {
+				            	   case 0: // copy
+				            		    ClipData cmd = ClipData.newPlainText("simple text", links.get(position));
+				            		    ClipboardManager cb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+				            		    cb.setPrimaryClip(cmd);
+				            		    break;
+				            	   case 1: // share
+			            			    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+			            			    sharingIntent.setType("text/plain");
+			            			    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, composedFilename);
+			            			    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, links.get(position));
+			            			    startActivity(Intent.createChooser(sharingIntent, "Share YouTube link:"));
+				            	   }
+				           }
+				    });
+				    builder.create().show();
+				    return true;
 				}
     		});
         }
@@ -568,37 +590,61 @@ public class ShareActivity extends Activity {
 		}
         request.setNotificationVisibility(vis);
         request.setTitle(vfilename);
-        enqueueRequest(request);
-    }
-    
-    void enqueueRequest(Request currentRequest) {
     	
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	intent1.putExtra("COPY", false);
     	
 		try {
-			enqueue = dm.enqueue(currentRequest);
+			enqueue = dm.enqueue(request);
         	Log.d(DEBUG_TAG, "_ID " + enqueue + " enqueued");
         } catch (SecurityException e) {
+        	// handle path on etxSdCard:
         	Log.w(DEBUG_TAG, e.getMessage());
+        	showExtsdcardInfo();
         	intent1.putExtra("COPY", true);
         	videoOnExt = true;
-        	tempDownloadToSdcard(currentRequest);
+        	tempDownloadToSdcard(request);
         }
 		
-		startService(intent1);
+    	startService(intent1);
 		
 		settings.edit().putString(String.valueOf(enqueue), composedFilename).apply();
     	
     	if (settings.getBoolean("enable_own_notification", true) == true) {
+    		Log.i(DEBUG_TAG, "enable_own_notification: true");
 			sequence.add(enqueue);
-			//settings.edit().putLong(composedFilename, enqueue).apply();
+			settings.edit().putLong(composedFilename, enqueue).apply();
 			
-			fileObserver = new Observer.delFileObserver(videoUri.getPath());
+			fileObserver = new Observer.delFileObserver(path.getAbsolutePath());
 			fileObserver.startWatching();
 			
 			NotificationHelper();
 		}
+    }
+    
+    void showExtsdcardInfo() {
+        generalInfoCheckboxEnabled = settings.getBoolean("extsdcard_info", true);
+        if (generalInfoCheckboxEnabled == true) {
+        	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+    	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
+    	    View generalInfo = adbInflater.inflate(R.layout.dialog_extsdcard_info, null);
+    	    showAgain3 = (CheckBox) generalInfo.findViewById(R.id.showAgain3);
+    	    showAgain3.setChecked(true);
+    	    adb.setView(generalInfo);
+    	    adb.setTitle(getString(R.string.extsdcard_info_title));    	    
+    	    adb.setMessage(getString(R.string.extsdcard_info_msg));
+
+    	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    	    	public void onClick(DialogInterface dialog, int which) {
+    	    		if (showAgain3.isChecked() == false) {
+    	    			settings.edit().putBoolean("extsdcard_info", false).commit();
+    	    			sshInfoCheckboxEnabled = settings.getBoolean("extsdcard_info", true);
+    	    			Log.d(DEBUG_TAG, "generalInfoCheckboxEnabled: " + generalInfoCheckboxEnabled);
+    	    		}
+        		}
+        	});
+    	    adb.show();
+        }
     }
       
     private void tempDownloadToSdcard(Request request) {
@@ -615,7 +661,7 @@ public class ShareActivity extends Activity {
     	
     	mBuilder =  new NotificationCompat.Builder(this);
     	
-    	mBuilder.setSmallIcon(R.drawable.icon_new)
+    	mBuilder.setSmallIcon(R.drawable.icon_nb)
     	        .setContentTitle(getString(R.string.app_name))
     	        .setContentText(getString(R.string.notification_downloading_pt1) + " " + sequence.size() + " " + getString(R.string.notification_downloading_pt2));
     	
@@ -840,7 +886,7 @@ public class ShareActivity extends Activity {
 			return "n.a.";
 		}
 	}
-	
+
 	@SuppressLint("DefaultLocale")
 	private String MakeSizeHumanReadable(int bytes, boolean si) {
 		String hr;

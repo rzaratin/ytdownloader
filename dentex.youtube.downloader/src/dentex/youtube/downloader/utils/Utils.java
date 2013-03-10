@@ -22,7 +22,7 @@ import android.util.Log;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
 import dentex.youtube.downloader.ShareActivity;
 
-public class Utils extends Activity{
+public class Utils extends Activity {
 	
 	static final String DEBUG_TAG = "Utils";
 	public static SharedPreferences settings = ShareActivity.settings;

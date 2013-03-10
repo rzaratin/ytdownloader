@@ -7,7 +7,7 @@
     
     <CheckBox 
         android:text="@string/show_again_checkbox" 
-        android:id="@+id/showAgain2" 
+        android:id="@+id/showAgain3" 
         android:layout_width="wrap_content" 
         android:layout_height="wrap_content" />
     

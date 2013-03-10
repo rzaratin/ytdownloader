@@ -4,7 +4,7 @@
     <Preference    
 		android:key="dm"
 		android:title="@string/dm_title"
-		android:summary="@string/dm_summary" />
+		android:summary="@string/dm_summary"/>
 
 	<PreferenceCategory
         android:title="@string/settings_cat_tutorials">
@@ -12,19 +12,19 @@
         <Preference 
             android:key="quick_start"
             android:title="@string/quick_start_title" 
-            android:summary="@string/quick_start_summ" />
+            android:summary="@string/quick_start_summ"/>
                	
     	<CheckBoxPreference
         	android:key="general_info"
         	android:title="@string/general_info_title"
         	android:summary="@string/general_info_summary"
-        	android:defaultValue="true" />
+        	android:defaultValue="true"/>
     	
     	<CheckBoxPreference
         	android:key="ssh_info"
         	android:title="@string/ssh_info_title"
         	android:summary="@string/ssh_info_summary"
-        	android:defaultValue="true" />
+        	android:defaultValue="true"/>
 
     </PreferenceCategory>
     
@@ -38,7 +38,7 @@
             android:dialogTitle="@string/standard_location_title"
             android:entries="@array/standard_location_entries"
             android:entryValues="@array/standard_location_entry_values"
-            android:defaultValue="@string/standard_location_default" />
+            android:defaultValue="@string/standard_location_default"/>
             	
     	<SwitchPreference
         	android:key="swap_location"
@@ -46,11 +46,11 @@
         	android:switchTextOn="ON"
         	android:switchTextOff="OFF"
         	android:defaultValue="false" 
-        	android:disableDependentsState="true" />
+        	android:disableDependentsState="true"/>
     	
 		<PreferenceScreen
 		    android:key="open_chooser"
-		    android:title="@string/chooser_location_title" />
+		    android:title="@string/chooser_location_title"/>
 
     </PreferenceCategory>
     
@@ -61,19 +61,19 @@
         	android:key="enable_q_suffix"
         	android:title="@string/enable_q_suffix_title"
         	android:summary="@string/enable_q_suffix_summary"
-        	android:defaultValue="true" />
+        	android:defaultValue="true"/>
     	
     	<CheckBoxPreference
         	android:key="enable_rename"
         	android:title="@string/enable_rename_title"
         	android:summary="@string/enable_rename_summary"
-        	android:defaultValue="false" />
+        	android:defaultValue="false"/>
 	            
         <CheckBoxPreference
             android:key="show_size"
             android:title="@string/show_size_title"
             android:summary="@string/show_size_summary" 
-            android:defaultValue="false" />
+            android:defaultValue="false"/>
     
     </PreferenceCategory>
     
@@ -84,7 +84,13 @@
             android:key="enable_own_notification"
             android:title="@string/enable_own_notification_title"
         	android:summary="@string/enable_own_notification_summary"
-        	android:defaultValue="true" />
+        	android:defaultValue="true"/>
+        
+        <!-- <CheckBoxPreference
+            android:key="enable_own_toasts"
+            android:title="@string/enable_own_toasts_title"
+        	android:summary="@string/enable_own_toasts_summary"
+        	android:defaultValue="false"/> -->
         
         <ListPreference
             android:key="download_manager_notification"
@@ -92,7 +98,7 @@
             android:dialogTitle="@string/download_manager_notification_dialog_title"
             android:entries="@array/download_manager_notification_entries"
             android:entryValues="@array/download_manager_notification_entry_values"
-            android:defaultValue="@string/download_manager_notification_default" />
+            android:defaultValue="@string/download_manager_notification_default"/>
         
     </PreferenceCategory>
     
@@ -101,7 +107,14 @@
     	
         <Preference 
         	android:key="update"
-			android:title="@string/update_title" />
+			android:title="@string/update_title"/>
+        
+        <CheckBoxPreference 
+            android:key="autoupdate"
+            android:dependency="update"
+            android:title="@string/autoupdate_title"
+            android:summary="@string/autoupdate_summary"
+            android:defaultValue="false"/>
         
         <ListPreference 
         	android:key="lang"
@@ -109,7 +122,7 @@
 			android:dialogTitle="@string/lang_dialog_title" 
 			android:entries="@array/lang_entries"
             android:entryValues="@array/lang_entry_values"
-            android:defaultValue="@string/lang_default" />
+            android:defaultValue="@string/lang_default"/>
 		
 	    <Preference 
 	        android:key="changelog"
@@ -125,17 +138,17 @@
 		        <Preference
 		            android:key="gpl"
 		            android:title="@string/gpl_title"
-		            android:summary="@string/gpl_summary" />
+		            android:summary="@string/gpl_summary"/>
 		        
 		        <Preference
 		            android:key="mit"
 		            android:title="@string/mit_title"
-		            android:summary="@string/mit_summary" />
+		            android:summary="@string/mit_summary"/>
 		        
 		        <Preference
 		            android:key="credits"
 		            android:title="@string/credits_title"
-		            android:summary="@string/credits_summary" />
+		            android:summary="@string/credits_summary"/>
 		    
 		    </PreferenceCategory>
 		    
@@ -145,17 +158,17 @@
 		        <Preference 
 		            android:key="ytd_code_git"
 		            android:title="@string/ytd_code_git_title"
-		            android:summary="@string/ytd_code_git_summary" />
+		            android:summary="@string/ytd_code_git_summary"/>
 		        
 		        <Preference 
 		            android:key="ytd_code_hg"
 		            android:title="@string/ytd_code_hg_title"
-		            android:summary="@string/ytd_code_hg_summary" />
+		            android:summary="@string/ytd_code_hg_summary"/>
 		                
 		        <Preference 
 		            android:key="chooser_code"
 		            android:title="@string/chooser_code_title"
-		            android:summary="@string/chooser_code_summary" />
+		            android:summary="@string/chooser_code_summary"/>
 		        
 		    </PreferenceCategory>
 		
@@ -169,12 +182,12 @@
         <Preference
             android:key="share"
             android:title="@string/share_title"
-            android:summary="@string/share_summary" />
+            android:summary="@string/share_summary"/>
         
         <Preference
             android:key="help_translate"
             android:title="@string/help_translate_title"
-            android:summary="@string/help_translate_summary" />
+            android:summary="@string/help_translate_summary"/>
         
     </PreferenceCategory>
 
