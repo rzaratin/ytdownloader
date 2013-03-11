@@ -48,8 +48,8 @@
     <string name="cancel_download_dialog_title">Cancel download?</string>
     <string name="video_list_error_toast">Error in video list</string>
     <string name="codec">\n\n\tCodec:</string>
-    <string name="quality">\n\tQuality: </string>
-    <string name="size">\n\tSize: </string>
+    <string name="quality">\n\tQuality:</string>
+    <string name="size">\n\tSize:</string>
     <string name="notification_downloading_pt1">Downloading</string>
     <string name="notification_downloading_pt2">video files</string>
     <string name="notification_no_downloads">No downloads in progress</string>
@@ -115,6 +115,7 @@
         <item>English</item>
         <item>Italian</item>
         <item>Portuguese</item>
+        <item>Turkish</item>
     </string-array>
     
     <!-- @1 -->
@@ -190,7 +191,8 @@
         checksum for downloaded upgrade packages are taken from the \'CMUpdater\' App</string>
     <string name="credits_translators">\n\n Translations
         \n\nFurthermore, additional localizations thanks to:
-        \n\nPLUG313 from <http>forum.xda-developers.com</http> for Portuguese.</string>
+        \n\nPLUG313 from <http>forum.xda-developers.com</http> for Portuguese;
+        \n\nrew06 from <http>www.getlocalization.com/ytdownloader</http> for Turkish.</string>
         
     <!-- @5.2 -->
     <string name="settings_cat_code">Source Code</string>

@@ -10,6 +10,8 @@
         \n[x] auto update-check once a day
         \n[x] new notification icon
         \n[x] landscape orientation support
+        \n[x] YT video thumbnail preview
+        \n[x] Turkish App translation
         \n
         \n v1.7 - Mar 03 2012
         \n-----------------------------------
@@ -166,7 +168,10 @@
         <item>en</item>
         <item>it</item>
         <item>pt</item>
+        <item>tr</item>
     </string-array>
     
     <string name="lang_default">default</string>
+    
+    <string name="imgview_descr">Video thumbnail</string>
 </resources>

@@ -115,6 +115,7 @@
         <item>Inglese</item>
         <item>Italiano</item>
         <item>Portoghese</item>
+        <item>Turco</item>
     </string-array>
     
     <!-- @1 -->
@@ -188,9 +189,10 @@
         \n\n
         In particolare, i metodi per calcolare e comparare i checksum MD5 
         per i pacchetti di aggiornamento scaricati sono presi dalla App \'CMUpdater\'</string>
-    <string name="credits_translators">\n Traduzioni
-        \n\nInoltre, localizzazioni addizionali grazie a:
-        \n\nPLUG313 dal <http>forum.xda-developers.com</http> per il Portoghese.</string>
+    <string name="credits_translators">\n\n Traduzioni 
+        \n\Inoltre, localizzazioni addizionali grazie a: 
+        \n\nPLUG313 dal <http>forum.xda-developers.com</http> per il Portoghese;
+        \n\nrew06 da <http>www.getlocalization.com/ytdownloader</http> per il Turco.</string>
         
     <!-- @5.2 -->
     <string name="settings_cat_code">Codice sorgente</string>

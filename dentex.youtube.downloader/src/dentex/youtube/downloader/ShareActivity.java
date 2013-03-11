@@ -9,14 +9,15 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,8 +39,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -58,6 +62,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -115,6 +120,9 @@ public class ShareActivity extends Activity {
 	public AlertDialog waitBox;
 	private AlertDialog.Builder  helpBuilder;
 	private AlertDialog.Builder  waitBuilder;
+	private Bitmap img;
+	private ImageView imgView;
+	private String videoId;
 	public static String pt1;
 	public static String pt2;
 	public static String noDownloads;
@@ -146,8 +154,10 @@ public class ShareActivity extends Activity {
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
         
         lv = (ListView) findViewById(R.id.list);
-        //llv = (ListView) findViewById(R.id.list);
+
         tv = (TextView) findViewById(R.id.textView1);
+        
+        imgView = (ImageView)findViewById(R.id.imgview);
         
         //Intent intentUp = new Intent(this, AutoUpgradeApkService.class);
     	//startService(intentUp);
@@ -286,12 +296,11 @@ public class ShareActivity extends Activity {
         Matcher matcher = pattern.matcher(link);
         if (matcher.find()) {
             validatedLink = matcher.group(1) + "://www.youtube.com/watch?" + matcher.group(2);
+            videoId = matcher.group(2).replace("v=", "");
             return validatedLink;
         }
         return "not_a_valid_youtube_link";
     }
-    
-
     
     public static void assignPath() {
     	boolean Location = settings.getBoolean("swap_location", false);
@@ -330,6 +339,7 @@ public class ShareActivity extends Activity {
     	protected String doInBackground(String... urls) {
             try {
             	Log.d(DEBUG_TAG, "doInBackground...");
+            	downloadThumbnail(generateThumbUrl());
                 return downloadUrl(urls[0]);
             } catch (IOException e) {
                 return "e";
@@ -340,6 +350,7 @@ public class ShareActivity extends Activity {
         protected void onPostExecute(String result) {
 
         	progressBar1.setVisibility(View.GONE);
+        	imgView.setImageBitmap(img);
         	isAsyncDownloadRunning = false;
         	
             if (result == "e") {
@@ -623,7 +634,16 @@ public class ShareActivity extends Activity {
 		}
     }
     
-    void showExtsdcardInfo() {
+    public String generateThumbUrl() {
+		// link example "http://i2.ytimg.com/vi/8wr-uQX1Grw/mqdefault.jpg"
+    	Random random = new Random();
+    	int num = random.nextInt(4 - 1) + 1;
+    	String url = "http://i" + num + ".ytimg.com/vi/" + videoId + "/mqdefault.jpg";
+    	Log.i(DEBUG_TAG, "thumbnail url: " + url);
+    	return url;
+	}
+
+	void showExtsdcardInfo() {
         generalInfoCheckboxEnabled = settings.getBoolean("extsdcard_info", true);
         if (generalInfoCheckboxEnabled == true) {
         	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
@@ -961,6 +981,38 @@ public class ShareActivity extends Activity {
             // Unable to create file, likely because external storage is not currently mounted.
             Log.w("ExternalStorage", "Error writing " + file, e);
         }
+    }
+    
+    void downloadThumbnail(String fileUrl) {
+    	InputStream is = null;
+    	URL myFileUrl = null;
+    	try {
+    		myFileUrl = new URL(fileUrl);
+    	} catch (MalformedURLException e) {
+    		try {
+				myFileUrl =  new URL("https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader/assets/placeholder.png?raw=true");
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			}
+    		e.printStackTrace();
+    	}
+    	try {
+    		HttpURLConnection conn = (HttpURLConnection) myFileUrl.openConnection();
+    		conn.setDoInput(true);
+    		conn.connect();
+    		is = conn.getInputStream();
+
+    		img = BitmapFactory.decodeStream(is);
+    	} catch (IOException e) {
+    		InputStream assIs = null;
+    		AssetManager assMan = getAssets();
+            try {
+				assIs = assMan.open("placeholder.png");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+            img = BitmapFactory.decodeStream(assIs);
+		}
     }
 
     BroadcastReceiver inAppCompleteReceiver = new BroadcastReceiver() {

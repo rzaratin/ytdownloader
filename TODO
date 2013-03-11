@@ -1,7 +1,6 @@
     
     [ ] default format/filter selection for video download
     [ ] option to always download video locally
-    [ ] icons in prefs and other dialogs/menu
     [ ] option to "use inside same LAN" for SSH send
     [ ] use thumbnail for video preview
     [ ] handle SourceForge servers down; fallback on GitHub for apk download:

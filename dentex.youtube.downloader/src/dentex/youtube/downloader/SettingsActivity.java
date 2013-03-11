@@ -89,6 +89,7 @@ public class SettingsActivity extends Activity {
 		private Preference up;
 		private CheckBoxPreference ownNot;
 		private Preference loc;
+		//TODO preference for thumbnail
 
 		//public static final int YTD_SIG_HASH = -1892118308; // final string
 		public static final int YTD_SIG_HASH = -118685648; // dev test desktop
