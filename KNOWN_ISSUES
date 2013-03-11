@@ -1,5 +1,0 @@
-		
-    [-] Removing multiple running downloads from the system's Download Manager brings 
-        to an inconsistency between the actual number of downloads in progress and how 
-        many of them are shown into the YTD's notification (only one is always removed);
-        workaround: remove always one download at a time.

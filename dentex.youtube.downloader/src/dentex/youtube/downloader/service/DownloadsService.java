@@ -168,7 +168,8 @@ public class DownloadsService extends Service {
 		} else {
 			ShareActivity.mBuilder.setContentText(ShareActivity.noDownloads);
 			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
-			//Log.d(DEBUG_TAG, "Notification: no downloads in progress");
+			Log.d(DEBUG_TAG, "No downloads in progress - stopping FileObserver");
+			ShareActivity.fileObserver.stopWatching();
 		}
 	}
 }

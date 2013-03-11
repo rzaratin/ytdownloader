@@ -50,12 +50,6 @@ changelog=`sed -n '/string name="changelog"/,/<\/string>/p' dentex.youtube.downl
 echo -e $changelog | sed 's/^/    /' >> $dest
 
 echo "
-KNOWN ISSUES
-================================================================" >> $dest
-
-cat KNOWN_ISSUES >> $dest
-
-echo "
 TO-DO LIST
 ================================================================" >> $dest
 

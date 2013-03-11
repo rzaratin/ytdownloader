@@ -54,8 +54,8 @@
     <string name="notification_downloading_pt2">Ficheiros de video</string>
     <string name="notification_no_downloads">Nenhuns downloads em progresso</string>
     <string name="long_click_title">Handle selected link:</string>
-    <string name="extsdcard_info_title">Selected path on removable sdcard</string>
-    <string name="extsdcard_info_msg">File is being downloaded initially in the standard sdcard and then will be moved to selected destination.</string>
+    <string name="extsdcard_info_title">Destination path is on removable sdcard</string>
+    <string name="extsdcard_info_msg">File is being downloaded initially in the standard sdcard and then will be moved to the selected destination.</string>
     
     <string-array name="long_click_entries">
         <item>Copy to clipboard</item>

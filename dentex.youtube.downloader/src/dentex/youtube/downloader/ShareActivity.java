@@ -13,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -74,7 +75,6 @@ public class ShareActivity extends Activity {
 	private static final String DEBUG_TAG = "ShareActivity";
     private TextView tv;
     private ListView lv;
-    private ListView llv;
     public ArrayAdapter<String> aA;
     //private InputStream isFromString;
     List<String> links = new ArrayList<String>();
@@ -146,7 +146,7 @@ public class ShareActivity extends Activity {
         progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
         
         lv = (ListView) findViewById(R.id.list);
-        llv = (ListView) findViewById(R.id.list);
+        //llv = (ListView) findViewById(R.id.list);
         tv = (TextView) findViewById(R.id.textView1);
         
         //Intent intentUp = new Intent(this, AutoUpgradeApkService.class);
@@ -349,10 +349,11 @@ public class ShareActivity extends Activity {
             }
 
             String[] lv_arr = cqsChoices.toArray(new String[0]);
+            
             aA = new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr);
+            
             lv.setAdapter(aA);
-            llv.setAdapter(aA);
-            llv.setLongClickable(true);
+            lv.setLongClickable(true);
             Log.d(DEBUG_TAG, "LISTview done with " + lv_arr.length + " items.");
 
             tv.setText(titleRaw);
@@ -373,8 +374,8 @@ public class ShareActivity extends Activity {
                     try {
                         if (settings.getBoolean("show_size", false) == false) {
                         	helpBuilder.setMessage(titleRaw + 
-                        			getString(R.string.codec) + codecs.get(pos) + 
-                					getString(R.string.quality) + qualities.get(pos));
+                        			getString(R.string.codec) + " " + codecs.get(pos) + 
+                					getString(R.string.quality) + " " + qualities.get(pos));
                         } else {
                         	sizeQuery = new AsyncSizeQuery();
                         	sizeQuery.execute(links.get(position));
@@ -487,7 +488,7 @@ public class ShareActivity extends Activity {
                 }
             });
             
-            llv.setOnItemLongClickListener(new OnItemLongClickListener() {
+            lv.setOnItemLongClickListener(new OnItemLongClickListener() {
 
             	@Override
 				public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -802,7 +803,7 @@ public class ShareActivity extends Activity {
         Iterator<String> codecsIter = codecs.iterator();
         Iterator<String> qualitiesIter = qualities.iterator();
         while (codecsIter.hasNext()) {
-            cqsChoices.add(codecsIter.next() + "\t-\t" + qualitiesIter.next());
+            cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next());
         }
     }
     
@@ -840,8 +841,8 @@ public class ShareActivity extends Activity {
     	    waitBuilder.setIcon(android.R.drawable.ic_dialog_info);
     	    waitBuilder.setTitle(R.string.wait);
     	    waitBuilder.setMessage(titleRaw + 
-    	    		getString(R.string.codec) + codecs.get(pos) + 
-					getString(R.string.quality) + qualities.get(pos));
+    	    		getString(R.string.codec) + " " + codecs.get(pos) + 
+					getString(R.string.quality) + " " + qualities.get(pos));
     	    waitBox = waitBuilder.create();
     	    waitBox.show();
     	}
@@ -864,9 +865,9 @@ public class ShareActivity extends Activity {
         	videoFileSize = result;
         	
         	helpBuilder.setMessage(titleRaw + 
-        			getString(R.string.codec) + codecs.get(pos) + 
-					getString(R.string.quality) + qualities.get(pos) +
-					getString(R.string.size) + videoFileSize);
+        			getString(R.string.codec) + " " + codecs.get(pos) + 
+					getString(R.string.quality) + " " + qualities.get(pos) +
+					getString(R.string.size) + " " + videoFileSize);
         	helpDialog = helpBuilder.create();
             helpDialog.show();
         	
