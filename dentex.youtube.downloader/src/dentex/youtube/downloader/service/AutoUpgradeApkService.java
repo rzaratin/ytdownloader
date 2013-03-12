@@ -63,6 +63,7 @@ public class AutoUpgradeApkService extends Service {
 	@Override
 	public void onCreate() {
 		Log.d(DEBUG_TAG, "service created");
+		registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 		try {
 		    currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 		    Log.d(DEBUG_TAG, "current version: " + currentVersion);
@@ -72,11 +73,7 @@ public class AutoUpgradeApkService extends Service {
 		}
 		ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-		
 		if (networkInfo != null && networkInfo.isConnected() && matchedVersion != "n.a.") {
-			
-			registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-			
 			try {
 				//init version and changelog
 				matchedChangeLog = null;
@@ -97,7 +94,6 @@ public class AutoUpgradeApkService extends Service {
 	public void onDestroy() {
 		Log.d(DEBUG_TAG, "service destroyed");
 		unregisterReceiver(apkReceiver);
-		//stopSelf();
 	}
 
 	
@@ -181,13 +177,14 @@ public class AutoUpgradeApkService extends Service {
 	    	} else if (compRes.contentEquals("==")) {
 	    		//PopUps.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", AutoUpgradeApk.this);
 	    		Log.d(DEBUG_TAG, "version comparison: latest version is already installed!");
-
+	    		stopSelf();
 	    	} else if (compRes.contentEquals("<")) {
 	    		// No need for a popup...
 	    		Log.d(DEBUG_TAG, "version comparison: installed higher than the one online? ...this should not happen...");
-
+	    		stopSelf();
 	    	} else if (compRes.contentEquals("init")) {
 	    		Log.d(DEBUG_TAG, "version comparison not tested");
+	    		stopSelf();
 	    	}
         }   
 	}
@@ -293,6 +290,7 @@ public class AutoUpgradeApkService extends Service {
 	                }
 	            }
             }
+	        stopSelf();
 		}
 
 		public void deleteBadDownload(final Context context, final Intent intent) {

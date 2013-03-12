@@ -89,10 +89,10 @@ public class SettingsActivity extends Activity {
 		private Preference up;
 		private CheckBoxPreference ownNot;
 		private Preference loc;
-		//TODO preference for thumbnail
 
-		//public static final int YTD_SIG_HASH = -1892118308; // final string
-		public static final int YTD_SIG_HASH = -118685648; // dev test desktop
+		//TODO fix for release
+		public static final int YTD_SIG_HASH = -1892118308; // final string
+		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
 		//public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
 		
         @Override
@@ -273,6 +273,10 @@ public class SettingsActivity extends Activity {
                 }
             });
  
+			updateInit();
+		}
+
+		public void updateInit() {
 			int prefSig = settings.getInt("APP_SIGNATURE", 0);
 			Log.d(DEBUG_TAG, "prefSig: " + prefSig);
 			
@@ -428,9 +432,10 @@ public class SettingsActivity extends Activity {
             }
         }
         
-        public void autoUpdate(Context context) {
-	        //long storedTime = settings.getLong("time", 0);
-	        long storedTime = 10000; //forces auto update for testing purposes
+        public static void autoUpdate(Context context) {
+        	//TODO fix for release
+	        long storedTime = settings.getLong("time", 0);
+	        //long storedTime = 10000; //forces auto update for testing purposes
 	        
 	        boolean shouldCheckForUpdate = !DateUtils.isToday(storedTime);
 	        Log.i(DEBUG_TAG, "shouldCheckForUpdate: " + shouldCheckForUpdate);

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">YouTube Downloader</string>
     <string name="menu_settings">Ayarlar</string>
-    <string name="title_activity_share">YouTube Downloader</string>
     <string name="title_activity_settings">YouTube Downloader Ayarları</string>
     <string name="title_activity_upgrade_apk">YouTube Downloader Sürüm Yükselt</string>
 
@@ -110,14 +108,6 @@
     <string name="lang_title">Lisan</string>
     <string name="lang_dialog_title">Lisan (uygulama yeniden başlatılmalıdır):</string>
     
-    <string-array name="lang_entries">
-        <item>Varsayılan</item>
-        <item>Ingilizce</item>
-        <item>Italyanca</item>
-        <item>Portekizce</item>
-        <item>Türkçe</item>
-    </string-array>
-    
     <!-- @1 -->
     <string name="settings_cat_tutorials">Rehberler</string>
     <string name="quick_start_title">Hızlı başlangıç</string>
@@ -151,6 +141,8 @@
     <string name="enable_rename_summary">Video dosyasını indirmeden önce yeniden adlandır (sadece yerel indirmeler için)</string>
     <string name="show_size_title">Dosya boyutunu göster</string>
     <string name="show_size_summary">İndirme onaylama mesajında video boyutunu al (daha yavaş)</string>
+    <string name="show_thumb_title">Önizleme resmi göster</string>
+    <string name="show_thumb_summary">Video listesi ile birlikte bir önizleme resmi indir</string>
     
     <!-- @4 -->
     <string name="settings_cat_notifications">Bildirimler</string>
@@ -188,10 +180,11 @@
 		Bu uygulamada, CyanogenMod Custom ROM\'dan bazı kod alıntıları vardır;
 		\n\n
 		Özellikle indirilmiş yükleme paketlerinin, MD5 sağlama, hesaplama ve kıyaslama yöntemleri \'CMUpdater\' App \'den alınmıştır.</string>
-    <string name="credits_translators">\n\n Çeviriler
-        \n\nÇeviriler için Teşekkürler:
-		\n\nPLUG313 <http>forum.xda-developers.com</http> \'den Portekizce;
-		\n\nrew06 <http>www.getlocalization.com/ytdownloader</http> \'den Turkish.</string>
+    <string name="credits_translators">\n\tÇeviriler 
+\n\nÇeviriler için Teşekkürler:</string>
+    <string name="translators_info">\nDaha fazla bilgi için:
+\n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
+\n\n<http>www.getlocalization.com/ytdownloader</http></string>
         
     <!-- @5.2 -->
     <string name="settings_cat_code">Kaynak Kod</string>

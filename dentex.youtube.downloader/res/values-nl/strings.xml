@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="menu_settings">Instellingen</string>
+    <string name="title_activity_settings">YouTube Downloader Instellingen</string>
+    <string name="title_activity_upgrade_apk">YouTube Downloader Opwaarderen</string>
+
+    <!-- ### ShareActivity ### -->
+
+    <string name="tutorial_title">Algemene App handleiding</string>
+    <string name="tutorial_msg">Nu zult u een lijst zien met alle codecs en kwaliteiten beschikbaar van de geselecteerde video.
+\n\nKies een optie en u zult de vraag krijgen of u het bestand lokaal wilt opslaan (telefoon / sdkaart) of dat u het wilt verzenden via SSH naar een linux computer.
+\n\nBestemmingsvereisten voor de linux-box: Bash en Wget. Extra SSH informatie volgt.</string>
+    <string name="loading">Laden&#8230;</string>
+    <string name="error">Fout!</string>
+    <string name="information">Informatie</string>
+    <string name="dialogs_negative">Annuleren</string>
+    <string name="wait">Een moment geduld a.u.b. &#8230;</string>
+    <string name="invalid_url">Niet in staat om de pagina te laden. URL wellicht ongeldig.</string>
+    <string name="invalid_url_short">Niet in staat om de pagina te laden.</string>
+    <string name="invalid_response">Ongeldige HTTP server terugkoppeling.</string>
+    <string name="bad_link">Controleer de opgegeven link.</string>
+    <string name="bad_link_dialog_msg">Ongeldige YouTube link.</string>
+    <string name="no_net">Geen verbinding beschikbaar.</string>
+    <string name="no_net_dialog_msg">Activeer uw netwerk verbinding eerst, alstublieft.</string>
+    <string name="no_market">Geen market App beschikbaar.</string>
+    <string name="no_market_dialog_msg">Installeer Google Play alstublieft</string>
+    <string name="list_click_dialog_title">Bevestig de volgende download:</string>
+    <string name="list_click_download_local">Hier downloaden</string>
+    <string name="list_click_download_ssh">Verzend via SSH</string>
+    <string name="rename_dialog_title">Nieuwe bestandsnaam:</string>
+    <string name="rename_dialog_msg">Vul niet de bestandsextensie in (zoals .mp4 of .flv).</string>
+    <string name="unable_save">Niet in staat om de video op te slaan!</string>
+    <string name="unable_save_dialog_msg">Bestemmingsmap  is niet beschikbaar en/of niet schrijfbaar.</string>
+    <string name="ssh_info_tutorial_title">Hoe te verzenden via SSH </string>
+    <string name="ssh_info_tutorial_msg">Een enkele lange commando is geladen in het klembord.
+\n\nKies een profiel in ConnectBot en een keer in je remote shell, bladert u naar de gewenste
+map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
+    <string name="callConnectBot_dialog_title">ConnectBot niet geinstalleerd!</string>
+    <string name="callConnectBot_dialog_msg">Deze gratis App is vereist voor het versturen van de video via het SSH protocol.</string>
+    <string name="callConnectBot_dialog_positive">Installeer ConnectBot</string>
+    <string name="download_complete_dialog_msg1">YouTube Video:\n</string>
+    <string name="download_complete_dialog_msg2">\nDownload voltooid</string>
+    <string name="download_complete_dialog_positive">Openen</string>
+    <string name="downloading">Downloaden&#8230;</string>
+    <string name="cancel_download_dialog_title">Download annuleren?</string>
+    <string name="video_list_error_toast">Fout in video lijst</string>
+    <string name="codec">\n\n\tCodec:</string>
+    <string name="quality">\n\tKwaliteit:</string>
+    <string name="size">\n\tGroote:</string>
+    <string name="notification_downloading_pt1">Downloaden...</string>
+    <string name="notification_downloading_pt2">video bestanden</string>
+    <string name="notification_no_downloads">Geen downloads in behandeling</string>
+    <string name="long_click_title">Hanteer geselecteerde link:</string>
+    <string name="extsdcard_info_title">Bestemmingspan is op de verwijderbare sdkaart </string>
+    <string name="extsdcard_info_msg">Bestand wordt in eerste instantie gedownload op de standaard sdkaart en verplaatst naar de geselecteerde locatie.</string>
+    
+    <string-array name="long_click_entries">
+        <item>Kopieer naar klembord</item>
+        <item>Deel als tekst</item>
+    </string-array>
+    
+    <!-- ### SettingsActivity ### -->
+
+    <string name="attention">Let op!</string>
+    <string name="extsdcard_warning">Niet in staat om bestanden te schrijven op de verwijderbare sdkaart.\nTerug vallen op de standaard sdkaart.</string>
+    <string name="system_warning_title">Dit is een systeemmap</string>
+    <string name="system_warning_msg">Gekozen pad valt terug op de standaard sdkaart. Download map.</string>
+    <string name="sdcard_unmounted_warning">Sdkaart niet gemonteerd</string>
+    <string name="update_disabled_summary">Verschillen gevonden in de ondertekening (F-Droid?)</string>
+    <string name="failed_download">Mislukte download verwijderd</string>
+    <string name="new_v_download">Gevonden. Downloaden...&#8230;</string>
+    <string name="new_v_install">Gedownload. Klik om te instaleren.</string>
+    
+    <!-- ### UpgradeApkActivity ### -->
+    
+    <string name="upgrade_button_init">Bijwerken</string>
+    <string name="upgrade_button_download">Download\nen installeren</string>
+    <string name="upgrade_uppertext_searching">Zoeken&#8230;</string>
+    <string name="upgrade_uppertext_init">Installeer versie:\n</string>
+    <string name="upgrade_dialog_msg">Nieuwe versie beschikbaar:\t</string>
+    <string name="upgrade_dialog_positive">Download</string>
+    <string name="upgrade_latest">Laatste:\t</string>
+    <string name="upgrade_installed">\nGeïnstalleerd:\t</string>
+    <string name="upgraded_dialog_msg">Nieuwe versie opgeslagen in standaard map sdkaart \'Download\' folder.\n\n Installeer nu?</string>
+    <string name="upgraded_dialog_negative">Later\n(handmatig)</string>
+    <string name="upgrade_latest_installed">Laatste versie is al geïnstalleerd!</string>
+    <string name="upgrade_network_error">Niet in staat om de update data terug te vinden.\nProbeer het later nogmaals.</string>
+    <string name="upgrade_bad_md5_dialog_msg">Gedownloade pakket is ongeldig.\nWordt nu verwijderd.\nKlik OK om opnieuw te downloaden.</string>
+    
+    <!-- ### DownloadService ### -->
+    
+    <string name="copy_error">Fout tijdens het kopiëren</string>
+    <string name="copy_progress">YTD bezig met bestand kopiëren&#8230;</string>
+    <string name="copy_ok">Beschikbaar op extSdkaart.</string>
+    <string name="download_failed">Download mislukt!</string>
+
+    <!-- ### preferences ### -->
+
+    <!-- @0 -->
+    <string name="dm_title">Downloads bekijken</string>
+    <string name="dm_title_condensed">Downloads</string>
+    <string name="dm_summary">Open system\'s Download Manager</string>
+    <string name="update_title">Controleren op updates</string>
+    <string name="update_title_condensed">Bijwerken</string>
+    <string name="autoupdate_title">Activeer automatisch bijwerken</string>
+    <string name="autoupdate_summary">Controleer op updates bij het opstarten van de applicatie (het nieuwste bestand wordt automatisch gedownload)</string>
+    <string name="lang_title">Taal</string>
+    <string name="lang_dialog_title">Taal (applicatie herstart vereist):</string>
+    
+    <!-- @1 -->
+    <string name="settings_cat_tutorials">Handleiding</string>
+    <string name="quick_start_title">Snelle start</string>
+    <string name="quick_start_summ">Open de snel start handleiding</string>
+    <string name="quick_start_text">Hier zijn de voorkeuren voor \'\'YouTube Downloader\'.
+\n\nDe App kan tijdens het kijken via de share knop in de YouTube App worden opgeroepen.
+\n\nKies dan \'YouTube Downloader\' en u zult verder video informatie ontvangen.
+\n\nU kunt ook all YouTube eenvoudige tekst links via een andere App (bijv de browser) delen.</string>
+    <string name="general_info_title">Activeer de algemene handleiding</string>
+    <string name="general_info_summary">Toon een algemene App handleiding bij het opstarten</string>
+    <string name="show_again_checkbox">Volgende keer tonen</string>
+    <string name="ssh_info_title">Activeer SSH handleiding</string>
+    <string name="ssh_info_summary">Laat een snelle tip zien over op afstand downloaden via SSH</string>
+
+    <!-- @2 -->
+    <string name="settings_cat_folder">Download map</string>
+    <string name="standard_location_title">Kies een standaard map</string>
+    <string name="chooser_swap_title">Wissel kiezer</string>
+    <string name="chooser_location_title">Open bestandskiezer</string>
+    <string name="chooser_location_summary">Lang drukken om een map te selecteren</string>
+    <string name="su_cp_title">Gebruik verwijderbare sdcard</string>
+	<string name="su_cp_summary">Activeer verwijderbare sdcard support in besandskiezer (Root vereist)</string>
+	<string name="path_on_extsdcard_dialog_title">Gekozen pad is NIET op standaard sdcard.</string>
+	<string name="path_on_extsdcard_dialog_msg">Activeer verwijderbare sdcard support? (Root vereist)</string>
+	
+    <!-- @3 -->
+    <string name="settings_cat_files">Video bestanden</string>
+    <string name="enable_q_suffix_title">Kwaliteit achtervoegsel toevoegen</string>
+    <string name="enable_q_suffix_summary">Kwaliteit type toevoegen in bestandsnaam</string>
+    <string name="enable_rename_title">Activeer bestand hernoemen</string>
+    <string name="enable_rename_summary">Hernoem het video bestand voor het downloaden (alleen voor lokale download)</string>
+    <string name="show_size_title">Bestandsgrootte laten zien</string>
+    <string name="show_size_summary">Haal de grootte van het videobestand op bij het bevestigingsbericht (langzamer)</string>
+    <string name="show_thumb_title">Toon voorbeeld afbeelding</string>
+    <string name="show_thumb_summary">Download een voorbeeld afbeelding met de videolijst</string>
+    
+    <!-- @4 -->
+    <string name="settings_cat_notifications">Meldingen</string>
+    <string name="enable_own_notification_title">Activeer eigen meldingen</string>
+    <string name="enable_own_notification_summary">Laat een uitgebreide melding zien over alle YTD downloads</string>
+    <string name="download_manager_notification_title">Beheer system\'s meldingen</string>
+    <string name="download_manager_notification_dialog_title">Laat system\'s Download Manager melding zien:</string>
+    
+    <string-array name="download_manager_notification_entries">
+        <item>Tijdens de uitvoering en na voltooiing</item>
+        <item>Tijdens het uitvoering alleen</item>
+        <item>Nooit</item>
+    </string-array>
+
+    <!-- @5 -->
+    <string name="settings_cat_about">Over deze App</string>
+    <string name="title_changelog">Lijst met veranderingen</string>
+    <string name="screen_licences_code_title">Licenties en Regels</string>
+
+    <!-- @5.1 -->
+    <string name="settings_cat_licenses">Licenties</string>
+    <string name="gpl_title">YTD\'s Licentie</string>
+    <string name="gpl_summary">GPL-3.0</string>
+    <string name="title_activity_gpl_show">GPL-3.0</string>
+
+    <string name="mit_title">Bestandskiezers Licentie</string>
+    <string name="mit_summary">MIT licentie</string>
+    <string name="title_activity_mit_show">MIT licentie</string>
+
+    <string name="credits_title">Andere credits</string>
+    <string name="credits_summary">Andere licentie en vertalingen</string>
+    <string name="title_activity_credits_show">Andere licentie en vertalingen</string>
+    <string name="credits_text1">Code fragmenten licentie
+\n\n
+Deze App gebruikt bepaalde code fragementen van de CyanogenMod custom ROM;
+\n\n
+De methode om de MD5 checksum te berekenen en te vergelijken, voor het 
+downloaden van bijwerkingspakketen, zijn ontleed van de \'CMUpdater\' App</string>
+    <string name="credits_translators">\n\tVertalingen
+\n\nMede mogelijk gemaakt door:</string>
+    <string name="translators_info">\nVoor meer informatie:
+\n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
+\n\n<http>www.getlocalization.com/ytdownloader</http></string>
+        
+    <!-- @5.2 -->
+    <string name="settings_cat_code">Broncode</string>
+    <string name="ytd_code_git_title">YTD op GitHub</string>
+    <string name="ytd_code_hg_title">YTD op Sourceforge</string>
+    <string name="chooser_code_title">Bestandskiezer op Google Code</string>
+
+    <!-- @6 -->
+    <string name="settings_cat_social">Sociaal</string>
+    <string name="share_title">Deze App delen</string>
+    <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230;</string>
+    <string name="share_warning">Geen geschikte Apps gevonden.</string>
+    <string name="share_message">#YouTubeDownloader
+\nGratis en Open-Source Android App om YouTube videos te downloaden!
+\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+    <string name="help_translate_title">Help deze App te vertalen</string>
+    <string name="help_translate_summary">Ga naar www.getlocalization.com/ytdownloader</string>
+	
+</resources>

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
-        \n v1.8 - Mar 10 2013
+        \n v1.8 - Mar 12 2013
         \n-----------------------------------
         \n[x] extSdCard support
-        \n[x] entire row in video list clickable
         \n[x] long-press on video list item: 
-        \n    menu for "copy" and "share" link
+        \n    menu to copy/share link
         \n[x] auto update-check once a day
         \n[x] new notification icon
         \n[x] landscape orientation support
         \n[x] YT video thumbnail preview
-        \n[x] Turkish App translation
+        \n[x] entire row in v.list clickable
+        \n[x] Turkish translation
+        \n[x] Dutch translation
         \n
         \n v1.7 - Mar 03 2012
         \n-----------------------------------
-        \n[x] Italian App translation
-        \n[x] Portuguese App translation
+        \n[x] Italian translation
+        \n[x] Portuguese translation
         \n[x] option to force the locale
         \n
         \n v1.6 - Mar 01 2013
@@ -140,6 +141,9 @@
         Copyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
 		\n\n
 		The text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+		
+    <string name="app_name">YouTube Downloader</string>
+    <string name="title_activity_share">YouTube Downloader</string>
     
     <string-array name="standard_location_entries">
         <item>Downloads</item>
@@ -163,13 +167,28 @@
     
     <string name="download_manager_notification_default">VISIBLE</string>
     
+    <string-array name="lang_entries">
+        <item>Default</item>
+        <item>English</item>
+        <item>Italian</item>
+        <item>Portuguese</item>
+        <item>Turkish</item>
+        <item>Dutch</item>
+    </string-array>
+    
     <string-array name="lang_entry_values">
         <item>default</item>
         <item>en</item>
         <item>it</item>
         <item>pt</item>
         <item>tr</item>
+        <item>nl</item>
     </string-array>
+    
+    <string name="translators_list">   
+        \nPLUG313 - Portuguese;
+        \nrew06 - Turkish;
+        \nEkimPadd - Dutch.</string>
     
     <string name="lang_default">default</string>
     

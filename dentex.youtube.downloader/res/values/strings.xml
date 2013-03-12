@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">YouTube Downloader</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_share">YouTube Downloader</string>
     <string name="title_activity_settings">YouTube Downloader Settings</string>
     <string name="title_activity_upgrade_apk">YouTube Downloader Upgrade</string>
 
@@ -110,14 +108,6 @@
     <string name="lang_title">Language</string>
     <string name="lang_dialog_title">Language (needs application\'s restart):</string>
     
-    <string-array name="lang_entries">
-        <item>Default</item>
-        <item>English</item>
-        <item>Italian</item>
-        <item>Portuguese</item>
-        <item>Turkish</item>
-    </string-array>
-    
     <!-- @1 -->
     <string name="settings_cat_tutorials">Tutorials</string>
     <string name="quick_start_title">Quick start</string>
@@ -151,6 +141,8 @@
     <string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)</string>
     <string name="show_size_title">Show file size</string>
     <string name="show_size_summary">Fetch the video file size on download confirmation message (slower)</string>
+    <string name="show_thumb_title">Show preview image</string>
+    <string name="show_thumb_summary">Download a preview image together with the video list</string>
     
     <!-- @4 -->
     <string name="settings_cat_notifications">Notifications</string>
@@ -183,16 +175,17 @@
     <string name="credits_title">Other credits</string>
     <string name="credits_summary">Other licenses and translations</string>
     <string name="title_activity_credits_show">Other licenses and translations</string>
-    <string name="credits_text1"> Code excerpts License
+    <string name="credits_text1">\tCode excerpts License
         \n\n
         This App uses some code excerpts from the CyanogenMod custom ROM;
         \n\n
         Specifically the methods to calculate and then compare the MD5 
         checksum for downloaded upgrade packages are taken from the \'CMUpdater\' App</string>
-    <string name="credits_translators">\n\n Translations
-        \n\nFurthermore, additional localizations thanks to:
-        \n\nPLUG313 from <http>forum.xda-developers.com</http> for Portuguese;
-        \n\nrew06 from <http>www.getlocalization.com/ytdownloader</http> for Turkish.</string>
+    <string name="credits_translators">\n\tTranslations
+        \n\nFurthermore, additional localizations thanks to:</string>
+    <string name="translators_info">\nFor more info:
+        \n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
+        \n\n<http>www.getlocalization.com/ytdownloader</http></string>
         
     <!-- @5.2 -->
     <string name="settings_cat_code">Source Code</string>

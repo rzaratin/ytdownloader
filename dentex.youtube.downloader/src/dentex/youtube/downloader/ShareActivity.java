@@ -158,9 +158,8 @@ public class ShareActivity extends Activity {
         tv = (TextView) findViewById(R.id.textView1);
         
         imgView = (ImageView)findViewById(R.id.imgview);
-        
-        //Intent intentUp = new Intent(this, AutoUpgradeApkService.class);
-    	//startService(intentUp);
+
+        updateInit();
         
         // Get intent, action and MIME type
         Intent intent = getIntent();
@@ -339,8 +338,12 @@ public class ShareActivity extends Activity {
     	protected String doInBackground(String... urls) {
             try {
             	Log.d(DEBUG_TAG, "doInBackground...");
-            	downloadThumbnail(generateThumbUrl());
-                return downloadUrl(urls[0]);
+            	
+            	if (settings.getBoolean("show_thumb", false)) {
+            		downloadThumbnail(generateThumbUrl());
+            	}
+            	
+            	return downloadUrl(urls[0]);
             } catch (IOException e) {
                 return "e";
             }
@@ -350,7 +353,10 @@ public class ShareActivity extends Activity {
         protected void onPostExecute(String result) {
 
         	progressBar1.setVisibility(View.GONE);
-        	imgView.setImageBitmap(img);
+        	
+        	if (settings.getBoolean("show_thumb", false)) {
+        		imgView.setImageBitmap(img);
+        	}
         	isAsyncDownloadRunning = false;
         	
             if (result == "e") {
@@ -503,6 +509,7 @@ public class ShareActivity extends Activity {
 
             	@Override
 				public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+            		pos = position;
 					AlertDialog.Builder builder = new AlertDialog.Builder(ShareActivity.this);
 				    builder.setTitle(R.string.long_click_title)
 				    	   //.setIcon(android.R.drawable.ic_menu_share)
@@ -1014,6 +1021,22 @@ public class ShareActivity extends Activity {
             img = BitmapFactory.decodeStream(assIs);
 		}
     }
+    
+    public void updateInit() {
+		int prefSig = settings.getInt("APP_SIGNATURE", 0);
+		Log.d(DEBUG_TAG, "prefSig: " + prefSig);
+		
+		if (prefSig == SettingsActivity.SettingsFragment.YTD_SIG_HASH) {
+				Log.d(DEBUG_TAG, "YTD signature in PREFS: update check possile");
+				
+				if (settings.getBoolean("autoupdate", false)) {
+					Log.i(DEBUG_TAG, "autoupdate enabled");
+					SettingsActivity.SettingsFragment.autoUpdate(ShareActivity.this);
+				}
+		} else {
+			Log.d(DEBUG_TAG, "diffrent or null YTD signature. Update check cancelled.");
+		}
+	}
 
     BroadcastReceiver inAppCompleteReceiver = new BroadcastReceiver() {
 

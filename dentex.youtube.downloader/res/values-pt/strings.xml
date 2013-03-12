@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">YouTube Downloader</string>
     <string name="menu_settings">Definições</string>
-    <string name="title_activity_share">YouTube Downloader</string>
     <string name="title_activity_settings">Definições do YouTube Downloader</string>
     <string name="title_activity_upgrade_apk">Atualização do YouTube Downloader</string>
 
@@ -53,26 +51,26 @@
     <string name="notification_downloading_pt1">A descarregar</string>
     <string name="notification_downloading_pt2">Ficheiros de video</string>
     <string name="notification_no_downloads">Nenhuns downloads em progresso</string>
-    <string name="long_click_title">Handle selected link:</string>
-    <string name="extsdcard_info_title">Destination path is on removable sdcard</string>
-    <string name="extsdcard_info_msg">File is being downloaded initially in the standard sdcard and then will be moved to the selected destination.</string>
+    <string name="long_click_title">Manuseie link selecionado:</string>
+    <string name="extsdcard_info_title">Caminho de destino é no sdcard removível</string>
+    <string name="extsdcard_info_msg">Arquivo está sendo baixado inicialmente no sdcard padrão e, em seguida, será transferido para o destino selecionado.</string>
     
     <string-array name="long_click_entries">
-        <item>Copy to clipboard</item>
-        <item>Share as text</item>
+        <item>Copiar para o clipboard</item>
+        <item>Ações como texto</item>
     </string-array>
     
     <!-- ### SettingsActivity ### -->
 
     <string name="attention">Atenção!</string>
     <string name="extsdcard_warning">Não foi possivel escrever ficheiros no cartão SD removivel.\nVoltando no cartão SD pré-definido.</string>
-    <string name="system_warning_title">This is a system folder</string>
-    <string name="system_warning_msg">Chosen path will fall back on standard sdcard\'s Download folder.</string>
+    <string name="system_warning_title">Esta é uma pasta de sistema</string>
+    <string name="system_warning_msg">Caminho escolhido vai cair de volta na pasta padrão sdcard Download.</string>
     <string name="sdcard_unmounted_warning">Cartão SD NÃO montado</string>
     <string name="update_disabled_summary">Assinatura diferente encontrada (F-Droid?)</string>
-    <string name="failed_download">Failed download removed</string>
-    <string name="new_v_download">found. Downloading&#8230;</string>
-    <string name="new_v_install">downloaded. Click to install.</string>
+    <string name="failed_download">Download falhou removido</string>
+    <string name="new_v_download">encontrado. Download&#8230;</string>
+    <string name="new_v_install">baixado. Clique para instalar.</string>
     
     <!-- ### UpgradeApkActivity ### -->
     
@@ -92,10 +90,10 @@
     
     <!-- ### DownloadService ### -->
     
-    <string name="copy_error">Error during copy</string>
-    <string name="copy_progress">YTD file copy in progress&#8230;</string>
-    <string name="copy_ok">Available on extSdCard.</string>
-    <string name="download_failed">Download failed!</string>
+    <string name="copy_error">Erro durante a cópia</string>
+    <string name="copy_progress">Cópia do arquivo de YTD em andamento&#8230;</string>
+    <string name="copy_ok">Disponível em extSdCard.</string>
+    <string name="download_failed">Baixe falhou!</string>
 
     <!-- ### preferences ### -->
 
@@ -105,18 +103,10 @@
     <string name="dm_summary">Abrir o Gestor de Transferencias do sistema</string>
     <string name="update_title">Procurar actualizações</string>
     <string name="update_title_condensed">Actualizar</string>
-    <string name="autoupdate_title">Enable auto-update</string>
-    <string name="autoupdate_summary">Check for updates on first application\'s run of the day (the new package will be auto-downloaded)</string>
+    <string name="autoupdate_title">Ativar atualização automática</string>
+    <string name="autoupdate_summary">Verificar se há atualizações na execução do aplicativo primeira do dia (o novo pacote será automaticamente baixado)</string>
     <string name="lang_title">Idioma</string>
     <string name="lang_dialog_title">Idioma (requer a reinicialização do aplicativo):</string>
-    
-    <string-array name="lang_entries">
-        <item>Padrão</item>
-        <item>Inglês</item>
-        <item>Italiano</item>
-        <item>Português</item>
-        <item>Turco</item>
-    </string-array>
     
     <!-- @1 -->
     <string name="settings_cat_tutorials">Tutoriais</string>
@@ -151,6 +141,8 @@
     <string name="enable_rename_summary">Renomear o ficheiro de video antes do download(apenas para downloads locais)</string>
     <string name="show_size_title">Mostrar tamanho do ficheiro</string>
     <string name="show_size_summary">Recolher o tamanho do ficheiro de video na mensagem de confirmação do download (mais lento)</string>
+    <string name="show_thumb_title">Mostrar imagem de pré-visualização</string>
+    <string name="show_thumb_summary">Baixar uma imagem de pré-visualização, juntamente com a lista de vídeos</string>
     
     <!-- @4 -->
     <string name="settings_cat_notifications">Notificações</string>
@@ -189,9 +181,11 @@
         \n\n
         Especificamente os metodos para calcular e comparar a checksum MD5
         dos pacotes de actualização descarregados são tiradas da aplicação \'CMUpdater\'</string>
-    <string name="credits_translators">\n\n Traduções
-        \n\nAlém disso, pelas localizações adicionais obrigado a:
-        \n\nPLUG313 de <http>forum.xda-developers.com</http> pelo Português.</string>
+    <string name="credits_translators">\n\tTraduções
+        \n\nAlém disso, pelas localizações adicionais obrigado a:</string>
+    <string name="translators_info">\nPara mais informações:
+\n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
+\n\n<http>www.getlocalization.com/ytdownloader</http></string>
         
     <!-- @5.2 -->
     <string name="settings_cat_code">Código Fonte</string>

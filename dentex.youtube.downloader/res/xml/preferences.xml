@@ -74,6 +74,12 @@
             android:title="@string/show_size_title"
             android:summary="@string/show_size_summary" 
             android:defaultValue="false"/>
+        
+        <CheckBoxPreference
+            android:key="show_thumb"
+            android:title="@string/show_thumb_title"
+            android:summary="@string/show_thumb_summary" 
+            android:defaultValue="false"/>
     
     </PreferenceCategory>
     
@@ -144,11 +150,6 @@
 		            android:key="mit"
 		            android:title="@string/mit_title"
 		            android:summary="@string/mit_summary"/>
-		        
-		        <Preference
-		            android:key="credits"
-		            android:title="@string/credits_title"
-		            android:summary="@string/credits_summary"/>
 		    
 		    </PreferenceCategory>
 		    
@@ -173,6 +174,11 @@
 		    </PreferenceCategory>
 		
 		</PreferenceScreen>
+		
+	    <Preference
+			android:key="credits"
+			android:title="@string/credits_title"
+			android:summary="@string/credits_summary"/>
 		
 	</PreferenceCategory>
 	
