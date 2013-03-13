@@ -634,7 +634,11 @@ public class ShareActivity extends Activity {
 			sequence.add(enqueue);
 			settings.edit().putLong(composedFilename, enqueue).apply();
 			
-			fileObserver = new Observer.delFileObserver(path.getAbsolutePath());
+			if (videoOnExt == true) {
+				fileObserver = new Observer.delFileObserver(dir_Downloads.getAbsolutePath());
+			} else {
+				fileObserver = new Observer.delFileObserver(path.getAbsolutePath());
+			}
 			fileObserver.startWatching();
 			
 			NotificationHelper();
