@@ -1,4 +1,6 @@
     
+    [ ] dark / light theme switcher
+    [ ] option to show the file size of all the available video types (into the list)
     [ ] default format/filter selection for video download
     [ ] option to always download video locally
     [ ] option to "use inside same LAN" for SSH send

@@ -107,6 +107,13 @@
     <string name="autoupdate_summary">Uygulamayı çalıştırdığınız zaman güncellemeleri kontrol et (her gün sadece ilk çalıştırmada, ve güncelleme otomatik indirilir)</string>
     <string name="lang_title">Lisan</string>
     <string name="lang_dialog_title">Lisan (uygulama yeniden başlatılmalıdır):</string>
+    <string name="choose_theme_title">Tema seç</string>
+    <string name="choose_theme_dialog_title">Tema seç (uygulama yeniden başlatılmalıdır):</string>
+        
+    <string-array name="choose_theme_entries">
+        <item>Koyu</item>
+        <item>Açık</item>
+    </string-array>
     
     <!-- @1 -->
     <string name="settings_cat_tutorials">Rehberler</string>
@@ -128,10 +135,6 @@
     <string name="chooser_swap_title">Seçiciyi değiştir</string>
     <string name="chooser_location_title">Dosya seçiciyi aç</string>
     <string name="chooser_location_summary">Dosyayı seçmek için uzun bas</string>
-    <string name="su_cp_title">Çıkarılabilir sd kart kullan</string>
-	<string name="su_cp_summary">Dosya seçicisinden çıkarılabilir SD kart desteğini etkinleştir (Root gerektirir)</string>
-	<string name="path_on_extsdcard_dialog_title">Seçilen yol standart sd kart üzerinde değil.</string>
-	<string name="path_on_extsdcard_dialog_msg">Dosya seçicisinden çıkarılabilir SD kart desteğini etkinleştir (Root gerektirir)</string>
 	
     <!-- @3 -->
     <string name="settings_cat_files">Video dosyaları</string>
@@ -141,6 +144,8 @@
     <string name="enable_rename_summary">Video dosyasını indirmeden önce yeniden adlandır (sadece yerel indirmeler için)</string>
     <string name="show_size_title">Dosya boyutunu göster</string>
     <string name="show_size_summary">İndirme onaylama mesajında video boyutunu al (daha yavaş)</string>
+    <string name="show_size_list_title">Tüm video boyutlarını göster</string>
+    <string name="show_size_list_summary">Kullanılabilir video listesindeki dosyaların  boyutlarını al (çok yavaş)</string>
     <string name="show_thumb_title">Önizleme resmi göster</string>
     <string name="show_thumb_summary">Video listesi ile birlikte bir önizleme resmi indir</string>
     

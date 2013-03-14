@@ -107,6 +107,13 @@
     <string name="autoupdate_summary">Controlla aggiornamenti al primo avvio dell\'applicazione della giornata (il nuovo pacchetto sarà scaricato automaticamente)</string>
     <string name="lang_title">Lingua</string>
     <string name="lang_dialog_title">Lingua (richiede riavvio dell\'applicazione):</string>
+    <string name="choose_theme_title">Scegli il tema</string>
+    <string name="choose_theme_dialog_title">Scegli il tema (necessita riavvio dell\'applicazione):</string>
+        
+    <string-array name="choose_theme_entries">
+        <item>Scuro</item>
+        <item>Chiaro</item>
+    </string-array>
     
     <!-- @1 -->
     <string name="settings_cat_tutorials">Guide</string>
@@ -128,10 +135,6 @@
     <string name="chooser_swap_title">Scambia selettore</string>
     <string name="chooser_location_title">Apri il file-chooser</string>
     <string name="chooser_location_summary">Tieni premuto su di una cartella per selezionarla</string>
-    <string name="su_cp_title">Usa sdcard estraibile</string>
-	<string name="su_cp_summary">Abilita supporto a sdcard estraibile nel file-chooser (richiesto Root)</string>
-	<string name="path_on_extsdcard_dialog_title">Il percorso selezionato NON è sulla sdcard standard.</string>
-	<string name="path_on_extsdcard_dialog_msg">Abilitare il supporto alla sdcard estraibile? (richiesto Root)</string>
 	
     <!-- @3 -->
     <string name="settings_cat_files">File video</string>
@@ -141,6 +144,8 @@
     <string name="enable_rename_summary">Rinomina il file video prima di scaricarlo (solo per il download locale)</string>
     <string name="show_size_title">Mostra dimensioni file</string>
     <string name="show_size_summary">Recupera le dimensioni del file nel messaggio di conferma per il download (più lento)</string>
+    <string name="show_size_list_title">Mostra le dimensioni di tutti i video.</string>
+    <string name="show_size_list_summary">Recupera le dimensioni dei file per ogni elemento nella lista dei video disponibili (ancora più lento)</string>
     <string name="show_thumb_title">Mostra un\'immagine di anteprima</string>
     <string name="show_thumb_summary">Scarica un\'immagine di anteprima, insieme alla lista dei video</string>
     

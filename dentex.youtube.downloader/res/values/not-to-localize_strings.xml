@@ -171,6 +171,13 @@
     
     <string name="download_manager_notification_default">VISIBLE</string>
     
+    <string-array name="choose_theme_entry_values">
+        <item>D</item>
+        <item>L</item>
+    </string-array>
+    
+    <string name="choose_theme_default">D</string>
+    
     <string-array name="lang_entries">
         <item>Default</item>
         <item>English</item>
@@ -189,12 +196,13 @@
         <item>nl</item>
     </string-array>
     
+    <string name="lang_default">default</string>
+    
     <string name="translators_list">   
         \nPLUG313 - Portuguese;
         \nrew06 - Turkish;
-        \nEkimPadd - Dutch.</string>
-    
-    <string name="lang_default">default</string>
+        \nEkimPadd - Dutch.
+    </string>
     
     <string name="imgview_descr">Video thumbnail</string>
 </resources>

@@ -117,6 +117,7 @@ public class SettingsActivity extends Activity {
             	chooserSummary = settings.getString("CHOOSER_FOLDER", "");
             }
             initSwapPreference();
+            initSizePreference();
             
             for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
                 initSummary(getPreferenceScreen().getPreference(i));
@@ -322,6 +323,17 @@ public class SettingsActivity extends Activity {
             	p.setEnabled(false);
             }
 		}
+		
+		private void initSizePreference() {
+			CheckBoxPreference s = (CheckBoxPreference) findPreference("show_size");
+			CheckBoxPreference l = (CheckBoxPreference) findPreference("show_size_list");
+            if (l.isChecked()) {
+            	s.setEnabled(false);
+            	s.setChecked(true);
+            } else {
+            	s.setEnabled(true);
+            }
+		}
         
 		/*@Override
 	    public void onStart() {
@@ -354,6 +366,7 @@ public class SettingsActivity extends Activity {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         	updatePrefSummary(findPreference(key));
         	initSwapPreference();
+        	initSizePreference();
         }
         	 
         private void initSummary(Preference p){

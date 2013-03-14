@@ -107,6 +107,13 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="autoupdate_summary">Controleer op updates bij het opstarten van de applicatie (het nieuwste bestand wordt automatisch gedownload)</string>
     <string name="lang_title">Taal</string>
     <string name="lang_dialog_title">Taal (applicatie herstart vereist):</string>
+    <string name="choose_theme_title">Choose theme</string>
+    <string name="choose_theme_dialog_title">Choose theme (needs application\'s restart):</string>
+        
+    <string-array name="choose_theme_entries">
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
     
     <!-- @1 -->
     <string name="settings_cat_tutorials">Handleiding</string>
@@ -128,10 +135,6 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="chooser_swap_title">Wissel kiezer</string>
     <string name="chooser_location_title">Open bestandskiezer</string>
     <string name="chooser_location_summary">Lang drukken om een map te selecteren</string>
-    <string name="su_cp_title">Gebruik verwijderbare sdcard</string>
-	<string name="su_cp_summary">Activeer verwijderbare sdcard support in besandskiezer (Root vereist)</string>
-	<string name="path_on_extsdcard_dialog_title">Gekozen pad is NIET op standaard sdcard.</string>
-	<string name="path_on_extsdcard_dialog_msg">Activeer verwijderbare sdcard support? (Root vereist)</string>
 	
     <!-- @3 -->
     <string name="settings_cat_files">Video bestanden</string>
@@ -141,6 +144,8 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="enable_rename_summary">Hernoem het video bestand voor het downloaden (alleen voor lokale download)</string>
     <string name="show_size_title">Bestandsgrootte laten zien</string>
     <string name="show_size_summary">Haal de grootte van het videobestand op bij het bevestigingsbericht (langzamer)</string>
+    <string name="show_size_list_title">Show all video sizes</string>
+    <string name="show_size_list_summary">Fetch the file sizes for every item in the list of available video (much slower)</string>
     <string name="show_thumb_title">Toon voorbeeld afbeelding</string>
     <string name="show_thumb_summary">Download een voorbeeld afbeelding met de videolijst</string>
     

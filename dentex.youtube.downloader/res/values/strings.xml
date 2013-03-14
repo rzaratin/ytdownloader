@@ -107,6 +107,13 @@
     <string name="autoupdate_summary">Check for updates on first application\'s run of the day (the new package will be auto-downloaded)</string>
     <string name="lang_title">Language</string>
     <string name="lang_dialog_title">Language (needs application\'s restart):</string>
+    <string name="choose_theme_title">Choose theme</string>
+    <string name="choose_theme_dialog_title">Choose theme (needs application\'s restart):</string>
+        
+    <string-array name="choose_theme_entries">
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
     
     <!-- @1 -->
     <string name="settings_cat_tutorials">Tutorials</string>
@@ -128,10 +135,6 @@
     <string name="chooser_swap_title">Swap chooser</string>
     <string name="chooser_location_title">Open file-chooser</string>
     <string name="chooser_location_summary">Long-press to select a folder</string>
-    <string name="su_cp_title">Use removable sdcard</string>
-	<string name="su_cp_summary">Enable removable sdcard support in file-chooser (Root required)</string>
-	<string name="path_on_extsdcard_dialog_title">Selected path is NOT on standard sdcard.</string>
-	<string name="path_on_extsdcard_dialog_msg">Enable removable sdcard support? (Root required)</string>
 	
     <!-- @3 -->
     <string name="settings_cat_files">Video files</string>
@@ -141,6 +144,8 @@
     <string name="enable_rename_summary">Rename the video file before downloading it (for the local download only)</string>
     <string name="show_size_title">Show file size</string>
     <string name="show_size_summary">Fetch the video file size on download confirmation message (slower)</string>
+    <string name="show_size_list_title">Show all video sizes</string>
+    <string name="show_size_list_summary">Fetch the file sizes for every item in the list of available video (much slower)</string>
     <string name="show_thumb_title">Show preview image</string>
     <string name="show_thumb_summary">Download a preview image together with the video list</string>
     

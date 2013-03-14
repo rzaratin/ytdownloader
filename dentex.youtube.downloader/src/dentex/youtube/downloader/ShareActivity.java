@@ -11,7 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -132,6 +131,7 @@ public class ShareActivity extends Activity {
 	public static NotificationCompat.Builder mBuilder;
 	public static String onlineVersion;
 	public static List<Long> sequence = new ArrayList<Long>();
+	boolean showSizeListPref;
 
     @SuppressLint("CutPasteId")
 	@Override
@@ -140,6 +140,7 @@ public class ShareActivity extends Activity {
         setContentView(R.layout.activity_share);
         
     	settings = getSharedPreferences(PREFS_NAME, 0);
+    	showSizeListPref = settings.getBoolean("show_size_list", false);
     	
     	// Language init
         String lang  = settings.getString("lang", "default");
@@ -388,19 +389,49 @@ public class ShareActivity extends Activity {
                     helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                     helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
                     
-                    try {
-                        if (settings.getBoolean("show_size", false) == false) {
+                    boolean showSizePref = settings.getBoolean("show_size", false);
+					
+					try {
+                        if (!showSizePref) {
                         	helpBuilder.setMessage(titleRaw + 
                         			getString(R.string.codec) + " " + codecs.get(pos) + 
                 					getString(R.string.quality) + " " + qualities.get(pos));
                         } else {
-                        	sizeQuery = new AsyncSizeQuery();
-                        	sizeQuery.execute(links.get(position));
+                        	if (!showSizeListPref) {
+                        		sizeQuery = new AsyncSizeQuery();
+                        		sizeQuery.execute(links.get(position));
+                        	} else {
+                        		helpBuilder.setMessage(titleRaw + 
+                            			getString(R.string.codec) + " " + codecs.get(pos) + 
+                    					getString(R.string.quality) + " " + qualities.get(pos) +
+                    					getString(R.string.size) + " " + sizes.get(pos));
+                        	}
                         }
 					} catch (IndexOutOfBoundsException e) {
 			    		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
 			    	}
-
+                    
+                    /*if (settings.getBoolean("show_size_list", false) == false) {
+	                    try {	
+		                    	if (settings.getBoolean("show_size", false) == false) {
+		                        	helpBuilder.setMessage(titleRaw + 
+		                        			getString(R.string.codec) + " " + codecs.get(pos) + 
+		                					getString(R.string.quality) + " " + qualities.get(pos));
+		                        } else {
+		                        	sizeQuery = new AsyncSizeQuery();
+		                        	sizeQuery.execute(links.get(position));
+		                        }
+	                    } catch (IndexOutOfBoundsException e) {
+				    		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
+				    	}
+                	} else {
+                		helpBuilder.setMessage(titleRaw + 
+                    			getString(R.string.codec) + " " + codecs.get(pos) + 
+            					getString(R.string.quality) + " " + qualities.get(pos) +
+            					getString(R.string.size) + " " + sizes.get(pos));
+                		Log.d(DEBUG_TAG, "show_size_list: true");
+                	}*/
+					
                     helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         	try {
@@ -498,7 +529,7 @@ public class ShareActivity extends Activity {
                         }
                     });
                     
-                    if (settings.getBoolean("show_size", false) == false) {
+                    if ((!showSizePref) || (showSizeListPref && showSizePref)) {
                     	helpDialog = helpBuilder.create();
                     	helpDialog.show();
                     }
@@ -831,11 +862,21 @@ public class ShareActivity extends Activity {
     }
 
     private void cqsChoicesBuilder() {
-        Iterator<String> codecsIter = codecs.iterator();
-        Iterator<String> qualitiesIter = qualities.iterator();
-        while (codecsIter.hasNext()) {
-            cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next());
-        }
+    	if (settings.getBoolean("show_size_list", false)) {
+	        Iterator<String> codecsIter = codecs.iterator();
+	        Iterator<String> qualitiesIter = qualities.iterator();
+	        Iterator<String> sizesIter = sizes.iterator();
+	        while (codecsIter.hasNext()) {
+	            cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next() + " - " + sizesIter.next());
+	        }
+    	} else {
+            Iterator<String> codecsIter = codecs.iterator();
+            Iterator<String> qualitiesIter = qualities.iterator();
+            while (codecsIter.hasNext()) {
+                cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next());
+            }
+            
+    	}
     }
     
     private void linksComposer(String block, int i) {
@@ -856,6 +897,10 @@ public class ShareActivity extends Activity {
     			String linkToAdd = url + "&" + sig;
     			linkToAdd = linkToAdd.replaceAll("&itag=[0-9][0-9]&signature", "&signature");
     			links.add(linkToAdd);
+    			
+    			if (settings.getBoolean("show_size_list", false)) {
+    				sizes.add(getVideoFileSize(linkToAdd));
+    			}
     		}
     	}
 	}
@@ -880,11 +925,7 @@ public class ShareActivity extends Activity {
 
 		protected String doInBackground(String... urls) {
             // params comes from the execute() call: params[0] is the url.
-            try {
-                return getVideoFileSizeAsync(urls[0]);
-            } catch (IOException e) {
-                return "e";
-            }
+            return getVideoFileSize(urls[0]);
         }
 
         @Override
@@ -906,15 +947,14 @@ public class ShareActivity extends Activity {
         }
 	}
     
-    private String getVideoFileSizeAsync(String link) throws IOException {
-		final URL uri = new URL(link);
-		URLConnection ucon;
+    private String getVideoFileSize(String link) {
 		try {
-			ucon=uri.openConnection();
+			final URL uri = new URL(link);
+			HttpURLConnection ucon = (HttpURLConnection) uri.openConnection();
 			ucon.connect();
 			int file_size = ucon.getContentLength();
 			return MakeSizeHumanReadable(file_size, true);
-		} catch(final IOException e) {
+		} catch(IOException e) {
 			return "n.a.";
 		}
 	}
