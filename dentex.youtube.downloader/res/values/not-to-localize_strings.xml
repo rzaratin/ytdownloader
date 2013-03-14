@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v1.8.1 - Mar 14 2013
+        \n-----------------------------------
+        \n[x] notification bug fix
+        \n
         \n v1.8 - Mar 12 2013
         \n-----------------------------------
         \n[x] extSdCard support
