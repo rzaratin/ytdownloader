@@ -44,6 +44,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Build;
@@ -285,6 +286,9 @@ public class FileChooserActivity extends Activity {
     private EditText mTxtSaveas;
     private ImageView mViewGoBack;
     private ImageView mViewGoForward;
+    
+	public static SharedPreferences settings;
+	public static final String PREFS_NAME = "dentex.youtube.downloader_preferences";
 
     /** Called when the activity is first created. */
     @Override
@@ -293,7 +297,7 @@ public class FileChooserActivity extends Activity {
          * THEME
          */
 
-        if (getIntent().hasExtra(_Theme)) {
+        /*if (getIntent().hasExtra(_Theme)) {
             int theme;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
                 theme = getIntent().getIntExtra(_Theme, android.R.style.Theme_DeviceDefault);
@@ -302,7 +306,16 @@ public class FileChooserActivity extends Activity {
             else
                 theme = getIntent().getIntExtra(_Theme, android.R.style.Theme);
             setTheme(theme);
-        }
+        }*/
+    	
+    	// Theme init
+    	settings = getSharedPreferences(PREFS_NAME, 0);
+    	String theme = settings.getString("choose_theme", "D");
+    	if (theme.equals("D")) {
+    		this.setTheme(R.style.AppThemeDark);
+    	} else {
+    		this.setTheme(R.style.AppThemeLight);
+    	}
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.afc_file_chooser);

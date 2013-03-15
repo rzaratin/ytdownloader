@@ -17,7 +17,7 @@
     <string name="dialogs_negative">Cancelar</string>
     <string name="wait">Por favor aguarde&#8230;</string>
     <string name="invalid_url">Incapaz de proceder á extração da pagina web. URL poderá ser invalido."</string>
-    <string name="invalid_url_short">Incapaz de proceder á extração da pagina web."</string>
+    <string name="invalid_url_short">Incapaz de proceder á extração da pagina web.</string>
     <string name="invalid_response">Resposta do servidor HTTP inválida.</string>
     <string name="bad_link">Reveja o link fornecido.</string>
     <string name="bad_link_dialog_msg">Não é um link do YouTube válido.</string>
@@ -107,12 +107,12 @@
     <string name="autoupdate_summary">Verificar se há atualizações na execução do aplicativo primeira do dia (o novo pacote será automaticamente baixado)</string>
     <string name="lang_title">Idioma</string>
     <string name="lang_dialog_title">Idioma (requer a reinicialização do aplicativo):</string>
-    <string name="choose_theme_title">Choose theme</string>
-    <string name="choose_theme_dialog_title">Choose theme (needs application\'s restart):</string>
+    <string name="choose_theme_title">Escolher tema</string>
+    <string name="choose_theme_dialog_title">Escolher tema (é preciso reiniciar a aplicação):</string>
         
     <string-array name="choose_theme_entries">
-        <item>Dark</item>
-        <item>Light</item>
+        <item>Escuro</item>
+        <item>Claro</item>
     </string-array>
     
     <!-- @1 -->
@@ -144,8 +144,8 @@
     <string name="enable_rename_summary">Renomear o ficheiro de video antes do download(apenas para downloads locais)</string>
     <string name="show_size_title">Mostrar tamanho do ficheiro</string>
     <string name="show_size_summary">Recolher o tamanho do ficheiro de video na mensagem de confirmação do download (mais lento)</string>
-    <string name="show_size_list_title">Show all video sizes</string>
-    <string name="show_size_list_summary">Fetch the file sizes for every item in the list of available video (much slower)</string>
+    <string name="show_size_list_title">Mostrar todos os tamanhos de video</string>
+    <string name="show_size_list_summary">Mostrar tamanho de ficheiro para todos os itens na lista de videos disponiveis (mais lento)</string>
     <string name="show_thumb_title">Mostrar imagem de pré-visualização</string>
     <string name="show_thumb_summary">Baixar uma imagem de pré-visualização, juntamente com a lista de vídeos</string>
     

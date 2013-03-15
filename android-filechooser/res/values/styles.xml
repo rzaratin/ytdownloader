@@ -7,6 +7,9 @@
 -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <style name="AppThemeDark" parent="android:Theme.Holo" />
+    <style name="AppThemeLight" parent="android:Theme.Holo.Light.DarkActionBar" />
 
     <style name="afc_button_navi_left">
         <item name="android:layout_width">wrap_content</item>
@@ -34,7 +37,6 @@
     </style>
 
     <style name="afc_button_location" parent="@android:style/Widget.TextView">
-        <item name="android:textColor">#ffffff</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">center_vertical</item>

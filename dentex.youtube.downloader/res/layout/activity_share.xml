@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="#303030"
+        android:textColor="@android:color/white"
         android:textIsSelectable="true" 
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

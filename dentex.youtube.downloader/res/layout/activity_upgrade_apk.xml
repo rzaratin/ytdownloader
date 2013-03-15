@@ -18,6 +18,7 @@
             android:layout_height="58dp"
             android:layout_gravity="center_horizontal"
             android:background="#303030"
+            android:textColor="@android:color/white"
             android:textAlignment="center"
             android:textIsSelectable="true" 
             android:textAppearance="?android:attr/textAppearanceLarge" />

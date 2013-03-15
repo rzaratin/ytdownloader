@@ -107,12 +107,12 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="autoupdate_summary">Controleer op updates bij het opstarten van de applicatie (het nieuwste bestand wordt automatisch gedownload)</string>
     <string name="lang_title">Taal</string>
     <string name="lang_dialog_title">Taal (applicatie herstart vereist):</string>
-    <string name="choose_theme_title">Choose theme</string>
-    <string name="choose_theme_dialog_title">Choose theme (needs application\'s restart):</string>
+    <string name="choose_theme_title">Kies thema</string>
+    <string name="choose_theme_dialog_title">Kies thema (vereist herstart van de applicatie)</string>
         
     <string-array name="choose_theme_entries">
-        <item>Dark</item>
-        <item>Light</item>
+        <item>Donker</item>
+        <item>Licht</item>
     </string-array>
     
     <!-- @1 -->
@@ -144,8 +144,8 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="enable_rename_summary">Hernoem het video bestand voor het downloaden (alleen voor lokale download)</string>
     <string name="show_size_title">Bestandsgrootte laten zien</string>
     <string name="show_size_summary">Haal de grootte van het videobestand op bij het bevestigingsbericht (langzamer)</string>
-    <string name="show_size_list_title">Show all video sizes</string>
-    <string name="show_size_list_summary">Fetch the file sizes for every item in the list of available video (much slower)</string>
+    <string name="show_size_list_title">Toon de grootte van alle video formaten</string>
+    <string name="show_size_list_summary">Haal de bestandsgrootte op van alle video\'s in de lijst (veel slomer)</string>
     <string name="show_thumb_title">Toon voorbeeld afbeelding</string>
     <string name="show_thumb_summary">Download een voorbeeld afbeelding met de videolijst</string>
     

@@ -20,6 +20,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.util.Log;
 import dentex.youtube.downloader.SettingsActivity.SettingsFragment;
+import dentex.youtube.downloader.R;
 import dentex.youtube.downloader.ShareActivity;
 
 public class Utils extends Activity {
@@ -138,5 +139,15 @@ public class Utils extends Activity {
 	        if (inChannel != null) inChannel.close();
 	        if (outChannel != null) outChannel.close();
 	    }
+	}
+    
+    public static void themeInit(Context context) {
+    	settings = context.getSharedPreferences(PREFS_NAME, 0);
+		String theme = settings.getString("choose_theme", "D");
+    	if (theme.equals("D")) {
+    		context.setTheme(R.style.AppThemeDark);
+    	} else {
+    		context.setTheme(R.style.AppThemeLight);
+    	}
 	}
 }

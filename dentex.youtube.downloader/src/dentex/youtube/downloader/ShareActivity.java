@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,6 +53,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -69,6 +71,7 @@ import android.widget.Toast;
 import dentex.youtube.downloader.service.DownloadsService;
 import dentex.youtube.downloader.utils.Observer;
 import dentex.youtube.downloader.utils.PopUps;
+import dentex.youtube.downloader.utils.Utils;
 
 public class ShareActivity extends Activity {
 	
@@ -132,16 +135,23 @@ public class ShareActivity extends Activity {
 	public static String onlineVersion;
 	public static List<Long> sequence = new ArrayList<Long>();
 	boolean showSizeListPref;
+	boolean showSizePref;
+	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(ShareActivity.this, R.style.BoxTheme);
 
     @SuppressLint("CutPasteId")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        settings = getSharedPreferences(PREFS_NAME, 0);
+        
+    	// Theme init
+    	Utils.themeInit(this);
+    	
         setContentView(R.layout.activity_share);
         
-    	settings = getSharedPreferences(PREFS_NAME, 0);
     	showSizeListPref = settings.getBoolean("show_size_list", false);
-    	
+
     	// Language init
         String lang  = settings.getString("lang", "default");
         if (!lang.equals("default")) {
@@ -266,7 +276,7 @@ public class ShareActivity extends Activity {
     void showGeneralInfoTutorial() {
         generalInfoCheckboxEnabled = settings.getBoolean("general_info", true);
         if (generalInfoCheckboxEnabled == true) {
-        	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+        	AlertDialog.Builder adb = new AlertDialog.Builder(new ContextThemeWrapper(ShareActivity.this, R.style.BoxTheme));
     	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
     	    View generalInfo = adbInflater.inflate(R.layout.dialog_general_info, null);
     	    showAgain1 = (CheckBox) generalInfo.findViewById(R.id.showAgain1);
@@ -385,11 +395,15 @@ public class ShareActivity extends Activity {
                     pos = position;     
                     //pos = 45;		// to test IndexOutOfBound Exception...
                     
-                	helpBuilder = new AlertDialog.Builder(ShareActivity.this);
+                	helpBuilder = new AlertDialog.Builder(new ContextThemeWrapper(ShareActivity.this, R.style.BoxTheme));
                     helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                     helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
                     
-                    boolean showSizePref = settings.getBoolean("show_size", false);
+                    if (showSizeListPref) {
+                    	showSizePref = true;
+                    } else {
+                    	showSizePref = settings.getBoolean("show_size", false);
+                    }
 					
 					try {
                         if (!showSizePref) {
@@ -410,27 +424,6 @@ public class ShareActivity extends Activity {
 					} catch (IndexOutOfBoundsException e) {
 			    		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
 			    	}
-                    
-                    /*if (settings.getBoolean("show_size_list", false) == false) {
-	                    try {	
-		                    	if (settings.getBoolean("show_size", false) == false) {
-		                        	helpBuilder.setMessage(titleRaw + 
-		                        			getString(R.string.codec) + " " + codecs.get(pos) + 
-		                					getString(R.string.quality) + " " + qualities.get(pos));
-		                        } else {
-		                        	sizeQuery = new AsyncSizeQuery();
-		                        	sizeQuery.execute(links.get(position));
-		                        }
-	                    } catch (IndexOutOfBoundsException e) {
-				    		Toast.makeText(ShareActivity.this, getString(R.string.video_list_error_toast), Toast.LENGTH_SHORT).show();
-				    	}
-                	} else {
-                		helpBuilder.setMessage(titleRaw + 
-                    			getString(R.string.codec) + " " + codecs.get(pos) + 
-            					getString(R.string.quality) + " " + qualities.get(pos) +
-            					getString(R.string.size) + " " + sizes.get(pos));
-                		Log.d(DEBUG_TAG, "show_size_list: true");
-                	}*/
 					
                     helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -440,7 +433,8 @@ public class ShareActivity extends Activity {
 	                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
 
 	                            if (fileRenameEnabled == true) {
-	                            	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+	                            	
+									AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
 	                            	LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
 		                    	    View inputFilename = adbInflater.inflate(R.layout.dialog_input_filename, null);
 		                    	    userFilename = (TextView) inputFilename.findViewById(R.id.input_filename);
@@ -492,7 +486,7 @@ public class ShareActivity extends Activity {
                                 
                                 sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
                                 if (sshInfoCheckboxEnabled == true) {
-    	                            AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+    	                            AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
     	                    	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
     	                    	    View sshInfo = adbInflater.inflate(R.layout.dialog_ssh_info, null);
     	                    	    showAgain2 = (CheckBox) sshInfo.findViewById(R.id.showAgain2);
@@ -541,7 +535,7 @@ public class ShareActivity extends Activity {
             	@Override
 				public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
             		pos = position;
-					AlertDialog.Builder builder = new AlertDialog.Builder(ShareActivity.this);
+					AlertDialog.Builder builder = new AlertDialog.Builder(boxThemeContextWrapper);
 				    builder.setTitle(R.string.long_click_title)
 				    	   //.setIcon(android.R.drawable.ic_menu_share)
 				           .setItems(R.array.long_click_entries, new DialogInterface.OnClickListener() {
@@ -592,7 +586,7 @@ public class ShareActivity extends Activity {
     			Log.d(DEBUG_TAG, "appStartIntent: " + appStartIntent);
     			context.startActivity(appStartIntent);
     		} else {
-    			AlertDialog.Builder cb = new AlertDialog.Builder(ShareActivity.this);
+    			AlertDialog.Builder cb = new AlertDialog.Builder(boxThemeContextWrapper);
     	        cb.setTitle(getString(R.string.callConnectBot_dialog_title));
     	        cb.setMessage(getString(R.string.callConnectBot_dialog_msg));
     	        icon = android.R.drawable.ic_dialog_alert;
@@ -688,7 +682,7 @@ public class ShareActivity extends Activity {
 	void showExtsdcardInfo() {
         generalInfoCheckboxEnabled = settings.getBoolean("extsdcard_info", true);
         if (generalInfoCheckboxEnabled == true) {
-        	AlertDialog.Builder adb = new AlertDialog.Builder(ShareActivity.this);
+        	AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
     	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
     	    View generalInfo = adbInflater.inflate(R.layout.dialog_extsdcard_info, null);
     	    showAgain3 = (CheckBox) generalInfo.findViewById(R.id.showAgain3);
@@ -867,13 +861,21 @@ public class ShareActivity extends Activity {
 	        Iterator<String> qualitiesIter = qualities.iterator();
 	        Iterator<String> sizesIter = sizes.iterator();
 	        while (codecsIter.hasNext()) {
-	            cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next() + " - " + sizesIter.next());
+	        	try {
+	        		cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next() + " - " + sizesIter.next());
+	        	} catch (NoSuchElementException e) {
+	        		cqsChoices.add("//");
+	        	}
 	        }
     	} else {
             Iterator<String> codecsIter = codecs.iterator();
             Iterator<String> qualitiesIter = qualities.iterator();
             while (codecsIter.hasNext()) {
-                cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next());
+            	try {
+                	cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next());
+            	} catch (NoSuchElementException e) {
+	        		cqsChoices.add("//");
+	        	}	
             }
             
     	}
@@ -895,9 +897,13 @@ public class ShareActivity extends Activity {
     			String sig = sigMatcher.group();
     			//Log.d(DEBUG_TAG, "sig: " + sig);
     			String linkToAdd = url + "&" + sig;
-    			linkToAdd = linkToAdd.replaceAll("&itag=[0-9][0-9]&signature", "&signature");
+    			/*
+    			 * very annoying "n.a. into the video list" bug fixed !!!
+    			 * 											 |
+    			 * 											 V                         */
+    			linkToAdd = linkToAdd.replaceAll("&itag=[0-9]+&signature", "&signature");
     			links.add(linkToAdd);
-    			
+    			//Log.i(DEBUG_TAG, linkToAdd);
     			if (settings.getBoolean("show_size_list", false)) {
     				sizes.add(getVideoFileSize(linkToAdd));
     			}
@@ -908,7 +914,7 @@ public class ShareActivity extends Activity {
     private class AsyncSizeQuery extends AsyncTask<String, Void, String> {
     	
     	protected void onPreExecute() {
-    		waitBuilder = new AlertDialog.Builder(ShareActivity.this);
+    		waitBuilder = new AlertDialog.Builder(boxThemeContextWrapper);
     		LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
     	    View barView = adbInflater.inflate(R.layout.wait_for_filesize, null);
     	    filesizeProgressBar = (ProgressBar) barView.findViewById(R.id.filesizeProgressBar);
@@ -942,21 +948,22 @@ public class ShareActivity extends Activity {
 					getString(R.string.size) + " " + videoFileSize);
         	helpDialog = helpBuilder.create();
             helpDialog.show();
-        	
-        	Log.d(DEBUG_TAG, "video File Size: " + videoFileSize);
         }
 	}
     
     private String getVideoFileSize(String link) {
+    	String size;
 		try {
 			final URL uri = new URL(link);
 			HttpURLConnection ucon = (HttpURLConnection) uri.openConnection();
 			ucon.connect();
 			int file_size = ucon.getContentLength();
-			return MakeSizeHumanReadable(file_size, true);
+			size = MakeSizeHumanReadable(file_size, true);
 		} catch(IOException e) {
-			return "n.a.";
+			size = "n.a.";
 		}
+		Log.i(DEBUG_TAG, "video File Size: " + size);
+		return size;
 	}
 
 	@SuppressLint("DefaultLocale")
@@ -1097,7 +1104,7 @@ public class ShareActivity extends Activity {
 	                int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
 	                int status = c.getInt(columnIndex);
 	                if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(ShareActivity.this);
+                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(boxThemeContextWrapper);
                         helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                         helpBuilder.setTitle(getString(R.string.information));
                         helpBuilder.setMessage(getString(R.string.download_complete_dialog_msg1) + titleRaw + getString(R.string.download_complete_dialog_msg2));

@@ -5,11 +5,11 @@ Android 3+ App to download videos from YouTube
 
 ################################################################
 
-`versionCode="39"`
+`versionCode="40"`
 
-`versionName="1.8.1"`
+`versionName="1.8.2"`
 
-MD5 checksum: `b1f11a33df1bdd87960b16e0155390f0` dentex.youtube.downloader_v1.8.1.apk
+MD5 checksum: `adefeaeeb3bb97287c10bf1326ca80cf` dentex.youtube.downloader_v1.8.2.apk
 
 LICENSE
 ================================================================
@@ -32,6 +32,14 @@ Copyright (C) 2012  Samuele Rini
 CHANGELOG
 ================================================================
     
+     v1.8.2 - Mar 15 2013 
+    ----------------------------------- 
+    [x] dark/light theme switcher 
+    [x] option to show all the file 
+     sizes into the video list 
+    [x] n.a. in video list bug fixed 
+    [x] French translation 
+     
      v1.8.1 - Mar 14 2013 
     ----------------------------------- 
     [x] notification bug fix 
@@ -130,16 +138,16 @@ CHANGELOG
 
 TO-DO LIST
 ================================================================
-    
+
+    [ ] downloads log    
     [ ] default format/filter selection for video download
     [ ] option to always download video locally
-    [ ] option to "use inside same LAN" for SSH send
-    [ ] handle SourceForge servers down; fallback on GitHub for apk download:
+    [ ] option to "use link inside same LAN" for SSH send
+    [ ] handle SourceForge servers down; fallback on GitHub for apk (and thumbnail placeholder) download:
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
-    [ ] downloads log
     [ ] use icon/logo to identify codecs available
     [ ] make the App tablet friendly
     [ ] new App's ICON [maybe not]
     [ ] handle YT links that require login (hard)
-    [ ] audio extraction (hard too)
+    [ ] audio extraction (hard too) [w.i.p.: see github code]

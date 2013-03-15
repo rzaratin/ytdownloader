@@ -65,6 +65,10 @@ public class UpgradeApkActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// Theme init
+    	Utils.themeInit(this);
+    	
 		setContentView(R.layout.activity_upgrade_apk);
 		
 		try {

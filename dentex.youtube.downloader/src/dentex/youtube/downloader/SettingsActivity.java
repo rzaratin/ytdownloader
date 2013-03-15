@@ -54,6 +54,9 @@ public class SettingsActivity extends Activity {
         
     	settings = getSharedPreferences(PREFS_NAME, 0);
         
+    	// Theme init
+    	Utils.themeInit(this);
+    	
         // Language init
         String lang  = settings.getString("lang", "default");
         if (!lang.equals("default")) {
@@ -92,8 +95,8 @@ public class SettingsActivity extends Activity {
 
 		//TODO fix for release
 		public static final int YTD_SIG_HASH = -1892118308; // final string
-		//public static final int YTD_SIG_HASH = -118685648; // dev test desktop
-		//public static final int YTD_SIG_HASH = 1922021506; // dev test laptop
+		//public static final int YTD_SIG_HASH = -118685648; // dev test: desktop
+		//public static final int YTD_SIG_HASH = 1922021506; // dev test: laptop
 		
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -447,8 +450,8 @@ public class SettingsActivity extends Activity {
         
         public static void autoUpdate(Context context) {
         	//TODO fix for release
-	        long storedTime = settings.getLong("time", 0);
-	        //long storedTime = 10000; //forces auto update for testing purposes
+	        long storedTime = settings.getLong("time", 0); // final string
+	        //long storedTime = 10000; // dev test: forces auto update for testing purposes
 	        
 	        boolean shouldCheckForUpdate = !DateUtils.isToday(storedTime);
 	        Log.i(DEBUG_TAG, "shouldCheckForUpdate: " + shouldCheckForUpdate);

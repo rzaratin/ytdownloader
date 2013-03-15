@@ -9,6 +9,8 @@
         android:id="@+id/input_filename"
         android:singleLine="true"
         android:inputType="text"
+        android:textColor="@android:color/white"
+        android:textCursorDrawable="@drawable/cursor"
         android:longClickable="true"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content" >

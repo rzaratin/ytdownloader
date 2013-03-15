@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v1.8.2 - Mar 15 2013
+        \n-----------------------------------
+        \n[x] dark/light theme switcher
+        \n[x] option to show all the file 
+        \n    sizes into the video list
+        \n[x] n.a. in video list bug fixed
+        \n[x] French translation
+        \n
         \n v1.8.1 - Mar 14 2013
         \n-----------------------------------
         \n[x] notification bug fix
@@ -185,6 +193,7 @@
         <item>Portuguese</item>
         <item>Turkish</item>
         <item>Dutch</item>
+        <item>French</item>
     </string-array>
     
     <string-array name="lang_entry_values">
@@ -194,6 +203,7 @@
         <item>pt</item>
         <item>tr</item>
         <item>nl</item>
+        <item>fr</item>
     </string-array>
     
     <string name="lang_default">default</string>
@@ -201,7 +211,8 @@
     <string name="translators_list">   
         \nPLUG313 - Portuguese;
         \nrew06 - Turkish;
-        \nEkimPadd - Dutch.
+        \nEkimPadd - Dutch;
+        \nblux (AKA grobux) - French.
     </string>
     
     <string name="imgview_descr">Video thumbnail</string>
