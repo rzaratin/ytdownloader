@@ -66,6 +66,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import dentex.youtube.downloader.service.DownloadsService;
@@ -88,7 +89,7 @@ public class ShareActivity extends Activity {
     List<String> codecs = new ArrayList<String>();
     List<String> qualities = new ArrayList<String>();
     List<String> sizes = new ArrayList<String>();
-    List<String> cqsChoices = new ArrayList<String>();
+    List<String> listEntries = new ArrayList<String>();
     private String titleRaw;
     private String title;
     public int pos;
@@ -101,6 +102,7 @@ public class ShareActivity extends Activity {
     public static Uri videoUri;
 	public boolean videoOnExt;
     private int icon;
+    public ScrollView generalInfoScrollview;
 	public CheckBox showAgain1;
 	public CheckBox showAgain2;
 	public CheckBox showAgain3;
@@ -276,14 +278,16 @@ public class ShareActivity extends Activity {
     void showGeneralInfoTutorial() {
         generalInfoCheckboxEnabled = settings.getBoolean("general_info", true);
         if (generalInfoCheckboxEnabled == true) {
-        	AlertDialog.Builder adb = new AlertDialog.Builder(new ContextThemeWrapper(ShareActivity.this, R.style.BoxTheme));
+        	AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
     	    LayoutInflater adbInflater = LayoutInflater.from(ShareActivity.this);
     	    View generalInfo = adbInflater.inflate(R.layout.dialog_general_info, null);
+    	    generalInfoScrollview = (ScrollView) generalInfo.findViewById(R.id.generalInfoScrollview);
+
     	    showAgain1 = (CheckBox) generalInfo.findViewById(R.id.showAgain1);
     	    showAgain1.setChecked(true);
     	    adb.setView(generalInfo);
     	    adb.setTitle(getString(R.string.tutorial_title));    	    
-    	    adb.setMessage(getString(R.string.tutorial_msg));
+    	    //adb.setMessage(getString(R.string.tutorial_msg));
 
     	    adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
     	    	public void onClick(DialogInterface dialog, int which) {
@@ -376,7 +380,7 @@ public class ShareActivity extends Activity {
                 titleRaw = getString(R.string.invalid_response);
             }
 
-            String[] lv_arr = cqsChoices.toArray(new String[0]);
+            String[] lv_arr = listEntries.toArray(new String[0]);
             
             aA = new ArrayAdapter<String>(ShareActivity.this, android.R.layout.simple_list_item_1, lv_arr);
             
@@ -388,7 +392,7 @@ public class ShareActivity extends Activity {
             
             lv.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					
+					Log.i(DEBUG_TAG, "Selected link: " + links.get(pos));
 					assignPath();
                     //createLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
 					
@@ -794,26 +798,32 @@ public class ShareActivity extends Activity {
 		
         findVideoFilename(content);
 
-        Pattern startPattern = Pattern.compile("url_encoded_fmt_stream_map\\\": \\\"");
-        Pattern endPattern = Pattern.compile("\\\", \\\"");
-        Matcher matcher = startPattern.matcher(content);
+        Pattern pattern = Pattern.compile("url_encoded_fmt_stream_map\\\": \\\"(.*?)\\\"");
+        Matcher matcher = pattern.matcher(content);
         if (matcher.find()) {
-            try {
-                String[] start = content.split(startPattern.toString());
-                String[] end = start[1].split(endPattern.toString());
-
-                // Other decoding Stuff
-                String contentDecoded = URLDecoder.decode(end[0], "UTF-8");
-                contentDecoded = contentDecoded.replaceAll(", ", "-");
-                contentDecoded = contentDecoded.replaceAll("sig=", "signature=");
-                contentDecoded = contentDecoded.replaceAll("x-flv", "flv");
-                contentDecoded = contentDecoded.replaceAll("\\\\u0026", "&");
-                //Log.d(DEBUG_TAG, "contentDecoded: " + contentDecoded);
-                findCodecAndQualityAndLinks(contentDecoded);
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+        	Pattern blockPattern = Pattern.compile(",");
+            Matcher blockMatcher = blockPattern.matcher(matcher.group(1));
+            if (blockMatcher.find() && !asyncDownload.isCancelled()) {
+            	String[] CQS = matcher.group(1).split(blockPattern.toString());
+                Log.d(DEBUG_TAG, "number of entries found: " + (CQS.length-1));
+                int index = 0;
+                while ((index+1) < CQS.length) {
+                	try {
+						CQS[index] = URLDecoder.decode(CQS[index], "UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						Log.e(DEBUG_TAG, e.getMessage());
+					}
+                	
+                    codecMatcher(CQS[index], index);
+                    qualityMatcher(CQS[index], index);
+                    linkComposer(CQS[index], index);
+                    //Log.d(DEBUG_TAG, "block " + index + ": " + CQS[index]);
+                    index++;
+                }
+                listEntriesBuilder();
+            } else {
+            	Log.d(DEBUG_TAG, "asyncDownload cancelled @ 'findCodecAndQualityAndLinks' match");
+            } 
             //createLogFile(stringToIs(Arrays.toString(links)), "ytd_links.txt");
             //createLogFile(stringToIs(Arrays.toString(codecs.toArray())), "ytd_codecs.txt");
             //createLogFile(stringToIs(Arrays.toString(qualities.toArray())), "ytd_qualities.txt");
@@ -824,10 +834,10 @@ public class ShareActivity extends Activity {
     }
 
 	private void findVideoFilename(String content) {
-        Pattern videoPatern = Pattern.compile("<title>(.*?)</title>");
-        Matcher matcher = videoPatern.matcher(content);
-        if (matcher.find()) {
-            titleRaw = matcher.group().replaceAll("(<| - YouTube</)title>", "").replaceAll("&quot;", "\"").replaceAll("&amp;", "&").replaceAll("&#39;", "'");
+        Pattern titlePattern = Pattern.compile("<title>(.*?)</title>");
+        Matcher titleMatcher = titlePattern.matcher(content);
+        if (titleMatcher.find()) {
+            titleRaw = titleMatcher.group().replaceAll("(<| - YouTube</)title>", "").replaceAll("&quot;", "\"").replaceAll("&amp;", "&").replaceAll("&#39;", "'");
             title = titleRaw.replaceAll("\\W", "_");
         } else {
             title = "Youtube Video";
@@ -835,36 +845,16 @@ public class ShareActivity extends Activity {
         Log.d(DEBUG_TAG, "findVideoFilename: " + title);
     }
 
-    private void findCodecAndQualityAndLinks(String contentDecoded) {
-        Pattern trimPattern = Pattern.compile(",");
-        Matcher matcher = trimPattern.matcher(contentDecoded);
-        if (matcher.find() && !asyncDownload.isCancelled()) {
-            String[] CQS = contentDecoded.split(trimPattern.toString());
-            Log.d(DEBUG_TAG, "number of CQ found: " + (CQS.length-1));
-            int index = 0;
-            while ((index+1) < CQS.length) {
-                codecMatcher(CQS[index], index);
-                qualityMatcher(CQS[index], index);
-                linksComposer(CQS[index], index);
-                //Log.d(DEBUG_TAG, "block " + index + ": " + CQS[index]);
-                index++;
-            }
-            cqsChoicesBuilder();
-        } else {
-        	Log.d(DEBUG_TAG, "asyncDownload cancelled @ 'findCodecAndQualityAndLinks' match");
-        }
-    }
-
-    private void cqsChoicesBuilder() {
+    private void listEntriesBuilder() {
     	if (settings.getBoolean("show_size_list", false)) {
 	        Iterator<String> codecsIter = codecs.iterator();
 	        Iterator<String> qualitiesIter = qualities.iterator();
 	        Iterator<String> sizesIter = sizes.iterator();
 	        while (codecsIter.hasNext()) {
 	        	try {
-	        		cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next() + " - " + sizesIter.next());
+	        		listEntries.add(codecsIter.next() + " - " + qualitiesIter.next() + " - " + sizesIter.next());
 	        	} catch (NoSuchElementException e) {
-	        		cqsChoices.add("//");
+	        		listEntries.add("//");
 	        	}
 	        }
     	} else {
@@ -872,43 +862,50 @@ public class ShareActivity extends Activity {
             Iterator<String> qualitiesIter = qualities.iterator();
             while (codecsIter.hasNext()) {
             	try {
-                	cqsChoices.add(codecsIter.next() + " - " + qualitiesIter.next());
+                	listEntries.add(codecsIter.next() + " - " + qualitiesIter.next());
             	} catch (NoSuchElementException e) {
-	        		cqsChoices.add("//");
+	        		listEntries.add("//");
 	        	}	
             }
             
     	}
     }
     
-    private void linksComposer(String block, int i) {
-    	Pattern urlPattern = Pattern.compile("http://.*");
+    private void linkComposer(String block, int i) {
+    	Pattern urlPattern = Pattern.compile("url=(.+?)\\\\u0026");
     	Matcher urlMatcher = urlPattern.matcher(block);
-    	if (urlMatcher.find()) {
-    		Pattern sigPattern = Pattern.compile("signature=[[0-9][A-Z]]{40}\\.[[0-9][A-Z]]{40}");
-    		Matcher sigMatcher = sigPattern.matcher(block);
-    		if (sigMatcher.find()) {
-    			String url = urlMatcher.group();
-    			url = url.replaceAll("&type=.*", "");
-    			url = url.replaceAll("&signature=.*", "");
-    			url = url.replaceAll("&quality=.*", "");
-    			url = url.replaceAll("&fallback_host=.*", "");
-    			//Log.d(DEBUG_TAG, "url: " + url);
-    			String sig = sigMatcher.group();
-    			//Log.d(DEBUG_TAG, "sig: " + sig);
-    			String linkToAdd = url + "&" + sig;
-    			/*
-    			 * very annoying "n.a. into the video list" bug fixed !!!
-    			 * 											 |
-    			 * 											 V                         */
-    			linkToAdd = linkToAdd.replaceAll("&itag=[0-9]+&signature", "&signature");
-    			links.add(linkToAdd);
-    			//Log.i(DEBUG_TAG, linkToAdd);
-    			if (settings.getBoolean("show_size_list", false)) {
-    				sizes.add(getVideoFileSize(linkToAdd));
-    			}
-    		}
+    	String url = null;
+		if (urlMatcher.find()) {
+    		url = urlMatcher.group(1);
+    	} else {
+    		Pattern urlPattern2 = Pattern.compile("url=(.+?)$");
+    		Matcher urlMatcher2 = urlPattern2.matcher(block);
+    		if (urlMatcher2.find()) {
+        		url = urlMatcher2.group(1);
+        	} else {
+        		Log.e(DEBUG_TAG, "url: " + url);
+        	}
     	}
+    		
+    	Pattern sigPattern = Pattern.compile("sig=([[0-9][A-Z]]{39,40}\\.[[0-9][A-Z]]{39,40})");
+    	Matcher sigMatcher = sigPattern.matcher(block);
+    	String sig = null;
+		if (sigMatcher.find()) {
+    		sig = "signature=" + sigMatcher.group(1);
+    	} else {
+    		Log.e(DEBUG_TAG, "sig: " + sig);
+    	}
+
+		//Log.d(DEBUG_TAG, "url: " + url);
+		//Log.d(DEBUG_TAG, "sig: " + sig);
+    	
+		String composedLink = url + "&" + sig;
+
+		links.add(composedLink);
+		//Log.i(DEBUG_TAG, composedLink);
+		if (settings.getBoolean("show_size_list", false) && !asyncDownload.isCancelled()) {
+			sizes.add(getVideoFileSize(composedLink));
+		}
 	}
     
     private class AsyncSizeQuery extends AsyncTask<String, Void, String> {
@@ -1048,7 +1045,7 @@ public class ShareActivity extends Activity {
     		myFileUrl = new URL(fileUrl);
     	} catch (MalformedURLException e) {
     		try {
-				myFileUrl =  new URL("https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader/assets/placeholder.png?raw=true");
+				myFileUrl =  new URL("https://raw.github.com/dentex/ytdownloader/master/dentex.youtube.downloader/assets/placeholder.png");
 			} catch (MalformedURLException e1) {
 				e1.printStackTrace();
 			}

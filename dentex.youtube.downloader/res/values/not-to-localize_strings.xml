@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
+        \n v1.8.3 - Mar 16 2013
+        \n-----------------------------------
+        \n[x] n.a. in video list bug fixed
+        \n
         \n v1.8.2 - Mar 15 2013
         \n-----------------------------------
         \n[x] dark/light theme switcher
         \n[x] option to show all the file 
         \n    sizes into the video list
-        \n[x] n.a. in video list bug fixed
         \n[x] French translation
         \n
         \n v1.8.1 - Mar 14 2013

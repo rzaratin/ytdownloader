@@ -11,6 +11,11 @@
     <string name="tutorial_msg">Sarà visibile una lista con tutti i codec e le qualità disponibili per il video selezionato.
 		\n\nScegline una e ti verrà chiesto di scaricare il video in locale (sul dispositivo) o di mandare il download via SSH verso un PC Linux.
 		\n\nRequisiti della linux-box di destinazione: Bash and Wget. Informazioni addizionali su SSH più avanti.</string>
+	<string name="tutorial_msg_new">Sarà visibile una lista con tutti i codec e le qualità disponibili per il video selezionato. Potrai:
+		\n\n*) Premere per scaricare il video in locale (sul dispositivo) o per mandare il download via SSH verso un PC remoto.
+		\nRequisiti del computer di destinazione: Bash and Wget. Informazioni addizionali su SSH più avanti;
+        \n\n*) Premere a lungo per scegliere se copiare nella clipboard o condividere il link come testo (ad es. mandandolo ad un\'altra App).
+        \nNota: tale link (diversamente da quando lo si manda via SSH) può essere usato solo dallo stesso dispositivo che l\'ha creato OPPURE dalla stessa LAN, nel caso in cui lo si condivida con un altro computer.\n</string>
     <string name="loading">In caricamento&#8230;</string>
     <string name="error">Errore!</string>
     <string name="information">Informazione</string>
