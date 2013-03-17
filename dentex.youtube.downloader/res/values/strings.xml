@@ -8,9 +8,6 @@
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">General App tutorial</string>
-    <string name="tutorial_msg">[DO NOT TRASLATE: USE THIS AS A REFERENCE ;)]Now you will see a list with all the codecs and qualities available for the selected video.
-		\n\nChoose one item and you will be asked to download the video locally (on the device) or to send the download via SSH to a linux machine.
-		\n\nDestination linux-box requirements: Bash and Wget. Additional SSH info further on.</string>
 	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
 		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
 		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;

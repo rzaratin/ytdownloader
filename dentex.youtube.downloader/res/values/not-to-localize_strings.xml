@@ -4,6 +4,8 @@
         \n v1.8.3 - Mar 16 2013
         \n-----------------------------------
         \n[x] n.a. in video list bug fixed
+        \n    (again)
+        \n[x] Korean translation
         \n
         \n v1.8.2 - Mar 15 2013
         \n-----------------------------------
@@ -197,6 +199,7 @@
         <item>Turkish</item>
         <item>Dutch</item>
         <item>French</item>
+        <item>Korean</item>
     </string-array>
     
     <string-array name="lang_entry_values">
@@ -207,6 +210,7 @@
         <item>tr</item>
         <item>nl</item>
         <item>fr</item>
+        <item>ko</item>
     </string-array>
     
     <string name="lang_default">default</string>
@@ -215,7 +219,8 @@
         \nPLUG313 - Portuguese;
         \nrew06 - Turkish;
         \nEkimPadd - Dutch;
-        \nblux (AKA grobux) - French.
+        \nblux (AKA grobux) - French;
+        \ndigitie - Korean.
     </string>
     
     <string name="imgview_descr">Video thumbnail</string>

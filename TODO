@@ -1,8 +1,11 @@
 
-    [ ] downloads log    
-    [ ] default format/filter selection for video download
     [ ] option to always download video locally
     [ ] option to "use link inside same LAN" for SSH send
+    [ ] new menu configuration: 
+        "about" and "tutorials" into ShareActivity menu;
+        new menu into SettingsActivity with "about", "tutorials" and "view downloads".
+    [ ] downloads log    
+    [ ] default format/filter selection for video download
     [ ] handle SourceForge servers down; fallback on GitHub for apk (and thumbnail placeholder) download:
 	    page: https://github.com/dentex/ytdownloader
 	    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
