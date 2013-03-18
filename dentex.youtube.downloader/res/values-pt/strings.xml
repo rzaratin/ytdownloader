@@ -4,13 +4,11 @@
     <string name="menu_settings">Definições</string>
     <string name="title_activity_settings">Definições do YouTube Downloader</string>
     <string name="title_activity_upgrade_apk">Atualização do YouTube Downloader</string>
+    <string name="title_activity_about">About YouTube Downloader</string>
 
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">Tutorial geral da aplicação</string>
-    <string name="tutorial_msg">Agora vai ver uma lista com todos os codecs e qualidades disponiveis para o video selecionado.
-		\n\nEscolha uma opção e vai ser questionado onde guardar o video localmente (no telemovel) ou para o enviar para download via SSH para um dispositivo linux.
-		\n\nRequesitos do destino linux-box: Bash e Wget. Mais informação SSH mais a frente.</string>
 	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
 		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
 		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
@@ -83,8 +81,7 @@
     <string name="upgrade_button_download">Download\ninstalação nand</string>
     <string name="upgrade_uppertext_searching">Procurando&#8230;</string>
     <string name="upgrade_uppertext_init">Versão instalada:\n</string>
-    <string name="upgrade_dialog_msg">Nova versão disponivel:\t</string>
-    <string name="upgrade_dialog_positive">Download</string>
+
     <string name="upgrade_latest">Mais recente:\t</string>
     <string name="upgrade_installed">\nInstalda:\t</string>
     <string name="upgraded_dialog_msg">Nova versão armazenada no cartão SD prédefinido, pasta \'Download\'.\n\nInstalar agora?</string>
@@ -102,25 +99,21 @@
 
     <!-- ### preferences ### -->
 
-    <!-- @0 -->
+    <!-- -->
     <string name="dm_title">Ver Downloads</string>
     <string name="dm_title_condensed">Downloads</string>
     <string name="dm_summary">Abrir o Gestor de Transferencias do sistema</string>
-    <string name="update_title">Procurar actualizações</string>
-    <string name="update_title_condensed">Actualizar</string>
-    <string name="autoupdate_title">Ativar atualização automática</string>
-    <string name="autoupdate_summary">Verificar se há atualizações na execução do aplicativo primeira do dia (o novo pacote será automaticamente baixado)</string>
+
     <string name="lang_title">Idioma</string>
     <string name="lang_dialog_title">Idioma (requer a reinicialização do aplicativo):</string>
     <string name="choose_theme_title">Escolher tema</string>
-    <string name="choose_theme_dialog_title">Escolher tema (é preciso reiniciar a aplicação):</string>
         
     <string-array name="choose_theme_entries">
         <item>Escuro</item>
         <item>Claro</item>
     </string-array>
     
-    <!-- @1 -->
+    <!-- -->
     <string name="settings_cat_tutorials">Tutoriais</string>
     <string name="quick_start_title">Começo rapido</string>
     <string name="quick_start_summ">Abrir um tutorial de começo rapido</string>
@@ -134,14 +127,14 @@
     <string name="ssh_info_title">Ligar como utilzar o SSH</string>
     <string name="ssh_info_summary">Mostrar dica rapida sobre como fazer downloads remotos via SSH</string>
 
-    <!-- @2 -->
+    <!-- -->
     <string name="settings_cat_folder">Pasta de download</string>
     <string name="standard_location_title">Escolher pasta pré-definida</string>
     <string name="chooser_swap_title">Trocar escolhedor</string>
     <string name="chooser_location_title">Abrir escolhedor de ficheiros</string>
     <string name="chooser_location_summary">Pressionar um pouco para escolher uma pasta</string>
 	
-    <!-- @3 -->
+    <!-- -->
     <string name="settings_cat_files">Ficheiros de video</string>
     <string name="enable_q_suffix_title">Adicionar sufixo da qualidade</string>
     <string name="enable_q_suffix_summary">Adicionar o tipo de qualidade do video ao nome do ficheiro</string>
@@ -154,7 +147,7 @@
     <string name="show_thumb_title">Mostrar imagem de pré-visualização</string>
     <string name="show_thumb_summary">Baixar uma imagem de pré-visualização, juntamente com a lista de vídeos</string>
     
-    <!-- @4 -->
+    <!-- -->
     <string name="settings_cat_notifications">Notificações</string>
     <string name="enable_own_notification_title">Permitir propria notificação</string>
     <string name="enable_own_notification_summary">Mostrar uma notificação sobre todos os downloads do YTD</string>
@@ -166,13 +159,20 @@
         <item>Só enquanto em progresso</item>
         <item>Nunca</item>
     </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_updates">Actualizar</string>
+    <string name="update_title">Procurar actualizações</string>
+    <string name="autoupdate_title">Ativar atualização automática</string>
+    <string name="autoupdate_summary">Verificar se há atualizações na execução do aplicativo primeira do dia (o novo pacote será automaticamente baixado)</string>
 
-    <!-- @5 -->
+    <!-- -->
     <string name="settings_cat_about">Sobre</string>
+    <string name="settings_cat_about_condensed">About</string>
     <string name="title_changelog">Changelog</string>
     <string name="screen_licences_code_title">Licenças e codigo</string>
 
-    <!-- @5.1 -->
+    <!-- -->
     <string name="settings_cat_licenses">Licenças</string>
     <string name="gpl_title">Licença do YTD</string>
     <string name="gpl_summary">GPL-3.0</string>
@@ -191,19 +191,30 @@
         \n\n
         Especificamente os metodos para calcular e comparar a checksum MD5
         dos pacotes de actualização descarregados são tiradas da aplicação \'CMUpdater\'</string>
+	<string name="credits_text3">\nThe text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+	<string name="credits_text4">\n\tCode from StackOverflow
+	    \n\n
+	    In addition, the Java methods used in YTD to compare version numbers, 
+	    to copy files on extSdCard and to make fetched video file size human readable 
+	    (and a lot of other small non-traceable references), 
+	    are taken from the site Stack Overflow (<http>http://stackoverflow.com</http>), 
+	    a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed
+	    (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+	    For more details, look for comments in YTD\'s Java code.
+	    </string>
     <string name="credits_translators">\n\tTraduções
         \n\nAlém disso, pelas localizações adicionais obrigado a:</string>
     <string name="translators_info">\nPara mais informações:
 \n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
 \n\n<http>www.getlocalization.com/ytdownloader</http></string>
         
-    <!-- @5.2 -->
+    <!-- -->
     <string name="settings_cat_code">Código Fonte</string>
     <string name="ytd_code_git_title">YTD no GitHub</string>
     <string name="ytd_code_hg_title">YTD no Sourceforge</string>
     <string name="chooser_code_title">Escolhedor de ficheiros (Filechooser) no Google Code</string>
 
-    <!-- @6 -->
+    <!-- -->
     <string name="settings_cat_social">Social</string>
     <string name="share_title">Partilhar esta aplicação</string>
     <string name="share_summary">através de Twitter, Facebook, Gmail, etc&#8230;</string>

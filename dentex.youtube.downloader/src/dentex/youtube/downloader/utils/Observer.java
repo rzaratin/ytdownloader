@@ -7,6 +7,9 @@ import dentex.youtube.downloader.service.DownloadsService;
 import android.os.FileObserver;
 import android.util.Log;
 
+// reference:
+// https://gist.github.com/shirou/659180 - https://github.com/shirou
+	
 public class Observer {
 	
 	static final String DEBUG_TAG = "Observer";

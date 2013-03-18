@@ -31,6 +31,14 @@ public class Utils extends Activity {
 
 	static String onlineVersion;
     
+	/* class VersionComparator from Stack Overflow:
+	 * 
+	 * http://stackoverflow.com/questions/198431/how-do-you-compare-two-version-strings-in-java
+	 * 
+	 * Q: http://stackoverflow.com/users/1288/bill-the-lizard
+	 * A: http://stackoverflow.com/users/57695/peter-lawrey
+	 */
+	
     public static class VersionComparator {
 
         public static String compare(String v1, String v2) {
@@ -71,6 +79,18 @@ public class Utils extends Activity {
 		return currentHashCode;
 	}
 
+	/*
+	 * checkMD5(String md5, File file)
+	 * -------------------------------
+	 * 
+	 * Copyright (C) 2012 The CyanogenMod Project
+	 *
+	 * * Licensed under the GNU GPLv2 license
+	 *
+	 * The text of the license can be found in the LICENSE_GPL2 file
+	 * or at https://www.gnu.org/licenses/gpl-2.0.txt
+	 */
+	
 	public static boolean checkMD5(String md5, File file) {
         if (md5 == null || md5.equals("") || file == null) {
             Log.e(DEBUG_TAG, "MD5 String NULL or File NULL");
@@ -89,6 +109,18 @@ public class Utils extends Activity {
         return calculatedDigest.equalsIgnoreCase(md5);
     }
 
+	/*
+	 * calculateMD5(File file)
+	 * -----------------------
+	 * 
+	 * Copyright (C) 2012 The CyanogenMod Project
+	 *
+	 * * Licensed under the GNU GPLv2 license
+	 *
+	 * The text of the license can be found in the LICENSE_GPL2 file
+	 * or at https://www.gnu.org/licenses/gpl-2.0.txt
+	 */
+	
     public static String calculateMD5(File file) {
         MessageDigest digest;
         try {
@@ -128,6 +160,14 @@ public class Utils extends Activity {
             }
         }
     }
+    
+    /* method copyFile(File src, File dst, Context context) from Stack Overflow:
+	 * 
+	 * http://stackoverflow.com/questions/4770004/how-to-move-rename-file-from-internal-app-storage-to-external-storage-on-android
+	 * 
+	 * Q: http://stackoverflow.com/users/131871/codefusionmobile
+	 * A: http://stackoverflow.com/users/472270/barmaley
+	 */
     
     @SuppressWarnings("resource")
 	public static void copyFile(File src, File dst, Context context) throws IOException {

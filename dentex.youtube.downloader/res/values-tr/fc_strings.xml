@@ -42,11 +42,11 @@
     <string name="afc_pmsg_cannot_delete_file">Silinemiyor %1$s \"%2$s\"</string>
     <string name="afc_pmsg_confirm_delete_file">Bunu %1$s \"%2$s\" silmek istediğinize emin misiniz?</string>
     <string name="afc_pmsg_confirm_replace_file">Bu dosya \"%1$s\"  zaten var.\n\n Bunu değiştirmek istiyor musunuz?</string>
-    <string name="afc_pmsg_deleting_file">Siliniyor %1$s \"%2$s\"&#8230;</string>
-    <string name="afc_pmsg_file_has_been_deleted">&#8230;%1$s \"%2$s\" silindi</string>
+    <string name="afc_pmsg_deleting_file">Siliniyor %1$s \"%2$s\"…</string>
+    <string name="afc_pmsg_file_has_been_deleted">…%1$s \"%2$s\" silindi</string>
     <string name="afc_pmsg_filename_is_directory">\"%1$s\" bir klasördür</string>
     <string name="afc_pmsg_filename_is_invalid">Dosya adı  \"%1$s\" geçersiz</string>
-    <string name="afc_pmsg_max_file_count_allowed">&#8230;daha fazla dosya var, maksimum izin verilen: %1$,d</string>
+    <string name="afc_pmsg_max_file_count_allowed">…daha fazla dosya var, maksimum izin verilen: %1$,d</string>
     <string name="afc_pmsg_unknown_error">Bilinmeyen hata: %1$s</string>
     <string name="afc_pmsg_xxx_items">%1$,d items</string>
     <string name="afc_root">Root</string>

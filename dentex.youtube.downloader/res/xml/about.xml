@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory 
+    	android:title="@string/settings_cat_about">
+        
+	    <Preference 
+	        android:key="changelog"
+	        android:title="@string/title_changelog"/>
+	    
+	    <PreferenceScreen
+	        android:key="licenses_code"
+	        android:title="@string/screen_licences_code_title">
+	    
+		    <PreferenceCategory 
+		        android:title="@string/settings_cat_licenses">
+		    	
+		        <Preference
+		            android:key="gpl"
+		            android:title="@string/gpl_title"
+		            android:summary="@string/gpl_summary"/>
+		        
+		        <Preference
+		            android:key="mit"
+		            android:title="@string/mit_title"
+		            android:summary="@string/mit_summary"/>
+		    
+		    </PreferenceCategory>
+		    
+		    <PreferenceCategory 
+		        android:title="@string/settings_cat_code">
+		        
+		        <Preference 
+		            android:key="ytd_code_git"
+		            android:title="@string/ytd_code_git_title"
+		            android:summary="@string/ytd_code_git_summary"/>
+		        
+		        <Preference 
+		            android:key="ytd_code_hg"
+		            android:title="@string/ytd_code_hg_title"
+		            android:summary="@string/ytd_code_hg_summary"/>
+		                
+		        <Preference 
+		            android:key="chooser_code"
+		            android:title="@string/chooser_code_title"
+		            android:summary="@string/chooser_code_summary"/>
+		        
+		    </PreferenceCategory>
+		
+		</PreferenceScreen>
+		
+	    <Preference
+			android:key="credits"
+			android:title="@string/credits_title"
+			android:summary="@string/credits_summary"/>
+		
+	</PreferenceCategory>
+	
+   	<PreferenceCategory 
+        android:title="@string/settings_cat_social">
+        
+        <Preference
+            android:key="share"
+            android:title="@string/share_title"
+            android:summary="@string/share_summary"/>
+        
+        <Preference
+            android:key="help_translate"
+            android:title="@string/help_translate_title"
+            android:summary="@string/help_translate_summary"/>
+        
+    </PreferenceCategory>
+
+</PreferenceScreen>

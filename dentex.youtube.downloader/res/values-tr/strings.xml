@@ -4,13 +4,11 @@
     <string name="menu_settings">Ayarlar</string>
     <string name="title_activity_settings">YouTube Downloader Ayarları</string>
     <string name="title_activity_upgrade_apk">YouTube Downloader Sürüm Yükselt</string>
+    <string name="title_activity_about">About YouTube Downloader</string>
 
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">Genel Uygulama Yardımcısı</string>
-    <string name="tutorial_msg">Şimdi seçilen video için kullanılabilir tüm kodek ve kalite listesini göreceksiniz.
-		\n\nBir öğeyi seçtikten sonra videoyu indireceğiniz dizin (cihaz üzerinde) veya SSH aracılığıyla indireceğiniz linux cihazınız istenecektir.
-		\n\nHedef linux kutusu gereksinimleri: Bash ve Wget. İlave SSH bilgileri.</string>
 	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
 		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
 		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
@@ -83,10 +81,9 @@
     <string name="upgrade_button_download">İndir\nve yükle</string>
     <string name="upgrade_uppertext_searching">Arıyor&#8230;</string>
     <string name="upgrade_uppertext_init">Yüklü sürüm:\n</string>
-    <string name="upgrade_dialog_msg">Yeni sürüm kullanılabilir:\t</string>
-    <string name="upgrade_dialog_positive">İndir</string>
+
     <string name="upgrade_latest">En son:\t</string>
-    <string name="upgrade_installed">\nyüklendi:\t</string>
+    <string name="upgrade_installed">\nYüklenen:\t</string>
     <string name="upgraded_dialog_msg">Yeni sürüm standart sdcard  \'Download\' klasörüne depolandı.\n\nŞimdi yükle?</string>
     <string name="upgraded_dialog_negative">Sonra\n(el ile)</string>
     <string name="upgrade_latest_installed">En son sürüm zaten yüklü!</string>
@@ -102,25 +99,21 @@
 
     <!-- ### preferences ### -->
 
-    <!-- @0 -->
+    <!-- -->
     <string name="dm_title">İndirilenleri Göster</string>
     <string name="dm_title_condensed">İndirmeler</string>
     <string name="dm_summary">Sistem İndirme Yöneticisini Aç</string>
-    <string name="update_title">Güncelleme kontrolü</string>
-    <string name="update_title_condensed">Güncelle</string>
-    <string name="autoupdate_title">Otomatik güncelleştirmeyi etkinleştir</string>
-    <string name="autoupdate_summary">Uygulamayı çalıştırdığınız zaman güncellemeleri kontrol et (her gün sadece ilk çalıştırmada, ve güncelleme otomatik indirilir)</string>
+
     <string name="lang_title">Lisan</string>
     <string name="lang_dialog_title">Lisan (uygulama yeniden başlatılmalıdır):</string>
     <string name="choose_theme_title">Tema seç</string>
-    <string name="choose_theme_dialog_title">Tema seç (uygulama yeniden başlatılmalıdır):</string>
         
     <string-array name="choose_theme_entries">
         <item>Koyu</item>
         <item>Açık</item>
     </string-array>
     
-    <!-- @1 -->
+    <!-- -->
     <string name="settings_cat_tutorials">Rehberler</string>
     <string name="quick_start_title">Hızlı başlangıç</string>
     <string name="quick_start_summ">Hızlı başlangıç rehberini aç</string>
@@ -134,14 +127,14 @@
     <string name="ssh_info_title">Nasıl SSH yapılır etkinleştir</string>
     <string name="ssh_info_summary">SSH üzerinden uzaktan indirme hakkında hızlı bir ipucu göster</string>
 
-    <!-- @2 -->
+    <!-- -->
     <string name="settings_cat_folder">İndirme Klasörü</string>
     <string name="standard_location_title">Standart klasör seçin</string>
     <string name="chooser_swap_title">Seçiciyi değiştir</string>
     <string name="chooser_location_title">Dosya seçiciyi aç</string>
     <string name="chooser_location_summary">Dosyayı seçmek için uzun bas</string>
 	
-    <!-- @3 -->
+    <!-- -->
     <string name="settings_cat_files">Video dosyaları</string>
     <string name="enable_q_suffix_title">Quality soneki ekleyin</string>
     <string name="enable_q_suffix_summary">Dosya ismine video türü ekleyin</string>
@@ -154,7 +147,7 @@
     <string name="show_thumb_title">Önizleme resmi göster</string>
     <string name="show_thumb_summary">Video listesi ile birlikte bir önizleme resmi indir</string>
     
-    <!-- @4 -->
+    <!-- -->
     <string name="settings_cat_notifications">Bildirimler</string>
     <string name="enable_own_notification_title">Kendi bildirimlerini etkinleştir</string>
     <string name="enable_own_notification_summary">Tüm YTD indirmeleri hakkında kapsamlı bildirimler göster</string>
@@ -166,13 +159,20 @@
         <item>Sadece ilerleme sırasında</item>
         <item>Asla</item>
     </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_updates">Güncelle</string>
+    <string name="update_title">Güncelleme kontrolü</string>
+    <string name="autoupdate_title">Otomatik güncelleştirmeyi etkinleştir</string>
+    <string name="autoupdate_summary">Uygulamayı çalıştırdığınız zaman güncellemeleri kontrol et (her gün sadece ilk çalıştırmada, ve güncelleme otomatik indirilir)</string>
 
-    <!-- @5 -->
+    <!-- -->
     <string name="settings_cat_about">Uygulama Hakkında</string>
+    <string name="settings_cat_about_condensed">About</string>
     <string name="title_changelog">Değişiklikler</string>
     <string name="screen_licences_code_title">Lisans ve Kodlama</string>
 
-    <!-- @5.1 -->
+    <!-- -->
     <string name="settings_cat_licenses">Lisanslar</string>
     <string name="gpl_title">YTD\'nin Lisansı</string>
     <string name="gpl_summary">GPL-3.0</string>
@@ -190,19 +190,30 @@
 		Bu uygulamada, CyanogenMod Custom ROM\'dan bazı kod alıntıları vardır;
 		\n\n
 		Özellikle indirilmiş yükleme paketlerinin, MD5 sağlama, hesaplama ve kıyaslama yöntemleri \'CMUpdater\' App \'den alınmıştır.</string>
+	<string name="credits_text3">\nThe text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+	<string name="credits_text4">\n\tCode from StackOverflow
+	    \n\n
+	    In addition, the Java methods used in YTD to compare version numbers, 
+	    to copy files on extSdCard and to make fetched video file size human readable 
+	    (and a lot of other small non-traceable references), 
+	    are taken from the site Stack Overflow (<http>http://stackoverflow.com</http>), 
+	    a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed
+	    (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+	    For more details, look for comments in YTD\'s Java code.
+	    </string>
     <string name="credits_translators">\n\tÇeviriler 
 \n\nÇeviriler için Teşekkürler:</string>
     <string name="translators_info">\nDaha fazla bilgi için:
 \n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
 \n\n<http>www.getlocalization.com/ytdownloader</http></string>
         
-    <!-- @5.2 -->
+    <!-- -->
     <string name="settings_cat_code">Kaynak Kod</string>
     <string name="ytd_code_git_title">GitHub\'da YTD </string>
     <string name="ytd_code_hg_title">Sourceforge\'de YTD</string>
     <string name="chooser_code_title">Google Code\'de Dosya Seçicisi</string>
 
-    <!-- @6 -->
+    <!-- -->
     <string name="settings_cat_social">Sosyal</string>
     <string name="share_title">Uygulamayı Paylaş</string>
     <string name="share_summary">Twitter, Facebook, Gmail&#8230; ile&#8230;</string>

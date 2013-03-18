@@ -30,6 +30,20 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:text="@string/credits_text3"
+            android:typeface="monospace" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:text="@string/credits_text4"
+            android:typeface="monospace" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/credits_translators"
             android:typeface="monospace" />
         

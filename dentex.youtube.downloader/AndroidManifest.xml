@@ -30,7 +30,6 @@
             android:name="dentex.youtube.downloader.ShareActivity"
             android:exported="true"
             android:label="@string/title_activity_share"
-            android:permission="android.permission.INTERNET"
             android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -46,6 +45,11 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden" >
         </activity>
         <activity
             android:name="dentex.youtube.downloader.docs.GplShowActivity"

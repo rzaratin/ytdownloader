@@ -4,13 +4,11 @@
     <string name="menu_settings">Instellingen</string>
     <string name="title_activity_settings">YouTube Downloader Instellingen</string>
     <string name="title_activity_upgrade_apk">YouTube Downloader Opwaarderen</string>
+    <string name="title_activity_about">About YouTube Downloader</string>
 
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">Algemene App handleiding</string>
-    <string name="tutorial_msg">Nu zult u een lijst zien met alle codecs en kwaliteiten beschikbaar van de geselecteerde video.
-\n\nKies een optie en u zult de vraag krijgen of u het bestand lokaal wilt opslaan (telefoon / sdkaart) of dat u het wilt verzenden via SSH naar een linux computer.
-\n\nBestemmingsvereisten voor de linux-box: Bash en Wget. Extra SSH informatie volgt.</string>
 	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
 		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
 		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
@@ -83,8 +81,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="upgrade_button_download">Download\nen installeren</string>
     <string name="upgrade_uppertext_searching">Zoeken&#8230;</string>
     <string name="upgrade_uppertext_init">Installeer versie:\n</string>
-    <string name="upgrade_dialog_msg">Nieuwe versie beschikbaar:\t</string>
-    <string name="upgrade_dialog_positive">Download</string>
+
     <string name="upgrade_latest">Laatste:\t</string>
     <string name="upgrade_installed">\nGeïnstalleerd:\t</string>
     <string name="upgraded_dialog_msg">Nieuwe versie opgeslagen in standaard map sdkaart \'Download\' folder.\n\n Installeer nu?</string>
@@ -102,25 +99,21 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
 
     <!-- ### preferences ### -->
 
-    <!-- @0 -->
+    <!-- -->
     <string name="dm_title">Downloads bekijken</string>
     <string name="dm_title_condensed">Downloads</string>
     <string name="dm_summary">Open system\'s Download Manager</string>
-    <string name="update_title">Controleren op updates</string>
-    <string name="update_title_condensed">Bijwerken</string>
-    <string name="autoupdate_title">Activeer automatisch bijwerken</string>
-    <string name="autoupdate_summary">Controleer op updates bij het opstarten van de applicatie (het nieuwste bestand wordt automatisch gedownload)</string>
+
     <string name="lang_title">Taal</string>
     <string name="lang_dialog_title">Taal (applicatie herstart vereist):</string>
     <string name="choose_theme_title">Kies thema</string>
-    <string name="choose_theme_dialog_title">Kies thema (vereist herstart van de applicatie)</string>
         
     <string-array name="choose_theme_entries">
         <item>Donker</item>
         <item>Licht</item>
     </string-array>
     
-    <!-- @1 -->
+    <!-- -->
     <string name="settings_cat_tutorials">Handleiding</string>
     <string name="quick_start_title">Snelle start</string>
     <string name="quick_start_summ">Open de snel start handleiding</string>
@@ -134,14 +127,14 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="ssh_info_title">Activeer SSH handleiding</string>
     <string name="ssh_info_summary">Laat een snelle tip zien over op afstand downloaden via SSH</string>
 
-    <!-- @2 -->
+    <!-- -->
     <string name="settings_cat_folder">Download map</string>
     <string name="standard_location_title">Kies een standaard map</string>
     <string name="chooser_swap_title">Wissel kiezer</string>
     <string name="chooser_location_title">Open bestandskiezer</string>
     <string name="chooser_location_summary">Lang drukken om een map te selecteren</string>
 	
-    <!-- @3 -->
+    <!-- -->
     <string name="settings_cat_files">Video bestanden</string>
     <string name="enable_q_suffix_title">Kwaliteit achtervoegsel toevoegen</string>
     <string name="enable_q_suffix_summary">Kwaliteit type toevoegen in bestandsnaam</string>
@@ -154,7 +147,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="show_thumb_title">Toon voorbeeld afbeelding</string>
     <string name="show_thumb_summary">Download een voorbeeld afbeelding met de videolijst</string>
     
-    <!-- @4 -->
+    <!-- -->
     <string name="settings_cat_notifications">Meldingen</string>
     <string name="enable_own_notification_title">Activeer eigen meldingen</string>
     <string name="enable_own_notification_summary">Laat een uitgebreide melding zien over alle YTD downloads</string>
@@ -166,13 +159,20 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
         <item>Tijdens het uitvoering alleen</item>
         <item>Nooit</item>
     </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_updates">Bijwerken</string>
+    <string name="update_title">Controleren op updates</string>
+    <string name="autoupdate_title">Activeer automatisch bijwerken</string>
+    <string name="autoupdate_summary">Controleer op updates bij het opstarten van de applicatie (het nieuwste bestand wordt automatisch gedownload)</string>
 
-    <!-- @5 -->
+    <!-- -->
     <string name="settings_cat_about">Over deze App</string>
+    <string name="settings_cat_about_condensed">About</string>
     <string name="title_changelog">Lijst met veranderingen</string>
     <string name="screen_licences_code_title">Licenties en Regels</string>
 
-    <!-- @5.1 -->
+    <!-- -->
     <string name="settings_cat_licenses">Licenties</string>
     <string name="gpl_title">YTD\'s Licentie</string>
     <string name="gpl_summary">GPL-3.0</string>
@@ -191,19 +191,30 @@ Deze App gebruikt bepaalde code fragementen van de CyanogenMod custom ROM;
 \n\n
 De methode om de MD5 checksum te berekenen en te vergelijken, voor het 
 downloaden van bijwerkingspakketen, zijn ontleed van de \'CMUpdater\' App</string>
+	<string name="credits_text3">\nThe text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+	<string name="credits_text4">\n\tCode from StackOverflow
+	    \n\n
+	    In addition, the Java methods used in YTD to compare version numbers, 
+	    to copy files on extSdCard and to make fetched video file size human readable 
+	    (and a lot of other small non-traceable references), 
+	    are taken from the site Stack Overflow (<http>http://stackoverflow.com</http>), 
+	    a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed
+	    (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+	    For more details, look for comments in YTD\'s Java code.
+	    </string>
     <string name="credits_translators">\n\tVertalingen
 \n\nMede mogelijk gemaakt door:</string>
     <string name="translators_info">\nVoor meer informatie:
 \n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
 \n\n<http>www.getlocalization.com/ytdownloader</http></string>
         
-    <!-- @5.2 -->
+    <!-- -->
     <string name="settings_cat_code">Broncode</string>
     <string name="ytd_code_git_title">YTD op GitHub</string>
     <string name="ytd_code_hg_title">YTD op Sourceforge</string>
     <string name="chooser_code_title">Bestandskiezer op Google Code</string>
 
-    <!-- @6 -->
+    <!-- -->
     <string name="settings_cat_social">Sociaal</string>
     <string name="share_title">Deze App delen</string>
     <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230;</string>

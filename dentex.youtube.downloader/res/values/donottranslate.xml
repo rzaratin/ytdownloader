@@ -5,6 +5,8 @@
         \n-----------------------------------
         \n[x] n.a. in video list bug fixed
         \n    (again)
+        \n[x] re-organized menus
+        \n[x] on the fly theme switch
         \n[x] Korean translation
         \n
         \n v1.8.2 - Mar 15 2013
@@ -149,15 +151,12 @@
 		IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 		CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
 		
+    <string name="credits_text2">(<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>).
+        \n\nCopyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.</string>
+		
     <string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
     <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
     <string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
-		
-    <string name="credits_text2">(<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>).
-        \n\n
-        Copyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
-		\n\n
-		The text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
 		
     <string name="app_name">YouTube Downloader</string>
     <string name="title_activity_share">YouTube Downloader</string>

@@ -4,6 +4,7 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_settings">YouTube Downloader Settings</string>
     <string name="title_activity_upgrade_apk">YouTube Downloader Upgrade</string>
+    <string name="title_activity_about">About YouTube Downloader</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -80,8 +81,7 @@
     <string name="upgrade_button_download">Download\nand install</string>
     <string name="upgrade_uppertext_searching">Searching&#8230;</string>
     <string name="upgrade_uppertext_init">Installed version:\n</string>
-    <string name="upgrade_dialog_msg">New version available:\t</string>
-    <string name="upgrade_dialog_positive">Download</string>
+
     <string name="upgrade_latest">Latest:\t</string>
     <string name="upgrade_installed">\nInstalled:\t</string>
     <string name="upgraded_dialog_msg">New version stored in standard sdcard \'Download\' folder.\n\nInstall now?</string>
@@ -99,25 +99,22 @@
 
     <!-- ### preferences ### -->
 
-    <!-- @0 -->
+    <!-- -->
     <string name="dm_title">View Downloads</string>
     <string name="dm_title_condensed">Downloads</string>
     <string name="dm_summary">Open system\'s Download Manager</string>
-    <string name="update_title">Check for updates</string>
-    <string name="update_title_condensed">Update</string>
-    <string name="autoupdate_title">Enable auto-update</string>
-    <string name="autoupdate_summary">Check for updates on first application\'s run of the day (the new package will be auto-downloaded)</string>
+
+    <!-- -->
+    <string name="settings_cat_ui">User Interface</string>
     <string name="lang_title">Language</string>
     <string name="lang_dialog_title">Language (needs application\'s restart):</string>
     <string name="choose_theme_title">Choose theme</string>
-    <string name="choose_theme_dialog_title">Choose theme (needs application\'s restart):</string>
-        
     <string-array name="choose_theme_entries">
         <item>Dark</item>
         <item>Light</item>
     </string-array>
     
-    <!-- @1 -->
+    <!-- -->
     <string name="settings_cat_tutorials">Tutorials</string>
     <string name="quick_start_title">Quick start</string>
     <string name="quick_start_summ">Open a quick start tutorial</string>
@@ -131,14 +128,14 @@
     <string name="ssh_info_title">Enable SSH how-to</string>
     <string name="ssh_info_summary">Show a quick tip about remote downloading via SSH</string>
 
-    <!-- @2 -->
+    <!-- -->
     <string name="settings_cat_folder">Download folder</string>
     <string name="standard_location_title">Choose standard folder</string>
     <string name="chooser_swap_title">Swap chooser</string>
     <string name="chooser_location_title">Open file-chooser</string>
     <string name="chooser_location_summary">Long-press to select a folder</string>
 	
-    <!-- @3 -->
+    <!-- -->
     <string name="settings_cat_files">Video files</string>
     <string name="enable_q_suffix_title">Append quality suffix</string>
     <string name="enable_q_suffix_summary">Append the video quality type to the file name</string>
@@ -151,7 +148,7 @@
     <string name="show_thumb_title">Show preview image</string>
     <string name="show_thumb_summary">Download a preview image together with the video list</string>
     
-    <!-- @4 -->
+    <!-- -->
     <string name="settings_cat_notifications">Notifications</string>
     <string name="enable_own_notification_title">Enable own notification</string>
     <string name="enable_own_notification_summary">Show a comprehensive notification about all YTD downloads</string>
@@ -163,13 +160,20 @@
         <item>While in progress only</item>
         <item>Never</item>
     </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_updates">Updates</string>
+    <string name="update_title">Check for updates</string>
+    <string name="autoupdate_title">Enable auto-update</string>
+    <string name="autoupdate_summary">Check for updates on first application\'s run of the day (the new package will be auto-downloaded)</string>
 
-    <!-- @5 -->
+    <!-- -->
     <string name="settings_cat_about">About this App</string>
+    <string name="settings_cat_about_condensed">About</string>
     <string name="title_changelog">Changelog</string>
     <string name="screen_licences_code_title">Licenses and Code</string>
 
-    <!-- @5.1 -->
+    <!-- -->
     <string name="settings_cat_licenses">Licenses</string>
     <string name="gpl_title">YTD\'s License</string>
     <string name="gpl_summary">GPL-3.0</string>
@@ -188,19 +192,30 @@
         \n\n
         Specifically the methods to calculate and then compare the MD5 
         checksum for downloaded upgrade packages are taken from the \'CMUpdater\' App</string>
+	<string name="credits_text3">\nThe text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+	<string name="credits_text4">\n\tCode from StackOverflow
+	    \n\n
+	    In addition, the Java methods used in YTD to compare version numbers, 
+	    to copy files on extSdCard and to make fetched video file size human readable 
+	    (and a lot of other small non-traceable references), 
+	    are taken from the site Stack Overflow (<http>http://stackoverflow.com</http>), 
+	    a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed
+	    (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+	    For more details, look for comments in YTD\'s Java code.
+	    </string>
     <string name="credits_translators">\n\tTranslations
         \n\nFurthermore, additional localizations thanks to:</string>
     <string name="translators_info">\nFor more info:
         \n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
         \n\n<http>www.getlocalization.com/ytdownloader</http></string>
         
-    <!-- @5.2 -->
+    <!-- -->
     <string name="settings_cat_code">Source Code</string>
     <string name="ytd_code_git_title">YTD at GitHub</string>
     <string name="ytd_code_hg_title">YTD at Sourceforge</string>
     <string name="chooser_code_title">Filechooser at Google Code</string>
 
-    <!-- @6 -->
+    <!-- -->
     <string name="settings_cat_social">Social</string>
     <string name="share_title">Share this App</string>
     <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230;</string>

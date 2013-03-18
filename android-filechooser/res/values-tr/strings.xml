@@ -16,7 +16,7 @@
 		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
 		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
 		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
-    <string name="loading">Yükleniyor...</string>
+    <string name="loading">Yükleniyor&#8230;</string>
     <string name="error">Hata!</string>
     <string name="information">Bilgi</string>
     <string name="dialogs_negative">Iptal</string>

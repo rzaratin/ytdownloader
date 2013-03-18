@@ -4,13 +4,11 @@
     <string name="menu_settings">Paramètres</string>
     <string name="title_activity_settings">Paramètres de YouTube Downloader</string>
     <string name="title_activity_upgrade_apk">Mise à jour de YouTube Downloader</string>
+    <string name="title_activity_about">Sur YouTube Downloader</string>
 
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">Tutoriel général de l\'application</string>
-    <string name="tutorial_msg">Vous allez maintenant voir une liste des codecs et des qualités disponibles pour la vidéo sélectionnée.
-\n\nFaites votre choix et il vous sera ensuite demandé si vous souhaitez télécharger la vidéo localement (sur votre appareil) ou bien l\'envoyer via SSH à une machine sous Linux.
-\n\nRequis pour un envoi sur une machine sous Linux: Bash et Wget. Des infos complémentaires concernant SSH vous serons demandées dans les étapes suivantes.</string>
 	<string name="tutorial_msg_new">Vous allez maintenant voir une liste des codecs et des qualités disponibles pour la vidéo sélectionnée. Vous pouvez:
 \n\n*) Appuyer sur un élément pour télécharger la vidéo localement (sur votre appareil) ou pour lancer le téléchargement via SSH sur un ordinateur distant.
 \nRequis sur l\'ordinateur distant: Bash et Wget. Des infos complémentaires concernant SSH vous serons demandées dans les étapes suivantes.
@@ -83,8 +81,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
     <string name="upgrade_button_download">Télécharger\net installer</string>
     <string name="upgrade_uppertext_searching">Recherche&#8230;</string>
     <string name="upgrade_uppertext_init">Version installée:\n</string>
-    <string name="upgrade_dialog_msg">Nouvelle version disponible:\t</string>
-    <string name="upgrade_dialog_positive">Télécharger</string>
+
     <string name="upgrade_latest">Dernière:\t</string>
     <string name="upgrade_installed">\nInstallée:\t</string>
     <string name="upgraded_dialog_msg">Nouvelle version enregistrée dans le dossier \'Download\' de la sdcard.\n\nInstaller maintenant?</string>
@@ -102,25 +99,21 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
 
     <!-- ### preferences ### -->
 
-    <!-- @0 -->
+    <!-- -->
     <string name="dm_title">Voir les téléchargements</string>
     <string name="dm_title_condensed">Téléchargements</string>
     <string name="dm_summary">Ouvrir le gestionnaire de téléchargements du système</string>
-    <string name="update_title">Vérifier les mises à jour</string>
-    <string name="update_title_condensed">Mettre à jour</string>
-    <string name="autoupdate_title">Activer les mises à jour automatiques</string>
-    <string name="autoupdate_summary">Vérifier les mises à jour au premier lancement de l\'application chaque jour (le package sera téléchargé automatiquement)</string>
+
     <string name="lang_title">Langue</string>
     <string name="lang_dialog_title">Langue (nécessite un redémarrage de l\'application):</string>
     <string name="choose_theme_title">Choisir le thème</string>
-    <string name="choose_theme_dialog_title">Choisir le thème (nécessite un redémarrage de l\'application):</string>
         
     <string-array name="choose_theme_entries">
         <item>Sombre</item>
         <item>Clair</item>
     </string-array>
     
-    <!-- @1 -->
+    <!-- -->
     <string name="settings_cat_tutorials">Tutoriels</string>
     <string name="quick_start_title">Démarrage rapide</string>
     <string name="quick_start_summ">Ouvrir un tutoriel de démarrage rapide</string>
@@ -134,14 +127,14 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
     <string name="ssh_info_title">Activer le tutoriel pour SSH</string>
     <string name="ssh_info_summary">Montrer des explications rapides à propos du téléchargement via SSH</string>
 
-    <!-- @2 -->
+    <!-- -->
     <string name="settings_cat_folder">Dossier des téléchargements</string>
     <string name="standard_location_title">Choisir un dossier prédéfini</string>
     <string name="chooser_swap_title">Changer de type de dossier</string>
     <string name="chooser_location_title">Choisir un dossier</string>
     <string name="chooser_location_summary">Appuyez longuement pour sélectionner un dossier</string>
 	
-    <!-- @3 -->
+    <!-- -->
     <string name="settings_cat_files">Fichiers vidéo</string>
     <string name="enable_q_suffix_title">Ajouter la qualité en suffixe</string>
     <string name="enable_q_suffix_summary">Ajouter la qualité de la vidéo à la fin du nom du fichier</string>
@@ -154,7 +147,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
     <string name="show_thumb_title">Montrer l\'aperçu</string>
     <string name="show_thumb_summary">Télécharge une image d\'aperçu avec la liste des vidéos</string>
     
-    <!-- @4 -->
+    <!-- -->
     <string name="settings_cat_notifications">Notifications</string>
     <string name="enable_own_notification_title">Activer notifications YTD</string>
     <string name="enable_own_notification_summary">Afficher des notifications pour tous les téléchargements via YTD</string>
@@ -166,13 +159,20 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
         <item>Pendant le téléchargement seulement</item>
         <item>Jamais</item>
     </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_updates">Mettre à jour</string>
+    <string name="update_title">Vérifier les mises à jour</string>
+    <string name="autoupdate_title">Activer les mises à jour automatiques</string>
+    <string name="autoupdate_summary">Vérifier les mises à jour au premier lancement de l\'application chaque jour (le package sera téléchargé automatiquement)</string>
 
-    <!-- @5 -->
+    <!-- -->
     <string name="settings_cat_about">A propos de cette application</string>
+    <string name="settings_cat_about_condensed">A propos</string>
     <string name="title_changelog">Changelog</string>
     <string name="screen_licences_code_title">Licences et Code</string>
 
-    <!-- @5.1 -->
+    <!-- -->
     <string name="settings_cat_licenses">Licences</string>
     <string name="gpl_title">Licence de YTD</string>
     <string name="gpl_summary">GPL-3.0</string>
@@ -191,19 +191,29 @@ Cette application utilise certains extraits de code provenant de la ROM Cyanogen
 \n\n 
 En particulier les méthodes pour calculer et comparer
 la somme de contrôle MD5 lors du téléchargement des packages de mise à jour, qui proviennent de l\'application \'CMUpdater\'.</string>
+	<string name="credits_text3">\nLe contenu de la licence est disponible dans le fichier LICENSE_GPL2 ou à l\'adresse <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+	<string name="credits_text4">\n\tCode provenant de StackOverflow
+\n\n
+De plus, les méthodes Java utilisées dans YTD pour comparer les numéros de version,
+copier les fichiers sur la carte SD externe et pour présenter le poids des fichiers de manière lisible
+(et beaucoup d\'autres petites choses insourçables),
+proviennent du site Stack Overflow (<http>http://stackoverflow.com</http>),
+un site de questions et réponses pour programmeurs où tout le contenu est sous licence CC BY-SA 3.0
+(voir <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+Pour plus de détails, consultez les commentaires du code source Java de YTD.</string>
     <string name="credits_translators">\n\tTraductions
 \n\nMerci pour les localisations additionnelles:</string>
     <string name="translators_info">\nPour plus d\'informations:
 \n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
 \n\n<http>www.getlocalization.com/ytdownloader</http></string>
         
-    <!-- @5.2 -->
+    <!-- -->
     <string name="settings_cat_code">Code source</string>
     <string name="ytd_code_git_title">YTD sur GitHub</string>
     <string name="ytd_code_hg_title">YTD sur SourceForge</string>
     <string name="chooser_code_title">Filechooser sur Google Code</string>
 
-    <!-- @6 -->
+    <!-- -->
     <string name="settings_cat_social">Réseaux sociaux</string>
     <string name="share_title">Partager cette application</string>
     <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230;</string>

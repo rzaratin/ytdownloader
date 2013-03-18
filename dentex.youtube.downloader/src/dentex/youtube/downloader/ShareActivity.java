@@ -205,6 +205,9 @@ public class ShareActivity extends Activity {
         	case R.id.menu_settings:
         		startActivity(new Intent(this, SettingsActivity.class));
         		return true;
+        	case R.id.menu_about:
+        		startActivity(new Intent(this, AboutActivity.class));
+        		return true;
         	case R.id.menu_dm:
         		startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
         		return true;
@@ -817,7 +820,7 @@ public class ShareActivity extends Activity {
                     codecMatcher(CQS[index], index);
                     qualityMatcher(CQS[index], index);
                     linkComposer(CQS[index], index);
-                    //Log.d(DEBUG_TAG, "block " + index + ": " + CQS[index]);
+                    //Log.v(DEBUG_TAG, "block " + index + ": " + CQS[index]);
                     index++;
                 }
                 listEntriesBuilder();
@@ -887,13 +890,20 @@ public class ShareActivity extends Activity {
         	}
     	}
     		
-    	Pattern sigPattern = Pattern.compile("sig=([[0-9][A-Z]]{39,40}\\.[[0-9][A-Z]]{39,40})");
+    	//Pattern sigPattern = Pattern.compile("sig=([[0-9][A-Z]]{39,40}\\.[[0-9][A-Z]]{39,40})");
+		Pattern sigPattern = Pattern.compile("sig=(.+?)\\\\u0026");
     	Matcher sigMatcher = sigPattern.matcher(block);
     	String sig = null;
 		if (sigMatcher.find()) {
     		sig = "signature=" + sigMatcher.group(1);
     	} else {
-    		Log.e(DEBUG_TAG, "sig: " + sig);
+    		Pattern sigPattern2 = Pattern.compile("sig=(.+?)$");
+    		Matcher sigMatcher2 = sigPattern2.matcher(block);
+    		if (sigMatcher2.find()) {
+    			sig = "signature=" + sigMatcher2.group(1);
+        	} else {
+        		Log.e(DEBUG_TAG, "sig: " + sig);
+        	}
     	}
 
 		//Log.d(DEBUG_TAG, "url: " + url);
@@ -963,6 +973,13 @@ public class ShareActivity extends Activity {
 		return size;
 	}
 
+    /* method MakeSizeHumanReadable(int bytes, boolean si) from Stack Overflow:
+	 * http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
+	 * 
+	 * Q: http://stackoverflow.com/users/404615/iimuhin
+	 * A: http://stackoverflow.com/users/276052/aioobe
+	 */
+	 
 	@SuppressLint("DefaultLocale")
 	private String MakeSizeHumanReadable(int bytes, boolean si) {
 		String hr;

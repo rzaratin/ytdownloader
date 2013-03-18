@@ -4,19 +4,17 @@
     <string name="menu_settings">Opzioni</string>
     <string name="title_activity_settings">Opzioni YouTube Downloader</string>
     <string name="title_activity_upgrade_apk">Aggiornamento per YouTube Downloader</string>
+    <string name="title_activity_about">Riguardo a YouTube Downloader</string>
 
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">Guida generica per l\'App</string>
-    <string name="tutorial_msg">Sarà visibile una lista con tutti i codec e le qualità disponibili per il video selezionato.
-		\n\nScegline una e ti verrà chiesto di scaricare il video in locale (sul dispositivo) o di mandare il download via SSH verso un PC Linux.
-		\n\nRequisiti della linux-box di destinazione: Bash and Wget. Informazioni addizionali su SSH più avanti.</string>
 	<string name="tutorial_msg_new">Sarà visibile una lista con tutti i codec e le qualità disponibili per il video selezionato. Potrai:
 		\n\n*) Premere per scaricare il video in locale (sul dispositivo) o per mandare il download via SSH verso un PC remoto.
 		\nRequisiti del computer di destinazione: Bash and Wget. Informazioni addizionali su SSH più avanti;
                 \n\n*) Premere a lungo per scegliere se copiare nella clipboard o condividere il link come testo (ad es. mandandolo ad un\'altra App).
                 \nNota: tale link (diversamente da quando lo si manda via SSH) può essere usato solo dallo stesso dispositivo che l\'ha creato OPPURE dalla stessa LAN, nel caso in cui lo si condivida con un altro computer.\n</string>
-    <string name="loading">In caricamento...</string>
+    <string name="loading">In caricamento&#8230;</string>
     <string name="error">Errore!</string>
     <string name="information">Informazione</string>
     <string name="dialogs_negative">Annulla</string>
@@ -83,8 +81,7 @@
     <string name="upgrade_button_download">Scarica\ne installa</string>
     <string name="upgrade_uppertext_searching">Ricerca&#8230;</string>
     <string name="upgrade_uppertext_init">Versione installata:\n</string>
-    <string name="upgrade_dialog_msg">Nuova versione disponibile:\t</string>
-    <string name="upgrade_dialog_positive">Download</string>
+
     <string name="upgrade_latest">Più recente:\t</string>
     <string name="upgrade_installed">\nInstallata:\t</string>
     <string name="upgraded_dialog_msg">Nuova versione scaricata e salvata nella cartella \'Download\' della sdcard standard.\n\nInstallare ora?</string>
@@ -102,25 +99,21 @@
 
     <!-- ### preferences ### -->
 
-    <!-- @0 -->
+    <!-- -->
     <string name="dm_title">Vedi Downloads</string>
     <string name="dm_title_condensed">Downloads</string>
     <string name="dm_summary">Apri il Download Manager di sistema</string>
-    <string name="update_title">Controlla aggiornamenti</string>
-    <string name="update_title_condensed">Aggiorna</string>
-    <string name="autoupdate_title">Abilita aggiornamenti automatici</string>
-    <string name="autoupdate_summary">Controlla aggiornamenti al primo avvio dell\'applicazione della giornata (il nuovo pacchetto sarà scaricato automaticamente)</string>
+
     <string name="lang_title">Lingua</string>
     <string name="lang_dialog_title">Lingua (richiede riavvio dell\'applicazione):</string>
     <string name="choose_theme_title">Scegli il tema</string>
-    <string name="choose_theme_dialog_title">Scegli il tema (necessita riavvio dell\'applicazione):</string>
         
     <string-array name="choose_theme_entries">
         <item>Scuro</item>
         <item>Chiaro</item>
     </string-array>
     
-    <!-- @1 -->
+    <!-- -->
     <string name="settings_cat_tutorials">Guide</string>
     <string name="quick_start_title">Quick start</string>
     <string name="quick_start_summ">Apri una guida rapida</string>
@@ -134,14 +127,14 @@
     <string name="ssh_info_title">Abilita guida sull\'SSH</string>
     <string name="ssh_info_summary">Mostra una guida rapida sul download in remoto via SSH</string>
 
-    <!-- @2 -->
+    <!-- -->
     <string name="settings_cat_folder">Cartella di download</string>
     <string name="standard_location_title">Scegli cartella standard</string>
     <string name="chooser_swap_title">Scambia selettore</string>
     <string name="chooser_location_title">Apri il file-chooser</string>
     <string name="chooser_location_summary">Tieni premuto su di una cartella per selezionarla</string>
 	
-    <!-- @3 -->
+    <!-- -->
     <string name="settings_cat_files">File video</string>
     <string name="enable_q_suffix_title">Apponi suffisso qualità</string>
     <string name="enable_q_suffix_summary">Aggiungi il tipo di qualità del video alla fine del nome del file</string>
@@ -154,7 +147,7 @@
     <string name="show_thumb_title">Mostra un\'immagine di anteprima</string>
     <string name="show_thumb_summary">Scarica un\'immagine di anteprima, insieme alla lista dei video</string>
     
-    <!-- @4 -->
+    <!-- -->
     <string name="settings_cat_notifications">Notifiche</string>
     <string name="enable_own_notification_title">Abilita notifica propria</string>
     <string name="enable_own_notification_summary">Mostra una notifica globale su tutti i download di YTD</string>
@@ -166,13 +159,20 @@
         <item>Solo durante l\'avanzamento</item>
         <item>Mai</item>
     </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_updates">Aggiornamenti</string>
+    <string name="update_title">Controlla aggiornamenti</string>
+    <string name="autoupdate_title">Abilita aggiornamenti automatici</string>
+    <string name="autoupdate_summary">Controlla aggiornamenti al primo avvio dell\'applicazione della giornata (il nuovo pacchetto sarà scaricato automaticamente)</string>
 
-    <!-- @5 -->
+    <!-- -->
     <string name="settings_cat_about">Riguardo questa App</string>
+    <string name="settings_cat_about_condensed">About</string>
     <string name="title_changelog">Changelog</string>
     <string name="screen_licences_code_title">Codice e Licenze</string>
 
-    <!-- @5.1 -->
+    <!-- -->
     <string name="settings_cat_licenses">Licenze</string>
     <string name="gpl_title">Licenza di YTD</string>
     <string name="gpl_summary">GPL-3.0</string>
@@ -185,25 +185,35 @@
     <string name="credits_title">Altri crediti</string>
     <string name="credits_summary">Altre licenze e traduzioni</string>
     <string name="title_activity_credits_show">Altre licenze e traduzioni</string>
-    <string name="credits_text1"> Licenze per altre parti di codice
+    <string name="credits_text1"> \tLicenze per altre parti di codice
         \n\n
         Questa App utilizza alcuni estratti di codice dalla CyanogenMod custom ROM;
         \n\n
         In particolare, i metodi per calcolare e comparare i checksum MD5 
-        per i pacchetti di aggiornamento scaricati sono presi dalla App \'CMUpdater\'</string>
+        dei pacchetti di aggiornamento scaricati sono presi dalla App \'CMUpdater\'</string>
+	<string name="credits_text3">\nIl testo della licenza può essere trovato nel file LICENSE_GPL2 oppure su <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+	<string name="credits_text4">\n\tCodice da StackOverflow
+\n\n
+In più, i metodi Java usati in YTD per confrontare i numeri di versione,
+per copiare file sulla extSdCard e per rendere leggibili le dimensioni scaricate dei file video
+(e molti altri piccoli riferimenti non tracciabili), 
+sono presi dal sito Stack Overflow (<http>http://stackoverflow.com</http>), 
+un sito di domande e risposte per programmatori, dove tutti i contenuti sono rilasciati con licenza CC BY-SA 3.0
+(<http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+Per ulteriori dettagli, vedere i commenti nel codice Java di YTD.</string>
     <string name="credits_translators">\n\tTraduzioni 
-        \n\Inoltre, localizzazioni addizionali grazie a: </string>
+            \n\nInoltre, localizzazioni addizionali grazie a: </string>
     <string name="translators_info">\nPer maggiori informazioni:
-\n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
-\n\n<http>www.getlocalization.com/ytdownloader</http></string>
+        \n<http>forum.xda-developers.com/showthread.php?p=37708791</http>
+        \n\n<http>www.getlocalization.com/ytdownloader</http></string>
         
-    <!-- @5.2 -->
+    <!-- -->
     <string name="settings_cat_code">Codice sorgente</string>
     <string name="ytd_code_git_title">YTD su GitHub</string>
     <string name="ytd_code_hg_title">YTD su Sourceforge</string>
     <string name="chooser_code_title">Filechooser su Google Code</string>
 
-    <!-- @6 -->
+    <!-- -->
     <string name="settings_cat_social">Social</string>
     <string name="share_title">Condividi questa App</string>
     <string name="share_summary">via Twitter, Facebook, Gmail, ecc&#8230;</string>

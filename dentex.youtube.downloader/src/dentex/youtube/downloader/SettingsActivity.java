@@ -9,19 +9,18 @@ import java.util.List;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
@@ -29,11 +28,9 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
-import dentex.youtube.downloader.docs.ChangelogActivity;
-import dentex.youtube.downloader.docs.CreditsShowActivity;
-import dentex.youtube.downloader.docs.GplShowActivity;
-import dentex.youtube.downloader.docs.MitShowActivity;
 import dentex.youtube.downloader.service.AutoUpgradeApkService;
 import dentex.youtube.downloader.utils.PopUps;
 import dentex.youtube.downloader.utils.Utils;
@@ -68,30 +65,43 @@ public class SettingsActivity extends Activity {
         }
         
         // Load default preferences values
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
         
         // Display the fragment as the main content.
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();
     }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	getMenuInflater().inflate(R.menu.activity_settings, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch(item.getItemId()){
+        	case R.id.menu_about:
+        		startActivity(new Intent(this, AboutActivity.class));
+        		return true;
+        	case R.id.menu_dm:
+        		startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
+        		return true;
+        	default:
+        		return super.onOptionsItemSelected(item);
+        }
+    }
 
 	public static class SettingsFragment extends PreferenceFragment implements OnSharedPreferenceChangeListener {
     	
-		private Preference dm;
+		//private Preference dm;
 		private Preference filechooser;
 		private Preference quickStart;
-		private Preference gpl;
-		private Preference mit;
-		private Preference credits;
-		private Preference git;
-		private Preference hg;
-		private Preference gc;
-		private Preference share;
-		private Preference cl;
 		private Preference up;
 		private CheckBoxPreference ownNot;
-		private Preference loc;
+		private Preference th;
 
 		//TODO fix for release
 		public static final int YTD_SIG_HASH = -1892118308; // final string
@@ -102,16 +112,7 @@ public class SettingsActivity extends Activity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            addPreferencesFromResource(R.xml.preferences);
-            
-            dm = (Preference) findPreference("dm");
-            dm.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
-                    return true;
-                }
-            });
+            addPreferencesFromResource(R.xml.settings);
 
             String cf = settings.getString("CHOOSER_FOLDER", "");
             if (cf.isEmpty()) {
@@ -126,6 +127,15 @@ public class SettingsActivity extends Activity {
                 initSummary(getPreferenceScreen().getPreference(i));
             }
 
+            /*dm = (Preference) findPreference("dm");
+            dm.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	startActivity(new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS));
+                    return true;
+                }
+            });*/
+            
             filechooser = (Preference) getPreferenceScreen().findPreference("open_chooser");
             filechooser.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
@@ -146,114 +156,6 @@ public class SettingsActivity extends Activity {
 					return true;
 				}
 			});
-            
-            gpl = (Preference) findPreference("gpl");
-            gpl.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	Intent intent = new Intent(getActivity(),  GplShowActivity.class);
-            		startActivity(intent);
-                    return true;
-                }
-            });
-            
-            mit = (Preference) findPreference("mit");
-            mit.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	Intent intent = new Intent(getActivity(),  MitShowActivity.class);
-            		startActivity(intent);
-                    return true;
-                }
-            });
-            
-            credits = (Preference) findPreference("credits");
-            credits.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	Intent intent = new Intent(getActivity(),  CreditsShowActivity.class);
-            		startActivity(intent);
-                    return true;
-                }
-            });
-            
-            git = (Preference) findPreference("ytd_code_git");
-            git.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	String url = "https://github.com/dentex/ytdownloader/";
-                	Intent i = new Intent(Intent.ACTION_VIEW);
-                	i.setData(Uri.parse(url));
-                	startActivity(i);
-                	return true;
-                }
-            });
-            
-            hg = (Preference) findPreference("ytd_code_hg");
-            hg.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	String url = "https://sourceforge.net/projects/ytdownloader/";
-                	Intent i = new Intent(Intent.ACTION_VIEW);
-                	i.setData(Uri.parse(url));
-                	startActivity(i);
-                	return true;
-                }
-            });
-            
-            gc = (Preference) findPreference("chooser_code");
-            gc.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	String url = "https://code.google.com/p/android-filechooser/";
-                	Intent i = new Intent(Intent.ACTION_VIEW);
-                	i.setData(Uri.parse(url));
-                	startActivity(i);
-                	return true;
-                }
-            });
-            
-            share = (Preference) findPreference("share");
-            share.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                    try {
-                    	Intent shareIntent =   
-                    	new Intent(android.content.Intent.ACTION_SEND);   
-                    	shareIntent.setType("text/plain");  
-                    	shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "YouTube Downloader");
-                    	String shareMessage = getString(R.string.share_message);
-                    	shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
-                    	startActivity(Intent.createChooser(shareIntent, "Share this YTD"));
-                    } catch (final ActivityNotFoundException e) {
-                    	Log.d(DEBUG_TAG, "No suitable Apps found.");
-                    	PopUps.showPopUpInFragment(getString(R.string.attention), getString(R.string.share_warning), "alert", SettingsFragment.this);
-                    }
-                	return true;
-                }
-            });
-            
-            loc = (Preference) findPreference("help_translate");
-            loc.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	String url = "http://www.getlocalization.com/ytdownloader/";
-                	Intent i = new Intent(Intent.ACTION_VIEW);
-                	i.setData(Uri.parse(url));
-                	startActivity(i);
-                	return true;
-                }
-            });
-            
-            cl = (Preference) findPreference("changelog");
-            cl.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            	
-                public boolean onPreferenceClick(Preference preference) {
-                	Intent intent = new Intent(getActivity(),  ChangelogActivity.class);
-                	startActivity(intent);
-                    return true;
-                }
-            });
             
             up = (Preference) findPreference("update");
             up.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -276,6 +178,23 @@ public class SettingsActivity extends Activity {
 					return true;
                 }
             });
+            
+            th = (Preference) findPreference("choose_theme");
+			th.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+				
+				public boolean onPreferenceChange(Preference preference, Object newValue) {
+					String theme = settings.getString("choose_theme", "D");
+					Activity thisActivity = SettingsFragment.this.getActivity();
+			    	if (theme.equals("D")) {
+			    		thisActivity.setTheme(R.style.AppThemeDark);
+			    	} else {
+			    		thisActivity.setTheme(R.style.AppThemeLight);
+			    	}
+			    	thisActivity.finish();
+		    		thisActivity.startActivity(new Intent(thisActivity, SettingsActivity.class));
+					return true;
+				}
+			});
  
 			updateInit();
 		}
@@ -371,8 +290,8 @@ public class SettingsActivity extends Activity {
         	initSwapPreference();
         	initSizePreference();
         }
-        	 
-        private void initSummary(Preference p){
+
+		private void initSummary(Preference p){
         	if (p instanceof PreferenceCategory){
         		PreferenceCategory pCat = (PreferenceCategory)p;
         		for(int i=0;i<pCat.getPreferenceCount();i++){
@@ -414,7 +333,7 @@ public class SettingsActivity extends Activity {
                 			// Path not writable
                 			chooserSummary = ShareActivity.dir_Downloads.getAbsolutePath();
                 			setChooserPrefAndSummary();
-                			PopUps.showPopUpInFragment(getString(R.string.system_warning_title), getString(R.string.system_warning_msg), "alert", SettingsFragment.this);
+                			PopUps.showPopUp(getString(R.string.system_warning_title), getString(R.string.system_warning_msg), "alert", SettingsFragment.this.getActivity());
                 			//Toast.makeText(SettingsFragment.this.getActivity(), getString(R.string.system_warning), Toast.LENGTH_SHORT).show();
                 			break;
                 		case 2:
