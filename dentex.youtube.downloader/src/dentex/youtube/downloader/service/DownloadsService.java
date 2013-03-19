@@ -28,6 +28,7 @@ public class DownloadsService extends Service {
 	public final String PREFS_NAME = ShareActivity.PREFS_NAME;
 	public boolean copy;
 	public static int ID;
+	public static Context nContext;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -37,9 +38,14 @@ public class DownloadsService extends Service {
 	@Override
 	public void onCreate() {
 		settings = getSharedPreferences(PREFS_NAME, 0);
+		nContext = getBaseContext();
 		Log.d(DEBUG_TAG, "service created");
 		registerReceiver(downloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 	}
+	
+	public static Context getContext() {
+        return nContext;
+    }
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -168,8 +174,9 @@ public class DownloadsService extends Service {
 		} else {
 			ShareActivity.mBuilder.setContentText(ShareActivity.noDownloads);
 			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
-			Log.d(DEBUG_TAG, "No downloads in progress - stopping FileObserver");
+			Log.i(DEBUG_TAG, "No downloads in progress; stopping FileObserver and DownloadsService");
 			ShareActivity.fileObserver.stopWatching();
+			nContext.stopService(new Intent(DownloadsService.getContext(), DownloadsService.class));
 		}
 	}
 }

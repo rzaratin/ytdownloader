@@ -136,6 +136,7 @@ public class ShareActivity extends Activity {
 	public static NotificationCompat.Builder mBuilder;
 	public static String onlineVersion;
 	public static List<Long> sequence = new ArrayList<Long>();
+	public static Context mContext;
 	boolean showSizeListPref;
 	boolean showSizePref;
 	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(ShareActivity.this, R.style.BoxTheme);
@@ -144,7 +145,7 @@ public class ShareActivity extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        mContext = getBaseContext();
         settings = getSharedPreferences(PREFS_NAME, 0);
         
     	// Theme init
@@ -192,6 +193,10 @@ public class ShareActivity extends Activity {
         }
     }
 
+    public static Context getContext() {
+        return mContext;
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_share, menu);
@@ -673,7 +678,7 @@ public class ShareActivity extends Activity {
 			}
 			fileObserver.startWatching();
 			
-			NotificationHelper();
+			//NotificationHelper();
 		}
     }
     
@@ -718,22 +723,22 @@ public class ShareActivity extends Activity {
         enqueue = dm.enqueue(request);
     }
 
-    private void NotificationHelper() {
-    	pt1 = getString(R.string.notification_downloading_pt1);
-    	pt2 = getString(R.string.notification_downloading_pt2);
-    	noDownloads = getString(R.string.notification_no_downloads);
+    public static void NotificationHelper() {
+    	pt1 = mContext.getString(R.string.notification_downloading_pt1);
+    	pt2 = mContext.getString(R.string.notification_downloading_pt2);
+    	noDownloads = mContext.getString(R.string.notification_no_downloads);
     	
-    	mBuilder =  new NotificationCompat.Builder(this);
+    	mBuilder =  new NotificationCompat.Builder(mContext);
     	
     	mBuilder.setSmallIcon(R.drawable.icon_nb)
-    	        .setContentTitle(getString(R.string.app_name))
-    	        .setContentText(getString(R.string.notification_downloading_pt1) + " " + sequence.size() + " " + getString(R.string.notification_downloading_pt2));
+    	        .setContentTitle(mContext.getString(R.string.app_name))
+    	        .setContentText(mContext.getString(R.string.notification_downloading_pt1) + " " + sequence.size() + " " + mContext.getString(R.string.notification_downloading_pt2));
     	
-    	mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    	mNotificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
     	
     	Intent notificationIntent = new Intent(android.app.DownloadManager.ACTION_VIEW_DOWNLOADS);
     	notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-    	PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+    	PendingIntent contentIntent = PendingIntent.getActivity(mContext, 0, notificationIntent, 0);
     	mBuilder.setContentIntent(contentIntent);
     	mId = 1;
     	mNotificationManager.notify(mId, mBuilder.build());

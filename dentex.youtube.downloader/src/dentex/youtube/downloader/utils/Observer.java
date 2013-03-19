@@ -2,13 +2,15 @@ package dentex.youtube.downloader.utils;
 
 import java.io.File;
 
+import dentex.youtube.downloader.ShareActivity;
 import dentex.youtube.downloader.service.DownloadsService;
 
 import android.os.FileObserver;
 import android.util.Log;
 
 // reference:
-// https://gist.github.com/shirou/659180 - https://github.com/shirou
+// https://gist.github.com/shirou/659180
+// https://github.com/shirou
 	
 public class Observer {
 	
@@ -31,6 +33,7 @@ public class Observer {
 			//Log.d(DEBUG_TAG, TAG + "onEvent " + event + ", " + path);
 			
 			if (event == FileObserver.CREATE) {
+				ShareActivity.NotificationHelper();
 				Log.d(DEBUG_TAG, TAG + "file " + path + " CREATED");
 			}
 			

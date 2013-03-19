@@ -104,6 +104,8 @@
     <string name="dm_title_condensed">Downloads</string>
     <string name="dm_summary">Apri il Download Manager di sistema</string>
 
+    <!-- -->
+    <string name="settings_cat_ui">Interfaccia utente</string>
     <string name="lang_title">Lingua</string>
     <string name="lang_dialog_title">Lingua (richiede riavvio dell\'applicazione):</string>
     <string name="choose_theme_title">Scegli il tema</string>

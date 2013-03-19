@@ -104,6 +104,8 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="dm_title_condensed">Downloads</string>
     <string name="dm_summary">Open system\'s Download Manager</string>
 
+    <!-- -->
+    <string name="settings_cat_ui">User Interface</string>
     <string name="lang_title">Taal</string>
     <string name="lang_dialog_title">Taal (applicatie herstart vereist):</string>
     <string name="choose_theme_title">Kies thema</string>

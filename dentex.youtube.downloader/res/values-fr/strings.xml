@@ -104,6 +104,8 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
     <string name="dm_title_condensed">Téléchargements</string>
     <string name="dm_summary">Ouvrir le gestionnaire de téléchargements du système</string>
 
+    <!-- -->
+    <string name="settings_cat_ui">Interface utilisateur</string>
     <string name="lang_title">Langue</string>
     <string name="lang_dialog_title">Langue (nécessite un redémarrage de l\'application):</string>
     <string name="choose_theme_title">Choisir le thème</string>

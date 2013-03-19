@@ -4,16 +4,16 @@
     <string name="menu_settings">Definições</string>
     <string name="title_activity_settings">Definições do YouTube Downloader</string>
     <string name="title_activity_upgrade_apk">Atualização do YouTube Downloader</string>
-    <string name="title_activity_about">About YouTube Downloader</string>
+    <string name="title_activity_about">Sobre o YouTube Downloader</string>
 
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">Tutorial geral da aplicação</string>
-	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
-		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
-		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
-		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
-		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
+	<string name="tutorial_msg_new">Agora irá ver uma lista com todos os codecs e qualidades disponiveis para o video seleccionado. Poderá:
+\n\n*) Pressionar num item para fazer download do video localmente (no dispositivo) ou para enviar o download via SSH para um computador remoto.
+\nRequisitos da mauquina de destino: Bash e Wget. Informação SSH adicional mais a frente;
+\n\n*) Pressionar mais tempo num item e escolher entre copiar para a area de transferencia ou partilhar link  como texto (ex. enviar para outra aplicação).
+\nPor favor repare que tal link (diferente de quando se envia por SSH) so pode ser utilizado no mesmo dispositivo em que foi criado OU na mesma LAN, se o partilhar para outra maquina.\n</string>
     <string name="loading">Carregando&#8230;</string>
     <string name="error">Erro!</string>
     <string name="information">Informação</string>
@@ -104,6 +104,8 @@
     <string name="dm_title_condensed">Downloads</string>
     <string name="dm_summary">Abrir o Gestor de Transferencias do sistema</string>
 
+    <!-- -->
+    <string name="settings_cat_ui">Interface de Utilizador</string>
     <string name="lang_title">Idioma</string>
     <string name="lang_dialog_title">Idioma (requer a reinicialização do aplicativo):</string>
     <string name="choose_theme_title">Escolher tema</string>
@@ -168,7 +170,7 @@
 
     <!-- -->
     <string name="settings_cat_about">Sobre</string>
-    <string name="settings_cat_about_condensed">About</string>
+    <string name="settings_cat_about_condensed">Sobre</string>
     <string name="title_changelog">Changelog</string>
     <string name="screen_licences_code_title">Licenças e codigo</string>
 
@@ -191,7 +193,7 @@
         \n\n
         Especificamente os metodos para calcular e comparar a checksum MD5
         dos pacotes de actualização descarregados são tiradas da aplicação \'CMUpdater\'</string>
-	<string name="credits_text3">\nThe text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+	<string name="credits_text3">\nO texto da licença pode ser encontrado no ficheiro LICENSE_GPL2 ou em <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
 	<string name="credits_text4">\n\tCode from StackOverflow
 	    \n\n
 	    In addition, the Java methods used in YTD to compare version numbers, 

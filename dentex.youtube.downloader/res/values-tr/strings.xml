@@ -4,7 +4,7 @@
     <string name="menu_settings">Ayarlar</string>
     <string name="title_activity_settings">YouTube Downloader Ayarları</string>
     <string name="title_activity_upgrade_apk">YouTube Downloader Sürüm Yükselt</string>
-    <string name="title_activity_about">About YouTube Downloader</string>
+    <string name="title_activity_about">YouTube Downloader hakkında</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -104,6 +104,8 @@
     <string name="dm_title_condensed">İndirmeler</string>
     <string name="dm_summary">Sistem İndirme Yöneticisini Aç</string>
 
+    <!-- -->
+    <string name="settings_cat_ui">Kullanıcı Arabirimi</string>
     <string name="lang_title">Lisan</string>
     <string name="lang_dialog_title">Lisan (uygulama yeniden başlatılmalıdır):</string>
     <string name="choose_theme_title">Tema seç</string>
@@ -168,7 +170,7 @@
 
     <!-- -->
     <string name="settings_cat_about">Uygulama Hakkında</string>
-    <string name="settings_cat_about_condensed">About</string>
+    <string name="settings_cat_about_condensed">Hakkında</string>
     <string name="title_changelog">Değişiklikler</string>
     <string name="screen_licences_code_title">Lisans ve Kodlama</string>
 
@@ -190,7 +192,7 @@
 		Bu uygulamada, CyanogenMod Custom ROM\'dan bazı kod alıntıları vardır;
 		\n\n
 		Özellikle indirilmiş yükleme paketlerinin, MD5 sağlama, hesaplama ve kıyaslama yöntemleri \'CMUpdater\' App \'den alınmıştır.</string>
-	<string name="credits_text3">\nThe text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
+	<string name="credits_text3">\nLisans metinleri LICENSE_GPL2 dosyasında veya bu adreste bulunabilir <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
 	<string name="credits_text4">\n\tCode from StackOverflow
 	    \n\n
 	    In addition, the Java methods used in YTD to compare version numbers, 

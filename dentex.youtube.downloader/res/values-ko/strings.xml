@@ -4,7 +4,7 @@
     <string name="menu_settings">설정</string>
     <string name="title_activity_settings">유튜브 다운로더 설정</string>
     <string name="title_activity_upgrade_apk">유튜브 다운로더 업그레이드</string>
-    <string name="title_activity_about">About YouTube Downloader</string>
+    <string name="title_activity_about">유튜브 다운로더에 대한 정보</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -103,6 +103,8 @@
     <string name="dm_title_condensed">다운로드</string>
     <string name="dm_summary">시스템의 다운로드 관리자를 엽니다</string>
 
+    <!-- -->
+    <string name="settings_cat_ui">사용자 인터페이스</string>
     <string name="lang_title">언어</string>
     <string name="lang_dialog_title">언어 (앱 재시작 필요)</string>
     <string name="choose_theme_title">테마 선택</string>
@@ -167,7 +169,7 @@
 
     <!-- -->
     <string name="settings_cat_about">이 앱에 대하여</string>
-    <string name="settings_cat_about_condensed">About</string>
+    <string name="settings_cat_about_condensed">이 앱에 대하여</string>
     <string name="title_changelog">변경내역</string>
     <string name="screen_licences_code_title">라이센스 및 코드</string>
 
@@ -189,17 +191,15 @@
 이 앱은 CyanogenMod custom ROM에서 발췌한 소스코드를 사용하고 있습니다;
 \n\n
 특히 \'CMUpdater\' 앱에서 다운로드한 업그레이드 패키지를 MD5 체크섬을 계산하여 비교하는 부분을 사용하고 있음을 알려드립니다.</string>
-	<string name="credits_text3">\nThe text of the license can be found in the LICENSE_GPL2 file or at <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
-	<string name="credits_text4">\n\tCode from StackOverflow
-	    \n\n
-	    In addition, the Java methods used in YTD to compare version numbers, 
-	    to copy files on extSdCard and to make fetched video file size human readable 
-	    (and a lot of other small non-traceable references), 
-	    are taken from the site Stack Overflow (<http>http://stackoverflow.com</http>), 
-	    a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed
-	    (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
-	    For more details, look for comments in YTD\'s Java code.
-	    </string>
+	<string name="credits_text3">\n라이센스 전문은 LICENSE_GPL2 파일이나 <http>https://www.gnu.org/licenses/gpl-2.0.txt</http>을 참고하세요.</string>
+	<string name="credits_text4">\n\tStackOverflow에서 발췌한 코드에 대한 정보
+\n\n
+추가적으로 YTD에서 사용한 자바 메쏘드들들은 
+- 추적 불가능한 수많은 작은 참조내역들을 포함한 버전 넘버를 비교한다던가 외장 sdcard에 파일을 복사한다던가, 파일 크기를 사람이 읽기 좋게 만든다던가 하는 등의 - 
+코드는 Stack Overflow를 참조하였습니다. (<http>http://stackoverflow.com</http>),
+Stack Overflow는 모든 컨텐츠가  CC BY-SA 3.0 라이센스를 따르는 프로그래머를 위한 Q&amp;A 사이트 입니다.
+(<http>http://creativecommons.org/licenses/by-sa/3.0</http>을 참조).
+자세한 내용은 YTD\'의 자바 코드에 있는 주석을 살펴보세요.</string>
     <string name="credits_translators">\n\t번역
 \n\n아래에 내열한 분들의 도움으로 번역되었습니다:</string>
     <string name="translators_info">\n더 상세한 정보 확인:
