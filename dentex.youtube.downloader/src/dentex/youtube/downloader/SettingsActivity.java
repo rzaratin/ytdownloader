@@ -190,8 +190,11 @@ public class SettingsActivity extends Activity {
 			    	} else {
 			    		thisActivity.setTheme(R.style.AppThemeLight);
 			    	}
-			    	thisActivity.finish();
-		    		thisActivity.startActivity(new Intent(thisActivity, SettingsActivity.class));
+			    	
+			    	if (!theme.equals(newValue)) {
+			    		thisActivity.finish();
+			    		thisActivity.startActivity(new Intent(thisActivity, SettingsActivity.class));
+			    	}
 					return true;
 				}
 			});

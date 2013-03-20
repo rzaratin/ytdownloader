@@ -194,16 +194,15 @@
         Especificamente os metodos para calcular e comparar a checksum MD5
         dos pacotes de actualização descarregados são tiradas da aplicação \'CMUpdater\'</string>
 	<string name="credits_text3">\nO texto da licença pode ser encontrado no ficheiro LICENSE_GPL2 ou em <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
-	<string name="credits_text4">\n\tCode from StackOverflow
-	    \n\n
-	    In addition, the Java methods used in YTD to compare version numbers, 
-	    to copy files on extSdCard and to make fetched video file size human readable 
-	    (and a lot of other small non-traceable references), 
-	    are taken from the site Stack Overflow (<http>http://stackoverflow.com</http>), 
-	    a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed
-	    (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
-	    For more details, look for comments in YTD\'s Java code.
-	    </string>
+	<string name="credits_text4">\n\tCódigo do StackOverflow
+\n\n
+Adicionalmente, os métodos Java utilizados no YTD para comparar numeros de versão,
+para copiar ficheiros no cartão de memória externo e para fazer o tamanho de ficheiro legivel para humano
+(e muitas mais pequenas referencias não rastreaveis), 
+são retiradas do site Stack Overflow (<http>http://stackoverflow.com</http>), 
+um site de perguntas e respostas para programadores onde todo o conteudo está licenceado em CC BY-SA 3.0
+(ver <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+Para mais detalhes, procurar comentarios no código Java do YTD.</string>
     <string name="credits_translators">\n\tTraduções
         \n\nAlém disso, pelas localizações adicionais obrigado a:</string>
     <string name="translators_info">\nPara mais informações:
