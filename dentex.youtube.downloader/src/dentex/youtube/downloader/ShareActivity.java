@@ -88,6 +88,7 @@ public class ShareActivity extends Activity {
     List<String> links = new ArrayList<String>();
     List<String> codecs = new ArrayList<String>();
     List<String> qualities = new ArrayList<String>();
+    List<String> stereo = new ArrayList<String>();
     List<String> sizes = new ArrayList<String>();
     List<String> listEntries = new ArrayList<String>();
     private String titleRaw;
@@ -421,7 +422,7 @@ public class ShareActivity extends Activity {
                         if (!showSizePref) {
                         	helpBuilder.setMessage(titleRaw + 
                         			getString(R.string.codec) + " " + codecs.get(pos) + 
-                					getString(R.string.quality) + " " + qualities.get(pos));
+                					getString(R.string.quality) + " " + qualities.get(pos) + stereo.get(pos));
                         } else {
                         	if (!showSizeListPref) {
                         		sizeQuery = new AsyncSizeQuery();
@@ -429,7 +430,7 @@ public class ShareActivity extends Activity {
                         	} else {
                         		helpBuilder.setMessage(titleRaw + 
                             			getString(R.string.codec) + " " + codecs.get(pos) + 
-                    					getString(R.string.quality) + " " + qualities.get(pos) +
+                    					getString(R.string.quality) + " " + qualities.get(pos) + stereo.get(pos) +
                     					getString(R.string.size) + " " + sizes.get(pos));
                         	}
                         }
@@ -824,6 +825,7 @@ public class ShareActivity extends Activity {
                 	
                     codecMatcher(CQS[index], index);
                     qualityMatcher(CQS[index], index);
+                    stereoMatcher(CQS[index], index);
                     linkComposer(CQS[index], index);
                     //Log.v(DEBUG_TAG, "block " + index + ": " + CQS[index]);
                     index++;
@@ -845,7 +847,11 @@ public class ShareActivity extends Activity {
         Pattern titlePattern = Pattern.compile("<title>(.*?)</title>");
         Matcher titleMatcher = titlePattern.matcher(content);
         if (titleMatcher.find()) {
-            titleRaw = titleMatcher.group().replaceAll("(<| - YouTube</)title>", "").replaceAll("&quot;", "\"").replaceAll("&amp;", "&").replaceAll("&#39;", "'");
+            titleRaw = titleMatcher.group()
+            		.replaceAll("(<| - YouTube</)title>", "")
+            		.replaceAll("&quot;", "\"")
+            		.replaceAll("&amp;", "&")
+            		.replaceAll("&#39;", "'");
             title = titleRaw.replaceAll("\\W", "_");
         } else {
             title = "Youtube Video";
@@ -854,23 +860,23 @@ public class ShareActivity extends Activity {
     }
 
     private void listEntriesBuilder() {
+    	Iterator<String> codecsIter = codecs.iterator();
+        Iterator<String> qualitiesIter = qualities.iterator();
+        Iterator<String> stereoIter = stereo.iterator();
+        Iterator<String> sizesIter = sizes.iterator();
+        
     	if (settings.getBoolean("show_size_list", false)) {
-	        Iterator<String> codecsIter = codecs.iterator();
-	        Iterator<String> qualitiesIter = qualities.iterator();
-	        Iterator<String> sizesIter = sizes.iterator();
 	        while (codecsIter.hasNext()) {
 	        	try {
-	        		listEntries.add(codecsIter.next() + " - " + qualitiesIter.next() + " - " + sizesIter.next());
+	        		listEntries.add(codecsIter.next() + " - " + qualitiesIter.next() + stereoIter.next() + " - " + sizesIter.next());
 	        	} catch (NoSuchElementException e) {
 	        		listEntries.add("//");
 	        	}
 	        }
     	} else {
-            Iterator<String> codecsIter = codecs.iterator();
-            Iterator<String> qualitiesIter = qualities.iterator();
             while (codecsIter.hasNext()) {
             	try {
-                	listEntries.add(codecsIter.next() + " - " + qualitiesIter.next());
+                	listEntries.add(codecsIter.next() + " - " + qualitiesIter.next() + stereoIter.next());
             	} catch (NoSuchElementException e) {
 	        		listEntries.add("//");
 	        	}	
@@ -936,7 +942,7 @@ public class ShareActivity extends Activity {
     	    waitBuilder.setTitle(R.string.wait);
     	    waitBuilder.setMessage(titleRaw + 
     	    		getString(R.string.codec) + " " + codecs.get(pos) + 
-					getString(R.string.quality) + " " + qualities.get(pos));
+					getString(R.string.quality) + " " + qualities.get(pos) + stereo.get(pos));
     	    waitBox = waitBuilder.create();
     	    waitBox.show();
     	}
@@ -956,7 +962,7 @@ public class ShareActivity extends Activity {
         	
         	helpBuilder.setMessage(titleRaw + 
         			getString(R.string.codec) + " " + codecs.get(pos) + 
-					getString(R.string.quality) + " " + qualities.get(pos) +
+					getString(R.string.quality) + " " + qualities.get(pos) + stereo.get(pos) +
 					getString(R.string.size) + " " + videoFileSize);
         	helpDialog = helpBuilder.create();
             helpDialog.show();
@@ -1012,12 +1018,23 @@ public class ShareActivity extends Activity {
     }
 
     private void qualityMatcher(String currentCQ, int i) {
-        Pattern qualityPattern = Pattern.compile("(hd1080|hd720|large|medium|small)");
+        Pattern qualityPattern = Pattern.compile("(highres|hd1080|hd720|large|medium|small)");
         Matcher qualityMatcher = qualityPattern.matcher(currentCQ);
         if (qualityMatcher.find()) {
-            qualities.add(qualityMatcher.group());
+            qualities.add(qualityMatcher.group().replaceAll("highres", "4K"));
         } else {
             qualities.add("NoMatch");
+        }
+        //Log.d(DEBUG_TAG, "CQ index: " + i + ", Quality: " + qualities.get(i));
+    }
+    
+    private void stereoMatcher(String currentCQ, int i) {
+        Pattern qualityPattern = Pattern.compile("stereo3d=1");
+        Matcher qualityMatcher = qualityPattern.matcher(currentCQ);
+        if (qualityMatcher.find()) {
+            stereo.add(qualityMatcher.group().replaceAll("stereo3d=1", " 3D"));
+        } else {
+            stereo.add("");
         }
         //Log.d(DEBUG_TAG, "CQ index: " + i + ", Quality: " + qualities.get(i));
     }
