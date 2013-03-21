@@ -12,15 +12,33 @@
         android:layout_gravity="center_horizontal"
         android:background="#303030"
         android:textColor="@android:color/white"
-        android:textIsSelectable="true" 
+        android:textIsSelectable="false" 
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
+        android:id="@+id/progressBarD"
+        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
+    
+    <ProgressBar
+        android:id="@+id/progressBarL"
+        style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+    
+    <!-- <TextView 
+        android:id="@+id/textViewProgressInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textIsSelectable="false" />  -->
     
     <ImageView
         android:id="@+id/imgview"

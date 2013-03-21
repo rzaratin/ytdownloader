@@ -78,6 +78,8 @@ public class ShareActivity extends Activity {
 	
 	private Intent SharingIntent;
 	private ProgressBar progressBar1;
+	private ProgressBar progressBarD;
+	private ProgressBar progressBarL;
 	private ProgressBar filesizeProgressBar;
     public static final String USER_AGENT_FIREFOX = "Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0";
 	private static final String DEBUG_TAG = "ShareActivity";
@@ -141,6 +143,7 @@ public class ShareActivity extends Activity {
 	boolean showSizeListPref;
 	boolean showSizePref;
 	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(ShareActivity.this, R.style.BoxTheme);
+	public int count;
 
     @SuppressLint("CutPasteId")
 	@Override
@@ -166,14 +169,26 @@ public class ShareActivity extends Activity {
 	        getBaseContext().getResources().updateConfiguration(config, null);
         }
         
-        progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
+        // loading views from the layout xml
+        tv = (TextView) findViewById(R.id.textView1);
+        
+        progressBarD = (ProgressBar) findViewById(R.id.progressBarD);
+        progressBarL = (ProgressBar) findViewById(R.id.progressBarL);
+        
+        String theme = settings.getString("choose_theme", "D");
+    	if (theme.equals("D")) {
+    		progressBar1 = progressBarD;
+    		progressBarL.setVisibility(View.GONE);
+    	} else {
+    		progressBar1 = progressBarL;
+    		progressBarD.setVisibility(View.GONE);
+    	}
+
+        imgView = (ImageView)findViewById(R.id.imgview);
         
         lv = (ListView) findViewById(R.id.list);
 
-        tv = (TextView) findViewById(R.id.textView1);
-        
-        imgView = (ImageView)findViewById(R.id.imgview);
-
+        // YTD update initialization
         updateInit();
         
         // Get intent, action and MIME type
@@ -351,11 +366,12 @@ public class ShareActivity extends Activity {
         Log.d(DEBUG_TAG, "path: " + path);
     }
 
-    private class AsyncDownload extends AsyncTask<String, Void, String> {
+    private class AsyncDownload extends AsyncTask<String, Integer, String> {
 
-    	protected void onPreExecute() {
+		protected void onPreExecute() {
     		isAsyncDownloadRunning = true;
     		tv.setText(R.string.loading);
+    		progressBar1.setIndeterminate(true);
     		progressBar1.setVisibility(View.VISIBLE);
     	}
     	
@@ -372,6 +388,14 @@ public class ShareActivity extends Activity {
                 return "e";
             }
         }
+    	
+    	public void doProgress(int value){
+            publishProgress(value);
+        }
+    	
+    	protected void onProgressUpdate(Integer... values) {
+    		progressBar1.setProgress(values[0]);
+    	}
 
         @Override
         protected void onPostExecute(String result) {
@@ -647,6 +671,7 @@ public class ShareActivity extends Activity {
 		}
         request.setNotificationVisibility(vis);
         request.setTitle(vfilename);
+        request.setDescription(getString(R.string.ytd_video));
     	
     	Intent intent1 = new Intent(ShareActivity.this, DownloadsService.class);
     	intent1.putExtra("COPY", false);
@@ -814,8 +839,10 @@ public class ShareActivity extends Activity {
             Matcher blockMatcher = blockPattern.matcher(matcher.group(1));
             if (blockMatcher.find() && !asyncDownload.isCancelled()) {
             	String[] CQS = matcher.group(1).split(blockPattern.toString());
-                Log.d(DEBUG_TAG, "number of entries found: " + (CQS.length-1));
+            	count = (CQS.length-1);
+                Log.d(DEBUG_TAG, "number of entries found: " + count);
                 int index = 0;
+                progressBar1.setIndeterminate(false);
                 while ((index+1) < CQS.length) {
                 	try {
 						CQS[index] = URLDecoder.decode(CQS[index], "UTF-8");
@@ -823,6 +850,8 @@ public class ShareActivity extends Activity {
 						Log.e(DEBUG_TAG, e.getMessage());
 					}
                 	
+                	asyncDownload.doProgress((int) ((index / (float) count) * 100));
+
                     codecMatcher(CQS[index], index);
                     qualityMatcher(CQS[index], index);
                     stereoMatcher(CQS[index], index);

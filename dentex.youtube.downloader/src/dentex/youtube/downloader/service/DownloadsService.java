@@ -6,6 +6,7 @@ import java.io.IOException;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Query;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -69,6 +71,7 @@ public class DownloadsService extends Service {
     	
     	private NotificationManager cNotificationManager;
 		private NotificationCompat.Builder cBuilder;
+		private Intent intent2;
 
 		@Override
     	public void onReceive(Context context, Intent intent) {
@@ -85,8 +88,11 @@ public class DownloadsService extends Service {
 				int reasonIndex = c.getColumnIndex(DownloadManager.COLUMN_REASON);
 				int status = c.getInt(statusIndex);
 				int reason = c.getInt(reasonIndex);
+				
+				//long size = c.getLong(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)); // see TODO below
 
 				switch (status) {
+				
 				case DownloadManager.STATUS_SUCCESSFUL:
 					Log.d(DEBUG_TAG, "_ID " + id + " SUCCESSFUL (status " + status + ")");
 					ID = (int) id;
@@ -108,7 +114,6 @@ public class DownloadsService extends Service {
 						cNotificationManager.notify(ID, cBuilder.build());
 						Log.i(DEBUG_TAG, "_ID " + ID + " Copy in progress...");
 						
-						//mBuilder.setContentTitle(getString(R.string.app_name));
 						if (settings.getBoolean("enable_own_notification", true) == true) {
 							try {
 								removeIdUpdateNotification(id);
@@ -117,35 +122,58 @@ public class DownloadsService extends Service {
 							}
 						}
 							
+						intent2 = new Intent(Intent.ACTION_VIEW);
+
 						try {
 							Utils.copyFile(src, dst, context);
 							
 							Toast.makeText(context,  filename + ": " + context.getString(R.string.copy_ok), Toast.LENGTH_SHORT).show();
 					        cBuilder.setContentText(context.getString(R.string.copy_ok));
-							cNotificationManager.notify(DownloadsService.ID, cBuilder.build());
+					        intent2.setDataAndType(Uri.fromFile(dst), "video/*");
 							Log.i(DEBUG_TAG, "_ID " + ID + " Copy OK");
 							
 							if (ShareActivity.dm.remove(id) == 0) {
-								Toast.makeText(context, "error: temp download file NOT removed", Toast.LENGTH_LONG).show();
+								Toast.makeText(context, getString(R.string.download_remove_failed), Toast.LENGTH_LONG).show();
 								Log.e(DEBUG_TAG, "temp download file NOT removed");
-				        	}
+								
+				        	} else { 
+				        		Log.v(DEBUG_TAG, "temp download file removed");
+				        		
+				        		// TODO fix: `dst` seems not to return a valid `File`
+				        		// Uri dstUri = Uri.fromFile(dst); // <-- tried also this (1)
+
+				        		/*Log.i(DEBUG_TAG, "dst: " + dst.getAbsolutePath());
+				        		ShareActivity.dm.addCompletedDownload(filename, 
+				        				getString(R.string.ytd_video), 
+				        				true, 
+				        				"video/*", 
+				        				dst.getAbsolutePath(), // <-- dstUri.getEncodedPath(), // (1) 
+				        				size,
+				        				false);*/
+				        	}	        	
 						} catch (IOException e) {
 							Toast.makeText(context, filename + ": " + getString(R.string.copy_error), Toast.LENGTH_LONG).show();
 							cBuilder.setContentText(getString(R.string.copy_error));
-							cNotificationManager.notify(ID, cBuilder.build());
+							intent2.setDataAndType(Uri.fromFile(src), "video/*");
 							Log.e(DEBUG_TAG, "_ID " + ID + "Copy to extSdCard FAILED");
+						} finally {
+							PendingIntent contentIntent = PendingIntent.getActivity(nContext, 0, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+			        		cBuilder.setContentIntent(contentIntent);
+							cNotificationManager.notify(ID, cBuilder.build());
 						}
 					}
 					break;
+					
 				case DownloadManager.STATUS_FAILED:
 					Log.e(DEBUG_TAG, "_ID " + id + " FAILED (status " + status + ")");
 					Log.e(DEBUG_TAG, " Reason: " + reason);
 					Toast.makeText(context,  filename + ": " + getString(R.string.download_failed), Toast.LENGTH_LONG).show();
 					break;
+					
 				default:
 					Log.w(DEBUG_TAG, "_ID " + id + " completed with status " + status);
 				}
-				//mBuilder.setContentTitle(getString(R.string.app_name));
+				
 				if (settings.getBoolean("enable_own_notification", true) == true) {
 					try {
 						removeIdUpdateNotification(id);

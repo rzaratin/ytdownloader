@@ -5,5 +5,7 @@
     <style name="BoxTheme" parent="android:Theme.Holo.Dialog" />
     <style name="LicenseThemeDark" parent="android:Theme.NoTitleBar" />
     <style name="LicenseThemeLight" parent="android:Theme.Light.NoTitleBar" />
+    <style name="ProgressBarDark" parent="android:Widget.Holo.ProgressBar.Horizontal" />
+    <style name="ProgressBarLight" parent="android:Widget.Holo.Light.ProgressBar.Horizontal" />
 
 </resources>

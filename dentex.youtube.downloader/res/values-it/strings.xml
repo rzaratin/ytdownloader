@@ -55,8 +55,8 @@
     <string name="notification_downloading_pt2">file video in download</string>
     <string name="notification_no_downloads">Nessun download in corso</string>
     <string name="long_click_title">Gestisci il link selezionato:</string>
-    <string name="extsdcard_info_title">Il percorso selezionato è sulla sdcard rimovibile</string>
-    <string name="extsdcard_info_msg">Il file è in download inizialmente sulla sdcard standard e dopo verrà spostato nella destinazione selezionata.</string>
+    <string name="extsdcard_info_title">Percorso di destinazione non standard</string>
+    <string name="extsdcard_info_msg">Il file è in scaricamento inizialmente nella cartella dei Download standard e poi verrà spostato nella destinazione selezionata.</string>
     
     <string-array name="long_click_entries">
         <item>Copia nella clipboard</item>
@@ -94,7 +94,8 @@
     
     <string name="copy_error">Errore durante la copia</string>
     <string name="copy_progress">YTD: copia del file in corso&#8230;</string>
-    <string name="copy_ok">Disponibile su extSdCard.</string>
+    <string name="copy_ok">Copia completata.</string>
+    <string name="download_remove_failed">Errore: file temporaneo scaricato non rimosso!</string>
     <string name="download_failed">Il download è fallito!</string>
 
     <!-- ### preferences ### -->
@@ -109,7 +110,6 @@
     <string name="lang_title">Lingua</string>
     <string name="lang_dialog_title">Lingua (richiede riavvio dell\'applicazione):</string>
     <string name="choose_theme_title">Scegli il tema</string>
-        
     <string-array name="choose_theme_entries">
         <item>Scuro</item>
         <item>Chiaro</item>

@@ -38,7 +38,7 @@
     <string name="ssh_info_tutorial_title">Tutoriel pour l\'envoi via SSH</string>
     <string name="ssh_info_tutorial_msg">Une seule grande commande a été copiée dans le presse-papier.
 \n\nChoisissez un profil dans ConnectBot et une fois dans votre shell distant, naviguez dans le répertoire souhaité,
-COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
+COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     <string name="callConnectBot_dialog_title">ConnectBot n\'est pas installé!</string>
     <string name="callConnectBot_dialog_msg">Vous avez besoin de cette application gratuite pour envoyer la vidéo via SSH.</string>
     <string name="callConnectBot_dialog_positive">Installer ConnectBot</string>
@@ -55,8 +55,8 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
     <string name="notification_downloading_pt2">fichier(s) vidéo</string>
     <string name="notification_no_downloads">Aucun téléchargements en cours</string>
     <string name="long_click_title">Gérer le lien sélectionné:</string>
-    <string name="extsdcard_info_title">Le chemin de destination est sur la sdcard amovible</string>
-    <string name="extsdcard_info_msg">Le fichier va d\'abord être téléchargé sur la sdcard standard et ensuite déplacé dans le dossier sélectionné.</string>
+    <string name="extsdcard_info_title">Chemin de destination non standard</string>
+    <string name="extsdcard_info_msg">Le fichier est d\'abord téléchargé dans le dossier Download, puis sera déplacé vers la destination sélectionnée.</string>
     
     <string-array name="long_click_entries">
         <item>Copier dans le presse-papier</item>
@@ -94,7 +94,8 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
     
     <string name="copy_error">Erreur pendant la copie</string>
     <string name="copy_progress">Copie du fichier YTD en cours&#8230;</string>
-    <string name="copy_ok">Disponible sur la sdcard externe.</string>
+    <string name="copy_ok">Copie terminée.</string>
+    <string name="download_remove_failed">Erreur: fichier temporaire téléchargé non supprimé.</string>
     <string name="download_failed">Téléchargement échoué!</string>
 
     <!-- ### preferences ### -->
@@ -109,7 +110,6 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
     <string name="lang_title">Langue</string>
     <string name="lang_dialog_title">Langue (nécessite un redémarrage de l\'application):</string>
     <string name="choose_theme_title">Choisir le thème</string>
-        
     <string-array name="choose_theme_entries">
         <item>Sombre</item>
         <item>Clair</item>
@@ -121,7 +121,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
     <string name="quick_start_summ">Ouvrir un tutoriel de démarrage rapide</string>
     <string name="quick_start_text">Ici, vous ne trouverez que les préférences de \'YouTube Downloader\'.
 \n\nCette application utilise les fonctions de partage de l\'application YouTube, lorsque vous regardez une vidéo.
-\n\nChoisissez alors \'YouTube Downloader\' et vous aurez plus d\'information sur son usage.
+\n\nChoisissez alors \'YouTube Downloader\' et vous aurez plus d\'informations sur son usage.
 \n\nVous pouvez aussi partager n\'importe quel lien YouTube en texte brut via d\'autres applications, comme votre navigateur.</string>
     <string name="general_info_title">Activer le tutoriel général</string>
     <string name="general_info_summary">Montrer un tutoriel général au démarrage</string>
@@ -147,7 +147,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRER.</string>
     <string name="show_size_list_title">Montrer le poids de toutes les vidéos</string>
     <string name="show_size_list_summary">Récupère le poids des fichiers pour chaque élément de la liste des vidéos disponibles (beaucoup plus lent)</string>
     <string name="show_thumb_title">Montrer l\'aperçu</string>
-    <string name="show_thumb_summary">Télécharge une image d\'aperçu avec la liste des vidéos</string>
+    <string name="show_thumb_summary">Télécharger une image d\'aperçu avec la liste des vidéos</string>
     
     <!-- -->
     <string name="settings_cat_notifications">Notifications</string>
