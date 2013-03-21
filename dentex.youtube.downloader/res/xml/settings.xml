@@ -152,5 +152,16 @@
             android:defaultValue="false"/>
 
     </PreferenceCategory>
+    
+    <PreferenceCategory 
+    	android:title="@string/settings_cat_advanced">
+        
+        <CheckBoxPreference 
+            android:key="enable_logging"
+            android:title="@string/enable_logging_title"
+            android:summary="@string/enable_logging_summary"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

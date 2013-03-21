@@ -3,7 +3,7 @@
     package="dentex.youtube.downloader"
     android:installLocation="auto"
     android:versionCode="41"
-    android:versionName="1.8.3" >
+    android:versionName="1.9" >
 
     <uses-sdk
         android:minSdkVersion="11"

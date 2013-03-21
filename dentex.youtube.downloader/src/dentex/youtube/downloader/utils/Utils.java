@@ -190,4 +190,19 @@ public class Utils extends Activity {
     		context.setTheme(R.style.AppThemeLight);
     	}
 	}
+    
+    public static void logger(String type, String tag, String msg, Throwable e) {
+    	// TODO
+    	if (type.equals("v")) {
+    		Log.v(tag, msg);
+    	} else if (type.equals("d")) {
+    		Log.d(tag, msg);
+    	} else if (type.equals("i")) {
+    		Log.i(tag, msg);
+    	} else if (type.equals("w")) {
+    		Log.w(tag, msg);
+    	} else if (type.equals("e")) {
+    		Log.e(tag, msg, e);
+    	}
+    }
 }
