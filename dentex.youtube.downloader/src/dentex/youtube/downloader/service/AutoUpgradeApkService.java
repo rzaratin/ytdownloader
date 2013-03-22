@@ -62,11 +62,11 @@ public class AutoUpgradeApkService extends Service {
 
 	@Override
 	public void onCreate() {
-		Log.d(DEBUG_TAG, "service created");
+		Utils.logger("d", "service created");
 		registerReceiver(apkReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 		try {
 		    currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-		    Log.d(DEBUG_TAG, "current version: " + currentVersion);
+		    Utils.logger("d", "current version: " + currentVersion);
 		} catch (NameNotFoundException e) {
 		    Log.e(DEBUG_TAG, "version not read: " + e.getMessage());
 		    currentVersion = "100";
@@ -92,7 +92,7 @@ public class AutoUpgradeApkService extends Service {
 	
 	@Override
 	public void onDestroy() {
-		Log.d(DEBUG_TAG, "service destroyed");
+		Utils.logger("d", "service destroyed");
 		unregisterReceiver(apkReceiver);
 	}
 
@@ -106,7 +106,7 @@ public class AutoUpgradeApkService extends Service {
     	protected Integer doInBackground(String... urls) {
             // params comes from the execute() call: params[0] is the url.
             try {
-            	Log.d(DEBUG_TAG, "doInBackground...");
+            	Utils.logger("d", "doInBackground...");
                 return downloadUrl(urls[0]);
             } catch (IOException e) {
             	Log.e(DEBUG_TAG, "doInBackground: " + e.getMessage());
@@ -118,7 +118,7 @@ public class AutoUpgradeApkService extends Service {
         private int downloadUrl(String myurl) throws IOException {
             InputStream is = null;
             int len = 100000;
-            Log.d(DEBUG_TAG, "The link is: " + myurl);
+            Utils.logger("d", "The link is: " + myurl);
             try {
                 URL url = new URL(myurl);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -130,12 +130,12 @@ public class AutoUpgradeApkService extends Service {
                 conn.setDoInput(true);
                 conn.connect();
                 int response = conn.getResponseCode();
-                Log.d(DEBUG_TAG, "The response is: " + response);
+                Utils.logger("d", "The response is: " + response);
                 is = conn.getInputStream();
                 if (!asyncAutoUpdate.isCancelled()) {
                 	return readIt(is, len);
                 } else {
-                	Log.d(DEBUG_TAG, "asyncUpdate cancelled @ 'return readIt'");
+                	Utils.logger("d", "asyncUpdate cancelled @ 'return readIt'");
                 	return 3;
                 }
                 
@@ -162,7 +162,7 @@ public class AutoUpgradeApkService extends Service {
 	        }
 	        
 	        if (compRes.contentEquals(">")) {
-		        Log.d(DEBUG_TAG, "version comparison: downloading latest version...");
+		        Utils.logger("d", "version comparison: downloading latest version...");
 		        
 		        NotificationCompat.Builder builder =  new NotificationCompat.Builder(AutoUpgradeApkService.this);
             	
@@ -176,24 +176,24 @@ public class AutoUpgradeApkService extends Service {
 		        callDownloadApk(matchedVersion);
 	    	} else if (compRes.contentEquals("==")) {
 	    		//PopUps.showPopUp(getString(R.string.information), getString(R.string.upgrade_latest_installed), "info", AutoUpgradeApk.this);
-	    		Log.d(DEBUG_TAG, "version comparison: latest version is already installed!");
+	    		Utils.logger("d", "version comparison: latest version is already installed!");
 	    		stopSelf();
 	    	} else if (compRes.contentEquals("<")) {
 	    		// No need for a popup...
-	    		Log.d(DEBUG_TAG, "version comparison: installed higher than the one online? ...this should not happen...");
+	    		Utils.logger("d", "version comparison: installed higher than the one online? ...this should not happen...");
 	    		stopSelf();
 	    	} else if (compRes.contentEquals("init")) {
-	    		Log.d(DEBUG_TAG, "version comparison not tested");
+	    		Utils.logger("d", "version comparison not tested");
 	    		stopSelf();
 	    	}
         }   
 	}
 	
 	private int OnlineUpdateCheck(String content) {
-		Log.d(DEBUG_TAG, "OnlineUpdateCheck");
+		Utils.logger("d", "OnlineUpdateCheck");
 		int res = 3;
 		if (asyncAutoUpdate.isCancelled()) {
-			Log.d(DEBUG_TAG, "asyncUpdate cancelled @ 'OnlineUpdateCheck' begin");
+			Utils.logger("d", "asyncUpdate cancelled @ 'OnlineUpdateCheck' begin");
 			return 3;
 		}
 		// match version name
@@ -201,7 +201,7 @@ public class AutoUpgradeApkService extends Service {
         Matcher v_matcher = v_pattern.matcher(content);
         if (v_matcher.find() && !asyncAutoUpdate.isCancelled()) {
         	matchedVersion = v_matcher.group(1);
-	    	Log.i(DEBUG_TAG, "_on-line version: " + matchedVersion);
+	    	Utils.logger("i", "_on-line version: " + matchedVersion);
 	    	res = res - 1;
 	    } else {
         	matchedVersion = "not_found";
@@ -213,7 +213,7 @@ public class AutoUpgradeApkService extends Service {
     	Matcher cl_matcher = cl_pattern.matcher(content);
     	if (cl_matcher.find() && !asyncAutoUpdate.isCancelled()) {
     		matchedChangeLog = " v" + cl_matcher.group(1);
-    		Log.i(DEBUG_TAG, "_online changelog...");
+    		Utils.logger("i", "_online changelog...");
     		res = res - 1;
     	} else {
     		matchedChangeLog = "not_found";
@@ -226,7 +226,7 @@ public class AutoUpgradeApkService extends Service {
     	Matcher md5_matcher = md5_pattern.matcher(content);
     	if (md5_matcher.find() && !asyncAutoUpdate.isCancelled()) {
     		matchedMd5 = md5_matcher.group(1);
-    		Log.i(DEBUG_TAG, "_online md5sum: " + matchedMd5);
+    		Utils.logger("i", "_online md5sum: " + matchedMd5);
     		res = res - 1;
     	} else {
     		matchedMd5 = "not_found";
@@ -234,7 +234,7 @@ public class AutoUpgradeApkService extends Service {
     	}
     	
     	compRes = Utils.VersionComparator.compare(matchedVersion, currentVersion);
-    	Log.d(DEBUG_TAG, "version comparison: " + matchedVersion + " " + compRes + " " + currentVersion);
+    	Utils.logger("d", "version comparison: " + matchedVersion + " " + compRes + " " + currentVersion);
     	
     	return res;
     }

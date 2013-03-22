@@ -185,7 +185,7 @@
     <string name="mit_summary">MIT License</string>
     <string name="title_activity_mit_show">MIT License</string>
 
-    <string name="credits_title">Other credits</string>
+    <string name="credits_title">Credits</string>
     <string name="credits_summary">Other licenses and translations</string>
     <string name="title_activity_credits_show">Other licenses and translations</string>
     <string name="credits_text1">\tCode excerpts License
@@ -225,7 +225,7 @@
     <string name="share_message">#YouTubeDownloader
 	 	\nFree and Open-Source Android App to download YouTube video!
 	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
-    <string name="help_translate_title">Help translate this App</string>
+	<string name="help_translate_title">Help translate this App</string>
     <string name="help_translate_summary">Go to www.getlocalization.com/ytdownloader</string>
     
     <!-- -->

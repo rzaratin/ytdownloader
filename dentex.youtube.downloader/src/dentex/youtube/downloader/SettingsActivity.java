@@ -27,7 +27,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -204,36 +203,36 @@ public class SettingsActivity extends Activity {
 
 		public void updateInit() {
 			int prefSig = settings.getInt("APP_SIGNATURE", 0);
-			Log.d(DEBUG_TAG, "prefSig: " + prefSig);
+			Utils.logger("d", "prefSig: " + prefSig);
 			
 			if (prefSig == 0 ) {
 				if (Utils.getSigHash(SettingsFragment.this) == YTD_SIG_HASH) {
-					Log.d(DEBUG_TAG, "Found YTD signature: update check possile");
+					Utils.logger("d", "Found YTD signature: update check possile");
 					up.setEnabled(true);
 					
 					if (settings.getBoolean("autoupdate", false)) {
-						Log.i(DEBUG_TAG, "autoupdate enabled");
+						Utils.logger("i", "autoupdate enabled");
 						autoUpdate(getActivity());
 					}
 		    	} else {
-		    		Log.d(DEBUG_TAG, "Found different signature: " + Utils.currentHashCode + " (F-Droid?). Update check cancelled.");
+		    		Utils.logger("d", "Found different signature: " + Utils.currentHashCode + " (F-Droid?). Update check cancelled.");
 		    		up.setEnabled(false);
 		    		up.setSummary(R.string.update_disabled_summary);
 		    	}
 				SharedPreferences.Editor editor = settings.edit();
 		    	editor.putInt("APP_SIGNATURE", Utils.currentHashCode);
-		    	if (editor.commit()) Log.d(DEBUG_TAG, "saving sig pref...");
+		    	if (editor.commit()) Utils.logger("d", "saving sig pref...");
 			} else {
 				if (prefSig == YTD_SIG_HASH) {
-					Log.d(DEBUG_TAG, "YTD signature in PREFS: update check possile");
+					Utils.logger("d", "YTD signature in PREFS: update check possile");
 					up.setEnabled(true);
 					
 					if (settings.getBoolean("autoupdate", false)) {
-						Log.i(DEBUG_TAG, "autoupdate enabled");
+						Utils.logger("i", "autoupdate enabled");
 						autoUpdate(getActivity());
 					}
 				} else {
-					Log.d(DEBUG_TAG, "diffrent YTD signature in prefs (F-Droid?). Update check cancelled.");
+					Utils.logger("d", "diffrent YTD signature in prefs (F-Droid?). Update check cancelled.");
 					up.setEnabled(false);
 				}
 			}
@@ -263,7 +262,7 @@ public class SettingsActivity extends Activity {
 		/*@Override
 	    public void onStart() {
 	        super.onStart();
-	        Log.v(DEBUG_TAG, "_onStart");
+	        Utils.logger("v", "_onStart");
 	    }*/
 	    
         @Override
@@ -271,7 +270,7 @@ public class SettingsActivity extends Activity {
         	super.onResume();
         	// Set up a listener whenever a key changes            
         	getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-        	Log.v(DEBUG_TAG, "_onResume");
+        	Utils.logger("v", "_onResume");
         }
        
         @Override
@@ -279,13 +278,13 @@ public class SettingsActivity extends Activity {
         	super.onPause();
         	// Unregister the listener whenever a key changes            
         	getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-        	Log.v(DEBUG_TAG, "_onPause");
+        	Utils.logger("v", "_onPause");
         }
         
         /*@Override
         public void onStop() {
             super.onStop();
-        	Log.v(DEBUG_TAG, "_onStop");
+        	Utils.logger("v", "_onStop");
         }*/
         
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -325,7 +324,7 @@ public class SettingsActivity extends Activity {
                     	
                 	File chooserFolder = files.get(0);
 					chooserSummary = chooserFolder.toString();
-                	Log.d(DEBUG_TAG, "file-chooser selection: " + chooserSummary);
+                	Utils.logger("d", "file-chooser selection: " + chooserSummary);
                 	
                 	switch (pathCheck(chooserFolder)) {
                 		case 0:
@@ -361,11 +360,11 @@ public class SettingsActivity extends Activity {
             	if (path.canWrite()) {
 					return 0;
 				} else {
-					Log.w(DEBUG_TAG, "Path not writable");
+					Utils.logger("w", "Path not writable");
 					return 1;
 				}
             } else {
-            	Log.w(DEBUG_TAG, "Path not mounted");
+            	Utils.logger("w", "Path not mounted");
             	return 2;
             }
         }
@@ -376,14 +375,14 @@ public class SettingsActivity extends Activity {
 	        //long storedTime = 10000; // dev test: forces auto update for testing purposes
 	        
 	        boolean shouldCheckForUpdate = !DateUtils.isToday(storedTime);
-	        Log.i(DEBUG_TAG, "shouldCheckForUpdate: " + shouldCheckForUpdate);
+	        Utils.logger("i", "shouldCheckForUpdate: " + shouldCheckForUpdate);
 	        if (shouldCheckForUpdate) {
 	        	Intent intent = new Intent(context, AutoUpgradeApkService.class);
 	        	context.startService(intent);
 	        }
 	        
 	        long time = System.currentTimeMillis();
-	        if (settings.edit().putLong("time", time).commit()) Log.i(DEBUG_TAG, "time written in prefs");
+	        if (settings.edit().putLong("time", time).commit()) Utils.logger("i", "time written in prefs");
 		}
 	}
 }

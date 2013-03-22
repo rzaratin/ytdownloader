@@ -6,7 +6,8 @@
         
 	    <Preference 
 	        android:key="changelog"
-	        android:title="@string/title_changelog"/>
+	        android:title="@string/title_changelog"
+	        android:summary="@string/changelog_summary"/>
 	    
 	    <PreferenceScreen
 	        android:key="licenses_code"
@@ -63,6 +64,11 @@
             android:key="share"
             android:title="@string/share_title"
             android:summary="@string/share_summary"/>
+        
+        <Preference
+            android:key="tweet"
+            android:title="@string/tweet_title"
+            android:summary="@string/tweet_summary"/>
         
         <Preference
             android:key="help_translate"

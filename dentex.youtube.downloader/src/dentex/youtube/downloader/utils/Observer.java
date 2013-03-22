@@ -6,7 +6,6 @@ import dentex.youtube.downloader.ShareActivity;
 import dentex.youtube.downloader.service.DownloadsService;
 
 import android.os.FileObserver;
-import android.util.Log;
 
 // reference:
 // https://gist.github.com/shirou/659180
@@ -30,18 +29,18 @@ public class Observer {
 		}
 	
 		public void onEvent(int event, String path) {
-			//Log.d(DEBUG_TAG, TAG + "onEvent " + event + ", " + path);
+			//Utils.logger("d", TAG + "onEvent " + event + ", " + path);
 			
 			if (event == FileObserver.CREATE) {
 				ShareActivity.NotificationHelper();
-				Log.d(DEBUG_TAG, TAG + "file " + path + " CREATED");
+				Utils.logger("d", TAG + "file " + path + " CREATED");
 			}
 			
 			if (event == FileObserver.DELETE){
-				Log.d(DEBUG_TAG, TAG + "file " + path + " DELETED");
+				Utils.logger("d", TAG + "file " + path + " DELETED");
 				
 				long id = Utils.settings.getLong(path, 0);
-				Log.d(DEBUG_TAG, TAG + "Retrieved ID: " +  id);
+				Utils.logger("d", TAG + "Retrieved ID: " +  id);
 				DownloadsService.removeIdUpdateNotification(id);
 			}
 		}

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
-        \n v1.9 - Mar 22 2013
+        \n v1.9 - Mar 23 2013
         \n-----------------------------------
-        \n[x] n.a. in video list bug fixed
-        \n    (again)
+        \n[x] YT web page parsing improved
         \n[x] fixed notif. error when remove 
         \n    downloads not yet started
         \n[x] 4K and 3D video support
         \n[x] re-organized menus
         \n[x] on the fly theme switch
         \n[x] progress bar for video list
+        \n[x] enable debug option
         \n[x] Korean translation
         \n
         \n v1.8.2 - Mar 15 2013
@@ -161,6 +161,13 @@
     <string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
     <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
     <string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
+    
+    <string name="changelog_summary">%1$s</string>
+    
+    <string name="tweet_title">Twitter</string>
+    <string name="tweet_summary">\@twidentex</string>    
+    
+    <string name="imgview_descr">Video thumbnail</string>
 		
     <string name="app_name">YouTube Downloader</string>
     <string name="title_activity_share">YouTube Downloader</string>
@@ -225,6 +232,5 @@
         \nblux (AKA grobux) - French;
         \ndigitie - Korean.
     </string>
-    
-    <string name="imgview_descr">Video thumbnail</string>
+
 </resources>

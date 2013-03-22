@@ -16,7 +16,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import dentex.youtube.downloader.docs.ChangelogActivity;
 import dentex.youtube.downloader.docs.CreditsShowActivity;
 import dentex.youtube.downloader.docs.GplShowActivity;
@@ -72,6 +71,7 @@ public class AboutActivity extends Activity {
 		private Preference share;
 		private Preference cl;
 		private Preference loc;
+		private Preference tw;
 		
 		@Override
         public void onCreate(Bundle savedInstanceState) {
@@ -162,7 +162,7 @@ public class AboutActivity extends Activity {
 	                	shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
 	                	startActivity(Intent.createChooser(shareIntent, "Share this YTD"));
 	                } catch (final ActivityNotFoundException e) {
-	                	Log.d(DEBUG_TAG, "No suitable Apps found.");
+	                	Utils.logger("d", "No suitable Apps found.");
 	                	PopUps.showPopUp(getString(R.string.attention), getString(R.string.share_warning), "alert", AboutFragment.this.getActivity());
 	                }
 	            	return true;
@@ -182,6 +182,8 @@ public class AboutActivity extends Activity {
             });
             
             cl = (Preference) findPreference("changelog");
+            //cl.setSummary(AboutFragment.this.getActivity().getPackageManager()
+            		//.getPackageInfo(getPackageName(), 0).versionName);
             cl.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
                 public boolean onPreferenceClick(Preference preference) {
@@ -190,6 +192,29 @@ public class AboutActivity extends Activity {
                     return true;
                 }
             });
+            
+            tw = (Preference) findPreference("tweet");
+            tw.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            	
+                public boolean onPreferenceClick(Preference preference) {
+                	
+                	/*
+                	 * http://www.androidsnippets.com/open-twitter-via-intent
+                	 * http://www.androidsnippets.com/users/hyperax
+                	 */
+                	try {
+                		Utils.logger("d", "twitter direct link");
+                		startActivity(new Intent(Intent.ACTION_VIEW, 
+                				Uri.parse("twitter://user?screen_name=@twidentex")));
+                	}catch (Exception e) {
+                		Utils.logger("d", "twitter WEB link");
+                		startActivity(new Intent(Intent.ACTION_VIEW, 
+                				Uri.parse("https://twitter.com/#!/@twidentex")));
+                	}
+                    return true;
+                }
+            });
+            
 		}
 		
 		public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
