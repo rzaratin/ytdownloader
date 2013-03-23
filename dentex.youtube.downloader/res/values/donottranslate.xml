@@ -162,8 +162,6 @@
     <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
     <string name="chooser_code_summary">https://code.google.com/p/android-filechooser/</string>
     
-    <string name="changelog_summary">%1$s</string>
-    
     <string name="tweet_title">Twitter</string>
     <string name="tweet_summary">\@twidentex</string>    
     

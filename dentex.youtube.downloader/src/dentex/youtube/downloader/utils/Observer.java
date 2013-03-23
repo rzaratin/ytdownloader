@@ -33,14 +33,14 @@ public class Observer {
 			
 			if (event == FileObserver.CREATE) {
 				ShareActivity.NotificationHelper();
-				Utils.logger("d", TAG + "file " + path + " CREATED");
+				Utils.logger("d", TAG + "file " + path + " CREATED", DEBUG_TAG);
 			}
 			
 			if (event == FileObserver.DELETE){
-				Utils.logger("d", TAG + "file " + path + " DELETED");
+				Utils.logger("d", TAG + "file " + path + " DELETED", DEBUG_TAG);
 				
 				long id = Utils.settings.getLong(path, 0);
-				Utils.logger("d", TAG + "Retrieved ID: " +  id);
+				Utils.logger("d", TAG + "Retrieved ID: " +  id, DEBUG_TAG);
 				DownloadsService.removeIdUpdateNotification(id);
 			}
 		}

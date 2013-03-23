@@ -92,6 +92,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     
     <!-- ### DownloadService ### -->
     
+    <string name="ytd_video">Vidéo YTD</string>
     <string name="copy_error">Erreur pendant la copie</string>
     <string name="copy_progress">Copie du fichier YTD en cours&#8230;</string>
     <string name="copy_ok">Copie terminée.</string>
@@ -223,7 +224,12 @@ Pour plus de détails, consultez les commentaires du code source Java de YTD.</s
     <string name="share_message">#YouTubeDownloader
 \nUne application Android gratuite et open source pour télécharger des vidéos YouTube!
 \nhttps://sourceforge.net/projects/ytdownloader/files/</string>
-    <string name="help_translate_title">Aider à traduire cette application</string>
+	<string name="help_translate_title">Aider à traduire cette application</string>
     <string name="help_translate_summary">Visiter www.getlocalization.com/ytdownloader</string>
+    
+    <!-- -->
+	<string name="settings_cat_advanced">Paramètres avancés</string>
+	<string name="enable_logging_title">Activer la journalisation (logs)</string>
+	<string name="enable_logging_summary">Ajouter les messages d\'YTD dans le journal système. Obligatoire pour l\'\envoi d\'un rapport au développeur.</string>
 	
 </resources>

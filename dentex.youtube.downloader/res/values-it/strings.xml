@@ -92,6 +92,7 @@
     
     <!-- ### DownloadService ### -->
     
+    <string name="ytd_video">YTD video</string>
     <string name="copy_error">Errore durante la copia</string>
     <string name="copy_progress">YTD: copia del file in corso&#8230;</string>
     <string name="copy_ok">Copia completata.</string>
@@ -184,7 +185,7 @@
     <string name="mit_summary">Licenza MIT</string>
     <string name="title_activity_mit_show">Licenza MIT</string>
 
-    <string name="credits_title">Altri crediti</string>
+    <string name="credits_title">Crediti</string>
     <string name="credits_summary">Altre licenze e traduzioni</string>
     <string name="title_activity_credits_show">Altre licenze e traduzioni</string>
     <string name="credits_text1"> \tLicenze per altre parti di codice
@@ -223,7 +224,12 @@ Per ulteriori dettagli, vedere i commenti nel codice Java di YTD.</string>
     <string name="share_message">#YouTubeDownloader
 	 	\nFree and Open-Source Android App to download YouTube video!
 	 	\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
-    <string name="help_translate_title">Aiuta a tradurre YTD</string>
+	<string name="help_translate_title">Aiuta a tradurre YTD</string>
     <string name="help_translate_summary">Vai su www.getlocalization.com/ytdownloader</string>
+    
+    <!-- -->
+	<string name="settings_cat_advanced">Avanzate</string>
+	<string name="enable_logging_title">Abilita logging</string>
+	<string name="enable_logging_summary">Include i messaggi di YTD nel log di sistema. Obbligatorio per l\'invio di un logcat allo sviluppatore.</string>
 	
 </resources>

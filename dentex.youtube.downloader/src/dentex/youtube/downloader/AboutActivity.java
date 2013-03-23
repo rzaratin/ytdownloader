@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import dentex.youtube.downloader.docs.ChangelogActivity;
 import dentex.youtube.downloader.docs.CreditsShowActivity;
 import dentex.youtube.downloader.docs.GplShowActivity;
@@ -162,7 +164,7 @@ public class AboutActivity extends Activity {
 	                	shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
 	                	startActivity(Intent.createChooser(shareIntent, "Share this YTD"));
 	                } catch (final ActivityNotFoundException e) {
-	                	Utils.logger("d", "No suitable Apps found.");
+	                	Utils.logger("d", "No suitable Apps found.", DEBUG_TAG);
 	                	PopUps.showPopUp(getString(R.string.attention), getString(R.string.share_warning), "alert", AboutFragment.this.getActivity());
 	                }
 	            	return true;
@@ -182,8 +184,12 @@ public class AboutActivity extends Activity {
             });
             
             cl = (Preference) findPreference("changelog");
-            //cl.setSummary(AboutFragment.this.getActivity().getPackageManager()
-            		//.getPackageInfo(getPackageName(), 0).versionName);
+            try {
+				cl.setSummary("v" + AboutFragment.this.getActivity().getPackageManager().getPackageInfo(AboutFragment.this.getActivity().getPackageName(), 0).versionName);
+			} catch (NameNotFoundException e1) {
+				Log.e(DEBUG_TAG, "version not read: " + e1.getMessage());
+				cl.setSummary("");
+			}
             cl.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             	
                 public boolean onPreferenceClick(Preference preference) {
@@ -203,11 +209,11 @@ public class AboutActivity extends Activity {
                 	 * http://www.androidsnippets.com/users/hyperax
                 	 */
                 	try {
-                		Utils.logger("d", "twitter direct link");
+                		Utils.logger("d", "twitter direct link", DEBUG_TAG);
                 		startActivity(new Intent(Intent.ACTION_VIEW, 
                 				Uri.parse("twitter://user?screen_name=@twidentex")));
                 	}catch (Exception e) {
-                		Utils.logger("d", "twitter WEB link");
+                		Utils.logger("d", "twitter WEB link", DEBUG_TAG);
                 		startActivity(new Intent(Intent.ACTION_VIEW, 
                 				Uri.parse("https://twitter.com/#!/@twidentex")));
                 	}

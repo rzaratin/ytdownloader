@@ -41,7 +41,7 @@ public class DownloadsService extends Service {
 	public void onCreate() {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		nContext = getBaseContext();
-		Utils.logger("d", "service created");
+		Utils.logger("d", "service created", DEBUG_TAG);
 		registerReceiver(downloadComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 	}
 	
@@ -53,9 +53,9 @@ public class DownloadsService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		copy = intent.getBooleanExtra("COPY", false);
 		if (copy == true) {
-			Utils.logger("d", "Copy to extSdcard: true");
+			Utils.logger("d", "Copy to extSdcard: true", DEBUG_TAG);
 		} else {
-			Utils.logger("d", "Copy to extSdcard: false");
+			Utils.logger("d", "Copy to extSdcard: false", DEBUG_TAG);
 		}
 		super.onStartCommand(intent, flags, startId);
 		return START_NOT_STICKY;
@@ -63,7 +63,7 @@ public class DownloadsService extends Service {
 	
 	@Override
 	public void onDestroy() {
-		Utils.logger("d", "service destroyed");
+		Utils.logger("d", "service destroyed", DEBUG_TAG);
 	    unregisterReceiver(downloadComplete);
 	}
 
@@ -75,7 +75,7 @@ public class DownloadsService extends Service {
 
 		@Override
     	public void onReceive(Context context, Intent intent) {
-    		Utils.logger("d", "downloadComplete: onReceive CALLED");
+    		Utils.logger("d", "downloadComplete: onReceive CALLED", DEBUG_TAG);
     		long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
     		String filename = settings.getString(String.valueOf(id), "file");
     		
@@ -94,7 +94,7 @@ public class DownloadsService extends Service {
 				switch (status) {
 				
 				case DownloadManager.STATUS_SUCCESSFUL:
-					Utils.logger("d", "_ID " + id + " SUCCESSFUL (status " + status + ")");
+					Utils.logger("d", "_ID " + id + " SUCCESSFUL (status " + status + ")", DEBUG_TAG);
 					ID = (int) id;
 					
 					cBuilder =  new NotificationCompat.Builder(context);
@@ -112,7 +112,7 @@ public class DownloadsService extends Service {
 						Toast.makeText(context, context.getString(R.string.copy_progress), Toast.LENGTH_SHORT).show();
 				        cBuilder.setContentText(context.getString(R.string.copy_progress));
 						cNotificationManager.notify(ID, cBuilder.build());
-						Utils.logger("i", "_ID " + ID + " Copy in progress...");
+						Utils.logger("i", "_ID " + ID + " Copy in progress...", DEBUG_TAG);
 						
 						if (settings.getBoolean("enable_own_notification", true) == true) {
 							try {
@@ -130,14 +130,14 @@ public class DownloadsService extends Service {
 							Toast.makeText(context,  filename + ": " + context.getString(R.string.copy_ok), Toast.LENGTH_SHORT).show();
 					        cBuilder.setContentText(context.getString(R.string.copy_ok));
 					        intent2.setDataAndType(Uri.fromFile(dst), "video/*");
-							Utils.logger("i", "_ID " + ID + " Copy OK");
+							Utils.logger("i", "_ID " + ID + " Copy OK", DEBUG_TAG);
 							
 							if (ShareActivity.dm.remove(id) == 0) {
 								Toast.makeText(context, getString(R.string.download_remove_failed), Toast.LENGTH_LONG).show();
 								Log.e(DEBUG_TAG, "temp download file NOT removed");
 								
 				        	} else { 
-				        		Utils.logger("v", "temp download file removed");
+				        		Utils.logger("v", "temp download file removed", DEBUG_TAG);
 				        		
 				        		// TODO fix: `dst` seems not to return a valid `File`
 				        		// Uri dstUri = Uri.fromFile(dst); // <-- tried also this (1)
@@ -171,7 +171,7 @@ public class DownloadsService extends Service {
 					break;
 					
 				default:
-					Utils.logger("w", "_ID " + id + " completed with status " + status);
+					Utils.logger("w", "_ID " + id + " completed with status " + status, DEBUG_TAG);
 				}
 				
 				if (settings.getBoolean("enable_own_notification", true) == true) {
@@ -188,9 +188,9 @@ public class DownloadsService extends Service {
     public static void removeIdUpdateNotification(long id) {
 		if (id != 0) {
 			if (ShareActivity.sequence.remove(id)) {
-				Utils.logger("d", "_ID " + id + " REMOVED from Notification");
+				Utils.logger("d", "_ID " + id + " REMOVED from Notification", DEBUG_TAG);
 			} else {
-				Utils.logger("d", "_ID " + id + " Already REMOVED from Notification");
+				Utils.logger("d", "_ID " + id + " Already REMOVED from Notification", DEBUG_TAG);
 			}
 		} else {
 			Log.e(DEBUG_TAG, "_ID  not found!");
@@ -202,7 +202,7 @@ public class DownloadsService extends Service {
 		} else {
 			ShareActivity.mBuilder.setContentText(ShareActivity.noDownloads);
 			ShareActivity.mNotificationManager.notify(ShareActivity.mId, ShareActivity.mBuilder.build());
-			Utils.logger("i", "No downloads in progress; stopping FileObserver and DownloadsService");
+			Utils.logger("i", "No downloads in progress; stopping FileObserver and DownloadsService", DEBUG_TAG);
 			ShareActivity.fileObserver.stopWatching();
 			nContext.stopService(new Intent(DownloadsService.getContext(), DownloadsService.class));
 		}

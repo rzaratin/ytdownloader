@@ -203,7 +203,7 @@ public class ShareActivity extends Activity {
                     handleSendText(SharingIntent);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Utils.logger("d", "Error: " + e.toString());
+                    Utils.logger("d", "Error: " + e.toString(), DEBUG_TAG);
                 }
             }
         }
@@ -241,7 +241,7 @@ public class ShareActivity extends Activity {
     protected void onStart() {
         super.onStart();
         registerReceiver(inAppCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-        Utils.logger("v", "_onStart");
+        Utils.logger("v", "_onStart", DEBUG_TAG);
     }
     
     /*@Override
@@ -260,7 +260,7 @@ public class ShareActivity extends Activity {
     protected void onStop() {
         super.onStop();
     	unregisterReceiver(inAppCompleteReceiver);
-    	Utils.logger("v", "_onStop");
+    	Utils.logger("v", "_onStop", DEBUG_TAG);
     }
     
     @Override
@@ -274,7 +274,7 @@ public class ShareActivity extends Activity {
     	if (isAsyncDownloadRunning) {
     		asyncDownload.cancel(true);
     	}
-		Utils.logger("i", "_onBackPressed");
+		Utils.logger("i", "_onBackPressed", DEBUG_TAG);
 	}
 
     void handleSendText(Intent intent) throws IOException {
@@ -320,7 +320,7 @@ public class ShareActivity extends Activity {
     	    			editor.putBoolean("general_info", false);
     	    			editor.commit();
     	    			sshInfoCheckboxEnabled = settings.getBoolean("general_info", true);
-    	    			Utils.logger("d", "generalInfoCheckboxEnabled: " + generalInfoCheckboxEnabled);
+    	    			Utils.logger("d", "generalInfoCheckboxEnabled: " + generalInfoCheckboxEnabled, DEBUG_TAG);
     	    		}
         		}
         	});
@@ -345,7 +345,7 @@ public class ShareActivity extends Activity {
         
         if (Location == false) {
             String location = settings.getString("standard_location", "Downloads");
-            Utils.logger("d", "location: " + location);
+            Utils.logger("d", "location: " + location, DEBUG_TAG);
             
             if (location.equals("DCIM") == true) {
             	path = dir_DCIM;
@@ -360,10 +360,10 @@ public class ShareActivity extends Activity {
         } else {
         	String cs = settings.getString("CHOOSER_FOLDER", "");
         	chooserFolder = new File(cs);
-        	Utils.logger("d", "chooserFolder: " + chooserFolder);
+        	Utils.logger("d", "chooserFolder: " + chooserFolder, DEBUG_TAG);
         	path = chooserFolder;
         }
-        Utils.logger("d", "path: " + path);
+        Utils.logger("d", "path: " + path, DEBUG_TAG);
     }
 
     private class AsyncDownload extends AsyncTask<String, Integer, String> {
@@ -377,7 +377,7 @@ public class ShareActivity extends Activity {
     	
     	protected String doInBackground(String... urls) {
             try {
-            	Utils.logger("d", "doInBackground...");
+            	Utils.logger("d", "doInBackground...", DEBUG_TAG);
             	
             	if (settings.getBoolean("show_thumb", false)) {
             		downloadThumbnail(generateThumbUrl());
@@ -419,13 +419,13 @@ public class ShareActivity extends Activity {
             
             lv.setAdapter(aA);
             lv.setLongClickable(true);
-            Utils.logger("d", "LISTview done with " + lv_arr.length + " items.");
+            Utils.logger("d", "LISTview done with " + lv_arr.length + " items.", DEBUG_TAG);
 
             tv.setText(titleRaw);
             
             lv.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					Utils.logger("i", "Selected link: " + links.get(pos));
+					Utils.logger("i", "Selected link: " + links.get(pos), DEBUG_TAG);
 					assignPath();
                     //createLogFile(stringToIs(links[position]), "ytd_FINAL_LINK.txt");
 					
@@ -465,7 +465,7 @@ public class ShareActivity extends Activity {
                     helpBuilder.setPositiveButton(getString(R.string.list_click_download_local), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         	try {
-                            	Utils.logger("d", "Destination folder is available and writable");
+                            	Utils.logger("d", "Destination folder is available and writable", DEBUG_TAG);
                         		composedFilename = composeFilename();
 	                            fileRenameEnabled = settings.getBoolean("enable_rename", false);
 
@@ -538,7 +538,7 @@ public class ShareActivity extends Activity {
     	                    	    			editor.putBoolean("ssh_info", false);
     	                    	    			editor.commit();
     	                    	    			sshInfoCheckboxEnabled = settings.getBoolean("ssh_info", true);
-    	                    	    			Utils.logger("d", "sshInfoCheckboxEnabled: " + sshInfoCheckboxEnabled);
+    	                    	    			Utils.logger("d", "sshInfoCheckboxEnabled: " + sshInfoCheckboxEnabled, DEBUG_TAG);
     	                    	    		}
     	                    	    		callConnectBot(); 
     	                        		}
@@ -611,7 +611,7 @@ public class ShareActivity extends Activity {
         public String composeFilename() {
         	vfilename = title + "_" + qualities.get(pos) + "." + codecs.get(pos);
     	    if (useQualitySuffix() == false) vfilename = title + "." + codecs.get(pos);
-    	    Utils.logger("d", "filename: " + vfilename);
+    	    Utils.logger("d", "filename: " + vfilename, DEBUG_TAG);
     	    return vfilename;
         }
 
@@ -620,7 +620,7 @@ public class ShareActivity extends Activity {
     		PackageManager pm = context.getPackageManager();
     		Intent appStartIntent = pm.getLaunchIntentForPackage("org.connectbot");
     		if (null != appStartIntent) {
-    			Utils.logger("d", "appStartIntent: " + appStartIntent);
+    			Utils.logger("d", "appStartIntent: " + appStartIntent, DEBUG_TAG);
     			context.startActivity(appStartIntent);
     		} else {
     			AlertDialog.Builder cb = new AlertDialog.Builder(boxThemeContextWrapper);
@@ -653,7 +653,7 @@ public class ShareActivity extends Activity {
     
     void callDownloadManager(String link) {
 		videoUri = Uri.parse(path.toURI() + composedFilename);
-        Utils.logger("d", "videoUri: " + videoUri);
+        Utils.logger("d", "videoUri: " + videoUri, DEBUG_TAG);
         
         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         Request request = new Request(Uri.parse(link));
@@ -678,10 +678,10 @@ public class ShareActivity extends Activity {
     	
 		try {
 			enqueue = dm.enqueue(request);
-        	Utils.logger("d", "_ID " + enqueue + " enqueued");
+        	Utils.logger("d", "_ID " + enqueue + " enqueued", DEBUG_TAG);
         } catch (SecurityException e) {
         	// handle path on etxSdCard:
-        	Utils.logger("w", e.getMessage());
+        	Utils.logger("w", e.getMessage(), DEBUG_TAG);
         	showExtsdcardInfo();
         	intent1.putExtra("COPY", true);
         	videoOnExt = true;
@@ -693,7 +693,7 @@ public class ShareActivity extends Activity {
 		settings.edit().putString(String.valueOf(enqueue), composedFilename).apply();
     	
     	if (settings.getBoolean("enable_own_notification", true) == true) {
-    		Utils.logger("i", "enable_own_notification: true");
+    		Utils.logger("i", "enable_own_notification: true", DEBUG_TAG);
 			sequence.add(enqueue);
 			settings.edit().putLong(composedFilename, enqueue).apply();
 			
@@ -713,7 +713,7 @@ public class ShareActivity extends Activity {
     	Random random = new Random();
     	int num = random.nextInt(4 - 1) + 1;
     	String url = "http://i" + num + ".ytimg.com/vi/" + videoId + "/mqdefault.jpg";
-    	Utils.logger("i", "thumbnail url: " + url);
+    	Utils.logger("i", "thumbnail url: " + url, DEBUG_TAG);
     	return url;
 	}
 
@@ -734,7 +734,7 @@ public class ShareActivity extends Activity {
     	    		if (showAgain3.isChecked() == false) {
     	    			settings.edit().putBoolean("extsdcard_info", false).commit();
     	    			sshInfoCheckboxEnabled = settings.getBoolean("extsdcard_info", true);
-    	    			Utils.logger("d", "generalInfoCheckboxEnabled: " + generalInfoCheckboxEnabled);
+    	    			Utils.logger("d", "generalInfoCheckboxEnabled: " + generalInfoCheckboxEnabled, DEBUG_TAG);
     	    		}
         		}
         	});
@@ -744,7 +744,7 @@ public class ShareActivity extends Activity {
       
     private void tempDownloadToSdcard(Request request) {
     	videoUri = Uri.parse(dir_Downloads.toURI() + composedFilename);
-        Utils.logger("d", "** NEW ** videoUri: " + videoUri);
+        Utils.logger("d", "** NEW ** videoUri: " + videoUri, DEBUG_TAG);
         request.setDestinationUri(videoUri);
         enqueue = dm.enqueue(request);
     }
@@ -776,7 +776,7 @@ public class ShareActivity extends Activity {
         InputStream is = null;
         // Only display the first "len" characters of the retrieved web page content.
         int len = 2000000;
-        Utils.logger("d", "The link is: " + myurl);
+        Utils.logger("d", "The link is: " + myurl, DEBUG_TAG);
         if (!asyncDownload.isCancelled()) {
 	        try {
 	            URL url = new URL(myurl);
@@ -790,14 +790,14 @@ public class ShareActivity extends Activity {
 	            //Starts the query
 	            conn.connect();
 	            int response = conn.getResponseCode();
-	            Utils.logger("d", "The response is: " + response);
+	            Utils.logger("d", "The response is: " + response, DEBUG_TAG);
 	            is = conn.getInputStream();
 	
 	            //Convert the InputStream into a string
 	            if (!asyncDownload.isCancelled()) {
 	            	return readIt(is, len);
 	            } else {
-	            	Utils.logger("d", "asyncDownload cancelled @ 'return readIt'");
+	            	Utils.logger("d", "asyncDownload cancelled @ 'return readIt'", DEBUG_TAG);
 	            	return null;
 	            }
 	
@@ -808,7 +808,7 @@ public class ShareActivity extends Activity {
 	            }
 	        }
         } else {
-        	Utils.logger("d", "asyncDownload cancelled @ 'downloadUrl' begin");
+        	Utils.logger("d", "asyncDownload cancelled @ 'downloadUrl' begin", DEBUG_TAG);
         	return null;
         }
     }
@@ -826,7 +826,7 @@ public class ShareActivity extends Activity {
 	public String urlBlockMatchAndDecode(String content) {
 		
 		if (asyncDownload.isCancelled()) {
-			Utils.logger("d", "asyncDownload cancelled @ urlBlockMatchAndDecode begin");
+			Utils.logger("d", "asyncDownload cancelled @ urlBlockMatchAndDecode begin", DEBUG_TAG);
 			return "Cancelled!";
 		}
 		
@@ -840,7 +840,7 @@ public class ShareActivity extends Activity {
             if (blockMatcher.find() && !asyncDownload.isCancelled()) {
             	String[] CQS = matcher.group(1).split(blockPattern.toString());
             	count = (CQS.length-1);
-                Utils.logger("d", "number of entries found: " + count);
+                Utils.logger("d", "number of entries found: " + count, DEBUG_TAG);
                 int index = 0;
                 progressBar1.setIndeterminate(false);
                 while ((index+1) < CQS.length) {
@@ -861,7 +861,7 @@ public class ShareActivity extends Activity {
                 }
                 listEntriesBuilder();
             } else {
-            	Utils.logger("d", "asyncDownload cancelled @ 'findCodecAndQualityAndLinks' match");
+            	Utils.logger("d", "asyncDownload cancelled @ 'findCodecAndQualityAndLinks' match", DEBUG_TAG);
             } 
             //createLogFile(stringToIs(Arrays.toString(links)), "ytd_links.txt");
             //createLogFile(stringToIs(Arrays.toString(codecs.toArray())), "ytd_codecs.txt");
@@ -885,7 +885,7 @@ public class ShareActivity extends Activity {
         } else {
             title = "Youtube Video";
         }
-        Utils.logger("d", "findVideoFilename: " + title);
+        Utils.logger("d", "findVideoFilename: " + title, DEBUG_TAG);
     }
 
     private void listEntriesBuilder() {
@@ -935,34 +935,36 @@ public class ShareActivity extends Activity {
     	String sig = null;
 		if (sigMatcher.find()) {
     		sig = "signature=" + sigMatcher.group(1);
-    		Utils.logger("v", "sig found on step 1 (\u0026)");
+    		Utils.logger("v", "sig found on step 1 (\u0026)", DEBUG_TAG);
     	} else {
     		Pattern sigPattern2 = Pattern.compile("sig=(.+?)$");
     		Matcher sigMatcher2 = sigPattern2.matcher(block);
     		if (sigMatcher2.find()) {
     			sig = "signature=" + sigMatcher2.group(1);
-    			Utils.logger("i", "sig found on step 2 ($)");
+    			Utils.logger("i", "sig found on step 2 ($)", DEBUG_TAG);
         	} else {
         		Pattern sigPattern3 = Pattern.compile("sig=([[0-9][A-Z]]{38,40}\\.[[0-9][A-Z]]{38,40})");
         		Matcher sigMatcher3 = sigPattern3.matcher(block);
         		if (sigMatcher3.find()) {
         			sig = "signature=" + sigMatcher3.group(1);
-        			Utils.logger("w", "sig found on step 3 ([[0-9][A-Z]]{38,40})");
+        			Utils.logger("w", "sig found on step 3 ([[0-9][A-Z]]{38,40})", DEBUG_TAG);
         		} else {
         			Log.e(DEBUG_TAG, "sig: " + sig);
         		}
         	}
     	}
 
-		Utils.logger("d", "url: " + url);
-		Utils.logger("d", "sig: " + sig);
+		Utils.logger("d", "url " + i + ": " + url, DEBUG_TAG);
+		Utils.logger("d", "sig " + i + ": " + sig, DEBUG_TAG);
     	
 		String composedLink = url + "&" + sig;
 
 		links.add(composedLink);
 		//Utils.logger("i", composedLink);
 		if (settings.getBoolean("show_size_list", false) && !asyncDownload.isCancelled()) {
-			sizes.add(getVideoFileSize(composedLink));
+			String size = getVideoFileSize(composedLink);
+			sizes.add(size);
+        	Utils.logger("d", "size " + i + ": " + size, DEBUG_TAG);
 		}
 	}
     
@@ -996,7 +998,7 @@ public class ShareActivity extends Activity {
         	waitBox.dismiss();
         	
         	videoFileSize = result;
-        	
+        	Utils.logger("d", "size " + pos + ": " + result, DEBUG_TAG);
         	helpBuilder.setMessage(titleRaw + 
         			getString(R.string.codec) + " " + codecs.get(pos) + 
 					getString(R.string.quality) + " " + qualities.get(pos) + stereo.get(pos) +
@@ -1017,7 +1019,6 @@ public class ShareActivity extends Activity {
 		} catch(IOException e) {
 			size = "n.a.";
 		}
-		Utils.logger("d", "video File Size: " + size);
 		return size;
 	}
 
@@ -1148,17 +1149,17 @@ public class ShareActivity extends Activity {
     
     public void updateInit() {
 		int prefSig = settings.getInt("APP_SIGNATURE", 0);
-		Utils.logger("d", "prefSig: " + prefSig);
+		Utils.logger("d", "prefSig: " + prefSig, DEBUG_TAG);
 		
 		if (prefSig == SettingsActivity.SettingsFragment.YTD_SIG_HASH) {
-				Utils.logger("d", "YTD signature in PREFS: update check possile");
+				Utils.logger("d", "YTD signature in PREFS: update check possile", DEBUG_TAG);
 				
 				if (settings.getBoolean("autoupdate", false)) {
-					Utils.logger("i", "autoupdate enabled");
+					Utils.logger("i", "autoupdate enabled", DEBUG_TAG);
 					SettingsActivity.SettingsFragment.autoUpdate(ShareActivity.this);
 				}
 		} else {
-			Utils.logger("d", "diffrent or null YTD signature. Update check cancelled.");
+			Utils.logger("d", "diffrent or null YTD signature. Update check cancelled.", DEBUG_TAG);
 		}
 	}
 

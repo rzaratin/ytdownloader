@@ -6,8 +6,7 @@
         
 	    <Preference 
 	        android:key="changelog"
-	        android:title="@string/title_changelog"
-	        android:summary="@string/changelog_summary"/>
+	        android:title="@string/title_changelog"/>
 	    
 	    <PreferenceScreen
 	        android:key="licenses_code"

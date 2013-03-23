@@ -92,6 +92,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     
     <!-- ### DownloadService ### -->
     
+    <string name="ytd_video">YTD video</string>
     <string name="copy_error">Fout tijdens het kopiëren</string>
     <string name="copy_progress">YTD bezig met bestand kopiëren&#8230;</string>
     <string name="copy_ok">Copy completed.</string>
@@ -184,7 +185,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
     <string name="mit_summary">MIT licentie</string>
     <string name="title_activity_mit_show">MIT licentie</string>
 
-    <string name="credits_title">Andere credits</string>
+    <string name="credits_title">Credits</string>
     <string name="credits_summary">Andere licentie en vertalingen</string>
     <string name="title_activity_credits_show">Andere licentie en vertalingen</string>
     <string name="credits_text1">Code fragmenten licentie
@@ -224,7 +225,12 @@ downloaden van bijwerkingspakketen, zijn ontleed van de \'CMUpdater\' App</strin
     <string name="share_message">#YouTubeDownloader
 \nGratis en Open-Source Android App om YouTube videos te downloaden!
 \nhttps://sourceforge.net/projects/ytdownloader/files/</string>
-    <string name="help_translate_title">Help deze App te vertalen</string>
+	<string name="help_translate_title">Help deze App te vertalen</string>
     <string name="help_translate_summary">Ga naar www.getlocalization.com/ytdownloader</string>
+    
+    <!-- -->
+	<string name="settings_cat_advanced">Advanced</string>
+	<string name="enable_logging_title">Enable logging</string>
+	<string name="enable_logging_summary">Include YTD\'s messages into the system log. Mandatory for sending a logcat to the developer.</string>
 	
 </resources>

@@ -9,11 +9,11 @@
     <!-- ### ShareActivity ### -->
 
     <string name="tutorial_title">Genel Uygulama Yardımcısı</string>
-	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
-		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
-		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
-		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
-		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
+	<string name="tutorial_msg_new">Şimdi seçilen video için kullanılabilecek kodek ve nitelikleriyle alakalı bir liste göreceksiniz. Yapılabilir:
+\n\n*) Video’yu yerel diske (cihazınızda) kaydetmek veya SSH kullanarak uzakt bilgisayara göndermek için İtem\'e basınız.
+\nHedef makine gereklilikleri: Başh ve Wget.  SSH’e ek olarak;
+\n\n*) İtem’e uzunca basın ve kopyalamak yada metin olarak paylaşmak için seçim yapın. ( ya da başka uygulamaya gönderin).
+\n Lütfen şunu unutmayın: Linkler  (SSH ile gönderdiğinden farklı) sadece oluşturulduğu cihazda ya da paylaştığınız makinede kullanılabilir.\n</string>
     <string name="loading">Yükleniyor...</string>
     <string name="error">Hata!</string>
     <string name="information">Bilgi</string>
@@ -55,8 +55,8 @@
     <string name="notification_downloading_pt2">Video dosyaları</string>
     <string name="notification_no_downloads">Devam etmekte olan bir indirme mevcut değil</string>
     <string name="long_click_title">Seçilen bağlantı kolu:</string>
-    <string name="extsdcard_info_title">Non standard destination path</string>
-    <string name="extsdcard_info_msg">File is being downloaded initially in the standard Download folder and then will be moved to the selected destination.</string>
+    <string name="extsdcard_info_title">Standart olmayan hedefyolu</string>
+    <string name="extsdcard_info_msg">Dosya, standart indirme klasörüne indiriliyor daha sonra seçtiğiniz hedefe taşınacak.</string>
     
     <string-array name="long_click_entries">
         <item>Panoya kopyala</item>
@@ -92,10 +92,11 @@
     
     <!-- ### DownloadService ### -->
     
+    <string name="ytd_video">YTD video</string>
     <string name="copy_error">Kopyalama sırasında hata oluştu</string>
     <string name="copy_progress">YTD ilerleme sırasında&#8230;</string>
-    <string name="copy_ok">Copy completed.</string>
-    <string name="download_remove_failed">Error: temporary downloaded file not removed!</string>
+    <string name="copy_ok">Kopyalama tamamlandı.</string>
+    <string name="download_remove_failed">Hata: Geçici indirilen dosya silinemedi!</string>
     <string name="download_failed">İndirme Başarısız!</string>
 
     <!-- ### preferences ### -->
@@ -184,7 +185,7 @@
     <string name="mit_summary">MIT Lisansı</string>
     <string name="title_activity_mit_show">MIT Lisansı</string>
 
-    <string name="credits_title">Diğer Katkıda Bulunanlar</string>
+    <string name="credits_title">Emeği Geçenler</string>
     <string name="credits_summary">Diğer Lisanslar ve Çeviriler</string>
     <string name="title_activity_credits_show">Diğer Lisanslar ve Çeviriler</string>
     <string name="credits_text1">Kod Alıntı Lisansı
@@ -193,16 +194,15 @@
 		\n\n
 		Özellikle indirilmiş yükleme paketlerinin, MD5 sağlama, hesaplama ve kıyaslama yöntemleri \'CMUpdater\' App \'den alınmıştır.</string>
 	<string name="credits_text3">\nLisans metinleri LICENSE_GPL2 dosyasında veya bu adreste bulunabilir <http>https://www.gnu.org/licenses/gpl-2.0.txt</http></string>
-	<string name="credits_text4">\n\tCode from StackOverflow
-	    \n\n
-	    In addition, the Java methods used in YTD to compare version numbers, 
-	    to copy files on extSdCard and to make fetched video file size human readable 
-	    (and a lot of other small non-traceable references), 
-	    are taken from the site Stack Overflow (<http>http://stackoverflow.com</http>), 
-	    a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed
-	    (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
-	    For more details, look for comments in YTD\'s Java code.
-	    </string>
+	<string name="credits_text4">\n\tStackOverflow\'dan Kodlar
+\n\n
+Ek olarak, Java metotları YTD\'de sürüm numaralarını karşılaştırılmak için kullanıldı,
+dosyaları harici depolamaya kopyalamak ve okunabilir video boyutları
+(ve izi bulunamayacak bir sürü referans),
+Stack Overflow sitesinden alınmıştır (<http>http://stackoverflow.com</http>),
+CC BY-SA 3.0  tarafından lisanslanan bütün içeriğin bulunduğu programlayıcılar için soru-Cevap sitesi
+(see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+Daha fazla detay için YTD\'snin Java kodundaki yorumlara bakın.</string>
     <string name="credits_translators">\n\tÇeviriler 
 \n\nÇeviriler için Teşekkürler:</string>
     <string name="translators_info">\nDaha fazla bilgi için:
@@ -223,7 +223,12 @@
     <string name="share_message">#YouTube Downloader
 		\nÜcretsiz ve Açık kaynaklı YouTube video indirme  Android uygulaması!
 		\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
-    <string name="help_translate_title">Uygulamanın Çevirisine Destek Ol</string>
+	<string name="help_translate_title">Uygulamanın Çevirisine Destek Ol</string>
     <string name="help_translate_summary">Buraya gidin www.getlocalization.com/ytdownloader</string>
+    
+    <!-- -->
+	<string name="settings_cat_advanced">Advanced</string>
+	<string name="enable_logging_title">Günlük tutmayı etkinleştir</string>
+	<string name="enable_logging_summary">YTD\'s mesajlarını sistem günlüğüne ekle. Geliştiriciye sistem günlüğünü göndermek gereklidir.</string>
 	
 </resources>

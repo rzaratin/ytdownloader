@@ -54,8 +54,8 @@
     <string name="notification_downloading_pt2">개의 비디오 파일 다운로드 중</string>
     <string name="notification_no_downloads">진행중인 다운로드 없음</string>
     <string name="long_click_title">선택한 링크 처리:</string>
-    <string name="extsdcard_info_title">Non standard destination path</string>
-    <string name="extsdcard_info_msg">File is being downloaded initially in the standard Download folder and then will be moved to the selected destination.</string>
+    <string name="extsdcard_info_title">사용자 지정 저장경로</string>
+    <string name="extsdcard_info_msg">시스템의 기본 저장경로에 다운로드한 후 사용자 지정 경로로 옮깁니다.</string>
     
     <string-array name="long_click_entries">
         <item>클립보드에 복사</item>
@@ -91,10 +91,11 @@
     
     <!-- ### DownloadService ### -->
     
+    <string name="ytd_video">유튜브 다운로더 비디오</string>
     <string name="copy_error">복사 중 에러가 발생하였습니다</string>
     <string name="copy_progress">파일 복사 진행 중&#8230;</string>
-    <string name="copy_ok">Copy completed.</string>
-    <string name="download_remove_failed">Error: temporary downloaded file not removed!</string>
+    <string name="copy_ok">복사 완료되었습니다.</string>
+    <string name="download_remove_failed">에러: 임시 다운로드파일이 삭제되지 않았습니다!</string>
     <string name="download_failed">다운로드 실패!</string>
 
     <!-- ### preferences ### -->
@@ -220,7 +221,12 @@ Stack Overflow는 모든 컨텐츠가  CC BY-SA 3.0 라이센스를 따르는 �
     <string name="share_message">#YouTubeDownloader
 \n공짜이며 오픈소스인 유튜브 다운로더 안드로이드앱!
 \nhttps://sourceforge.net/projects/ytdownloader/files/</string>
-    <string name="help_translate_title">이 앱의 번역 돕기</string>
+	<string name="help_translate_title">이 앱의 번역 돕기</string>
     <string name="help_translate_summary">www.getlocalization.com/ytdownloader 를 방문하세요</string>
+    
+    <!-- -->
+	<string name="settings_cat_advanced">고급설정</string>
+	<string name="enable_logging_title">로깅 활성화</string>
+	<string name="enable_logging_summary">유튜브 다운로더의 로그를 시스템 로그에 남깁니다. 개발자에게 디버깅 정보를 보내려면 반드시 필요합니다.</string>
 	
 </resources>

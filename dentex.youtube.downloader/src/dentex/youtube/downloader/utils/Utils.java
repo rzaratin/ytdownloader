@@ -71,7 +71,7 @@ public class Utils extends Activity {
 			Signature[] sigs = sf.getActivity().getPackageManager().getPackageInfo(sf.getActivity().getPackageName(), PackageManager.GET_SIGNATURES).signatures;
 			for (Signature sig : sigs) {
 				currentHashCode = sig.hashCode();
-				logger("d", "getSigHash: App signature " + currentHashCode);
+				logger("d", "getSigHash: App signature " + currentHashCode, DEBUG_TAG);
 			}
 		} catch (NameNotFoundException e) {
 		    Log.e(DEBUG_TAG, "getSigHash: App signature not found; " + e.getMessage());
@@ -190,16 +190,16 @@ public class Utils extends Activity {
     		context.setTheme(R.style.AppThemeLight);
     	}
 	}
-    public static void logger(String type, String msg) {
+    public static void logger(String type, String msg, String tag) {
     	if (settings.getBoolean("enable_logging", false)) {
 	    	if (type.equals("v")) {
-	    		Log.v(DEBUG_TAG, msg);
+	    		Log.v(tag, msg);
 	    	} else if (type.equals("d")) {
-	    		Log.d(DEBUG_TAG, msg);
+	    		Log.d(tag, msg);
 	    	} else if (type.equals("i")) {
-	    		Log.i(DEBUG_TAG, msg);
+	    		Log.i(tag, msg);
 	    	} else if (type.equals("w")) {
-	    		Log.w(DEBUG_TAG, msg);
+	    		Log.w(tag, msg);
 	    	}
     	}
     }
