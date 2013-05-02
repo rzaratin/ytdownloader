@@ -8,15 +8,15 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <title>Ytdownloader by dentex</title>
+    <title>YouTubeDownloader for Android - by dentex</title>
   </head>
 
   <body>
 
     <header>
       <div class="container">
-        <h1>Ytdownloader</h1>
-        <h2>Android 3+ App to download videos from YouTube</h2>
+        <h1>YouTubeDownloader</h1>
+        <h2>Android [3+] App to download YouTube video</h2>
 
         <section id="downloads">
           <a href="https://github.com/dentex/ytdownloader/zipball/master" class="btn">Download as .zip</a>
@@ -28,172 +28,116 @@
 
     <div class="container">
       <section id="main_content">
-        <h1>YouTube Downloader</h1>
+        <h3>Browse, choose a video, share to YTD and download on the device or send to a PC via SSH. From next v2.0, extract or convert audio to mp3.</h3>
 
-<p>Android 3+ App to download videos from YouTube</p>
+<p><a href="https://sourceforge.net/projects/ytdownloader/files/latest/download"><strong>DOWNLOAD LATEST .APK</strong></a></p>
 
-<p><code>versionCode="41"</code></p>
+<h2>About YouTubeDownloader</h2>
 
-<p><code>versionName="1.9"</code></p>
+<p>The App can be accessed via the share button in the YouTube App, while watching a video.
+Then choose ‘YouTube Downloader’ and you will have further usage info.
+You can also share any YouTube plain text link via any other App: i.e. your browser, or sharing a link via your mail App.</p>
 
-<p>MD5 checksum: <code>8a9292ac9e5def6bb7f694b70de08de1</code> dentex.youtube.downloader_v1.9.apk</p>
+<p>You’ll see all the video codecs and qualities available for the video you’re on.</p>
 
-<h1>LICENSE</h1>
+<p>You can:</p>
 
-<p>Copyright (C) 2012  Samuele Rini</p>
+<ul>
+<li>Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC. Destination machine requirements: Bash and Wget. Additional SSH info using the App;</li>
+<li>Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app). Note: such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another PC.</li>
+</ul><p>Audio extraction feature will be available from next version (v2.0). To extract or convert the audio to mp3 from a downloaded video:</p>
 
-<pre><code>This program is free software: you can redistribute it and/or modify
+<ul>
+<li>Enable the audio preference and download FFmpeg</li>
+<li>Choose the extraction type</li>
+<li>'extract only' will conserve the audio stream from the video as is (WebM files contain an 'Ogg Vorbis' audio; MP4, 3GPP and large/medium FLV video hold an 'AAC' audio stream; FLV small holds an 'mp3')</li>
+<li>'extract and encode to mp3' will convert the extracted audio in an mp3, encoding it with the selected bitrate</li>
+<li>From now on, a checkbox will appear in the download confirmation box visible when you click an item in the YTD's video list. When checked, the audio extraction job will start upon video download completion (to hide the checkbox, disable the audio extraction option)</li>
+<li>Choose from settings if you want to remove the video file after a seccessful audio extraction</li>
+</ul><h2>YTD LICENSE</h2>
+
+<p>Copyright (C) 2012 <strong>Samuele Rini</strong></p>
+
+<p>This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+(at your option) any later version.</p>
 
-This program is distributed in the hope that it will be useful,
+<p>This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+GNU General Public License for more details.</p>
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
-</code></pre>
+<p>You should have received a copy of the GNU General Public License
+along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
 
-<h1>CHANGELOG</h1>
+<h2>OTHER LICENSES</h2>
 
-<pre><code> v1.9 - Mar 23 2013 
------------------------------------ 
-[x] YT web page parsing improved 
-[x] fixed notif. error when remove 
- downloads not yet started 
-[x] 4K and 3D video support 
-[x] re-organized menus 
-[x] on the fly theme switch 
-[x] progress bar for video list 
-[x] option to enable logging 
-[x] Korean translation 
+<p>Additional licenses informations about code used in this project
+is available from within the App's "About" menu:</p>
 
- v1.8.2 - Mar 15 2013 
------------------------------------ 
-[x] dark/light theme switcher 
-[x] option to show all the file 
- sizes into the video list 
-[x] French translation 
+<ul>
+<li>The FFmpeg binary (<a href="http://www.ffmpeg.org/index.html">http://www.ffmpeg.org/index.html</a>), used for the audio extraction feature, is released under the GPL-3.0.</li>
+</ul><p>(FFmpeg version 1.2 Copyright (C) 2000-2013 the FFmpeg developers).</p>
 
- v1.8.1 - Mar 14 2013 
------------------------------------ 
-[x] notification bug fix 
+<ul>
+<li>The filechooser library is released under the MIT license (<a href="https://code.google.com/p/android-filechooser/">https://code.google.com/p/android-filechooser/</a>).</li>
+</ul><p>(android-filechooser Copyright (C) 2012 Hai Bison).</p>
 
- v1.8 - Mar 12 2013 
------------------------------------ 
-[x] extSdCard support 
-[x] long-press on video list item: 
- menu to copy/share link 
-[x] auto update-check once a day 
-[x] new notification icon 
-[x] landscape orientation support 
-[x] YT video thumbnail preview 
-[x] entire row in v.list clickable 
-[x] Turkish translation 
-[x] Dutch translation 
+<ul>
+<li>The liblame library, used to compile FFmpeg, is released under the LGPL. A GitHub project, <a href="https://github.com/intervigilium/liblame">https://github.com/intervigilium/liblame</a>, has been used to compile the lame libraries for Android.</li>
+</ul><p>(liblame Copyright (C) 2010 Ethan Chen)
+(LAME Copyright (C) 1999-2007 The LAME Project,
+Copyright (C) 1999-2001 Mark Taylor,
+Copyright (C) 1998 Micheal Cheng)
+(mpglib Copyright (C) 1995-1997 Michael Hipp).</p>
 
- v1.7 - Mar 03 2012 
------------------------------------ 
-[x] Italian translation 
-[x] Portuguese translation 
-[x] option to force the locale 
+<ul>
+<li>YTD's mp3 tags are written with MyID3: a Java ID3 Tag Library (<a href="http://www.fightingquaker.com/myid3">http://www.fightingquaker.com/myid3</a> and <a href="https://sites.google.com/site/eternalsandbox/myid3-for-android">https://sites.google.com/site/eternalsandbox/myid3-for-android</a>) released under the LGPL, as its dependency Jakarta Regexp library.</li>
+</ul><p>(MyID3 Copyright (C) 2008 Charles M. Chen, adapted for Android by Romulus Urakagi Ts'ai).</p>
 
- v1.6 - Mar 01 2013 
------------------------------------ 
-[x] own YTD notification bar 
-[x] options for own and sys notif. 
-[x] added some credits 
+<p>For more informations, refer to the dedicated menus and to the license files available from this project's source code.</p>
 
- v1.5.2 - Feb 25 2013 
------------------------------------ 
-[x] better fix on bad video list 
-[x] remove stop download on click 
-[x] open DM on notif. bar click 
- (still not working in CM ROM) 
+<h3>This App uses some code snippets from:</h3>
 
- v1.5.1 - Feb 24 2013 
------------------------------------ 
-[x] fix crash if no net is avail. 
-[x] fix crash on bad video list 
+<ul>
+<li>CyanogenMod custom ROM (<a href="https://github.com/CyanogenMod/android_packages_apps_CMUpdater">https://github.com/CyanogenMod/android_packages_apps_CMUpdater</a>) – Copyright (C) 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license. The text of the license can be found in the LICENSE_GPL file or at <a href="https://www.gnu.org/licenses/gpl-3.0.txt">https://www.gnu.org/licenses/gpl-3.0.txt</a>
+</li>
+<li>Stack Overflow (<a href="http://stackoverflow.com">http://stackoverflow.com</a>), a question and answer site for programmers where all the content is CC BY-SA 3.0 licensed (see <a href="http://creativecommons.org/licenses/by-sa/3.0/">http://creativecommons.org/licenses/by-sa/3.0/</a>.</li>
+</ul><p>For more details, look for comments in YTD's Java code.</p>
 
- v1.5 - Feb 22 2013 
------------------------------------ 
-[x] online update check 
-[x] option to fetch filesizes 
-[x] stop download on click 
- (maybe not working in CM 10.1) 
-[x] DownloadManager quick links 
-[x] settings and DM overflow menu 
-[x] reordered preferences 
-[x] small fixes 
+<p>Furthermore, the device-framed screenshots in the project’s directory have been
+generated with the "Device Frame Generator" Android App by Prateek
+Srivastava, available at <a href="https://github.com/f2prateek/Device-Frame-Generator/">https://github.com/f2prateek/Device-Frame-Generator/</a>.
+The generated artwork is released ander the "Creative Commons Attribution 3.0 Unported License".
+For further details, <a href="http://creativecommons.org/licenses/by/3.0/">http://creativecommons.org/licenses/by/3.0/</a>..</p>
 
- v1.4 - Jan 29 2013 
------------------------------------ 
-[x] licenses and code links 
-[x] Share this App option 
+<h2>LINKS</h2>
 
- v1.3.1 - Jan 19 2013 
------------------------------------ 
-[x] handle again http|https links 
- (thanks Reiner) 
+<p>Translations
+<a href="http://www.getlocalization.com/ytdownloader">www.getlocalization.com/ytdownloader</a></p>
 
- v1.3 - Jan 18 2013 
------------------------------------ 
-[x] share via mobile links support 
+<p>GitHub
+<a href="https://github.com/dentex/ytdownloader">https://github.com/dentex/ytdownloader</a></p>
 
- v1.2 - Dec 25 2012 
------------------------------------ 
-[x] fix for YouTube webpage changes 
+<p>filechooser
+<a href="https://code.google.com/p/android-filechooser">https://code.google.com/p/android-filechooser</a></p>
 
- v1.1.1 - Dec 16 2012 
------------------------------------ 
-[x] preferences fix 
-
- v1.1 - Dec 13 2012 
------------------------------------ 
-[x] all text strings exported 
-[x] preferences modification 
-[x] quick start tutorial 
-
- v1.0.1 - Dec 11 2012 
------------------------------------ 
-[x] bad typo fixed 
-[x] file-chooser new folder icons 
-
- v1.0 - Dec 11 2012 
------------------------------------ 
-[x] FIRST PUBLIC RELEASE 
-[x] send download via SSH 
-[x] JB compatibility 
-[x] SSH send how-to dialog 
-[x] standard download locations 
-[x] file-chooser for download dest. 
-[x] add quality suffix options 
-[x] file renaming options
-</code></pre>
-
-<h1>TO-DO LIST</h1>
-
-<pre><code>[ ] option to always download video locally
-[ ] option to "use link inside same LAN" for SSH send
-[ ] option to choose between other ConnectBot mods
-[ ] "tutorials" prefs section as menu item
-[ ] downloads log    
-[ ] default format/filter selection for video download
-[ ] handle SourceForge servers down; fallback on GitHub for apk (and thumbnail placeholder) download:
-    page: https://github.com/dentex/ytdownloader
-    file: https://github.com/dentex/ytdownloader/blob/master/dentex.youtube.downloader_v.*.apk?raw=true
-[ ] use icon/logo to identify codecs available
-[ ] make the App tablet friendly
-[ ] new App's ICON [maybe not]
-[ ] handle YT links that require login (hard)
-[ ] audio extraction (hard too) [w.i.p.: see github code]
-</code></pre>
+<p>XDA thread
+<a href="http://forum.xda-developers.com/showthread.php?p=37708791">http://forum.xda-developers.com/showthread.php?p=37708791</a></p>
       </section>
     </div>
 
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-40497864-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
