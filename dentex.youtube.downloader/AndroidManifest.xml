@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="dentex.youtube.downloader"
+    android:installLocation="auto"
+    android:versionCode="42"
+    android:versionName="2.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+
+    <application
+        android:name="dentex.youtube.downloader.YTD"
+        android:allowBackup="true"
+        android:icon="@drawable/icon_new"
+        android:label="@string/app_name" >
+        <service android:name="group.pals.android.lib.ui.filechooser.services.LocalFileProvider" />
+
+        <activity
+            android:name="group.pals.android.lib.ui.filechooser.FileChooserActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.ShareActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:exported="true"
+            android:label="@string/title_activity_share" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.SettingsActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_activity_share" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.AboutActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_activity_about" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.SettingsActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.docs.GplShowActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_activity_gpl_show" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.AboutActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.docs.LgplShowActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_activity_lgpl_show" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.AboutActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.docs.MitShowActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_activity_mit_show" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.AboutActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.docs.CreditsShowActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_activity_credits_show" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.AboutActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.docs.ChangelogActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_changelog" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.AboutActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.DonateActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_activity_donate" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.SettingsActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.TutorialsActivity"
+            android:label="@string/title_activity_tutorials" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.SettingsActivity" />
+        </activity>
+        <activity
+            android:name="dentex.youtube.downloader.UpgradeApkActivity"
+            android:configChanges="locale|orientation|screenSize|keyboard|keyboardHidden"
+            android:label="@string/title_activity_upgrade_apk" >
+        </activity>
+
+        <service android:name="dentex.youtube.downloader.service.DownloadsService" />
+        <service android:name="dentex.youtube.downloader.service.AutoUpgradeApkService" />
+        <service android:name="dentex.youtube.downloader.service.FfmpegDownloadService" />
+
+        <activity
+            android:name="dentex.youtube.downloader.docs.TranslatorsShowActivity"
+            android:label="@string/title_activity_translators_show"
+            android:parentActivityName="dentex.youtube.downloader.AboutActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dentex.youtube.downloader.AboutActivity" />
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="changelog">
+		\n v2.0 - Apr 28 2013
+		\n-----------------------------------
+		\n[x] audio extraction from 
+		\n    downloaded video with optional 
+		\n    conversion to mp3 (with FFmpeg)
+		\n[x] BugSense integration
+		\n[x] PayPal donation menu
+		\n[x] on the fly language switch
+		\n[x] 3 new option on SSH:
+		\n    - use other ConnectBot forks
+		\n    - use link inside same LAN
+		\n    - SSH-send to long-press menu
+		\n[x] up-navigation for ativities
+		\n 
+		\n v1.9 - Mar 23 2013
+		\n-----------------------------------
+		\n[x] YT web page parsing improved
+		\n[x] fixed notif. error when remove 
+		\n    downloads not yet started
+		\n[x] 4K and 3D video support
+		\n[x] re-organized menus
+		\n[x] on the fly theme switch
+		\n[x] progress bar for video list
+		\n[x] option to enable logging
+		\n[x] Korean translation
+		\n
+		\n v1.8.2 - Mar 15 2013
+		\n-----------------------------------
+		\n[x] dark/light theme switcher
+		\n[x] option to show all the file 
+		\n    sizes into the video list
+		\n[x] French translation
+		\n
+		\n v1.8.1 - Mar 14 2013
+		\n-----------------------------------
+		\n[x] notification bug fix
+		\n
+		\n v1.8 - Mar 12 2013
+		\n-----------------------------------
+		\n[x] extSdCard support
+		\n[x] long-press on video list item: 
+		\n    menu to copy/share link
+		\n[x] auto update-check once a day
+		\n[x] new notification icon
+		\n[x] landscape orientation support
+		\n[x] YT video thumbnail preview
+		\n[x] entire row in v.list clickable
+		\n[x] Turkish translation
+		\n[x] Dutch translation
+		\n
+		\n v1.7 - Mar 03 2012
+		\n-----------------------------------
+		\n[x] Italian translation
+		\n[x] Portuguese translation
+		\n[x] option to force the locale
+		\n
+		\n v1.6 - Mar 01 2013
+		\n-----------------------------------
+		\n[x] own YTD notification bar
+		\n[x] options for own and sys notif.
+		\n[x] added some credits
+		\n
+		\n v1.5.2 - Feb 25 2013
+		\n-----------------------------------
+		\n[x] better fix on bad video list
+		\n[x] remove stop download on click
+		\n[x] open DM on notif. bar click
+		\n    (still not working in CM ROM)
+		\n
+		\n v1.5.1 - Feb 24 2013
+		\n-----------------------------------
+		\n[x] fix crash if no net is avail.
+		\n[x] fix crash on bad video list
+		\n
+		\n v1.5 - Feb 22 2013
+		\n-----------------------------------
+		\n[x] online update check
+		\n[x] option to fetch filesizes
+		\n[x] stop download on click
+		\n    (maybe not working in CM 10.1)
+		\n[x] DownloadManager quick links
+		\n[x] settings and DM overflow menu
+		\n[x] reordered preferences
+		\n[x] small fixes
+		\n
+		\n v1.4 - Jan 29 2013
+		\n-----------------------------------
+		\n[x] licenses and code links
+		\n[x] Share this App option
+		\n
+		\n v1.3.1 - Jan 19 2013
+		\n-----------------------------------
+		\n[x] handle again http|https links
+		\n    (thanks Reiner)
+		\n
+		\n v1.3 - Jan 18 2013
+		\n-----------------------------------
+		\n[x] share via mobile links support
+		\n
+		\n v1.2 - Dec 25 2012
+		\n-----------------------------------
+		\n[x] fix for YouTube webpage changes
+		\n
+		\n v1.1.1 - Dec 16 2012
+		\n-----------------------------------
+		\n[x] preferences fix
+		\n
+		\n v1.1 - Dec 13 2012
+		\n-----------------------------------
+		\n[x] all text strings exported
+		\n[x] preferences modification
+		\n[x] quick start tutorial
+		\n
+		\n v1.0.1 - Dec 11 2012
+		\n-----------------------------------
+		\n[x] bad typo fixed
+		\n[x] file-chooser new folder icons
+		\n
+		\n v1.0 - Dec 11 2012
+		\n-----------------------------------
+		\n[x] FIRST PUBLIC RELEASE
+		\n[x] send download via SSH
+		\n[x] JB compatibility
+		\n[x] SSH send how-to dialog
+		\n[x] standard download locations
+		\n[x] file-chooser for download dest.
+		\n[x] add quality suffix options
+		\n[x] file renaming options
+		\n-----------------------------------</string>
+		
+    <string name="gpl_title">GPL-3.0</string>
+    <string name="gpl_summary">YTD &amp; FFmpeg</string>
+    <string name="title_activity_gpl_show">GPL-3.0</string>
+
+    <string name="mit_title">MIT license</string>
+    <string name="mit_summary">android-filechooser &amp; MyID3</string>
+    <string name="title_activity_mit_show">MIT license</string>
+    
+    <string name="lgpl_show_title">LGPL-3.0</string>
+    <string name="lgpl_show_summary">liblame</string>
+    <string name="title_activity_lgpl_show">LGPL-3.0</string>
+		
+    <string name="gpl_text">GNU GENERAL PUBLIC LICENSE
+		\n\n
+		This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+		\n\n
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+		GNU General Public License for more details.
+		\n\n
+		You should have received a copy of the GNU General Public License
+		along with this program. If not, see <http>http://www.gnu.org/licenses</http></string>
+		
+    <string name="lgpl_show_text">GNU LESSER GENERAL PUBLIC LICENSE
+		\n\n
+		This library is free software; you can redistribute it and/or
+		modify it under the terms of the GNU Lesser General Public
+		License as published by the Free Software Foundation; either
+		version 2 of the License, or (at your option) any later version.
+		\n\n
+		This library is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+		Lesser General Public License for more details.
+		\n\n
+		You should have received a copy of the GNU Lesser General Public
+		License along with this library; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA</string>
+
+    <string name="mit_text">The MIT License (MIT)
+		\n\n
+		Permission is hereby granted, free of charge, to any person obtaining a copy of
+		this software and associated documentation files (the "Software"), to deal in
+		the Software without restriction, including without limitation the rights to
+		use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+		the Software, and to permit persons to whom the Software is furnished to do so,
+		subject to the following conditions:
+		\n\n
+		The above copyright notice and this permission notice shall be included in all
+		copies or substantial portions of the Software.
+		\n\n
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+		FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+		COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+		IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+		CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+		
+    <string name="ytd_code_git_summary">https://github.com/dentex/ytdownloader/</string>
+    <string name="ytd_code_hg_summary">https://sourceforge.net/projects/ytdownloader/</string>
+    
+    <string name="paypal_user">samuele.rini76\@gmail.com</string>
+    <string name="paypal_currency_code">EUR</string>
+    
+    <string name="tweet_title">Twitter</string>
+    <string name="tweet_summary">\@twidentex</string>    
+    
+    <string name="imgview_descr">Video thumbnail</string>
+	
+    <string name="app_name">YouTube Downloader</string>
+    <string name="title_activity_share">YouTube Downloader</string>
+    
+    <string-array name="standard_location_entries">
+        <item>Downloads</item>
+        <item>DCIM</item>
+        <item>Movies</item>
+    </string-array>
+    
+    <string-array name="standard_location_entry_values">
+        <item>Downloads</item>
+        <item>DCIM</item>
+        <item>Movies</item>
+    </string-array>
+    
+    <string name="standard_location_default">Downloads</string>
+    
+    <string-array name="connectbot_flavour_entries">
+        <item>ConnectBot</item>
+        <item>VX ConnectBot</item>
+        <item>Irssi ConnectBot</item>
+    </string-array>
+    
+    <string-array name="connectbot_flavour_entry_values">
+        <item>org.connectbot</item>
+        <item>sk.vx.connectbot</item>
+        <item>org.woltage.irssiconnectbot</item>
+    </string-array>
+    
+    <string name="connectbot_flavour_default">org.connectbot</string>
+    
+    <string-array name="download_manager_notification_entry_values">
+        <item>VISIBLE_NOTIFY_COMPLETED</item>
+        <item>VISIBLE</item>
+        <item>HIDDEN</item>
+    </string-array>
+    
+    <string name="download_manager_notification_default">VISIBLE</string>
+    
+    <string-array name="choose_theme_entry_values">
+        <item>D</item>
+        <item>L</item>
+    </string-array>
+    
+    <string name="choose_theme_default">D</string>
+    
+    <string-array name="audio_extraction_type_entry_values">
+        <item>extr</item>
+        <item>conv</item>
+    </string-array>
+    
+    <string name="audio_extraction_type_default">extr</string>
+
+    <string-array name="mp3_bitrate_entries">
+        <item>128</item>
+        <item>160</item>
+        <item>192</item>
+        <item>256</item>
+        <item>320</item>
+    </string-array>
+    
+    <string-array name="mp3_bitrate_entry_values">
+        <item>128k</item>
+        <item>160k</item>
+        <item>192k</item>
+        <item>256k</item>
+        <item>320k</item>
+    </string-array>
+    
+    <string name="mp3_bitrate_default">192k</string>
+    <string name="ffmpeg_download_dialog_msg_link">http://sourceforge.net/projects/ytdownloader/files/ffmpeg/ffmpeg_arm%1$s/download</string>
+    <string name="ffmpeg_size_arm7">6.0 MB</string>
+    <string name="ffmpeg_size_arm5">6.4 MB</string>
+    
+    <string-array name="lang_entries">
+        <item>Default</item>
+        <item>English</item>
+        <item>Italian</item>
+        <item>Portuguese</item>
+        <item>Turkish</item>
+        <item>Dutch</item>
+        <item>French</item>
+        <item>Korean</item>
+    </string-array>
+    
+    <string-array name="lang_entry_values">
+        <item>default</item>
+        <item>en</item>
+        <item>it</item>
+        <item>pt</item>
+        <item>tr</item>
+        <item>nl</item>
+        <item>fr</item>
+        <item>ko</item>
+    </string-array>
+    
+    <string name="lang_default">default</string>
+    
+    <string-array name="notification_defaults_entry_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    
+    <string name="notification_defaults_default">0</string>
+    
+    <string name="translators_list">   
+        \nPLUG313 - Portuguese;
+        \nrew06 - Turkish;
+        \nEkimPadd - Dutch;
+        \nblux (AKA grobux) - French;
+        \ndigitie - Korean.
+    </string>
+    
+    <string name="translators_links">
+        \n<http>www.getlocalization.com/ytdownloader</http>
+        \n\n<http>forum.xda-developers.com/showthread.php?p=37708791</http></string>
+
+</resources>

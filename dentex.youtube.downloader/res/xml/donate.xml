@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- <PreferenceCategory 
+    	android:title="@string/title_activity_donate">
+        
+	    <Preference 
+	        android:key="paypal"
+	        android:title="@string/paypal_title"
+	        android:summary="@string/paypal_summary"/>
+        
+    </PreferenceCategory> -->
+    
+    <!-- Currently using the same as above, but w/o category -->    
+    <Preference 
+        android:key="paypal"
+        android:title="@string/paypal_title"
+        android:summary="@string/paypal_summary"/>
+
+</PreferenceScreen>

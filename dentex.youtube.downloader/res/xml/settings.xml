@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- <Preference    
+		android:key="dm"
+		android:title="@string/dm_title"
+		android:summary="@string/dm_summary"/> -->
+    
+    <PreferenceCategory
+    	android:title="@string/settings_cat_folder">
+
+        <ListPreference
+            android:dependency="swap_location"
+            android:key="standard_location"
+            android:title="@string/standard_location_title"
+            android:dialogTitle="@string/standard_location_title"
+            android:entries="@array/standard_location_entries"
+            android:entryValues="@array/standard_location_entry_values"
+            android:defaultValue="@string/standard_location_default"/>
+            	
+    	<SwitchPreference
+        	android:key="swap_location"
+        	android:title="@string/chooser_swap_title"
+        	android:switchTextOn="ON"
+        	android:switchTextOff="OFF"
+        	android:defaultValue="false" 
+        	android:disableDependentsState="true"/>
+    	
+		<PreferenceScreen
+		    android:key="open_chooser"
+		    android:title="@string/chooser_location_title"/>
+
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/settings_cat_files">
+            
+    	<CheckBoxPreference
+        	android:key="enable_q_suffix"
+        	android:title="@string/enable_q_suffix_title"
+        	android:summary="@string/enable_q_suffix_summary"
+        	android:defaultValue="true"/>
+    	
+    	<CheckBoxPreference
+        	android:key="enable_rename"
+        	android:title="@string/enable_rename_title"
+        	android:summary="@string/enable_rename_summary"
+        	android:defaultValue="false"/>
+    	
+    	<CheckBoxPreference
+            android:key="show_thumb"
+            android:title="@string/show_thumb_title"
+            android:summary="@string/show_thumb_summary" 
+            android:defaultValue="false"/>
+	            
+        <CheckBoxPreference
+            android:key="show_size"
+            android:dependency="show_size_list"
+            android:title="@string/show_size_title"
+            android:summary="@string/show_size_summary" 
+            android:defaultValue="false"/>
+        
+        <CheckBoxPreference
+            android:key="show_size_list"
+            android:disableDependentsState="true"
+            android:title="@string/show_size_list_title"
+            android:summary="@string/show_size_list_summary" 
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/settings_cat_audio">
+    	
+    	<CheckBoxPreference
+        	android:key="enable_audio_extraction"
+        	android:title="@string/enable_audio_extraction_title"
+        	android:summary="@string/enable_audio_extraction_summary"
+        	android:defaultValue="false" />
+        
+        <ListPreference
+            android:key="audio_extraction_type"
+            android:dependency="enable_audio_extraction"
+            android:title="@string/audio_extraction_type_title"
+            android:dialogTitle="@string/audio_extraction_type_title"
+            android:entries="@array/audio_extraction_type_entries"
+            android:entryValues="@array/audio_extraction_type_entry_values"
+            android:defaultValue="@string/audio_extraction_type_default" />
+        
+        <ListPreference
+            android:key="mp3_bitrate"
+            android:dependency="enable_audio_extraction"
+            android:title="@string/mp3_bitrate_title"
+            android:dialogTitle="@string/mp3_bitrate_title"
+            android:entries="@array/mp3_bitrate_entries"
+            android:entryValues="@array/mp3_bitrate_entry_values"
+            android:defaultValue="@string/mp3_bitrate_default" />
+        
+        <CheckBoxPreference
+        	android:key="enable_audio_q_suffix"
+        	android:dependency="enable_audio_extraction"
+        	android:title="@string/enable_audio_q_suffix_title"
+        	android:summary="@string/enable_audio_q_suffix_summary"
+        	android:defaultValue="true" />
+        
+        <CheckBoxPreference
+        	android:key="remove_video"
+        	android:dependency="enable_audio_extraction"
+        	android:title="@string/remove_video_title"
+            android:summary="@string/remove_video_summary"
+            android:defaultValue="false" />
+            
+	</PreferenceCategory>
+
+    <PreferenceCategory
+		android:title="@string/settings_cat_notifications">
+        
+        <CheckBoxPreference
+            android:key="enable_own_notification"
+            android:title="@string/enable_own_notification_title"
+        	android:summary="@string/enable_own_notification_summary"
+        	android:defaultValue="true"/>
+        
+        <!-- <CheckBoxPreference
+            android:key="enable_own_toasts"
+            android:title="@string/enable_own_toasts_title"
+        	android:summary="@string/enable_own_toasts_summary"
+        	android:defaultValue="false"/> -->
+        
+        <ListPreference
+            android:key="download_manager_notification"
+            android:title="@string/download_manager_notification_title"
+            android:dialogTitle="@string/download_manager_notification_dialog_title"
+            android:entries="@array/download_manager_notification_entries"
+            android:entryValues="@array/download_manager_notification_entry_values"
+            android:defaultValue="@string/download_manager_notification_default"/>
+        
+		<ListPreference
+		    android:key="notification_defaults"
+		    android:dependency="enable_own_notification"
+		    android:title="@string/notification_defaults_title"
+		    android:dialogTitle="@string/notification_defaults_dialog_title"
+		    android:entries="@array/notification_defaults_entries"
+		    android:entryValues="@array/notification_defaults_entry_values"
+		    android:defaultValue="@string/notification_defaults_default"/>
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+    	android:title="@string/settings_cat_ui">
+        
+        <ListPreference 
+        	android:key="lang"
+			android:title="@string/lang_title" 
+			android:dialogTitle="@string/lang_dialog_title" 
+			android:entries="@array/lang_entries"
+            android:entryValues="@array/lang_entry_values"
+            android:defaultValue="@string/lang_default"/>
+        
+        <ListPreference
+            android:key="choose_theme"
+            android:title="@string/choose_theme_title"
+		    android:dialogTitle="@string/choose_theme_title"
+		    android:entries="@array/choose_theme_entries"
+            android:entryValues="@array/choose_theme_entry_values"
+            android:defaultValue="@string/choose_theme_default"/>
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+    	android:title="@string/settings_cat_updates">
+    	
+        <Preference 
+        	android:key="update"
+			android:title="@string/update_title"/>
+        
+        <CheckBoxPreference 
+            android:key="autoupdate"
+            android:dependency="update"
+            android:title="@string/autoupdate_title"
+            android:summary="@string/autoupdate_summary"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+    	android:title="@string/settings_cat_ssh">
+        
+        <CheckBoxPreference 
+            android:key="ssh_to_longpress_menu"
+            android:title="@string/ssh_to_longpress_menu_title"
+            android:summary="@string/ssh_to_longpress_menu_summary"
+            android:defaultValue="false"/>
+        
+        <ListPreference
+		    android:key="connectbot_flavour"
+		    android:title="@string/connectbot_flavour_title"
+		    android:dialogTitle="@string/connectbot_flavour_dialog_title"
+		    android:entries="@array/connectbot_flavour_entries"
+		    android:entryValues="@array/connectbot_flavour_entry_values"
+		    android:defaultValue="@string/connectbot_flavour_default"/>
+        
+        <CheckBoxPreference 
+            android:key="enable_connectbot_short_cmd"
+            android:title="@string/enable_connectbot_short_cmd_title"
+            android:summary="@string/enable_connectbot_short_cmd_summary"
+            android:defaultValue="true"/>
+        
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+    	android:title="@string/settings_cat_advanced">
+        
+        <CheckBoxPreference 
+            android:key="enable_logging"
+            android:title="@string/enable_logging_title"
+            android:summary="@string/enable_logging_summary"
+            android:defaultValue="false"/>
+        
+        <CheckBoxPreference 
+            android:key="disable_bugsense"
+            android:title="@string/disable_bugsense_title"
+            android:summary="@string/disable_bugsense_summary"
+            android:defaultValue="false"
+            android:enabled="false"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_settings">Ayarlar</string>
+    <string name="title_activity_upgrade_apk">Yükselt</string>
+    <string name="title_activity_about">Hakkinda</string>
+    <string name="title_activity_donate">Bağışlar</string>
+    <string name="title_activity_tutorials">Rehberler</string>
+
+    <!-- ### ShareActivity ### -->
+
+    <string name="tutorial_title">Genel Uygulama Yardımcısı</string>
+	<string name="tutorial_msg_new">Şimdi seçilen video için kullanılabilecek kodek ve nitelikleriyle alakalı bir liste göreceksiniz. Yapılabilir:
+\n\n*) Video’yu yerel diske (cihazınızda) kaydetmek veya SSH kullanarak uzakt bilgisayara göndermek için İtem\'e basınız.
+\nHedef makine gereklilikleri: Başh ve Wget.  SSH’e ek olarak;
+\n\n*) İtem’e uzunca basın ve kopyalamak yada metin olarak paylaşmak için seçim yapın. ( ya da başka uygulamaya gönderin).
+\n Lütfen şunu unutmayın: Linkler  (SSH ile gönderdiğinden farklı) sadece oluşturulduğu cihazda ya da paylaştığınız makinede kullanılabilir.\n</string>
+    <string name="loading">Yükleniyor&#8230;</string>
+    <string name="error">Hata!</string>
+    <string name="information">Bilgi</string>
+    <string name="dialogs_negative">Iptal</string>
+    <string name="wait">Lütfen bekleyiniz&#8230;</string>
+    <string name="invalid_url">Web sayfası alınamadı. URL geçersiz olabilir.</string>
+    <string name="invalid_url_short">Web sayfası alınamadı.</string>
+    <string name="invalid_response">Geçersiz HTTP sunucusu yanıtı.</string>
+    <string name="bad_link">Verilen bağlantıyı kontrol edin.</string>
+    <string name="bad_link_dialog_msg">Geçerli olmayan YouTube bağlantısı.</string>
+    <string name="no_net">Kullanılabilir bağlantı yok.</string>
+    <string name="no_net_dialog_msg">Lütfen, öncelikle bir ağ bağlantısı kurun.</string>
+    <string name="no_market">Kullanılabilir market uygulaması mevcut değil.</string>
+    <string name="no_market_dialog_msg">Lütfen, Google Play\'i yükleyiniz</string>
+    <string name="list_click_dialog_title">Karşıdan yüklemeyi onaylayın:</string>
+    <string name="list_click_download_local">Buraya indir</string>
+    <string name="list_click_download_ssh">SSH ile gönder</string>
+    <string name="rename_dialog_title">Yeni dosya adı:</string>
+    <string name="rename_dialog_msg">Dosya uzantısı girmeyin (.mp4 veya .flv gibi).</string>
+    <string name="unable_save">Video kaydedilemiyor!</string>
+    <string name="unable_save_dialog_msg">Hedef klasörü kullanılabilir değil ve / veya yazılabilir değil.</string>
+    <string name="ssh_info_tutorial_title">SSH ile nasıl gönderilir</string>
+    <string name="ssh_info_tutorial_msg">Uzun basılı tutarak panoya kopyalayın.
+		\n\nConnectBot\'dan bir profil seçin ve uzak kabuk içinde (remote shell)  indirmek istediğiniz
+		dizine YAPIŞTIRIN (menü butonunu kullanarak) ve ENTER tuşlayın.</string>
+    <string name="callConnectBot_dialog_title">%1$s not installed!</string>
+    <string name="callConnectBot_dialog_msg">Video\'yu SSH ile indirebilmek için bu ücretsiz uygulamayı yüklemeniz gerekiyor.</string>
+    <string name="callConnectBot_dialog_positive">İndir</string>
+    <string name="download_complete_dialog_msg1">YouTube Video:\n</string>
+    <string name="download_complete_dialog_msg2">\nBaşarıyla indirildi.</string>
+    <string name="download_complete_dialog_positive">Aç</string>
+    <string name="downloading">İndiriliyor&#8230;</string>
+    <string name="cancel_download_dialog_title">İndirmeyi iptal et?</string>
+    <string name="video_list_error_toast">Video listesinde hata.</string>
+    <string name="codec">\n\n\tKodek:</string>
+    <string name="quality">\n\tKalite:</string>
+    <string name="size">\n\tBoyut:</string>
+    <string name="notification_downloading_pt1">İndiriliyor</string>
+    <string name="notification_downloading_pt2">Video dosyaları</string>
+    <string name="notification_no_downloads">Devam etmekte olan bir indirme mevcut değil</string>
+    <string name="long_click_title">Seçilen bağlantı kolu:</string>
+    <string name="extsdcard_info_title">Standart olmayan hedefyolu</string>
+    <string name="extsdcard_info_msg">Dosya, standart indirme klasörüne indiriliyor daha sonra seçtiğiniz hedefe taşınacak.</string>
+    <string name="ffmpeg_ready">FFmpeg hazır.</string>
+    <string name="confirm_audio_checkbox1">İndirmeden sonra sesi çıkart</string>
+    <string name="confirm_audio_checkbox2">\n(ayarlarda belirlendiği gibi)</string>
+    
+    <string-array name="long_click_entries">
+        <item>Panoya kopyala</item>
+        <item>Metin olarak paylaş</item>
+    </string-array>
+    
+    <string-array name="long_click_entries2">
+        <item>Copy to clipboard</item>
+        <item>Share as text</item>
+        <item>Send via SSH</item>
+    </string-array>
+    
+    <!-- ### SettingsActivity ### -->
+
+    <string name="attention">Dikkat!</string>
+    <string name="extsdcard_warning">Dosyalar çıkarılabilir sd karta yazılamıyor.\nStandart sd karta geri dönülüyor.</string>
+    <string name="system_warning_title">Bu bir sistem dosyasıdır.</string>
+    <string name="system_warning_msg">Seçilen yol standart sd kart\'ın Download klasörüne geri döndürülecek.</string>
+    <string name="sdcard_unmounted_warning">Sd kard mount (tanıtılmamış) edilmemiş.</string>
+    <string name="update_disabled_summary">Farklı imza bulundu(F-Droid?)</string>
+    <string name="failed_download">Başarısız indirme temizlendi</string>
+    <string name="new_v_download">bulundu. İndiriliyor&#8230;</string>
+    <string name="new_v_install">indirildi. Yüklemek için tıklayın.</string>
+    <string name="ffmpeg_download_dialog_title">İlave dosya gerekli. Şimdi indirilsin mi?</string>
+    <string name="ffmpeg_download_dialog_msg">Web link:</string>
+    <string name="ffmpeg_device_not_supported">Cihaz henüz desteklenmiyor.</string>
+    <string name="ffmpeg_support_mail">Geliştiriciye e-posta gönder?
+\nE-posta gönderilmeden önce göndereceğiniz bilgileri gözden geçireceksiniz.</string>
+    <string name="ffmpeg_download_notification">İndiriliyor FFmpeg</string>
+    <string name="ffmpeg_install">FFmpeg binary yükleniyor&#8230;</string>
+    <string name="email_via">E-posta gönder:</string>
+    
+    <!-- ### UpgradeApkActivity ### -->
+    
+    <string name="upgrade_button_init">Güncelle</string>
+    <string name="upgrade_button_download">İndir\nve yükle</string>
+    <string name="upgrade_uppertext_searching">Arıyor&#8230;</string>
+    <string name="upgrade_uppertext_init">Yüklü sürüm:\n</string>
+
+    <string name="upgrade_latest">En son:\t</string>
+    <string name="upgrade_installed">\nYüklenen:\t</string>
+    <string name="upgraded_dialog_msg">Yeni sürüm standart sdcard  \'Download\' klasörüne depolandı.\n\nŞimdi yükle?</string>
+    <string name="upgraded_dialog_negative">Sonra\n(el ile)</string>
+    <string name="upgrade_latest_installed">En son sürüm zaten yüklü!</string>
+    <string name="upgrade_network_error">Güncelleme verisi alınamadı.\nDaha sonra tekrar deneyiniz.</string>
+    <string name="upgrade_bad_md5_dialog_msg">İndirilen paket bozuk.\nŞimdi silinecek.\nYeniden indirmek için OK tıklayın.</string>
+    
+    <!-- ### DownloadsService ### -->
+    
+    <string name="ytd_video">YTD video</string>
+    <string name="copy_error">Kopyalama sırasında hata oluştu</string>
+    <string name="copy_progress">Dosya kopyalama devam ediyor&#8230;</string>
+    <string name="copy_ok">Kopyalama tamamlandı.</string>
+    <string name="download_remove_failed">Hata: Geçici indirilen dosya silinemedi!</string>
+    <string name="download_failed">İndirme Başarısız!</string>
+    <string name="audio_extr_progress">Ses ayıklaması devam ediyor&#8230;</string>
+    <string name="audio_conv_progress">Ses dosyasının  mp3 kodlanması devam ediyor&#8230;</string>
+    <string name="audio_extr_completed">Ses oluşturma tamamlandı.</string>
+    <string name="audio_conv_completed">Mp3 kodlaması tamamlandı.</string>
+    <string name="audio_extr_error">Ses ayıklaması sırasında hata meydana geldi.</string>
+    <string name="audio_conv_error">Ses dosyasının mp3\'e dönüştürülmesi sırasında hata meydana geldi.</string>
+    
+    <!-- ### DonateActivity ### -->
+    
+    <string name="paypal_item_name">YTD Bağış Yapma</string>
+    <string name="paypal_title">PayPal</string>
+	<string name="paypal_summary">YTD\'nin geliştiricisine bağış yaparak destek ol</string>
+	
+	<!-- ### FfmpegDownloadService ### -->
+	<string name="ffmpeg_install_failed">FFmpeg yüklemesi başarısız oldu.</string>
+
+    <!-- ### preferences ### -->
+
+    <!-- -->
+    <string name="dm_title">İndirmeler</string>
+    <string name="dm_summary">Sistem İndirme Yöneticisini Aç</string>
+
+    <!-- -->
+    <string name="settings_cat_ui">Kullanıcı Arabirimi</string>
+    <string name="lang_title">Lisan</string>
+    <string name="lang_dialog_title">Lisan (uygulama yeniden başlatılmalıdır):</string>
+    <string name="choose_theme_title">Tema seç</string>
+    <string-array name="choose_theme_entries">
+        <item>Koyu</item>
+        <item>Açık</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="quick_start_title">Hızlı başlangıç</string>
+    <string name="quick_start_summ">Hızlı başlangıç rehberini aç</string>
+    <string name="quick_start_text">Burada sadece \'YouTube Downloader\' ayarları mevcut.
+		\n\nGerçek uygulamaya YouTube üzerinde video izlediğiniz sırada, paylaş butonu ile ulaşabilirsiniz.
+		\n\nSonra \'YouTube Downloaderni\' seçin ve daha fazla kullanım bilgisine ulaşın.
+		\n\nAyrıca herhangi bir YouTube düz metin bağlantısını  herhangi başka bir uygulama paylaşabilirsiniz: Mesajlaşma, Tarayıcı&#8230;</string>
+    <string name="general_info_title">Genel Nasıl yapılırı Etkinleştir</string>
+    <string name="general_info_summary">Açlışta genel yardımı göster</string>
+    <string name="show_again_checkbox">Bir dahaki sefer tekrar göster</string>
+    <string name="ssh_info_title">Nasıl SSH yapılır etkinleştir</string>
+    <string name="ssh_info_summary">SSH üzerinden uzaktan indirme hakkında hızlı bir ipucu göster</string>
+    <string name="audio_tutorial_title">Ses ayıklama öğreticisi</string>
+    <string name="audio_tutorial_summary">Ses ayıklama rehberini aç</string>
+    <string name="audio_tutorial_text">İndirilen videodan ses çıkarma ve mp3\'e çevirmek için:
+\n\n*) Ses tercihini etkinleştirin ve FFmpeg indirin;
+\n\n*) Ayıklama şeklini seçin:
+\n\n\"Sadece ayıkla\"videodaki ses akışını korur (WebM dosyaları \"Ogg Vorbis dosyalarını içerir\"
+ses; MP4, 3GPP ve  orta\büyük FLV videosu \"AAC\" ses akışını; küçük FLV \"mp3\" içerir);
+\n\n\" mp3\'e ayıklama ve çevirme\"  ayıklanan ses dosyası seçilen bitrate ile mp3\'e çevrilir.
+\n\nBundan sonra, YTD\'nin video listesinde seçilen dosyayı indirmek için bir onaylama kutusu çıkacak.
+Onay verildikten sonra video indirme işlemi bittikten sonra ses aıyklama başlayacak
+(onaylama kutusunu gizlemek için ses ayıklama özelliğini devre dışı bırakın)
+\n\nSes ayıklama işlemi bittikten sonra video dosyasının silinmesi için ayarlardan bu özelliği seçin.
+</string>
+    
+    <!-- -->
+    <string name="settings_cat_folder">İndirme Klasörü</string>
+    <string name="standard_location_title">Standart klasör seçin</string>
+    <string name="chooser_swap_title">Seçiciyi değiştir</string>
+    <string name="chooser_location_title">Dosya seçiciyi aç</string>
+    <string name="chooser_location_summary">Dosyayı seçmek için uzun bas</string>
+	
+    <!-- -->
+    <string name="settings_cat_files">Video dosyaları</string>
+    <string name="enable_q_suffix_title">Kalite soneki ekleyin</string>
+    <string name="enable_q_suffix_summary">Video adında kalitesini belirt</string>
+    <string name="enable_rename_title">Dosya yeniden adlandırmayı etkinleştir</string>
+    <string name="enable_rename_summary">Video dosyasını indirmeden önce yeniden adlandır (sadece yerel indirmeler için)</string>
+    <string name="show_size_title">Dosya boyutunu göster</string>
+    <string name="show_size_summary">İndirme onaylama mesajında video boyutunu al (daha yavaş)</string>
+    <string name="show_size_list_title">Tüm video boyutlarını göster</string>
+    <string name="show_size_list_summary">Kullanılabilir video listesindeki dosyaların  boyutlarını al (çok yavaş)</string>
+    <string name="show_thumb_title">Önizleme resmi göster</string>
+    <string name="show_thumb_summary">Video listesi ile birlikte bir önizleme resmi indir</string>
+    
+    <!-- -->
+    <string name="settings_cat_audio">Ses</string>
+    <string name="enable_audio_extraction_title">Ses ayıklamayı etkinleştir</string>
+    <string name="enable_audio_extraction_summary">İndirilen videodan sesi çıkart ve çevir (sadece lokal indirmeler için geçerlidir)</string>
+    <string name="mp3_bitrate_title">Mp3 için bithızı kodlaması (kbps)</string>
+    <string name="audio_extraction_type_title">Çıkarma türü</string>
+    <string name="enable_audio_q_suffix_title">Ses kalitesi soneki ekleyin</string>
+    <string name="enable_audio_q_suffix_summary">Ses dosyasının adında kalitesini belirt</string>
+    <string name="remove_video_title">Video removal</string>
+    <string name="remove_video_summary">Başarılı ses ayıklama ardından video dosyasını sil (dikkat: onay istemeden video silinir)</string>
+
+    <string-array name="audio_extraction_type_entries">
+        <item>Sadece ayıkla</item>
+        <item>Ayıkla ve mp3 dosyasına kodla</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_notifications">Bildirimler</string>
+    <string name="enable_own_notification_title">Kendi bildirimlerini etkinleştir</string>
+    <string name="enable_own_notification_summary">Tüm YTD indirmeleri hakkında kapsamlı bildirimler göster</string>
+    <string name="download_manager_notification_title">Sistem bildirimlerini yönet</string>
+    <string name="download_manager_notification_dialog_title">Sistem İndirme Yöneticisi Bildirimlerini göster:</string>
+    
+    <string-array name="download_manager_notification_entries">
+        <item>İlerleme sırasında ve ilerlemenin tamamlanmasından sonra</item>
+        <item>Sadece ilerleme sırasında</item>
+        <item>Asla</item>
+    </string-array>
+    
+    <string name="notification_defaults_title">Bildirim varsayılanları</string>
+    <string name="notification_defaults_dialog_title">YTD\'nin kendi bildirim varsayılanları</string>
+    <string-array name="notification_defaults_entries">
+        <item>Ses ve titreşim</item>
+        <item>Ses ve ışıklar</item>
+        <item>Titreşim ve ışıklar</item>
+        <item>Ses, Titreşim ve Işıklar</item>
+        <item>Ses</item>
+        <item>Titreşim</item>
+        <item>Işıklar</item>
+        <item>Hiçbiri</item>
+    </string-array>   
+    
+    <!-- -->
+    <string name="settings_cat_updates">Güncelle</string>
+    <string name="update_title">Güncelleme kontrolü</string>
+    <string name="autoupdate_title">Otomatik güncelleştirmeyi etkinleştir</string>
+    <string name="autoupdate_summary">Uygulamayı çalıştırdığınız zaman güncellemeleri kontrol et (her gün sadece ilk çalıştırmada, ve güncelleme otomatik indirilir)</string>
+
+    <!-- -->
+    <string name="settings_cat_app">Uygulama</string>
+    <string name="settings_cat_about_condensed">Hakkında</string>
+    <string name="title_changelog">Değişiklikler</string>
+    <string name="screen_licences_code_title">Lisans ve Kodlama</string>
+
+    <!-- -->
+    <string name="settings_cat_licenses">Lisanslar</string>
+
+    <string name="credits_title">Emeği Geçenler</string>
+    <string name="title_activity_credits_show">Diğer Lisanslar ve Çeviriler</string>
+    
+    <string name="credits_text0">\tMain Licenses
+\n\n
+This App and is released under the GPL-3.0.
+\n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
+\n\n
+The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 
+used for the audio extraction feature, is released under the GPL-3.0.
+\n(FFmpeg version 1.2 Copyright &#169; 2000-2013 the FFmpeg developers).
+\n\n
+The filechooser library is released under the MIT license.
+\n(android-filechooser Copyright &#169; 2012 Hai Bison).
+\n\n
+The liblame library, used to compile FFmpeg, is released under the LGPL.
+A GitHub project, <http>https://github.com/intervigilium/liblame</http>, 
+has been used to compile the lame libraries for Android.
+\n(liblame Copyright &#169; 2010 Ethan Chen)
+\n(LAME Copyright &#169; 1999-2007 The LAME Project,
+\nCopyright &#169; 1999-2001 Mark Taylor,
+\nCopyright &#169; 1998 Micheal Cheng)
+\n(mpglib Copyright &#169; 1995-1997 Michael Hipp).
+\n\n
+YTD\'s mp3 tags are written with MyID3: a Java ID3 Tag Library
+(<http>http://www.fightingquaker.com/myid3</http> and <http>https://sites.google.com/site/eternalsandbox/myid3-for-android</http>) 
+released under the LGPL, as its dependency Jakarta Regexp library.
+\n(MyID3 Copyright &#169; 2008 Charles M. Chen, adapted for Android by Romulus Urakagi Ts\'ai).
+\n\n
+For more informations, refer to the dedicated menus and to the license files 
+available from this project\'s source code.
+\n</string>
+    
+    <string name="credits_text1">\tCode excerpts Licenses
+\n\n
+This App uses some code snippets from: 
+\n\n
+1) CyanogenMod custom ROM (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>)
+\nCopyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
+\nThe text of the license can be found in the LICENSE_GPL file or at <http>https://www.gnu.org/licenses/gpl-3.0.txt</http>
+\n\n
+2) Stack Overflow (<http>http://stackoverflow.com</http>), a question and answer site for programmers where all 
+the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+\n\n
+For more details, look for comments in YTD\'s Java code.</string>
+    <string name="credits_translators">\n\tÇeviriler 
+\n\nÇeviriler için Teşekkürler:</string>
+    <string name="translators_info">\nDaha fazla bilgi için:</string>
+        
+    <!-- -->
+    <string name="settings_cat_code">Kaynak Kod</string>
+    <string name="ytd_code_git_title">GitHub\'da YTD </string>
+    <string name="ytd_code_hg_title">Sourceforge\'de YTD</string>
+
+    <!-- -->
+    <string name="settings_cat_social">Sosyal</string>
+    <string name="share_title">Uygulamayı Paylaş</string>
+    <string name="share_summary">Twitter, Facebook, Gmail&#8230; ile&#8230;</string>
+    <string name="share_warning">Uygun uygulama bulunamadı.</string>
+    <string name="share_message">#YouTube Downloader
+		\nÜcretsiz ve Açık kaynaklı YouTube video indirme  Android uygulaması!
+		\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+	<string name="help_translate_title">Uygulamanın Çevirisine Destek Ol</string>
+    <string name="help_translate_summary">Buraya gidin www.getlocalization.com/ytdownloader</string>
+    
+    <!-- -->
+    <string name="settings_cat_ssh">SSH</string>
+    <string name="connectbot_flavour_title">ConnectBot version to use</string>
+	<string name="connectbot_flavour_dialog_title">Choose ConnectBot fork to send video via SSH</string>
+	<string name="enable_connectbot_short_cmd_title">Enable SSH short cmd</string>
+	<string name="enable_connectbot_short_cmd_summary">Use a slightly shorter but faster command to 
+	    paste into the remote shell (will ONLY work if the destination PC resides within the same LAN)</string>
+	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
+	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
+	
+    <!-- -->
+	<string name="settings_cat_advanced">Advanced</string>
+	<string name="enable_logging_title">Günlük tutmayı etkinleştir</string>
+	<string name="enable_logging_summary">YTD\'s mesajlarını sistem günlüğüne ekle. Geliştiriciye sistem günlüğünü göndermek gereklidir.</string>
+	
+</resources>

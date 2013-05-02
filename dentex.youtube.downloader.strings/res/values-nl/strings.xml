@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_upgrade_apk">Upgrade</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_donate">Donations</string>
+    <string name="title_activity_tutorials">Tutorials</string>
+
+    <!-- ### ShareActivity ### -->
+
+    <string name="tutorial_title">Algemene App handleiding</string>
+	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
+		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
+		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
+		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
+		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
+    <string name="loading">Laden&#8230;</string>
+    <string name="error">Fout!</string>
+    <string name="information">Informatie</string>
+    <string name="dialogs_negative">Annuleren</string>
+    <string name="wait">Een moment geduld a.u.b. &#8230;</string>
+    <string name="invalid_url">Niet in staat om de pagina te laden. URL wellicht ongeldig.</string>
+    <string name="invalid_url_short">Niet in staat om de pagina te laden.</string>
+    <string name="invalid_response">Ongeldige HTTP server terugkoppeling.</string>
+    <string name="bad_link">Controleer de opgegeven link.</string>
+    <string name="bad_link_dialog_msg">Ongeldige YouTube link.</string>
+    <string name="no_net">Geen verbinding beschikbaar.</string>
+    <string name="no_net_dialog_msg">Activeer uw netwerk verbinding eerst, alstublieft.</string>
+    <string name="no_market">Geen market App beschikbaar.</string>
+    <string name="no_market_dialog_msg">Installeer Google Play alstublieft</string>
+    <string name="list_click_dialog_title">Bevestig de volgende download:</string>
+    <string name="list_click_download_local">Hier downloaden</string>
+    <string name="list_click_download_ssh">Verzend via SSH</string>
+    <string name="rename_dialog_title">Nieuwe bestandsnaam:</string>
+    <string name="rename_dialog_msg">Vul niet de bestandsextensie in (zoals .mp4 of .flv).</string>
+    <string name="unable_save">Niet in staat om de video op te slaan!</string>
+    <string name="unable_save_dialog_msg">Bestemmingsmap  is niet beschikbaar en/of niet schrijfbaar.</string>
+    <string name="ssh_info_tutorial_title">Hoe te verzenden via SSH </string>
+    <string name="ssh_info_tutorial_msg">Een enkele lange commando is geladen in het klembord.
+\n\nKies een profiel in ConnectBot en een keer in je remote shell, bladert u naar de gewenste
+map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
+    <string name="callConnectBot_dialog_title">%1$s not installed!</string>
+    <string name="callConnectBot_dialog_msg">Deze gratis App is vereist voor het versturen van de video via het SSH protocol.</string>
+    <string name="callConnectBot_dialog_positive">Download</string>
+    <string name="download_complete_dialog_msg1">YouTube Video:\n</string>
+    <string name="download_complete_dialog_msg2">\nDownload voltooid</string>
+    <string name="download_complete_dialog_positive">Openen</string>
+    <string name="downloading">Downloaden&#8230;</string>
+    <string name="cancel_download_dialog_title">Download annuleren?</string>
+    <string name="video_list_error_toast">Error in video list.</string>
+    <string name="codec">\n\n\tCodec:</string>
+    <string name="quality">\n\tKwaliteit:</string>
+    <string name="size">\n\tGroote:</string>
+    <string name="notification_downloading_pt1">Downloaden...</string>
+    <string name="notification_downloading_pt2">video bestanden</string>
+    <string name="notification_no_downloads">Geen downloads in behandeling</string>
+    <string name="long_click_title">Hanteer geselecteerde link:</string>
+    <string name="extsdcard_info_title">Non standard destination path</string>
+    <string name="extsdcard_info_msg">File is being downloaded initially in the standard Download folder and then will be moved to the selected destination.</string>
+    <string name="ffmpeg_ready">FFmpeg ready.</string>
+    <string name="confirm_audio_checkbox1">Extract audio after download</string>
+    <string name="confirm_audio_checkbox2">\n(as defined in settings)</string>
+    
+    <string-array name="long_click_entries">
+        <item>Kopieer naar klembord</item>
+        <item>Deel als tekst</item>
+    </string-array>
+    
+    <string-array name="long_click_entries2">
+        <item>Copy to clipboard</item>
+        <item>Share as text</item>
+        <item>Send via SSH</item>
+    </string-array>
+    
+    <!-- ### SettingsActivity ### -->
+
+    <string name="attention">Let op!</string>
+    <string name="extsdcard_warning">Niet in staat om bestanden te schrijven op de verwijderbare sdkaart.\nTerug vallen op de standaard sdkaart.</string>
+    <string name="system_warning_title">Dit is een systeemmap</string>
+    <string name="system_warning_msg">Gekozen pad valt terug op de standaard sdkaart. Download map.</string>
+    <string name="sdcard_unmounted_warning">Sdkaart niet gemonteerd</string>
+    <string name="update_disabled_summary">Verschillen gevonden in de ondertekening (F-Droid?)</string>
+    <string name="failed_download">Mislukte download verwijderd</string>
+    <string name="new_v_download">gevonden. Downloaden&#8230;</string>
+    <string name="new_v_install">Gedownload. Klik om te instaleren.</string>
+    <string name="ffmpeg_download_dialog_title">An additional file is needed. Download it now?</string>
+    <string name="ffmpeg_download_dialog_msg">Web link:</string>
+    <string name="ffmpeg_device_not_supported">Device not supported yet.</string>
+    <string name="ffmpeg_support_mail">Send email to the developer?
+        \nYou will review all information in your email application before sending any data.</string>
+    <string name="ffmpeg_download_notification">Downloading FFmpeg</string>
+    <string name="ffmpeg_install">Installing FFmpeg binary&#8230;</string>
+    <string name="email_via">Send email via:</string>
+    
+    <!-- ### UpgradeApkActivity ### -->
+    
+    <string name="upgrade_button_init">Bijwerken</string>
+    <string name="upgrade_button_download">Download\nen installeren</string>
+    <string name="upgrade_uppertext_searching">Zoeken&#8230;</string>
+    <string name="upgrade_uppertext_init">Installeer versie:\n</string>
+
+    <string name="upgrade_latest">Laatste:\t</string>
+    <string name="upgrade_installed">\nGeïnstalleerd:\t</string>
+    <string name="upgraded_dialog_msg">Nieuwe versie opgeslagen in standaard map sdkaart \'Download\' folder.\n\n Installeer nu?</string>
+    <string name="upgraded_dialog_negative">Later\n(handmatig)</string>
+    <string name="upgrade_latest_installed">Laatste versie is al geïnstalleerd!</string>
+    <string name="upgrade_network_error">Niet in staat om de update data terug te vinden.\nProbeer het later nogmaals.</string>
+    <string name="upgrade_bad_md5_dialog_msg">Gedownloade pakket is ongeldig.\nWordt nu verwijderd.\nKlik OK om opnieuw te downloaden.</string>
+    
+    <!-- ### DownloadsService ### -->
+    
+    <string name="ytd_video">YTD video</string>
+    <string name="copy_error">Fout tijdens het kopiëren</string>
+    <string name="copy_progress">File copy in progress&#8230;</string>
+    <string name="copy_ok">Copy completed.</string>
+    <string name="download_remove_failed">Error: temporary downloaded file not removed!</string>
+    <string name="download_failed">Download mislukt!</string>
+    <string name="audio_extr_progress">Audio extraction in progress&#8230;</string>
+    <string name="audio_conv_progress">Audio encoding to mp3 in progress&#8230;</string>
+    <string name="audio_extr_completed">Audio extraction completed.</string>
+    <string name="audio_conv_completed">Audio encoding to mp3 completed.</string>
+    <string name="audio_extr_error">Error during audio extraction.</string>
+    <string name="audio_conv_error">Error during audio encoding to mp3.</string>
+    
+    <!-- ### DonateActivity ### -->
+    
+    <string name="paypal_item_name">YTD Donation</string>
+    <string name="paypal_title">PayPal</string>
+	<string name="paypal_summary">Support YTD\'s developer with a donation</string>
+	
+	<!-- ### FfmpegDownloadService ### -->
+	<string name="ffmpeg_install_failed">FFmpeg installation failed.</string>
+
+    <!-- ### preferences ### -->
+
+    <!-- -->
+    <string name="dm_title">Downloads</string>
+    <string name="dm_summary">Open system\'s Download Manager</string>
+
+    <!-- -->
+    <string name="settings_cat_ui">User Interface</string>
+    <string name="lang_title">Taal</string>
+    <string name="lang_dialog_title">Taal (applicatie herstart vereist):</string>
+    <string name="choose_theme_title">Kies thema</string>
+    <string-array name="choose_theme_entries">
+        <item>Donker</item>
+        <item>Licht</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="quick_start_title">Snelle start</string>
+    <string name="quick_start_summ">Open de snel start handleiding</string>
+    <string name="quick_start_text">Hier zijn de voorkeuren voor \'\'YouTube Downloader\'.
+\n\nDe App kan tijdens het kijken via de share knop in de YouTube App worden opgeroepen.
+\n\nKies dan \'YouTube Downloader\' en u zult verder video informatie ontvangen.
+\n\nU kunt ook all YouTube eenvoudige tekst links via een andere App (bijv de browser) delen.</string>
+    <string name="general_info_title">Activeer de algemene handleiding</string>
+    <string name="general_info_summary">Toon een algemene App handleiding bij het opstarten</string>
+    <string name="show_again_checkbox">Volgende keer tonen</string>
+    <string name="ssh_info_title">Activeer SSH handleiding</string>
+    <string name="ssh_info_summary">Laat een snelle tip zien over op afstand downloaden via SSH</string>
+    <string name="audio_tutorial_title">Audio extraction tutorial</string>
+    <string name="audio_tutorial_summary">Open a brief guide about the audio extraction feature</string>
+    <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
+        \n\n*) Enable the audio preference and download FFmpeg;
+        \n\n*) Choose the extraction type: 
+        \n\n\"extract only\" will conserve the audio stream from the video as is (WebM files contain an \"Ogg Vorbis\" 
+        audio; MP4, 3GPP and large/medium FLV video hold an \"AAC\" audio stream; FLV small holds an \"mp3\");
+        \n\n\"extract and encode to mp3\" will convert the extracted audio in an mp3, encoding it with the selected bitrate.
+        \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
+        in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
+        (to hide the checkbox, disable the audio extraction option).
+        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+    
+    <!-- -->
+    <string name="settings_cat_folder">Download map</string>
+    <string name="standard_location_title">Kies een standaard map</string>
+    <string name="chooser_swap_title">Wissel kiezer</string>
+    <string name="chooser_location_title">Open bestandskiezer</string>
+    <string name="chooser_location_summary">Lang drukken om een map te selecteren</string>
+	
+    <!-- -->
+    <string name="settings_cat_files">Video bestanden</string>
+    <string name="enable_q_suffix_title">Kwaliteit achtervoegsel toevoegen</string>
+    <string name="enable_q_suffix_summary">Add the video quality at the end of the file name</string>
+    <string name="enable_rename_title">Activeer bestand hernoemen</string>
+    <string name="enable_rename_summary">Hernoem het video bestand voor het downloaden (alleen voor lokale download)</string>
+    <string name="show_size_title">Bestandsgrootte laten zien</string>
+    <string name="show_size_summary">Haal de grootte van het videobestand op bij het bevestigingsbericht (langzamer)</string>
+    <string name="show_size_list_title">Toon de grootte van alle video formaten</string>
+    <string name="show_size_list_summary">Haal de bestandsgrootte op van alle video\'s in de lijst (veel slomer)</string>
+    <string name="show_thumb_title">Toon voorbeeld afbeelding</string>
+    <string name="show_thumb_summary">Download een voorbeeld afbeelding met de videolijst</string>
+    
+    <!-- -->
+    <string name="settings_cat_audio">Audio</string>
+    <string name="enable_audio_extraction_title">Enable audio extraction</string>
+    <string name="enable_audio_extraction_summary">Extract and convert audio from downloaded video (for the local download only)</string>
+    <string name="mp3_bitrate_title">Bitrate for mp3 encoding (kbps)</string>
+    <string name="audio_extraction_type_title">Extraction type</string>
+    <string name="enable_audio_q_suffix_title">Append audio quality suffix</string>
+    <string name="enable_audio_q_suffix_summary">Add the audio quality at the end of the file name</string>
+    <string name="remove_video_title">Video removal</string>
+    <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
+
+    <string-array name="audio_extraction_type_entries">
+        <item>Extract only</item>
+        <item>Extract and encode to mp3</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_notifications">Meldingen</string>
+    <string name="enable_own_notification_title">Activeer eigen meldingen</string>
+    <string name="enable_own_notification_summary">Laat een uitgebreide melding zien over alle YTD downloads</string>
+    <string name="download_manager_notification_title">Beheer system\'s meldingen</string>
+    <string name="download_manager_notification_dialog_title">Laat system\'s Download Manager melding zien:</string>
+    
+    <string-array name="download_manager_notification_entries">
+        <item>Tijdens de uitvoering en na voltooiing</item>
+        <item>Tijdens het uitvoering alleen</item>
+        <item>Nooit</item>
+    </string-array>
+    
+    <string name="notification_defaults_title">Notification defaults</string>
+    <string name="notification_defaults_dialog_title">YTD\'s own notification defaults</string>
+    <string-array name="notification_defaults_entries">
+        <item>Sound and Vibration</item>
+        <item>Sound and Lights</item>
+        <item>Vibration and Lights</item>
+        <item>Sound, Vibration and Lights</item>
+        <item>Sound</item>
+        <item>Vibration</item>
+        <item>Lights</item>
+        <item>Nothing</item>
+    </string-array>   
+    
+    <!-- -->
+    <string name="settings_cat_updates">Bijwerken</string>
+    <string name="update_title">Controleren op updates</string>
+    <string name="autoupdate_title">Activeer automatisch bijwerken</string>
+    <string name="autoupdate_summary">Controleer op updates bij het opstarten van de applicatie (het nieuwste bestand wordt automatisch gedownload)</string>
+
+    <!-- -->
+    <string name="settings_cat_app">Application</string>
+    <string name="settings_cat_about_condensed">Over</string>
+    <string name="title_changelog">Lijst met veranderingen</string>
+    <string name="screen_licences_code_title">Licenties en Regels</string>
+
+    <!-- -->
+    <string name="settings_cat_licenses">Licenties</string>
+
+    <string name="credits_title">Credits</string>
+    <string name="title_activity_credits_show">Andere licentie en vertalingen</string>
+    
+    <string name="credits_text0">\tMain Licenses
+        \n\n
+        This App and is released under the GPL-3.0.
+        \n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
+        \n\n
+        The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 
+        used for the audio extraction feature, is released under the GPL-3.0.
+        \n(FFmpeg version 1.2 Copyright &#169; 2000-2013 the FFmpeg developers).
+    	\n\n
+    	The filechooser library is released under the MIT license.
+    	\n(android-filechooser Copyright &#169; 2012 Hai Bison).
+    	\n\n
+    	The liblame library, used to compile FFmpeg, is released under the LGPL.
+    	A GitHub project, <http>https://github.com/intervigilium/liblame</http>, 
+    	has been used to compile the lame libraries for Android.
+    	\n(liblame Copyright &#169; 2010 Ethan Chen)
+    	\n(LAME Copyright &#169; 1999-2007 The LAME Project,
+		\nCopyright &#169; 1999-2001 Mark Taylor,
+		\nCopyright &#169; 1998 Micheal Cheng)
+    	\n(mpglib Copyright &#169; 1995-1997 Michael Hipp).
+    	\n\n
+    	YTD\'s mp3 tags are written with MyID3: a Java ID3 Tag Library
+    	(<http>http://www.fightingquaker.com/myid3</http> and <http>https://sites.google.com/site/eternalsandbox/myid3-for-android</http>) 
+    	released under the LGPL, as its dependency Jakarta Regexp library.
+    	\n(MyID3 Copyright &#169; 2008 Charles M. Chen, adapted for Android by Romulus Urakagi Ts\'ai).
+    	\n\n
+    	For more informations, refer to the dedicated menus and to the license files 
+    	available from this project\'s source code.
+    	\n</string>
+    
+    <string name="credits_text1">\tCode excerpts Licenses
+        \n\n
+        This App uses some code snippets from: 
+        \n\n
+        1) CyanogenMod custom ROM (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>)
+        \nCopyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
+        \nThe text of the license can be found in the LICENSE_GPL file or at <http>https://www.gnu.org/licenses/gpl-3.0.txt</http>
+        \n\n
+        2) Stack Overflow (<http>http://stackoverflow.com</http>), a question and answer site for programmers where all 
+        the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+	    \n\n
+	    For more details, look for comments in YTD\'s Java code.
+	    </string>
+    <string name="credits_translators">\n\tVertalingen
+\n\nMede mogelijk gemaakt door:</string>
+    <string name="translators_info">\nVoor meer informatie:</string>
+        
+    <!-- -->
+    <string name="settings_cat_code">Broncode</string>
+    <string name="ytd_code_git_title">YTD op GitHub</string>
+    <string name="ytd_code_hg_title">YTD op Sourceforge</string>
+
+    <!-- -->
+    <string name="settings_cat_social">Sociaal</string>
+    <string name="share_title">Deze App delen</string>
+    <string name="share_summary">via Twitter, Facebook, Gmail, etc&#8230;</string>
+    <string name="share_warning">Geen geschikte Apps gevonden.</string>
+    <string name="share_message">#YouTubeDownloader
+\nGratis en Open-Source Android App om YouTube videos te downloaden!
+\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+	<string name="help_translate_title">Help deze App te vertalen</string>
+    <string name="help_translate_summary">Ga naar www.getlocalization.com/ytdownloader</string>
+    
+    <!-- -->
+    <string name="settings_cat_ssh">SSH</string>
+    <string name="connectbot_flavour_title">ConnectBot version to use</string>
+	<string name="connectbot_flavour_dialog_title">Choose ConnectBot fork to send video via SSH</string>
+	<string name="enable_connectbot_short_cmd_title">Enable SSH short cmd</string>
+	<string name="enable_connectbot_short_cmd_summary">Use a slightly shorter but faster command to 
+	    paste into the remote shell (will ONLY work if the destination PC resides within the same LAN)</string>
+	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
+	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
+	
+    <!-- -->
+	<string name="settings_cat_advanced">Advanced</string>
+	<string name="enable_logging_title">Enable logging</string>
+	<string name="enable_logging_summary">Include YTD\'s messages into the system log. Mandatory for sending a logcat to the developer.</string>
+	
+</resources>

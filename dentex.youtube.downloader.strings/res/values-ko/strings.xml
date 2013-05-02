@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_settings">설정</string>
+    <string name="title_activity_upgrade_apk">업그레이드</string>
+    <string name="title_activity_about">이 앱에 대하여</string>
+    <string name="title_activity_donate">기부</string>
+    <string name="title_activity_tutorials">튜토리얼</string>
+
+    <!-- ### ShareActivity ### -->
+
+    <string name="tutorial_title">앱 사용법 안내</string>
+	<string name="tutorial_msg_new">이제 선택한 비디오의 품질과 코덱 목록을 볼 수 있습니다. 이제 아래의 행동 중 하나를 선택할 수 있습니다.
+\n\n*) 비디오 중 하나를 선택하면 기기에 저장하거나 SSH를 통해 리눅스 머신에서 원격으로 다운로드할 수 있습니다.
+\n리눅스 머신에 원격으로 다운로드하려면 Bash와 Wget이 필요합니다. SSH에 대한 추가적인 내용은 앱에서 추후에 다시 안내할 것입니다.
+\n\n*) 아이템을 오래 누르고 있으면 클립보드에 저장하거나 텍스트 링크를 만들어 다른 앱에 보낼 수 있습니다.
+\nSSH로 다운로드하는 것과는 다르게 복사한 텍스트 링크는 기기 내에서만 유효하며 예외적으로 다른 기기로 보낼 경우 같은 공유기에 연결된 기기일 경우에만 유효합니다.\n</string>
+    <string name="loading">로딩 중…</string>
+    <string name="error">에러!</string>
+    <string name="information">정보</string>
+    <string name="dialogs_negative">취소</string>
+    <string name="wait">잠시 기다려주세요&#8230;</string>
+    <string name="invalid_url">웹페이지를 얻어올 수 없습니다. 올바르지 않은 주소입니다.</string>
+    <string name="invalid_url_short">웹페이지를 얻어올 수 없습니다.</string>
+    <string name="invalid_response">HTTP 서버 응답 오류.</string>
+    <string name="bad_link">웹페이지 링크를 확인해주세요.</string>
+    <string name="bad_link_dialog_msg">유효한 유튜브 링크가 아닙니다.</string>
+    <string name="no_net">인터넷 접속 불가.</string>
+    <string name="no_net_dialog_msg">네트워크 접속을 활성화하세요.</string>
+    <string name="no_market">마켓앱이 없습니다.</string>
+    <string name="no_market_dialog_msg">Play 스토어를 설치해주세요.</string>
+    <string name="list_click_dialog_title">다운로드 정보 확인:</string>
+    <string name="list_click_download_local">폰에 다운로드</string>
+    <string name="list_click_download_ssh">SSH 로 보내기</string>
+    <string name="rename_dialog_title">새 파일 이름:</string>
+    <string name="rename_dialog_msg">확장자는 입력하지 마세요 (.mp4, .flv 등)</string>
+    <string name="unable_save">비디오를 저장할 수 없습니다!</string>
+    <string name="unable_save_dialog_msg">저장 폴더가 삭제되었거나 쓰기 작업을 할 수 없습니다.</string>
+    <string name="ssh_info_tutorial_title">SSH로 보내기 안내</string>
+    <string name="ssh_info_tutorial_msg">한줄의 긴 명령이 클립보드로 복사되었습니다.
+\n\nConnectBot 앱에서 적절한 프로파일을 선택한 후 원격 쉘에서 다운로드가 되기를 원하는 디렉토리로 이동합니다. 그 다음 붙여넣기(메뉴버튼 이용)한 후 엔터를 누르세요.</string>
+    <string name="callConnectBot_dialog_title">%1$s not installed!</string>
+    <string name="callConnectBot_dialog_msg">SSH로 보내려면 앱을 다운로드해야 합니다.</string>
+    <string name="callConnectBot_dialog_positive">Download</string>
+    <string name="download_complete_dialog_msg1">유튜브 비디오:\n</string>
+    <string name="download_complete_dialog_msg2">\n성공적으로 다운로드됨.</string>
+    <string name="download_complete_dialog_positive">열기</string>
+    <string name="downloading">다운로드 중&#8230;</string>
+    <string name="cancel_download_dialog_title">다운로드를 취소하시겠습니까?</string>
+    <string name="video_list_error_toast">비디오 목록에 에러가 발생하였습니다.</string>
+    <string name="codec">\n\n\t코덱:</string>
+    <string name="quality">\n\t화질:</string>
+    <string name="size">\n\t파일크기:</string>
+    <string name="notification_downloading_pt1">현재</string>
+    <string name="notification_downloading_pt2">개의 비디오 파일 다운로드 중</string>
+    <string name="notification_no_downloads">진행중인 다운로드 없음</string>
+    <string name="long_click_title">선택한 링크 처리:</string>
+    <string name="extsdcard_info_title">사용자 지정 저장경로</string>
+    <string name="extsdcard_info_msg">시스템의 기본 저장경로에 다운로드한 후 사용자 지정 경로로 옮깁니다.</string>
+    <string name="ffmpeg_ready">FFmpeg 이 준비됨</string>
+    <string name="confirm_audio_checkbox1">다운로드 후 오디오 추출</string>
+    <string name="confirm_audio_checkbox2">\n(세부 사항은 추출 설정을 따릅니다)</string>
+    
+    <string-array name="long_click_entries">
+        <item>클립보드에 복사</item>
+        <item>텍스트로 공유</item>
+    </string-array>
+    
+    <string-array name="long_click_entries2">
+        <item>Copy to clipboard</item>
+        <item>Share as text</item>
+        <item>Send via SSH</item>
+    </string-array>
+    
+    <!-- ### SettingsActivity ### -->
+
+    <string name="attention">주의!</string>
+    <string name="extsdcard_warning">외장 sdcard에 기록할 수 없습니다.\n내장 sdcard로 대체하여 기록합니다.</string>
+    <string name="system_warning_title">시스템 폴더 입니다</string>
+    <string name="system_warning_msg">선택한 경로는 내장 sdcard 의 Download 경로를 대체합니다.</string>
+    <string name="sdcard_unmounted_warning">외장 sdcard가 마운트되지 않음</string>
+    <string name="update_disabled_summary">다른 인증값을 발견하였습니다 (F-Droid?)</string>
+    <string name="failed_download">실패한 다운로드가 삭제되었습니다</string>
+    <string name="new_v_download">찾음. 다운로드 중&#8230;</string>
+    <string name="new_v_install">다운로드 완료. 클릭하면 설치를 시작합니다.</string>
+    <string name="ffmpeg_download_dialog_title">추가적인 파일이 필요합니다. 다운로드 받으시겠습니까?</string>
+    <string name="ffmpeg_download_dialog_msg">웹 링크:</string>
+    <string name="ffmpeg_device_not_supported">지원하지 않는 기기입니다.</string>
+    <string name="ffmpeg_support_mail">개발자에게 이메일을 보내겠습니까?
+\n개발자에게 이메일을 보내기 전에 모든 정보를 다시 확인할 수 있습니다.</string>
+    <string name="ffmpeg_download_notification">FFmpeg 다운로드 중</string>
+    <string name="ffmpeg_install">FFmpeg 바이너리 설치&#8230;</string>
+    <string name="email_via">이메일로 보내기:</string>
+    
+    <!-- ### UpgradeApkActivity ### -->
+    
+    <string name="upgrade_button_init">업데이트</string>
+    <string name="upgrade_button_download">다운로드 후\n설치</string>
+    <string name="upgrade_uppertext_searching">검색 중&#8230;</string>
+    <string name="upgrade_uppertext_init">설치된 버전:\n</string>
+
+    <string name="upgrade_latest">최신 버전:\t</string>
+    <string name="upgrade_installed">\n설치된 버전:\t</string>
+    <string name="upgraded_dialog_msg">새 버전이 sdcard의  \'Download\' 폴더에 저장되었습니다.\n\n지금 설치하시겠습니까?</string>
+    <string name="upgraded_dialog_negative">나중에\n(사용자가 수동설치)</string>
+    <string name="upgrade_latest_installed">최신버전이 이미 설치되어 있습니다!</string>
+    <string name="upgrade_network_error">업데이트 정보를 받아올 수 없습니다.\n나중에 다시 시도하세요.</string>
+    <string name="upgrade_bad_md5_dialog_msg">다운로드한 앱이 손상되었습니다.\n다운받은 앱이 삭제됩니다.\n확인을 누르면 다시 다운로드를 시도합니다.</string>
+    
+    <!-- ### DownloadsService ### -->
+    
+    <string name="ytd_video">유튜브 다운로더 비디오</string>
+    <string name="copy_error">복사 중 에러가 발생하였습니다</string>
+    <string name="copy_progress">파일 복사 진행 중&#8230;</string>
+    <string name="copy_ok">복사 완료되었습니다.</string>
+    <string name="download_remove_failed">에러: 임시 다운로드파일이 삭제되지 않았습니다!</string>
+    <string name="download_failed">다운로드 실패!</string>
+    <string name="audio_extr_progress">오디오 추출 진행 중&#8230;</string>
+    <string name="audio_conv_progress">mp3 변환 진행 중&#8230;</string>
+    <string name="audio_extr_completed">오디오 추출이 완료되었습니다.</string>
+    <string name="audio_conv_completed">mp3 변환이 완료되었습니다.</string>
+    <string name="audio_extr_error">오디오 추출 실패.</string>
+    <string name="audio_conv_error">mp3 인코딩 실패.</string>
+    
+    <!-- ### DonateActivity ### -->
+    
+    <string name="paypal_item_name">유튜브 다운로더에 기부</string>
+    <string name="paypal_title">페이팔 (PayPal)</string>
+	<string name="paypal_summary">기부를 통해 유튜브 다운로더를 지원해주세요</string>
+	
+	<!-- ### FfmpegDownloadService ### -->
+	<string name="ffmpeg_install_failed">FFmpeg 설치 실패.</string>
+
+    <!-- ### preferences ### -->
+
+    <!-- -->
+    <string name="dm_title">다운로드</string>
+    <string name="dm_summary">시스템의 다운로드 관리자를 엽니다</string>
+
+    <!-- -->
+    <string name="settings_cat_ui">사용자 인터페이스</string>
+    <string name="lang_title">언어</string>
+    <string name="lang_dialog_title">언어 선택 (앱 재시작 필요)</string>
+    <string name="choose_theme_title">테마</string>
+    <string-array name="choose_theme_entries">
+        <item>어두운 테마</item>
+        <item>밝은 테마</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="quick_start_title">간단한 사용법 안내</string>
+    <string name="quick_start_summ">간단한 사용법을 안내합니다</string>
+    <string name="quick_start_text">이 화면은 \'유튜브 다운로더\'의 설정 화면 입니다.
+\n\n실제 앱은 유튜브 앱의 비디오 시청화면에서 공유 버튼을 눌러 접근할 수 있습니다.
+\n\n공유 목록에서 \'유튜브 다운로더\'를 선택하면 추가적인 사용법에 대한 내용을 읽을 수 있습니다.
+\n\n또한 다른 앱에서 유튜브 링크 주소를 공유할수도 있습니다.: 예. 브라우저.</string>
+    <string name="general_info_title">사용법 안내 보기</string>
+    <string name="general_info_summary">앱을 시작할 때 사용법 안내를 보여줍니다</string>
+    <string name="show_again_checkbox">다음에도 보기</string>
+    <string name="ssh_info_title">SSH 사용법 안내 보기</string>
+    <string name="ssh_info_summary">앱을 시작할 때 SSH를 통해 원격으로 다운로드하는 법을 보여줍니다.</string>
+    <string name="audio_tutorial_title">Audio extraction tutorial</string>
+    <string name="audio_tutorial_summary">Open a brief guide about the audio extraction feature</string>
+    <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
+        \n\n*) Enable the audio preference and download FFmpeg;
+        \n\n*) Choose the extraction type: 
+        \n\n\"extract only\" will conserve the audio stream from the video as is (WebM files contain an \"Ogg Vorbis\" 
+        audio; MP4, 3GPP and large/medium FLV video hold an \"AAC\" audio stream; FLV small holds an \"mp3\");
+        \n\n\"extract and encode to mp3\" will convert the extracted audio in an mp3, encoding it with the selected bitrate.
+        \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
+        in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
+        (to hide the checkbox, disable the audio extraction option).
+        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+    
+    <!-- -->
+    <string name="settings_cat_folder">다운로드 폴더</string>
+    <string name="standard_location_title">시스템 폴더 선택</string>
+    <string name="chooser_swap_title">폴더 수동 설정</string>
+    <string name="chooser_location_title">저장 폴더 선택</string>
+    <string name="chooser_location_summary">선택할 폴더를 오래 누르세요</string>
+	
+    <!-- -->
+    <string name="settings_cat_files">비디오 파일</string>
+    <string name="enable_q_suffix_title">화질 정보 추가</string>
+    <string name="enable_q_suffix_summary">파일 끝에 화질 정보를 추가합니다</string>
+    <string name="enable_rename_title">파일 이름 변경 허용</string>
+    <string name="enable_rename_summary">다운로드전에 파일 이름을 변경할 수 있도록 합니다. (로컬 다운로드에서만 가능)</string>
+    <string name="show_size_title">파일 크기 보이기</string>
+    <string name="show_size_summary">다운로드 확인 창에 비디오 파일 사이즈를 표시합니다 (느려짐)</string>
+    <string name="show_size_list_title">모든 비디오 사이즈 보기</string>
+    <string name="show_size_list_summary">비디오 목록에서 다운로드 가능한 모든 비디오 사이즈를 얻어옵니다 (매우 느려짐)</string>
+    <string name="show_thumb_title">미리보기 이미지 보기</string>
+    <string name="show_thumb_summary">비디오와 함께 미리보기 이미지도 다운로드</string>
+    
+    <!-- -->
+    <string name="settings_cat_audio">오디오</string>
+    <string name="enable_audio_extraction_title">오디오 추출 기능 켜기</string>
+    <string name="enable_audio_extraction_summary">다운로드한 비디오에서 오디오 추출 및 변환 (로컬 다운로드의 경우에만 가능)</string>
+    <string name="mp3_bitrate_title">mp3 음질 설정 (kbps)</string>
+    <string name="audio_extraction_type_title">오디오 추출 형식</string>
+    <string name="enable_audio_q_suffix_title">음질 정보 추가</string>
+    <string name="enable_audio_q_suffix_summary">파일 끝에 음질 정보를 추가합니다</string>
+    <string name="remove_video_title">Video removal</string>
+    <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
+
+    <string-array name="audio_extraction_type_entries">
+        <item>오디오 추출만 하기</item>
+        <item>오디오 추출 후 mp3로 변환</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_notifications">알림</string>
+    <string name="enable_own_notification_title">자체 알림 활성화</string>
+    <string name="enable_own_notification_summary">YTD가 다운로드하는 비디오에 대한 보다 상세한 알림을 보입니다.</string>
+    <string name="download_manager_notification_title">시스템 알림 설정</string>
+    <string name="download_manager_notification_dialog_title">다운로드 관리자 알림 설정</string>
+    
+    <string-array name="download_manager_notification_entries">
+        <item>다운로드 중일 때 및 완료 후</item>
+        <item>다운로드 중 일 때만</item>
+        <item>사용안함</item>
+    </string-array>
+    
+    <string name="notification_defaults_title">알람 기본설정</string>
+    <string name="notification_defaults_dialog_title">유뷰드 다운로더의 알람을 설정합니다</string>
+    <string-array name="notification_defaults_entries">
+        <item>알림음과 진동</item>
+        <item>알림음과 불빛</item>
+        <item>진동과 불빛</item>
+        <item>알림음, 진동 및 불빛</item>
+        <item>알림음</item>
+        <item>진동</item>
+        <item>불빛</item>
+        <item>아무것도 안함</item>
+    </string-array>   
+    
+    <!-- -->
+    <string name="settings_cat_updates">업데이트</string>
+    <string name="update_title">업데이트 확인</string>
+    <string name="autoupdate_title">자동 업데이트 활성화</string>
+    <string name="autoupdate_summary">하루 단위로 앱이 실행될 때 마다 새로운 업데이트를 체크합니다\n(설치 파일은 자동으로 다운로드됩니다)</string>
+
+    <!-- -->
+    <string name="settings_cat_app">앱</string>
+    <string name="settings_cat_about_condensed">이 앱에 대하여</string>
+    <string name="title_changelog">변경내역</string>
+    <string name="screen_licences_code_title">라이센스 및 코드</string>
+
+    <!-- -->
+    <string name="settings_cat_licenses">라이센스</string>
+
+    <string name="credits_title">기타 저작권 정보</string>
+    <string name="title_activity_credits_show">기타 저작권 및 번역 정보</string>
+    
+    <string name="credits_text0">\t주요 라이센스
+\n\n
+이 앱은 GPL-3.0 라이센스를 따릅니다.
+\n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
+\n\n
+오디오 추출 기능에 사용하는 FFmpeg 바이너리 (<http>http://www.ffmpeg.org/index.html</http>) 는 GPL-3.0를 따릅니다.
+\n(FFmpeg version 1.2 Copyright &#169; 2000-2013 the FFmpeg developers).
+\n\n
+The filechooser 라이브러리는 MIT 라이센스를 따릅니다.
+\n(android-filechooser Copyright &#169; 2012 Hai Bison).
+\n\n
+FFmpeg을 컴파일하는데 활용된 liblame 라이브러리는 LGPL 라이센스를 따릅니다.
+A GitHub 프로젝트 <http>https://github.com/intervigilium/liblame</http> 는 안드로이드 버전의 lame 라이브러리를 컴파일 하는데 쓰였습니다.
+\n(liblame Copyright &#169; 2010 Ethan Chen)
+\n(LAME Copyright &#169; 1999-2007 The LAME Project,
+\nCopyright &#169; 1999-2001 Mark Taylor,
+\nCopyright &#169; 1998 Micheal Cheng)
+\n(mpglib Copyright &#169; 1995-1997 Michael Hipp).
+\n\n
+YTD의 mp3 태깅은 MyID3 (자바 기반의 ID3 태그 라이브러리, <http>http://www.fightingquaker.com/myid3</http> 및 <http>https://sites.google.com/site/eternalsandbox/myid3-for-android</http>) 를 활용하며 해당 라이브러리가 의존하는 Jakarta 정규표현식 라이브러리와 더불어 LGPL 라이센스를 따릅니다.
+\n(MyID3 Copyright &#169; 2008 Charles M. Chen, adapted for Android by Romulus Urakagi Ts\'ai).
+\n\n
+더 많은 정보를 보려면 세부 메뉴 혹은 프로젝트 소스코드에 있는 라이센스 파일을 참고하시기 바랍니다.
+\n</string>
+    
+    <string name="credits_text1">\t발췌한 코드에 대한 라이센스 안내
+\n\n
+이 앱은 아래의 코드를 발췌하여 사용합니다: 
+\n\n
+1) CyanogenMod custom ROM (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>)
+\nCopyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
+\nThe text of the license can be found in the LICENSE_GPL file or at <http>https://www.gnu.org/licenses/gpl-3.0.txt</http>
+\n\n
+2) Stack Overflow (<http>http://stackoverflow.com</http>), a question and answer site for programmers where all 
+the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+\n\n
+어 많은 정보를 보려면 YTD 소스코드에 있는 주석을 참고하세요.</string>
+    <string name="credits_translators">\n\t번역
+\n\n아래에 내열한 분들의 도움으로 번역되었습니다:</string>
+    <string name="translators_info">\n더 상세한 정보 확인:</string>
+        
+    <!-- -->
+    <string name="settings_cat_code">소스코드</string>
+    <string name="ytd_code_git_title">GitHub에서 YTD보기</string>
+    <string name="ytd_code_hg_title">소스포지에서 YTD보기</string>
+
+    <!-- -->
+    <string name="settings_cat_social">소셜</string>
+    <string name="share_title">이 앱 공유하기</string>
+    <string name="share_summary">Twitter, Facebook, Gmail등을 통해 공유할 수 있습니다&#8230;</string>
+    <string name="share_warning">적절한 앱이 없습니다.</string>
+    <string name="share_message">#YouTubeDownloader
+\n공짜이며 오픈소스인 유튜브 다운로더 안드로이드앱!
+\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+	<string name="help_translate_title">이 앱의 번역 돕기</string>
+    <string name="help_translate_summary">www.getlocalization.com/ytdownloader 를 방문하세요</string>
+    
+    <!-- -->
+    <string name="settings_cat_ssh">SSH</string>
+    <string name="connectbot_flavour_title">ConnectBot version to use</string>
+	<string name="connectbot_flavour_dialog_title">Choose ConnectBot fork to send video via SSH</string>
+	<string name="enable_connectbot_short_cmd_title">Enable SSH short cmd</string>
+	<string name="enable_connectbot_short_cmd_summary">Use a slightly shorter but faster command to 
+	    paste into the remote shell (will ONLY work if the destination PC resides within the same LAN)</string>
+	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
+	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
+	
+    <!-- -->
+	<string name="settings_cat_advanced">고급설정</string>
+	<string name="enable_logging_title">로깅 활성화</string>
+	<string name="enable_logging_summary">유튜브 다운로더의 로그를 시스템 로그에 남깁니다. 개발자에게 디버깅 정보를 보내려면 반드시 필요합니다.</string>
+	
+</resources>

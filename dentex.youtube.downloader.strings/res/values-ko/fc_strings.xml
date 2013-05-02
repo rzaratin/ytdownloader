@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) 2012 Hai Bison
+
+    See the file LICENSE at the root directory of this project for copying
+    permission.
+-->
+
+<resources>
+
+    <string name="afc_lib_name">android-filechooser</string>
+    <string name="afc_cmd_advanced_selection_all">전체</string>
+    <string name="afc_cmd_advanced_selection_invert">선택 반전</string>
+    <string name="afc_cmd_advanced_selection_none">없음</string>
+    <string name="afc_cmd_clear">지우기</string>
+    <string name="afc_cmd_grid_view">그리드뷰</string>
+    <string name="afc_cmd_home">홈</string>
+    <string name="afc_cmd_list_view">리스트뷰</string>
+    <string name="afc_cmd_new_folder">새폴더&#8230;</string>
+    <string name="afc_cmd_reload">새로고침</string>
+    <string name="afc_cmd_remove_from_list">리스트에서 삭제</string>
+    <string name="afc_cmd_select_all_files">모든 파일 선택</string>
+    <string name="afc_cmd_select_all_folders">모든 폴더 선택</string>
+    <string name="afc_cmd_sort">정렬&#8230;</string>
+    <string name="afc_cmd_switch_viewmode">보기방식 변경</string>
+    <string name="afc_ellipsize">&#8230;</string>
+    <string name="afc_file">파일</string>
+    <string name="afc_folder">폴더</string>
+    <string name="afc_hint_double_tap_to_select_file">파일/폴더를 선택하려면 더블탭 하세요</string>
+    <string name="afc_hint_folder_name">폴더 이름</string>
+    <string name="afc_hint_save_as_filename">파일 이름</string>
+    <string name="afc_msg_app_doesnot_have_permission_to_create_files">파일/폴더를 생성할 권한이 없습니다</string>
+    <string name="afc_msg_app_doesnot_have_permission_to_delete_files">파일/폴더를 삭제할 권한이 없습니다</string>
+    <string name="afc_msg_cancelled">취소됨</string>
+    <string name="afc_msg_cannot_connect_to_file_provider_service">파일 제공 서비스에 접속할 수 없습니다</string>
+    <string name="afc_msg_done">완료</string>
+    <string name="afc_msg_empty">&#8230;비어있음</string>
+    <string name="afc_msg_filename_is_empty">파일 이름이 비어있습니다</string>
+    <string name="afc_msg_loading">로딩 중&#8230;</string>
+    <string name="afc_pmsg_cannot_access_dir">\"%1$s\"에 접근할 수 없습니다</string>
+    <string name="afc_pmsg_cannot_create_folder">폴더 \"%1$s\" 을(를) 생성할 수 없습니다</string>
+    <string name="afc_pmsg_cannot_delete_file">%1$s \"%2$s\"을(를) 삭제할 수 없습니다</string>
+    <string name="afc_pmsg_confirm_delete_file">%1$s \"%2$s\"을 정말로 삭제하시겠습니까?</string>
+    <string name="afc_pmsg_confirm_replace_file">\"%1$s\"이 이미 존재합니다.\n\n파일을 교체하시겠습니까?</string>
+    <string name="afc_pmsg_deleting_file">%1$s \"%2$s\" 삭제 중&#8230;</string>
+    <string name="afc_pmsg_file_has_been_deleted">&#8230;%1$s \"%2$s\" 삭제 완료</string>
+    <string name="afc_pmsg_filename_is_directory">\"%1$s\"은(는) 폴더입니다.</string>
+    <string name="afc_pmsg_filename_is_invalid">\"%1$s\" 은(는) 부적절한 파일 이름입니다.</string>
+    <string name="afc_pmsg_max_file_count_allowed">&#8230;파일이 더 있습니다, 최대값: %1$,d</string>
+    <string name="afc_pmsg_unknown_error">알수없는 에러: %1$s</string>
+    <string name="afc_pmsg_xxx_items">%1$,d 개의 아이템</string>
+    <string name="afc_root">루트</string>
+    <string name="afc_title_advanced_selection">선택&#8230;</string>
+    <string name="afc_title_alert">경고</string>
+    <string name="afc_title_choose_directories">폴더 선택</string>
+    <string name="afc_title_choose_files">파일 선택&#8230;</string>
+    <string name="afc_title_choose_files_and_directories">파일/폴더 선택&#8230;</string>
+    <string name="afc_title_confirmation">확인</string>
+    <string name="afc_title_date">날짜</string>
+    <string name="afc_title_error">오류</string>
+    <string name="afc_title_history">이력</string>
+    <string name="afc_title_info">정보</string>
+    <string name="afc_title_name">이름</string>
+    <string name="afc_title_save_as">다른 이름으로 저장&#8230;</string>
+    <string name="afc_title_size">크기</string>
+    <string name="afc_title_sort_by">정렬 방식&#8230;</string>
+    <string name="afc_yesterday">어제</string>
+
+</resources>

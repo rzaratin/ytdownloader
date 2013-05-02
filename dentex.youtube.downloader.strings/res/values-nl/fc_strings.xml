@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) 2012 Hai Bison
+
+    See the file LICENSE at the root directory of this project for copying
+    permission.
+-->
+
+<resources>
+
+    <string name="afc_lib_name">android-bestandkiezer</string>
+    <string name="afc_cmd_advanced_selection_all">Alle</string>
+    <string name="afc_cmd_advanced_selection_invert">Selectie omkeren</string>
+    <string name="afc_cmd_advanced_selection_none">Geen</string>
+    <string name="afc_cmd_clear">Wissen</string>
+    <string name="afc_cmd_grid_view">Rasterweergave</string>
+    <string name="afc_cmd_home">Startpagina</string>
+    <string name="afc_cmd_list_view">Lijst weergave</string>
+    <string name="afc_cmd_new_folder">Nieuwe map&#8230;</string>
+    <string name="afc_cmd_reload">Ververs</string>
+    <string name="afc_cmd_remove_from_list">Verwijderen van lijst</string>
+    <string name="afc_cmd_select_all_files">Selecteer alle bestanden</string>
+    <string name="afc_cmd_select_all_folders">Selecteer alle mappen</string>
+    <string name="afc_cmd_sort">Sorteren&#8230;</string>
+    <string name="afc_cmd_switch_viewmode">Verander waargavemodes</string>
+    <string name="afc_ellipsize">&#8230;</string>
+    <string name="afc_file">bestand</string>
+    <string name="afc_folder">map</string>
+    <string name="afc_hint_double_tap_to_select_file">Dubbel klikken om het bestand/ de folder te selecteren</string>
+    <string name="afc_hint_folder_name">mapnaam</string>
+    <string name="afc_hint_save_as_filename">bestandsnaam</string>
+    <string name="afc_msg_app_doesnot_have_permission_to_create_files">Deze applicatie heeft geen rechten om bestanden/ mappen aan te maken</string>
+    <string name="afc_msg_app_doesnot_have_permission_to_delete_files">Deze applicatie heeft geen rechten om bestanden/ mappen te verwijderen</string>
+    <string name="afc_msg_cancelled">Geannuleerd</string>
+    <string name="afc_msg_cannot_connect_to_file_provider_service">Kan geen verbinding maken met de bestands provider</string>
+    <string name="afc_msg_done">Klaar</string>
+    <string name="afc_msg_empty">&#8230;leeg</string>
+    <string name="afc_msg_filename_is_empty">Bestandsnaam is leeg</string>
+    <string name="afc_msg_loading">Laden&#8230;</string>
+    <string name="afc_pmsg_cannot_access_dir">Geen toegang tot \"%1$s\"</string>
+    <string name="afc_pmsg_cannot_create_folder">Kan map \"%1$s\" niet aanmaken</string>
+    <string name="afc_pmsg_cannot_delete_file">Kan %1$s \"%2$s\" niet verwijderen</string>
+    <string name="afc_pmsg_confirm_delete_file">Wilt u dit zeker verwijderen %1$s \"%2$s\"?</string>
+    <string name="afc_pmsg_confirm_replace_file">Dit bestand \"%1$s\" bestaat al. \n\nWilt u deze vervangen?</string>
+    <string name="afc_pmsg_deleting_file">Verwijder %1$s \"%2$s\"…</string>
+    <string name="afc_pmsg_file_has_been_deleted">…%1$s \"%2$s\"  is verwijderd</string>
+    <string name="afc_pmsg_filename_is_directory">\"%1$s\" is een map</string>
+    <string name="afc_pmsg_filename_is_invalid">Bestandsnaam \"%1$s\"  is niet geschikt</string>
+    <string name="afc_pmsg_max_file_count_allowed">…heeft meer bestanden, maximaal mogelijk: %1$,d</string>
+    <string name="afc_pmsg_unknown_error">Niet bekende fout: %1$s</string>
+    <string name="afc_pmsg_xxx_items">%1$,d voorwerpen</string>
+    <string name="afc_root">Root</string>
+    <string name="afc_title_advanced_selection">Selecteren&#8230;</string>
+    <string name="afc_title_alert">Waarschuwing</string>
+    <string name="afc_title_choose_directories">Kies een map</string>
+    <string name="afc_title_choose_files">Bestanden kiezen&#8230;</string>
+    <string name="afc_title_choose_files_and_directories">Kies bestanden/ mappen&#8230;</string>
+    <string name="afc_title_confirmation">Bevestiging</string>
+    <string name="afc_title_date">Datum</string>
+    <string name="afc_title_error">Fout</string>
+    <string name="afc_title_history">Geschiedenis</string>
+    <string name="afc_title_info">Informatie</string>
+    <string name="afc_title_name">Naam</string>
+    <string name="afc_title_save_as">Opslaan als&#8230;</string>
+    <string name="afc_title_size">Omvang</string>
+    <string name="afc_title_sort_by">Sorteren op&#8230;</string>
+    <string name="afc_yesterday">Gisteren</string>
+
+</resources>

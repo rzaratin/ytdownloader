@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <Preference 
+        android:key="quick_start"
+        android:title="@string/quick_start_title" 
+        android:summary="@string/quick_start_summ"/>
+              	
+   	<CheckBoxPreference
+       	android:key="general_info"
+       	android:title="@string/general_info_title"
+       	android:summary="@string/general_info_summary"
+       	android:defaultValue="true"/>
+   	
+   	<CheckBoxPreference
+       	android:key="ssh_info"
+       	android:title="@string/ssh_info_title"
+       	android:summary="@string/ssh_info_summary"
+       	android:defaultValue="true"/>
+   	
+   	<Preference 
+        android:key="audio_tutorial"
+        android:title="@string/audio_tutorial_title" 
+        android:summary="@string/audio_tutorial_summary"/>
+
+</PreferenceScreen>

@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:id="@+id/menu_donate"
+        android:title="@string/title_activity_donate"
+        android:titleCondensed="@string/title_activity_donate"
+        android:orderInCategory="40"
+        android:showAsAction="collapseActionView" />
+        
+    <item android:id="@+id/menu_about"
+        android:title="@string/title_activity_about"
+        android:titleCondensed="@string/title_activity_about"
+        android:orderInCategory="20"
+        android:showAsAction="collapseActionView" />
+    
+    <item android:id="@+id/menu_tutorials"
+        android:title="@string/title_activity_tutorials"
+        android:titleCondensed="@string/title_activity_tutorials"
+        android:orderInCategory="15"
+        android:showAsAction="collapseActionView" />
+
+    <item android:id="@+id/menu_dm"
+        android:title="@string/dm_title"
+        android:titleCondensed="@string/dm_title"
+        android:orderInCategory="10"
+        android:showAsAction="collapseActionView" />
+    
+</menu>
