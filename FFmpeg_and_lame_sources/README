@@ -1,0 +1,15 @@
+INFO
+=======
+This folder contains the sources and the script 
+used to compile the lame library and the FFmpeg
+binaries available for download from YTD, when
+enabling the audio extraction/conversion feature.
+
+INSTALL
+=======
+- extract tar.gz archives;
+- run 'build.sh' after setting the NDK variable.
+
+LICENSE
+=======
+See inside FFmpeg and lame source folders.
