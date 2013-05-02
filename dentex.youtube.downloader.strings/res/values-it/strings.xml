@@ -6,6 +6,7 @@
     <string name="title_activity_about">Informazioni</string>
     <string name="title_activity_donate">Donazioni</string>
     <string name="title_activity_tutorials">Guide</string>
+    <string name="title_activity_translators_show">Traduttori</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -329,5 +330,7 @@ Per maggiori dettagli, cercare tra i commenti del codice Java di YTD.</string>
 	<string name="settings_cat_advanced">Avanzate</string>
 	<string name="enable_logging_title">Abilita logging</string>
 	<string name="enable_logging_summary">Include i messaggi di YTD nel log di sistema. Obbligatorio per l\'invio di un logcat allo sviluppatore.</string>
+	<string name="disable_bugsense_title">Disabilita BugSense</string>
+	<string name="disable_bugsense_summary">Questo eviterà di mandare i Crash Report allo sviluppatore. Sconsigliato.</string>
 	
 </resources>

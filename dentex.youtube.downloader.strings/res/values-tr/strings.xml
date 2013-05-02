@@ -6,6 +6,7 @@
     <string name="title_activity_about">Hakkinda</string>
     <string name="title_activity_donate">Bağışlar</string>
     <string name="title_activity_tutorials">Rehberler</string>
+    <string name="title_activity_translators_show">Tercüme Edenler</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -40,7 +41,7 @@
     <string name="ssh_info_tutorial_msg">Uzun basılı tutarak panoya kopyalayın.
 		\n\nConnectBot\'dan bir profil seçin ve uzak kabuk içinde (remote shell)  indirmek istediğiniz
 		dizine YAPIŞTIRIN (menü butonunu kullanarak) ve ENTER tuşlayın.</string>
-    <string name="callConnectBot_dialog_title">%1$s not installed!</string>
+    <string name="callConnectBot_dialog_title">%1$s yüklü değil!</string>
     <string name="callConnectBot_dialog_msg">Video\'yu SSH ile indirebilmek için bu ücretsiz uygulamayı yüklemeniz gerekiyor.</string>
     <string name="callConnectBot_dialog_positive">İndir</string>
     <string name="download_complete_dialog_msg1">YouTube Video:\n</string>
@@ -68,9 +69,9 @@
     </string-array>
     
     <string-array name="long_click_entries2">
-        <item>Copy to clipboard</item>
-        <item>Share as text</item>
-        <item>Send via SSH</item>
+        <item>Panoya kopyala</item>
+        <item>Metin olarak paylaş</item>
+        <item>SSH ile gönder</item>
     </string-array>
     
     <!-- ### SettingsActivity ### -->
@@ -318,17 +319,19 @@ For more details, look for comments in YTD\'s Java code.</string>
     
     <!-- -->
     <string name="settings_cat_ssh">SSH</string>
-    <string name="connectbot_flavour_title">ConnectBot version to use</string>
-	<string name="connectbot_flavour_dialog_title">Choose ConnectBot fork to send video via SSH</string>
-	<string name="enable_connectbot_short_cmd_title">Enable SSH short cmd</string>
-	<string name="enable_connectbot_short_cmd_summary">Use a slightly shorter but faster command to 
-	    paste into the remote shell (will ONLY work if the destination PC resides within the same LAN)</string>
-	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
-	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
+    <string name="connectbot_flavour_title">Kullanılacak ConnectBot sürümü</string>
+	<string name="connectbot_flavour_dialog_title">Videoyu SSH ile göndermek için ConnectBot\'u seçiniz</string>
+	<string name="enable_connectbot_short_cmd_title">SSH kısa komutunu etkinleştir</string>
+	<string name="enable_connectbot_short_cmd_summary">Uzak bağlantıya yapıştırmak için biraz daha kısa ama hızlı komutları kullanın
+(hedef PC aynı AĞ içinde bulunuyorsa çalışır)</string>
+	<string name="ssh_to_longpress_menu_title">SSH-gönder menüsü</string>
+	<string name="ssh_to_longpress_menu_summary">\"SSH ile Gönder\" eylemini uzun tıklama menüsüne taşı</string>
 	
     <!-- -->
 	<string name="settings_cat_advanced">Advanced</string>
 	<string name="enable_logging_title">Günlük tutmayı etkinleştir</string>
 	<string name="enable_logging_summary">YTD\'s mesajlarını sistem günlüğüne ekle. Geliştiriciye sistem günlüğünü göndermek gereklidir.</string>
+	<string name="disable_bugsense_title">Hata algılamayı devre dışı bırak</string>
+	<string name="disable_bugsense_summary">Bu geliştiriciye Hata Raporları göndermez. Tavsiye edilmez.</string>
 	
 </resources>

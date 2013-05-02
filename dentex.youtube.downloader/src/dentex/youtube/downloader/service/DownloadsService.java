@@ -61,8 +61,10 @@ public class DownloadsService extends Service {
 	protected String aFileName;
 	public boolean audioQualitySuffixEnabled;
 	protected MediaScannerConnection scanner;
-	public File copyDst;
-	public File standardSrc;
+	public static File copyDst;
+	private int totSeconds;
+	private int currentTime;
+	public static boolean removeVideo;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -89,6 +91,8 @@ public class DownloadsService extends Service {
 		
 		audio = intent.getStringExtra("AUDIO");
 		Utils.logger("d", "Audio extraction: " + audio, DEBUG_TAG);
+		
+		removeVideo = settings.getBoolean("remove_video", false);
 		
 		super.onStartCommand(intent, flags, startId);
 		return START_NOT_STICKY;
@@ -139,7 +143,6 @@ public class DownloadsService extends Service {
 					 */
 					if (copyEnabled) {
 						File src = new File(ShareActivity.dir_Downloads, vfilename);
-						standardSrc = src;
 						final File dst = new File(ShareActivity.path, vfilename);
 						copyDst = dst;
 						
@@ -293,8 +296,6 @@ public class DownloadsService extends Service {
 	        }
     	}
     };
-	private int totSeconds;
-	private int currentTime;
 
     public static void removeIdUpdateNotification(long id) {
 		if (id != 0) {
@@ -327,7 +328,9 @@ public class DownloadsService extends Service {
 		public void shellOut(String shellLine) {
 			audioQualitySuffixEnabled = settings.getBoolean("enable_audio_q_suffix", true);
 			findAudioSuffix(shellLine, audioQualitySuffixEnabled);
-			getAudioJobProgress(shellLine);
+			if (audio.equals("conv")) {
+				getAudioJobProgress(shellLine);
+			}
 			Utils.logger("d", shellLine, DEBUG_TAG);
 		}
 
@@ -357,7 +360,6 @@ public class DownloadsService extends Service {
         		aBuilder.setContentIntent(contentIntent);
         		
         		// write id3 tags and force media scanner 
-        		boolean removeVideo = settings.getBoolean("remove_video", false);
 				if (audio.equals("conv")) {
 					try {
 						Utils.logger("d", "writing ID3 tags...", DEBUG_TAG);
@@ -377,31 +379,20 @@ public class DownloadsService extends Service {
 						Utils.scanMedia(getApplicationContext(), new File[] {renamedAudioFilePath}, new String[] {"audio/*"});
 					}
         		}
-        		
-        		// remove downloaded video upon successful audio extraction
-        		if (removeVideo) {
-        			if (copyEnabled) {
-        				if (copyDst.delete()) {
-        					Utils.logger("i", "Video file " + copyDst.getPath() + " successfully removed", DEBUG_TAG);
-        				}
-        			} else {
-        				if (standardSrc.delete()) {
-        					Utils.logger("i", "Video file " + standardSrc.getPath() + " successfully removed", DEBUG_TAG);
-        				}
-        			}
-        		}
 			} else {
 				setNotificationForAudioJobError();
 			}
 			aBuilder.setProgress(0, 0, false);
 			aNotificationManager.cancel(ID*ID);
 			aNotificationManager.notify(ID*ID, aBuilder.build());
+			
+			deleteVideo();
 		}
 		
 		@Override
 		public void processNotStartedCheck(boolean started) {
 			if (!started) {
-				Utils.logger("w", "FFmpeg process not started...", DEBUG_TAG);
+				Utils.logger("w", "FFmpeg process not started or not completed", DEBUG_TAG);
 
 				// Toast + Notification + Log ::: Audio job error
 				setNotificationForAudioJobError();
@@ -530,5 +521,22 @@ public class DownloadsService extends Service {
 		
 		Utils.logger("i", "h=" + h + " m=" + m + " s=" + s + "." + f + " -> tot=" + tot,	DEBUG_TAG);
 		return tot;
+	}
+
+	public void deleteVideo() {
+		// remove downloaded video upon successful audio extraction
+		if (removeVideo) {
+			if (copyEnabled) {
+				if (copyDst.delete()) {
+					Utils.logger("i", "deleteVideo: file " + copyDst.getPath() + " successfully removed", DEBUG_TAG);
+				}
+			} else {
+				if (ShareActivity.dm.remove(ID) > 0 ){
+					//File del = new File(ShareActivity.dm.getUriForDownloadedFile(ID).getPath());
+					//if (del.delete()) 
+					Utils.logger("i", "deleteVideo: _ID " + ID + " successfully removed", DEBUG_TAG);
+				}
+			}
+		}
 	}
 }

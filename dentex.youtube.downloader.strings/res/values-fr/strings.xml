@@ -6,6 +6,7 @@
     <string name="title_activity_about">A propos</string>
     <string name="title_activity_donate">Faire un don</string>
     <string name="title_activity_tutorials">Tutoriels</string>
+    <string name="title_activity_translators_show">Translators</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -27,7 +28,7 @@
     <string name="bad_link_dialog_msg">Ceci n\'est pas un lien YouTube valide.</string>
     <string name="no_net">Connexion indisponible.</string>
     <string name="no_net_dialog_msg">Veuillez d\'abord activer une connexion réseau.</string>
-    <string name="no_market">Application du market indisponible.</string>
+    <string name="no_market">Application du Play Store indisponible.</string>
     <string name="no_market_dialog_msg">Veuillez installer Google Play</string>
     <string name="list_click_dialog_title">Confirmez le téléchargement pour:</string>
     <string name="list_click_download_local">Télécharger</string>
@@ -40,9 +41,9 @@
     <string name="ssh_info_tutorial_msg">Une seule grande commande a été copiée dans le presse-papier.
 \n\nChoisissez un profil dans ConnectBot et une fois dans votre shell distant, naviguez dans le répertoire souhaité,
 COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
-    <string name="callConnectBot_dialog_title">%1$s not installed!</string>
+    <string name="callConnectBot_dialog_title">%1$s non installé!</string>
     <string name="callConnectBot_dialog_msg">Vous avez besoin de cette application gratuite pour envoyer la vidéo via SSH.</string>
-    <string name="callConnectBot_dialog_positive">Download</string>
+    <string name="callConnectBot_dialog_positive">Télécharger</string>
     <string name="download_complete_dialog_msg1">Vidéo YouTube:\n</string>
     <string name="download_complete_dialog_msg2">\nTéléchargement terminé.</string>
     <string name="download_complete_dialog_positive">Ouvrir</string>
@@ -68,9 +69,9 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     </string-array>
     
     <string-array name="long_click_entries2">
-        <item>Copy to clipboard</item>
-        <item>Share as text</item>
-        <item>Send via SSH</item>
+        <item>Copier dans le presse-papier</item>
+        <item>Partager en tant que texte</item>
+        <item>Envoyer via SSH</item>
     </string-array>
     
     <!-- ### SettingsActivity ### -->
@@ -161,7 +162,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     <string name="ssh_info_title">Activer le tutoriel pour SSH</string>
     <string name="ssh_info_summary">Montrer des explications rapides à propos du téléchargement via SSH</string>
     <string name="audio_tutorial_title">Tutoriel d\'extraction audio</string>
-    <string name="audio_tutorial_summary">Open a brief guide about the audio extraction feature</string>
+    <string name="audio_tutorial_summary">Ouvrir un guide simple sur la fonction d\'extraction audio</string>
     <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
         \n\n*) Enable the audio preference and download FFmpeg;
         \n\n*) Choose the extraction type: 
@@ -202,7 +203,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     <string name="enable_audio_q_suffix_title">Ajouter la qualité audio en suffixe</string>
     <string name="enable_audio_q_suffix_summary">Ajouter la qualité de l\'audio à la fin du nom du fichier</string>
     <string name="remove_video_title">Suppression vidéo</string>
-    <string name="remove_video_summary">Enable video file deletion after successful audio extraction (warning: no confirmation)</string>
+    <string name="remove_video_summary">Activer la suppression du fichier vidéo après avoir correctement extrait l\'audio (attention : pas de confirmation)</string>
 
     <string-array name="audio_extraction_type_entries">
         <item>Extraire seulement</item>
@@ -223,10 +224,10 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     </string-array>
     
     <string name="notification_defaults_title">Notification defaults</string>
-    <string name="notification_defaults_dialog_title">YTD\'s own notification defaults</string>
+    <string name="notification_defaults_dialog_title">Notification par défaut de YTD</string>
     <string-array name="notification_defaults_entries">
         <item>Son et vibration</item>
-        <item>Sound and Lights</item>
+        <item>Sons et lumières</item>
         <item>Vibration et lumières</item>
         <item>Son, vibration et lumières</item>
         <item>Son</item>
@@ -283,19 +284,18 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     	available from this project\'s source code.
     	\n</string>
     
-    <string name="credits_text1">\tCode excerpts Licenses
-        \n\n
-        This App uses some code snippets from: 
-        \n\n
-        1) CyanogenMod custom ROM (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>)
-        \nCopyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
-        \nThe text of the license can be found in the LICENSE_GPL file or at <http>https://www.gnu.org/licenses/gpl-3.0.txt</http>
-        \n\n
-        2) Stack Overflow (<http>http://stackoverflow.com</http>), a question and answer site for programmers where all 
-        the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
-	    \n\n
-	    For more details, look for comments in YTD\'s Java code.
-	    </string>
+    <string name="credits_text1">\t License de certaisn extraits de code
+\n\n
+Cette application utilise des extraits du code de
+\n\n
+1) CyanogenMod custom ROM (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>)
+\nCopyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
+\nThe text of the license can be found in the LICENSE_GPL file or at <http>https://www.gnu.org/licenses/gpl-3.0.txt</http>
+\n\n
+2) Stack Overflow (<http>http://stackoverflow.com</http>), a question and answer site for programmers where all 
+the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+\n\n
+Pour plus d\'informations, reportez-vous aux commentaires dans le code Java de YTD</string>
     <string name="credits_translators">\n\tTraductions
 \n\nMerci pour les localisations additionnelles:</string>
     <string name="translators_info">\nPour plus d\'informations:</string>
@@ -318,7 +318,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
     
     <!-- -->
     <string name="settings_cat_ssh">SSH</string>
-    <string name="connectbot_flavour_title">ConnectBot version to use</string>
+    <string name="connectbot_flavour_title">Version de ConnectBot à utiliser</string>
 	<string name="connectbot_flavour_dialog_title">Choose ConnectBot fork to send video via SSH</string>
 	<string name="enable_connectbot_short_cmd_title">Enable SSH short cmd</string>
 	<string name="enable_connectbot_short_cmd_summary">Use a slightly shorter but faster command to 
@@ -330,5 +330,7 @@ COLLEZ la commande (utilisez le bouton menu) et pressez ENTRÉE.</string>
 	<string name="settings_cat_advanced">Paramètres avancés</string>
 	<string name="enable_logging_title">Activer la journalisation (logs)</string>
 	<string name="enable_logging_summary">Ajouter les messages d\'YTD dans le journal système. Obligatoire pour l\'envoi d\'un rapport au développeur.</string>
+	<string name="disable_bugsense_title">Disable BugSense</string>
+	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
 	
 </resources>

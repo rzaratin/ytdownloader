@@ -3,6 +3,7 @@ package dentex.youtube.downloader.utils;
 import java.io.File;
 
 import android.os.FileObserver;
+import android.util.Log;
 import dentex.youtube.downloader.SettingsActivity;
 import dentex.youtube.downloader.ShareActivity;
 import dentex.youtube.downloader.service.DownloadsService;
@@ -51,7 +52,11 @@ public class Observer {
 				} else {
 					long id = Utils.settings.getLong(path, 0);
 					Utils.logger("d", TAG + "Retrieved ID: " +  id, DEBUG_TAG);
-					DownloadsService.removeIdUpdateNotification(id);
+					try {
+						DownloadsService.removeIdUpdateNotification(id);
+					} catch (NullPointerException e) {
+						Log.e(DEBUG_TAG, "Nothing to update into notification. ", e.getCause());
+					}
 				}
 			}
 		}

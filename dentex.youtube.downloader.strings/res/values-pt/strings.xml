@@ -6,6 +6,7 @@
     <string name="title_activity_about">Sobre</string>
     <string name="title_activity_donate">Doações</string>
     <string name="title_activity_tutorials">Tutoriais</string>
+    <string name="title_activity_translators_show">Translators</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -330,5 +331,7 @@
 	<string name="settings_cat_advanced">Avançado</string>
 	<string name="enable_logging_title">Ativar registos</string>
 	<string name="enable_logging_summary">Incluir mensagens do YTD no log de sistema. Necessario para enviar um logcat ao desenvolvedor.</string>
+	<string name="disable_bugsense_title">Disable BugSense</string>
+	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
 	
 </resources>

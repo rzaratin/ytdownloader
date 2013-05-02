@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) 2012 Hai Bison
+
+    See the file LICENSE at the root directory of this project for copying
+    permission.
+-->
+
+<resources>
+
+    <string name="afc_lib_name">בחירת קבצים אנדרואיד</string>
+    <string name="afc_cmd_advanced_selection_all">הכל</string>
+    <string name="afc_cmd_advanced_selection_invert">היפוך בחירה</string>
+    <string name="afc_cmd_advanced_selection_none">ללא</string>
+    <string name="afc_cmd_clear">נקה</string>
+    <string name="afc_cmd_grid_view">תצוגת רשת</string>
+    <string name="afc_cmd_home">בית</string>
+    <string name="afc_cmd_list_view">תצוגת רשימה</string>
+    <string name="afc_cmd_new_folder">תיקייה חדשה&#8230;</string>
+    <string name="afc_cmd_reload">טען מחדש</string>
+    <string name="afc_cmd_remove_from_list">הסר מרשימה</string>
+    <string name="afc_cmd_select_all_files">בחר את כל הקבצים</string>
+    <string name="afc_cmd_select_all_folders">בחר את כל התיקיות</string>
+    <string name="afc_cmd_sort">מיין&#8230;</string>
+    <string name="afc_cmd_switch_viewmode">החלף מצב צפייה</string>
+    <string name="afc_ellipsize">&#8230;</string>
+    <string name="afc_file">תיקייה</string>
+    <string name="afc_folder">תיקייה</string>
+    <string name="afc_hint_double_tap_to_select_file">הקש פעמיים כדי לבחור את הקובץ / תיקייה</string>
+    <string name="afc_hint_folder_name">שם תיקייה</string>
+    <string name="afc_hint_save_as_filename">שם קובץ</string>
+    <string name="afc_msg_app_doesnot_have_permission_to_create_files">ליישום זה אין הרשאה ליצור קבצים / תיקיות</string>
+    <string name="afc_msg_app_doesnot_have_permission_to_delete_files">ליישום זה אין הרשאה למחוק קבצים / תיקיות</string>
+    <string name="afc_msg_cancelled">בוטל</string>
+    <string name="afc_msg_cannot_connect_to_file_provider_service">לא יכול להתחבר לשירותי ספק</string>
+    <string name="afc_msg_done">הושלם</string>
+    <string name="afc_msg_empty">&#8230;ריק</string>
+    <string name="afc_msg_filename_is_empty">שם קובץ ריק</string>
+    <string name="afc_msg_loading">טוען&#8230;</string>
+    <string name="afc_pmsg_cannot_access_dir">אין גישה \"%1$s\"</string>
+    <string name="afc_pmsg_cannot_create_folder">לא ניתן ליצור תיקייה \"%1$s\"</string>
+    <string name="afc_pmsg_cannot_delete_file">לא ניתן למחוק %1$s \"%2$s\"</string>
+    <string name="afc_pmsg_confirm_delete_file">האם אתה בטוח שברצונך למחוק זאת %1$s \"%2$s\"?</string>
+    <string name="afc_pmsg_confirm_replace_file">הקובץ \"%1$s\" כבר קיים\n\nהאם אתה רוצה להחליף אותו?</string>
+    <string name="afc_pmsg_deleting_file">מוחק %1$s \"%2$s\"&#8230;</string>
+    <string name="afc_pmsg_file_has_been_deleted">&#8230;%1$s \"%2$s\" נמחק</string>
+    <string name="afc_pmsg_filename_is_directory">\"%1$s\" היא תיקייה</string>
+    <string name="afc_pmsg_filename_is_invalid">שם קובץ \"%1$s\" אינו חוקי</string>
+    <string name="afc_pmsg_max_file_count_allowed">&#8230;יש קבצים נוספים, מקסימום מותר: %1$,d</string>
+    <string name="afc_pmsg_unknown_error">שגיאה לא ידועה: %1$s</string>
+    <string name="afc_pmsg_xxx_items">%1$,d פריטים</string>
+    <string name="afc_root">רוט</string>
+    <string name="afc_title_advanced_selection">בחר&#8230;</string>
+    <string name="afc_title_alert">התראה</string>
+    <string name="afc_title_choose_directories">בחר תיקייה</string>
+    <string name="afc_title_choose_files">בחר קבצים&#8230;</string>
+    <string name="afc_title_choose_files_and_directories">בחר קבצים\תיקיות&#8230;</string>
+    <string name="afc_title_confirmation">אישור</string>
+    <string name="afc_title_date">תאריך</string>
+    <string name="afc_title_error">שגיאה</string>
+    <string name="afc_title_history">היסטוריה</string>
+    <string name="afc_title_info">מידע</string>
+    <string name="afc_title_name">שם</string>
+    <string name="afc_title_save_as">שמור כ&#8230;</string>
+    <string name="afc_title_size">גודל</string>
+    <string name="afc_title_sort_by">מיין על פי&#8230;</string>
+    <string name="afc_yesterday">אתמול</string>
+
+</resources>

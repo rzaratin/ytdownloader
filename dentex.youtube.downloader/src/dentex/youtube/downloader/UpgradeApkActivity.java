@@ -30,6 +30,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -61,6 +62,7 @@ public class UpgradeApkActivity extends Activity {
 	public String matchedMd5;
 	boolean isAsyncTaskRunning = false;
 	private String compRes = "init";
+	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(this, R.style.BoxTheme);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -333,7 +335,7 @@ public class UpgradeApkActivity extends Activity {
                     	
                     	if (Utils.checkMD5(matchedMd5, new File(dir, apkFilename))) {
                     	
-	                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
+	                        AlertDialog.Builder helpBuilder = new AlertDialog.Builder(boxThemeContextWrapper);
 	                        helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
 	                        helpBuilder.setTitle(getString(R.string.information));
 	                        helpBuilder.setMessage(getString(R.string.upgraded_dialog_msg));
@@ -361,7 +363,7 @@ public class UpgradeApkActivity extends Activity {
 	                        }
                         
                     	} else {
-                    		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(context);
+                    		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(boxThemeContextWrapper);
 	                        helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
 	                        helpBuilder.setTitle(getString(R.string.information));
 	                        helpBuilder.setMessage(getString(R.string.upgrade_bad_md5_dialog_msg));

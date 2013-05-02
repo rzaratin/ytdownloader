@@ -89,7 +89,7 @@ public class FfmpegController {
     		sc.processComplete(exitVal);
     		
     	} catch (Exception e) {
-    		Log.e(DEBUG_TAG, "Error executing ffmpeg command! - " + e.getCause());
+    		Log.e(DEBUG_TAG, "Error executing ffmpeg command! - ", e);
     		started = false;
     	} finally {
     		if (process != null) {

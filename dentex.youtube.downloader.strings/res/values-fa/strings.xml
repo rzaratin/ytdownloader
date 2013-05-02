@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_settings">تنظیمات</string>
+    <string name="title_activity_upgrade_apk">ارتقا</string>
+    <string name="title_activity_about">درباره</string>
+    <string name="title_activity_donate">کمکهای مالی</string>
+    <string name="title_activity_tutorials">آموختارها</string>
+    <string name="title_activity_translators_show">Translators</string>
+
+    <!-- ### ShareActivity ### -->
+
+    <string name="tutorial_title">آموختار عمومی برنامه</string>
+	<string name="tutorial_msg_new">حالا شما یک لیست با تمام کدک ها و کیفیتهای موجود برای ویدئوی انتخاب شده خواهید دید.شما می توانید:\n\n*) روی یک آیتم کلیک کنید تا ویدئو را به طور محلی دانلود کنید(بر روی دستگاه) یا از طریق SSH برای کامپیوتر راه دور ارسال کنید.\nالزامات ماشین راه دور : Bash و Wget. اطلاعات بیشتر درباره SSH ؛\n\n*) روی یک آیتم به مدت طولانی فشار دهید تا بین رونوشت به کلیپبورد یا به اشتراک گذاری پیوند به صورت متن(به طور مثال ارسال به برنامه دیگر)، انتخاب کنید.\n لطفا توجه کنید اگر شما آن پیوند را بین ماشین دیگری به اشتراک بگذارید، که چنین پیوندی(متفاوت نسبت به زمانی که از طریق SSH ارسال می کنید) تنها می تواند در همان دستگاهی که در آن ساخته شده یا در یک شبکه LAN مشابه  به کار برده شود.\n</string>
+    <string name="loading">در حال بارگیری&#8230; </string>
+    <string name="error">خطا!</string>
+    <string name="information">اطلاعات</string>
+    <string name="dialogs_negative">لغو</string>
+    <string name="wait"> لطفا منتظر بمانید&#8230;</string>
+    <string name="invalid_url">قادر به بازیابی صفحه وب نیستیم.آدرس وب  ممکن است نامعتبر باشد.</string>
+    <string name="invalid_url_short">قادر به بازیابی صفحه وب نیستیم.</string>
+    <string name="invalid_response">پاسخ سرور HTTP نامعتبر است</string>
+    <string name="bad_link">پیوند ارائه شده را بررسی کنید.</string>
+    <string name="bad_link_dialog_msg">پیوند یوتیوب معتبر نیست.</string>
+    <string name="no_net">اتصال برقرار نیست.</string>
+    <string name="no_net_dialog_msg">ابتدا لطفا اتصال شبکه را برقرار کنید</string>
+    <string name="no_market">برنامه مارکت موجود نیست.</string>
+    <string name="no_market_dialog_msg">لطفا برنامه گوگل پلی را نصب کنید.</string>
+    <string name="list_click_dialog_title">تأیید دانلود برای :</string>
+    <string name="list_click_download_local">از اینجا دانلود کنید</string>
+    <string name="list_click_download_ssh">ارسال از طریق پروتکل امن SSH</string>
+    <string name="rename_dialog_title">نام فایل جدید:</string>
+    <string name="rename_dialog_msg">پسوند فایل را وارد نکنید(مثل mp4. یا flv.)</string>
+    <string name="unable_save">قادر به ذخیره سازی ویدئو نیستیم!</string>
+    <string name="unable_save_dialog_msg">پوشه مقصد وجود ندارد یا قابل نوشتن نیست.</string>
+    <string name="ssh_info_tutorial_title">چگونگی ارسال از طریق پروتکل امن SSH</string>
+    <string name="ssh_info_tutorial_msg">یک تک دستور طولانی در کلیپبورد بارگذاری شده است.\n\n یک نمایه از ربات اتصال انتخاب کنید و همینکه در پوسته راه دور بودید، به شاخه مورد نظر بروید، دستور را بچسبانید(از دکمه منو استفاده کنید) و دکمه enter را فشار دهید.</string>
+    <string name="callConnectBot_dialog_title">%1$s نصب نشده است!</string>
+    <string name="callConnectBot_dialog_msg">شما به این برنامه رایگان برای ارسال ویدئو از طریق پروتکل امن SSH نیاز دارید</string>
+    <string name="callConnectBot_dialog_positive">دانلود</string>
+    <string name="download_complete_dialog_msg1">ویدئو یوتیوب:\n</string>
+    <string name="download_complete_dialog_msg2">\n با موفقیت دانلود شد.</string>
+    <string name="download_complete_dialog_positive">باز کردن</string>
+    <string name="downloading"> در حال دانلود کردن&#8230;</string>
+    <string name="cancel_download_dialog_title">لغو دانلود؟</string>
+    <string name="video_list_error_toast">خطا در لیست ویدئو.</string>
+    <string name="codec">\n\n\t کدک:</string>
+    <string name="quality">\n\tکیفیت:</string>
+    <string name="size">\n\tحجم:</string>
+    <string name="notification_downloading_pt1"> در حال دانلود کردن</string>
+    <string name="notification_downloading_pt2">فایل های ویدئو</string>
+    <string name="notification_no_downloads">دانلودی در حال پیشرفت نیست</string>
+    <string name="long_click_title">رفتار با پیوند انتخاب شده:</string>
+    <string name="extsdcard_info_title">آدرس مقصد استاندارد نیست</string>
+    <string name="extsdcard_info_msg">فایل ابتدا در پوشه استاندارد دانلود، دانلود خواهد شد، و سپس به مقصد انتخاب شده منتقل خواهد شد.</string>
+    <string name="ffmpeg_ready">FFmpeg آماده است.</string>
+    <string name="confirm_audio_checkbox1">بعد از دانلود صدا را استخراج کن</string>
+    <string name="confirm_audio_checkbox2">\n(همانطور که در تنظیمات تعریف شده است)</string>
+    
+    <string-array name="long_click_entries">
+        <item>رونوشت کردن به کلیپبورد</item>
+        <item>به اشتراک گذاری به عنوان متن</item>
+    </string-array>
+    
+    <string-array name="long_click_entries2">
+        <item>رونوشت کردن به کلیپبورد</item>
+        <item>به اشتراک گذاری به عنوان متن</item>
+        <item>ارسال از طریق پروتکل امن SSH</item>
+    </string-array>
+    
+    <!-- ### SettingsActivity ### -->
+
+    <string name="attention">توجه!</string>
+    <string name="extsdcard_warning">قادر به نوشتن بر روی کارت حافظه قابل جابجایی نیستیم.\nبازگشت به حافظه استاندارد.</string>
+    <string name="system_warning_title">این یک پوشه سیستمی است</string>
+    <string name="system_warning_msg">مسیر انتخاب شده به پوشه دانلود بر روی حافظه SD برگشت داده شد.</string>
+    <string name="sdcard_unmounted_warning">حافظه SD نصب نشده</string>
+    <string name="update_disabled_summary">امضای متفاوتی یافتیم (F-Droid?)</string>
+    <string name="failed_download">دانلودهای ناموفق حذف شد</string>
+    <string name="new_v_download">پیدا شد. در حال دانلود کردن&#8230;</string>
+    <string name="new_v_install">دانلود شد.کلیک کنید تا نصب شود.</string>
+    <string name="ffmpeg_download_dialog_title">یک فایل اضافی مورد نیاز است.الان دانلود کنیم؟</string>
+    <string name="ffmpeg_download_dialog_msg">پیوند وب:</string>
+    <string name="ffmpeg_device_not_supported">دستگاه هنوز مورد پشتیبانی نیست.</string>
+    <string name="ffmpeg_support_mail">رایانامه را به توسعه دهنده می فرستید؟\nشما  تمام اطلاعات را در برنامه رایانامه تان قبل از ارسال هر داده ای نقد خواهید کرد.</string>
+    <string name="ffmpeg_download_notification">در حال دانلود FFmpeg</string>
+    <string name="ffmpeg_install">در حال نصب فایل نصب FFmpeg &#8230;</string>
+    <string name="email_via">ارسال از طریق رایانامه:</string>
+    
+    <!-- ### UpgradeApkActivity ### -->
+    
+    <string name="upgrade_button_init">به روزرسانی</string>
+    <string name="upgrade_button_download">دانلود\nونصب</string>
+    <string name="upgrade_uppertext_searching">در حال جستجو &#8230;</string>
+    <string name="upgrade_uppertext_init">نسخه نصب شده:\n</string>
+
+    <string name="upgrade_latest">آخرین:\t</string>
+    <string name="upgrade_installed">\nنصب شده:\t</string>
+    <string name="upgraded_dialog_msg">نسخه جدید در پوشه \'Download\' روی کارت حافظه ذخیره شده است.\n\n الان نصب کنیم؟</string>
+    <string name="upgraded_dialog_negative">بعدا\n(دستی)</string>
+    <string name="upgrade_latest_installed">آخرین نسخه در حال حاضر نصب شده است!</string>
+    <string name="upgrade_network_error">قادر به بازیابی داده های به روزرسانی نیستیم.\n بعدا دوباره امتحان کنید.</string>
+    <string name="upgrade_bad_md5_dialog_msg">بسته دانلود شده خراب است.\nالان حذف خواهد شد.\n دکمه بسیار خوب را فشار دهید تا دوباره دانلود شود.</string>
+    
+    <!-- ### DownloadsService ### -->
+    
+    <string name="ytd_video">ویدئو YTD</string>
+    <string name="copy_error">خطا در طی عملیات رونوشت</string>
+    <string name="copy_progress">رونوشت از فایل در حال پیشرفت است&#8230;</string>
+    <string name="copy_ok">رونوشت برداری کامل شد.</string>
+    <string name="download_remove_failed">خطا: فایلی که به صورت موقتی دانلود شده بود حذف نشده است!</string>
+    <string name="download_failed">دانلود ناموفق بود!</string>
+    <string name="audio_extr_progress">استخراج صدا در حال پیشرفت است &#8230;</string>
+    <string name="audio_conv_progress">رمزکردن صدا به mp3 در حال پیشرفت است&#8230;</string>
+    <string name="audio_extr_completed">استخراج صدا کامل شد.</string>
+    <string name="audio_conv_completed">رمزکردن صدا به mp3 کامل شد.</string>
+    <string name="audio_extr_error">خطا در هنگام استخراج صدا</string>
+    <string name="audio_conv_error">خطا در هنگام رمزکردن صدا به mp3</string>
+    
+    <!-- ### DonateActivity ### -->
+    
+    <string name="paypal_item_name">کمک مالی به YTD</string>
+    <string name="paypal_title">PayPal</string>
+	<string name="paypal_summary">توسعه دهنده برنامه YTD را با هدیه دادن (کمک مالی) پشتیبانی کنید</string>
+	
+	<!-- ### FfmpegDownloadService ### -->
+	<string name="ffmpeg_install_failed">نصب FFmpeg ناموفق بود.</string>
+
+    <!-- ### preferences ### -->
+
+    <!-- -->
+    <string name="dm_title">دانلودها</string>
+    <string name="dm_summary">باز کزدن مدیر دانلود سیستم</string>
+
+    <!-- -->
+    <string name="settings_cat_ui">رابط کاربری</string>
+    <string name="lang_title">زبان</string>
+    <string name="lang_dialog_title">زبان(به راه اندازی مجدد برنامه نیاز دارد):</string>
+    <string name="choose_theme_title">انتخاب تم</string>
+    <string-array name="choose_theme_entries">
+        <item>تیره</item>
+        <item>روشن</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="quick_start_title">شروع سریع</string>
+    <string name="quick_start_summ">باز کردن آموختار شروع سریع</string>
+    <string name="quick_start_text">در اینجا فقط تنظیمات برای برنامه \'دانلود کننده یوتیوب\' است.\n\n برنامه حقیقی می تواند از طریق دکمه به اشتراک گذاری در برنامه یوتیوب، در حالی که یک برنامه ویدئویی را تماشا می کنید،مورد دسترسی قرار گیرد.\n\nسپس \'دانلود کننده یوتیوب\' را انتخاب کنید و شما اطلاعاتی بیشتری راجع به نحوه استفاده خواهید داشت.\n\nشما همچنین می توانید هر لینک متنی مربوط به یوتیوب را از طریق هر برنامه دیگری مثل مرورگرتان، به اشتراک بگذارید.</string>
+    <string name="general_info_title">فعال کردن راهنمای چگونگی عمومی</string>
+    <string name="general_info_summary">موقع راه اندازی آموختار عمومی برنامه را نشان بده</string>
+    <string name="show_again_checkbox">دفعه بعد دوباره نشان بده</string>
+    <string name="ssh_info_title">فعال کردن راهنمای چگونگی SSH</string>
+    <string name="ssh_info_summary">یک نکته سریع درباره دانلود از راه دور از طریق SSH نمایش بده</string>
+    <string name="audio_tutorial_title">آموختار استخراج صدا</string>
+    <string name="audio_tutorial_summary">درباره ویژگی استخراج صدا یک راهنمایی خلاصه را باز کن</string>
+    <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
+        \n\n*) Enable the audio preference and download FFmpeg;
+        \n\n*) Choose the extraction type: 
+        \n\n\"extract only\" will conserve the audio stream from the video as is (WebM files contain an \"Ogg Vorbis\" 
+        audio; MP4, 3GPP and large/medium FLV video hold an \"AAC\" audio stream; FLV small holds an \"mp3\");
+        \n\n\"extract and encode to mp3\" will convert the extracted audio in an mp3, encoding it with the selected bitrate.
+        \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
+        in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
+        (to hide the checkbox, disable the audio extraction option).
+        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+    
+    <!-- -->
+    <string name="settings_cat_folder">پوشه دانلود</string>
+    <string name="standard_location_title">پوشه استاندارد را انتخاب کنید</string>
+    <string name="chooser_swap_title">انتخابگر مبادله</string>
+    <string name="chooser_location_title">انتخابگر فایل را باز کن</string>
+    <string name="chooser_location_summary">مدت زیادی فشار دهید تا پوشه انتخاب شود</string>
+	
+    <!-- -->
+    <string name="settings_cat_files">فایل های ویدئو</string>
+    <string name="enable_q_suffix_title">پسوند کیفیت را اضافه کن</string>
+    <string name="enable_q_suffix_summary">کیفیت ویدئو را به انتهای نام فایل اضافه کن.</string>
+    <string name="enable_rename_title">فعال کردن تغییر نام دادن فایل</string>
+    <string name="enable_rename_summary">قبل از اینکه فایل ویدئویی را دانلود کنی آن را تغییر نام بده(فقط برای دانلود محلی)</string>
+    <string name="show_size_title">حجم فایل را نمایش بده</string>
+    <string name="show_size_summary">در هنگام پیام تأیید دانلود حجم فایل را واکشی کن(آهسته تر)</string>
+    <string name="show_size_list_title">نمایش حجم تمام فایلهای ویدئویی</string>
+    <string name="show_size_list_summary">برای هر آیتم در لیست ویدئوهای موجود حجم را واکشی کن(خیلی کندتر)</string>
+    <string name="show_thumb_title">نمایش تصویر پیش نمایش</string>
+    <string name="show_thumb_summary">دانلود یک تصویر پیش نمایش به همراه لیست ویدئو</string>
+    
+    <!-- -->
+    <string name="settings_cat_audio">صدا</string>
+    <string name="enable_audio_extraction_title">فعال کردن استخراج صدا</string>
+    <string name="enable_audio_extraction_summary">صدا را از فایل دانلود شده استخراج و تبدیل کن(برای دانلودهای محلی فقط)</string>
+    <string name="mp3_bitrate_title">نرخ بیت برای رمزگذاری Mp3(کیلوبیت بر ثانیه)</string>
+    <string name="audio_extraction_type_title">نوع استخراج</string>
+    <string name="enable_audio_q_suffix_title">پسوند کیفیت صدا را اضافه کن</string>
+    <string name="enable_audio_q_suffix_summary">کیفیت صدا را به انتهای نام فایل اضافه کن.</string>
+    <string name="remove_video_title">حذف کردن ویدئو</string>
+    <string name="remove_video_summary">حذف ویدئو پس از استخراج موفقیت آمیز صدا را فعال کن(اخطار: بدون تأیید)</string>
+
+    <string-array name="audio_extraction_type_entries">
+        <item>فقط استخراج کن</item>
+        <item>استخراج و رمزگذاری به Mp3</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_notifications">اعلان ها</string>
+    <string name="enable_own_notification_title">فعال کردن اعلان خودی</string>
+    <string name="enable_own_notification_summary">یک اطلاع رسانی جامع درباره همه دانلودهای برنامه YTD نمایش بده</string>
+    <string name="download_manager_notification_title">مدیریت اعلان های سیستم</string>
+    <string name="download_manager_notification_dialog_title">اعلانهای مدیریت سیستم را نمایش بده:</string>
+    
+    <string-array name="download_manager_notification_entries">
+        <item>زمانی که در حال پیشرفت است و پس از اتمام</item>
+        <item>فقط زمانی که در حال پیشرفت است</item>
+        <item>هرگز</item>
+    </string-array>
+    
+    <string name="notification_defaults_title">پیش فرضهای اعلانها</string>
+    <string name="notification_defaults_dialog_title">پیش فرضهای اعلانهای YTD</string>
+    <string-array name="notification_defaults_entries">
+        <item>صدا و لرزش</item>
+        <item>صدا و روشنایی</item>
+        <item>لرزش و روشنایی</item>
+        <item>صدا،لرزش و روشنایی</item>
+        <item>صدا</item>
+        <item>لرزش</item>
+        <item>روشنایی</item>
+        <item>هیچی</item>
+    </string-array>   
+    
+    <!-- -->
+    <string name="settings_cat_updates">به روزرسانی</string>
+    <string name="update_title">بررسی برای به روزرسانی</string>
+    <string name="autoupdate_title">فعال کردن به روزرسانی خودکار</string>
+    <string name="autoupdate_summary">در اولین اجرای برنامه در روز،برای به روزرسانی بررسی کن</string>
+
+    <!-- -->
+    <string name="settings_cat_app">برنامه های کاربردی</string>
+    <string name="settings_cat_about_condensed">درباره</string>
+    <string name="title_changelog">تغییرات</string>
+    <string name="screen_licences_code_title">مجوزها و کد</string>
+
+    <!-- -->
+    <string name="settings_cat_licenses">مجوزها</string>
+
+    <string name="credits_title">دست اندرکاران</string>
+    <string name="title_activity_credits_show">مجوزهای دیگر و ترجمه ها</string>
+    
+    <string name="credits_text0">\tMain Licenses
+\n\n
+This App and is released under the GPL-3.0.
+\n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
+\n\n
+The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 
+used for the audio extraction feature, is released under the GPL-3.0.
+\n(FFmpeg version 1.2 Copyright &#169; 2000-2013 the FFmpeg developers).
+\n\n
+The filechooser library is released under the MIT license.
+\n(android-filechooser Copyright &#169; 2012 Hai Bison).
+\n\n
+The liblame library, used to compile FFmpeg, is released under the LGPL.
+A GitHub project, <http>https://github.com/intervigilium/liblame</http>, 
+has been used to compile the lame libraries for Android.
+\n(liblame Copyright &#169; 2010 Ethan Chen)
+\n(LAME Copyright &#169; 1999-2007 The LAME Project,
+\nCopyright &#169; 1999-2001 Mark Taylor,
+\nCopyright &#169; 1998 Micheal Cheng)
+\n(mpglib Copyright &#169; 1995-1997 Michael Hipp).
+\n\n
+YTD\'s mp3 tags are written with MyID3: a Java ID3 Tag Library
+(<http>http://www.fightingquaker.com/myid3</http> and <http>https://sites.google.com/site/eternalsandbox/myid3-for-android</http>) 
+released under the LGPL, as its dependency Jakarta Regexp library.
+\n(MyID3 Copyright &#169; 2008 Charles M. Chen, adapted for Android by Romulus Urakagi Ts\'ai).
+\n\n
+For more informations, refer to the dedicated menus and to the license files 
+available from this project\'s source code.
+\n</string>
+    
+    <string name="credits_text1">\tCode excerpts Licenses
+\n\n
+This App uses some code snippets from: 
+\n\n
+1) CyanogenMod custom ROM (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>)
+\nCopyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
+\nThe text of the license can be found in the LICENSE_GPL file or at <http>https://www.gnu.org/licenses/gpl-3.0.txt</http>
+\n\n
+2) Stack Overflow (<http>http://stackoverflow.com</http>), a question and answer site for programmers where all 
+the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+\n\n
+For more details, look for comments in YTD\'s Java code.</string>
+    <string name="credits_translators">\n\tترجمه ها
+\n\nعلاوه بر این، محلی سازیهای اضافی با تشکر از:</string>
+    <string name="translators_info">\nبرای اطلاعات بیشتر:</string>
+        
+    <!-- -->
+    <string name="settings_cat_code">کد منبع</string>
+    <string name="ytd_code_git_title">Github برنامه YTD</string>
+    <string name="ytd_code_hg_title">YTD در Sourceforge</string>
+
+    <!-- -->
+    <string name="settings_cat_social">اجتماعی</string>
+    <string name="share_title">به اشتراک گذاری این برنامه</string>
+    <string name="share_summary">از طریق توئیتر، فیسبوک، جی میل، غیره &#8230;</string>
+    <string name="share_warning">برنامه مفیدی پیدا نشد.</string>
+    <string name="share_message">#YouTubeDownloader
+\nبرنامه آندروییدی رایگان و منبع-باز برای دانلود کردن ویدئوهای یوتیوب!
+\nhttps://sourceforge.net/projects/ytdownloader/files/</string>
+	<string name="help_translate_title">به ترجمه کردن این برنامه کمک کنید</string>
+    <string name="help_translate_summary">برو به www.getlocalization.com/ytdownloader</string>
+    
+    <!-- -->
+    <string name="settings_cat_ssh">SSH</string>
+    <string name="connectbot_flavour_title">ConnectBot version to use</string>
+	<string name="connectbot_flavour_dialog_title">Choose ConnectBot fork to send video via SSH</string>
+	<string name="enable_connectbot_short_cmd_title">فعال کردن فرمانهای کوتاه SSH</string>
+	<string name="enable_connectbot_short_cmd_summary">Use a slightly shorter but faster command to 
+	    paste into the remote shell (will ONLY work if the destination PC resides within the same LAN)</string>
+	<string name="ssh_to_longpress_menu_title">SSH-send to long-press menu</string>
+	<string name="ssh_to_longpress_menu_summary">Move \"Send via SSH\" action into the long-press menu available from the video list</string>
+	
+    <!-- -->
+	<string name="settings_cat_advanced">پیشرفته</string>
+	<string name="enable_logging_title">فعال کردن ثبت</string>
+	<string name="enable_logging_summary">فایل ثبت سیستم شامل پیام های YTD باشد.برای ارسال Logcat به توسعه دهنده اجباری است.</string>
+	<string name="disable_bugsense_title">Disable BugSense</string>
+	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
+	
+</resources>

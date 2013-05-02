@@ -31,6 +31,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.format.DateUtils;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -121,6 +122,7 @@ public class SettingsActivity extends Activity {
 
             addPreferencesFromResource(R.xml.settings);
             
+            final ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(getActivity(), R.style.BoxTheme);
             mActivity = getActivity();
 
             String cf = settings.getString("CHOOSER_FOLDER", "");
@@ -224,7 +226,7 @@ public class SettingsActivity extends Activity {
 							audio.setChecked(false);
 							settings.edit().putBoolean("FFMPEG_SUPPORTED", false).commit();
 
-							AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+							AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
 	                        adb.setIcon(android.R.drawable.ic_dialog_alert);
 	                        adb.setTitle(getString(R.string.ffmpeg_device_not_supported));
 	                        adb.setMessage(getString(R.string.ffmpeg_support_mail));
@@ -273,7 +275,7 @@ public class SettingsActivity extends Activity {
 						Utils.logger("d", "ffmpegInstalled: " + ffmpegInstalled, DEBUG_TAG);
 					
 						if (!ffmpegInstalled && isCpuSupported) {
-							AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+							AlertDialog.Builder adb = new AlertDialog.Builder(boxThemeContextWrapper);
 	                        adb.setIcon(android.R.drawable.ic_dialog_info);
 	                        adb.setTitle(getString(R.string.ffmpeg_download_dialog_title));
 	                        

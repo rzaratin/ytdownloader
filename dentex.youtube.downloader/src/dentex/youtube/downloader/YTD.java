@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.bugsense.trace.BugSenseHandler;
+
 public class YTD extends Application {
 	
 	static String DEBUG_TAG = "YTD";
@@ -17,7 +19,7 @@ public class YTD extends Application {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		
 		if (!settings.getBoolean("disable_bugsense", false)) {
-        	//BugSenseHandler.initAndStartSession(getApplicationContext(), BAK);
+        	BugSenseHandler.initAndStartSession(getApplicationContext(), BAK);
 		}
         	
         super.onCreate();

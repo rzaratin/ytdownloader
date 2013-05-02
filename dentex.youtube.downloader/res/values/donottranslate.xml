@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="changelog">
-		\n v2.0 - Apr 28 2013
+		\n v2.0 - May 03 2013
 		\n-----------------------------------
 		\n[x] audio extraction from 
 		\n    downloaded video with optional 
@@ -281,23 +281,33 @@
     <string-array name="lang_entries">
         <item>Default</item>
         <item>English</item>
-        <item>Italian</item>
-        <item>Portuguese</item>
-        <item>Turkish</item>
         <item>Dutch</item>
         <item>French</item>
+        <item>Hebrew</item>
+        <item>Italian</item>
+        <item>German</item>
         <item>Korean</item>
+        <item>Polish</item>
+        <item>Portuguese</item>
+        <item>Russian</item>
+        <item>Turkish</item>
+        <item>Western Farsi</item>
     </string-array>
     
     <string-array name="lang_entry_values">
         <item>default</item>
         <item>en</item>
-        <item>it</item>
-        <item>pt</item>
-        <item>tr</item>
         <item>nl</item>
         <item>fr</item>
+        <item>iw</item>
+        <item>it</item>
+        <item>de</item>
         <item>ko</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>ru</item>
+        <item>tr</item>
+        <item>fa</item>
     </string-array>
     
     <string name="lang_default">default</string>
@@ -314,14 +324,6 @@
     </string-array>
     
     <string name="notification_defaults_default">0</string>
-    
-    <string name="translators_list">   
-        \nPLUG313 - Portuguese;
-        \nrew06 - Turkish;
-        \nEkimPadd - Dutch;
-        \nblux (AKA grobux) - French;
-        \ndigitie - Korean.
-    </string>
     
     <string name="translators_links">
         \n<http>www.getlocalization.com/ytdownloader</http>

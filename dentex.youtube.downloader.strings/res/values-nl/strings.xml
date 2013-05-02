@@ -6,6 +6,7 @@
     <string name="title_activity_about">About</string>
     <string name="title_activity_donate">Donations</string>
     <string name="title_activity_tutorials">Tutorials</string>
+    <string name="title_activity_translators_show">Translators</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -330,5 +331,7 @@ map, PLAK het commando (gebruik de menuknop) en klik ENTER.</string>
 	<string name="settings_cat_advanced">Advanced</string>
 	<string name="enable_logging_title">Enable logging</string>
 	<string name="enable_logging_summary">Include YTD\'s messages into the system log. Mandatory for sending a logcat to the developer.</string>
+	<string name="disable_bugsense_title">Disable BugSense</string>
+	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
 	
 </resources>

@@ -6,6 +6,7 @@
     <string name="title_activity_about">이 앱에 대하여</string>
     <string name="title_activity_donate">기부</string>
     <string name="title_activity_tutorials">튜토리얼</string>
+    <string name="title_activity_translators_show">Translators</string>
 
     <!-- ### ShareActivity ### -->
 
@@ -323,5 +324,7 @@ the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licen
 	<string name="settings_cat_advanced">고급설정</string>
 	<string name="enable_logging_title">로깅 활성화</string>
 	<string name="enable_logging_summary">유튜브 다운로더의 로그를 시스템 로그에 남깁니다. 개발자에게 디버깅 정보를 보내려면 반드시 필요합니다.</string>
+	<string name="disable_bugsense_title">Disable BugSense</string>
+	<string name="disable_bugsense_summary">This will not send Crash Reports to the developer. Not recommended.</string>
 	
 </resources>

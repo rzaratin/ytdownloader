@@ -141,7 +141,7 @@ public class ShareActivity extends Activity {
 	public static Context mContext;
 	boolean showSizesInVideoList;
 	boolean showSingleSize;
-	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(ShareActivity.this, R.style.BoxTheme);
+	ContextThemeWrapper boxThemeContextWrapper = new ContextThemeWrapper(this, R.style.BoxTheme);
 	public int count;
 	public String acodec = "";
 	public String extrType;
@@ -437,7 +437,7 @@ public class ShareActivity extends Activity {
                     pos = position;     
                     //pos = 45;		// to test IndexOutOfBound Exception...
                     
-                	helpBuilder = new AlertDialog.Builder(new ContextThemeWrapper(ShareActivity.this, R.style.BoxTheme));
+                	helpBuilder = new AlertDialog.Builder(boxThemeContextWrapper);
                     helpBuilder.setIcon(android.R.drawable.ic_dialog_info);
                     helpBuilder.setTitle(getString(R.string.list_click_dialog_title));
                     

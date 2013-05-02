@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_settings">הגדרות</string>
+    <string name="title_activity_upgrade_apk">שדרג</string>
+    <string name="title_activity_about">אודות</string>
+    <string name="title_activity_donate">תרומות</string>
+    <string name="title_activity_tutorials">הדרכות</string>
+    <string name="title_activity_translators_show">מתרגמים</string>
+
+    <!-- ### ShareActivity ### -->
+
+    <string name="tutorial_title">מדריך מלא לאפליקצייה</string>
+	<string name="tutorial_msg_new">Now you will see a list with all the codecs and qualities available for the selected video. You can:
+		\n\n*) Press an item to download the video locally (on the device) or to send the download via SSH to a remote PC.
+		\nDestination machine requirements: Bash and Wget. Additional SSH info further on;
+		\n\n*) Long-press an item and choose between copy to clipboard or share link as text (i.e. send to another app).
+		\nPlease note that such a link (differently from when you send it via SSH) can be only used from the same device where it has been created OR from the same LAN, if you share it to another machine.\n</string>
+    <string name="loading">טוען&#8230;</string>
+    <string name="error">שגיאה!</string>
+    <string name="information">מידע</string>
+    <string name="dialogs_negative">בטל</string>
+    <string name="wait">אנא המתן&#8230;</string>
+    <string name="invalid_url">לא מצליח לאחזר דף אינטרנט. כתובת האתר עלולה להיות לא חוקית.</string>
+    <string name="invalid_url_short">לא מצליח לאחזר דף אינטרנט.</string>
+    <string name="invalid_response">תגובת שרת HTTP לא חוקית.</string>
+    <string name="bad_link">בדוק את הקישור המצורף.</string>
+    <string name="bad_link_dialog_msg">קישור YouTube אינו תקף.</string>
+    <string name="no_net">אין חיבור זמין.</string>
+    <string name="no_net_dialog_msg">אנא, הפעל את החיבור רשת .</string>
+    <string name="no_market">אין יישום זמין בחנות.</string>
+    <string name="no_market_dialog_msg">אנא, התקן את Google Play.</string>
+    <string name="list_click_dialog_title">אשר הורדה של:</string>
+    <string name="list_click_download_local">הורד כאן</string>
+    <string name="list_click_download_ssh">שלך דרך SSH</string>
+    <string name="rename_dialog_title">שם קובץ חדש:</string>
+    <string name="rename_dialog_msg">אל תזין סיומת קובץ (כמו. MP4 או. FLV).</string>
+    <string name="unable_save">לא ניתן לשמור את הסרטון!</string>
+    <string name="unable_save_dialog_msg">תיקיית יעד אינה זמינה ו / או לא ניתנת לכתיבה.</string>
+    <string name="ssh_info_tutorial_title">שלח דרך SSH כיצד לבצע</string>
+    <string name="ssh_info_tutorial_msg">פקודה אחת נטענה בלוח.
+בחר פרופיל ב ConnectBot וברגע שאתה בפקודה מרוחקת, נווט אל תיקייה רצויה,
+הדבק את הפקודה (השתמש וכפתור תפריט) ולחץ אשר.
+</string>
+    <string name="callConnectBot_dialog_title">%1$s לא מותקן!</string>
+    <string name="callConnectBot_dialog_msg">הינך צריך אפליקצייה חינמית זאת, כדי לשלוח את הוידאו להורדה דרך SSH.</string>
+    <string name="callConnectBot_dialog_positive">הורד</string>
+    <string name="download_complete_dialog_msg1">YouTube וידאו:\n</string>
+    <string name="download_complete_dialog_msg2">ההורדה הסתיימה בהצלחה:\n</string>
+    <string name="download_complete_dialog_positive">פתח</string>
+    <string name="downloading">מוריד&#8230;</string>
+    <string name="cancel_download_dialog_title">בטל הורדה?</string>
+    <string name="video_list_error_toast">שגיאה ברשימת וידאו.</string>
+    <string name="codec">\n\n\tקודק:</string>
+    <string name="quality">\n\tאיכות:</string>
+    <string name="size">\n\tגודל:</string>
+    <string name="notification_downloading_pt1">מוריד</string>
+    <string name="notification_downloading_pt2">קבצי וידאו</string>
+    <string name="notification_no_downloads">אין הורדות פועלות</string>
+    <string name="long_click_title">טפל בקישור הנבחר:</string>
+    <string name="extsdcard_info_title">שם נתיב לא סטנדרטי</string>
+    <string name="extsdcard_info_msg">הורדת קובץ תחילה לתיקיית ההורדות הסטנדרטית ולאחר מכן יועברו ליעד שנבחר.</string>
+    <string name="ffmpeg_ready">FFmpeg מוכן.</string>
+    <string name="confirm_audio_checkbox1">חלץ אודיו לאחר הורדה</string>
+    <string name="confirm_audio_checkbox2">\n(כמוגדר בהגדרות)</string>
+    
+    <string-array name="long_click_entries">
+        <item>העתק ללוח העריכה</item>
+        <item>שתף כטקסט</item>
+    </string-array>
+    
+    <string-array name="long_click_entries2">
+        <item>העתק ללוח העריכה</item>
+        <item>שתף כטקסט</item>
+        <item>שלח דרך SSH</item>
+    </string-array>
+    
+    <!-- ### SettingsActivity ### -->
+
+    <string name="attention">שים לב!</string>
+    <string name="extsdcard_warning">אין אפשרות לכתוב קבצים על כרטיס SD נשלף. \nחוזר בחזרה על כרטיס SD רגיל.</string>
+    <string name="system_warning_title">זוהי תיקיית מערכת</string>
+    <string name="system_warning_msg">נתיב שנבחר יחזור בחזרה על תיקיית ההורדות של \ssdcard סטנדרטית.</string>
+    <string name="sdcard_unmounted_warning">כרטיס SD לא טעון</string>
+    <string name="update_disabled_summary">נמצאה חתימה שונה (F-Droid?)</string>
+    <string name="failed_download">הורדה כושלת הוסרה</string>
+    <string name="new_v_download">נמצא. מוריד$#8230;</string>
+    <string name="new_v_install">הוריד. לחץ להתקנה.</string>
+    <string name="ffmpeg_download_dialog_title">יש צורך בקובץ נוסף. הורד אותו עכשיו?</string>
+    <string name="ffmpeg_download_dialog_msg">קישור אינטרנט:</string>
+    <string name="ffmpeg_device_not_supported">מכשיר עדיין אינו נתמך.</string>
+    <string name="ffmpeg_support_mail">שלח דוא"ל למפתח?
+\nתוכל לסקור את כל המידע ביישום הדואר האלקטרוני שלך לפני שאתה שולח את כל הנתונים.</string>
+    <string name="ffmpeg_download_notification">הורדת FFmpeg</string>
+    <string name="ffmpeg_install">התקנת FFmpeg בינארי&#8230;</string>
+    <string name="email_via">שלח דוא"ל באמצעות:</string>
+    
+    <!-- ### UpgradeApkActivity ### -->
+    
+    <string name="upgrade_button_init">עדכן</string>
+    <string name="upgrade_button_download">הורד \ n התקן</string>
+    <string name="upgrade_uppertext_searching">מחפש&#8230;</string>
+    <string name="upgrade_uppertext_init">גרסה מותקנת:\n</string>
+
+    <string name="upgrade_latest">אחרון:\t</string>
+    <string name="upgrade_installed">\nהותקן:\t</string>
+    <string name="upgraded_dialog_msg">גרסה חדשה מאוחסנת בכרטיס סטנדרטי \'הורדה\' תיקייה\n\nהתקן?</string>
+    <string name="upgraded_dialog_negative">מאוחר יותר \ n (באופן ידני)</string>
+    <string name="upgrade_latest_installed">הגרסה האחרונה כבר מותקנת!</string>
+    <string name="upgrade_network_error">לא ניתן לאחזר את נתוני עדכון. \n נסה מאוחר יותר.</string>
+    <string name="upgrade_bad_md5_dialog_msg">החבילה שהורדת פגומה. \nימחק עכשיו\n לחץ אישור להוריד שוב.</string>
+    
+    <!-- ### DownloadsService ### -->
+    
+    <string name="ytd_video">וידאו מתחילת השנה</string>
+    <string name="copy_error">שגיאה במהלך ההעתקה</string>
+    <string name="copy_progress">העתק קובץ בתהליך&#8230;</string>
+    <string name="copy_ok">העתקה הושלמה.</string>
+    <string name="download_remove_failed">שגיאה: קובץ זמני שהורד לא הוסר!</string>
+    <string name="download_failed">ההורדה נכשלה!</string>
+    <string name="audio_extr_progress">חילוץ אודיו בתהליך&#8230;</string>
+    <string name="audio_conv_progress">אודיו קידוד ל-MP3 בתהליך&#8230;</string>
+    <string name="audio_extr_completed">חילוץ שמע הושלם.</string>
+    <string name="audio_conv_completed">קידוד ל-MP3 הושלם.</string>
+    <string name="audio_extr_error">שגיאה במהלך חילוץ אודיו.</string>
+    <string name="audio_conv_error">שגיאה במהלך קידוד אודיו ל-MP3.</string>
+    
+    <!-- ### DonateActivity ### -->
+    
+    <string name="paypal_item_name">תרומת מתחילת השנה</string>
+    <string name="paypal_title">פייפאל</string>
+	<string name="paypal_summary">תמיכת מפתח מתחילת השנה\'s בתרומה</string>
+	
+	<!-- ### FfmpegDownloadService ### -->
+	<string name="ffmpeg_install_failed">FFmpeg התקנה נכשלה.</string>
+
+    <!-- ### preferences ### -->
+
+    <!-- -->
+    <string name="dm_title">הורדות</string>
+    <string name="dm_summary">פתח את מנהל ההורדות\'s של המערכת.</string>
+
+    <!-- -->
+    <string name="settings_cat_ui">ממשק משתמש</string>
+    <string name="lang_title">שפה</string>
+    <string name="lang_dialog_title">שפה (הפעלה מחדש של היישום)</string>
+    <string name="choose_theme_title">בחר ערכת נושא</string>
+    <string-array name="choose_theme_entries">
+        <item>כהה</item>
+        <item>בהיר</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="quick_start_title">התחלה מהירה</string>
+    <string name="quick_start_summ">פתח מדריך להתחלה מהירה</string>
+    <string name="quick_start_text">כאן הן ההגדרות ל \'YouTube Downloader\'.
+\n\nניתן בפועל לגשת לאפליקצייה דרך כפתור שתף באפליקציה של YouTube, תוך כדי צפייה בוידאו.
+\n\n\לאחר מכן בחר \'YouTube Downloader\' ותקבל מידע על שימוש נוסף.
+\n\nאתה יכול גם לשתף כל קישור טקסט רגיל של YouTube דרך כל יישום אחר: כלומר הדפדפן שלך.
+</string>
+    <string name="general_info_title">אפשר כללי כיצד לבצע</string>
+    <string name="general_info_summary">הצג הדרכה לאפליקצייה בהפעלה</string>
+    <string name="show_again_checkbox">הצג שוב בפעם הבאה</string>
+    <string name="ssh_info_title">אפשר SSH כיצד לבצע</string>
+    <string name="ssh_info_summary">הצג טיפ מהיר על הורדה מרחוק דרך SSH</string>
+    <string name="audio_tutorial_title">הדרכה חילוץ אודיו</string>
+    <string name="audio_tutorial_summary">פתח את מדריך קצר על תכונת חילוץ אודיו</string>
+    <string name="audio_tutorial_text">To extract or convert to mp3 the audio from a downloaded video:
+        \n\n*) Enable the audio preference and download FFmpeg;
+        \n\n*) Choose the extraction type: 
+        \n\n\"extract only\" will conserve the audio stream from the video as is (WebM files contain an \"Ogg Vorbis\" 
+        audio; MP4, 3GPP and large/medium FLV video hold an \"AAC\" audio stream; FLV small holds an \"mp3\");
+        \n\n\"extract and encode to mp3\" will convert the extracted audio in an mp3, encoding it with the selected bitrate.
+        \n\nFrom now on, a checkbox will appear in the download confirmation box visible when you click an item 
+        in the YTD\'s video list. When checked, the audio extraction job will start upon video download completion 
+        (to hide the checkbox, disable the audio extraction option).
+        \n\nChoose from settings if you want to remove the video file after a seccessful audio extraction.</string>
+    
+    <!-- -->
+    <string name="settings_cat_folder">הורד תיקייה</string>
+    <string name="standard_location_title">בחר תיקייה סטנדרטית</string>
+    <string name="chooser_swap_title">החלף בורר</string>
+    <string name="chooser_location_title">פתח בוחר קבצים</string>
+    <string name="chooser_location_summary">לחיצה ארוכה לבחירת תיקייה</string>
+	
+    <!-- -->
+    <string name="settings_cat_files">קבצי וידאו</string>
+    <string name="enable_q_suffix_title">צרף סיומת איכות</string>
+    <string name="enable_q_suffix_summary">הוסף את איכות וידאו בסופו של שם הקובץ</string>
+    <string name="enable_rename_title">אפשר שינוי שם קובץ</string>
+    <string name="enable_rename_summary">שנה את שם קובץ וידאו לפני הורדתו (להורדה המקומית בלבד)</string>
+    <string name="show_size_title">הצג גודל קובץ</string>
+    <string name="show_size_summary">תביא את גודל קובץ וידאו בהודעת אישור להורדה (איטי יותר)</string>
+    <string name="show_size_list_title">הצג את כל גדלי וידאו</string>
+    <string name="show_size_list_summary">תביא את גדלי הקבצים עבור כל פריט ברשימה של וידאו זמין (הרבה יותר איטי)</string>
+    <string name="show_thumb_title">הצג תצוגה מקדימה של תמונה</string>
+    <string name="show_thumb_summary">הורד תמונת תצוגה מקדימה יחד עם רשימת הווידאו</string>
+    
+    <!-- -->
+    <string name="settings_cat_audio">שמע</string>
+    <string name="enable_audio_extraction_title">אפשר חילוץ שמע</string>
+    <string name="enable_audio_extraction_summary">חלץ והמר אודיו מתוך וידאו שהורד (להורדה המקומית בלבד)</string>
+    <string name="mp3_bitrate_title">קצב הסיביות לקידוד MP3 (kbps)</string>
+    <string name="audio_extraction_type_title">סוג החילוץ</string>
+    <string name="enable_audio_q_suffix_title">צרף סיומת איכות</string>
+    <string name="enable_audio_q_suffix_summary">הוסף את איכות השמע בסוף שם הקובץ</string>
+    <string name="remove_video_title">הסרת וידאו</string>
+    <string name="remove_video_summary">לאפשר מחיקת קובץ וידאו לאחר חילוץ אודיו מוצלח (אזהרה: ללא אישור)</string>
+
+    <string-array name="audio_extraction_type_entries">
+        <item>חלץ בלבד</item>
+        <item>לחלץ ולקודד ל-MP3</item>
+    </string-array>
+    
+    <!-- -->
+    <string name="settings_cat_notifications">התראות</string>
+    <string name="enable_own_notification_title">אפשר התראות עצמאיות</string>
+    <string name="enable_own_notification_summary">הצג הודעה מקיפה על כל הורדות מתחילת השנה</string>
+    <string name="download_manager_notification_title">ניהול התראות מערכות</string>
+    <string name="download_manager_notification_dialog_title">הצג הודעות מנהל ההורדות של המערכת:</string>
+    
+    <string-array name="download_manager_notification_entries">
+        <item>בעוד בהתקדמות ולאחר ההשלמה</item>
+        <item>בעוד בהתקדמות בלבד</item>
+        <item>אף פעם</item>
+    </string-array>
+    
+    <string name="notification_defaults_title">ברירות המחדל של הודעה</string>
+    <string name="notification_defaults_dialog_title">ברירות מחדל של הודעת מתחילת השנה</string>
+    <string-array name="notification_defaults_entries">
+        <item>צליל ורטט</item>
+        <item>צליל ותאורה</item>
+        <item>רטט ואורות</item>
+        <item>צליל, רטט ותאורה</item>
+        <item>צליל</item>
+        <item>רטט</item>
+        <item>תאורה</item>
+        <item>כלום</item>
+    </string-array>   
+    
+    <!-- -->
+    <string name="settings_cat_updates">עדכונים</string>
+    <string name="update_title">בדוק עדכונים</string>
+    <string name="autoupdate_title">אפשר עדכון אוטומטי</string>
+    <string name="autoupdate_summary">בדוק עדכונים בריצה ראשונה של היישום ביום הראשון (חבילה חדשה תרד אוטומטית)</string>
+
+    <!-- -->
+    <string name="settings_cat_app">יישום</string>
+    <string name="settings_cat_about_condensed">אודות</string>
+    <string name="title_changelog">רשימת שינויים</string>
+    <string name="screen_licences_code_title">רשיון וקוד</string>
+
+    <!-- -->
+    <string name="settings_cat_licenses">רשיונות</string>
+
+    <string name="credits_title">קרדיט</string>
+    <string name="title_activity_credits_show">רישיונות ותרגומים אחרים</string>
+    
+    <string name="credits_text0">\tMain Licenses
+        \n\n
+        This App and is released under the GPL-3.0.
+        \n(YouTubeDownloader for Android Copyright &#169; 2013 Samuele Rini).
+        \n\n
+        The FFmpeg binary (<http>http://www.ffmpeg.org/index.html</http>), 
+        used for the audio extraction feature, is released under the GPL-3.0.
+        \n(FFmpeg version 1.2 Copyright &#169; 2000-2013 the FFmpeg developers).
+    	\n\n
+    	The filechooser library is released under the MIT license.
+    	\n(android-filechooser Copyright &#169; 2012 Hai Bison).
+    	\n\n
+    	The liblame library, used to compile FFmpeg, is released under the LGPL.
+    	A GitHub project, <http>https://github.com/intervigilium/liblame</http>, 
+    	has been used to compile the lame libraries for Android.
+    	\n(liblame Copyright &#169; 2010 Ethan Chen)
+    	\n(LAME Copyright &#169; 1999-2007 The LAME Project,
+		\nCopyright &#169; 1999-2001 Mark Taylor,
+		\nCopyright &#169; 1998 Micheal Cheng)
+    	\n(mpglib Copyright &#169; 1995-1997 Michael Hipp).
+    	\n\n
+    	YTD\'s mp3 tags are written with MyID3: a Java ID3 Tag Library
+    	(<http>http://www.fightingquaker.com/myid3</http> and <http>https://sites.google.com/site/eternalsandbox/myid3-for-android</http>) 
+    	released under the LGPL, as its dependency Jakarta Regexp library.
+    	\n(MyID3 Copyright &#169; 2008 Charles M. Chen, adapted for Android by Romulus Urakagi Ts\'ai).
+    	\n\n
+    	For more informations, refer to the dedicated menus and to the license files 
+    	available from this project\'s source code.
+    	\n</string>
+    
+    <string name="credits_text1">\tCode excerpts Licenses
+        \n\n
+        This App uses some code snippets from: 
+        \n\n
+        1) CyanogenMod custom ROM (<http>https://github.com/CyanogenMod/android_packages_apps_CMUpdater</http>)
+        \nCopyright &#169; 2012 The CyanogenMod Project, licensed under the GNU GPLv2 license.
+        \nThe text of the license can be found in the LICENSE_GPL file or at <http>https://www.gnu.org/licenses/gpl-3.0.txt</http>
+        \n\n
+        2) Stack Overflow (<http>http://stackoverflow.com</http>), a question and answer site for programmers where all 
+        the content is CC BY-SA 3.0 licensed (see <http>http://creativecommons.org/licenses/by-sa/3.0</http>).
+	    \n\n
+	    For more details, look for comments in YTD\'s Java code.
+	    </string>
+    <string name="credits_translators">\n\tתרגומים
+\n\nיתר על כך תודות ל:</string>
+    <string name="translators_info">\nליותר מידע:</string>
+        
+    <!-- -->
+    <string name="settings_cat_code">קוד מקור</string>
+    <string name="ytd_code_git_title">מתחילת השנה בGitHub</string>
+    <string name="ytd_code_hg_title">מתחילת השנה בSourceforge</string>
+
+    <!-- -->
+    <string name="settings_cat_social">חברותי</string>
+    <string name="share_title">שתף את האפליקציה</string>
+    <string name="share_summary">דרך טוויטר, פייסבוק, ג\'ימייל וכו&#8230;</string>
+    <string name="share_warning">לא נמצאו יישומים מתאימים.</string>
+    <string name="share_message">#YouTubeDownloader
+\nאפליקצייה חינמים מבוססת קוד פתוח לאנדרואיד להורדת וידאו מ YouTube!
+https://sourceforge.net/projects/ytdownloader/files\n
+</string>
+	<string name="help_translate_title">עזרו לתרגם את האפליקציה הזאת</string>
+    <string name="help_translate_summary">עבור אל www.getlocalization.com/ytdownloader</string>
+    
+    <!-- -->
+    <string name="settings_cat_ssh">SSH</string>
+    <string name="connectbot_flavour_title">ConnectBot גרסה לשימוש</string>
+	<string name="connectbot_flavour_dialog_title">בחר  ConnectBot לשלוח וידאו דרך SSH</string>
+	<string name="enable_connectbot_short_cmd_title">אפשר cmd SSH קצר</string>
+	<string name="enable_connectbot_short_cmd_summary">השתמש בפקודה מעט קצרה יותר אך מהירה יותר
+להדביק לתוך המעטפת המרוחקת (יפעל רק אם מחשב היעד מתגורר באותו LAN)</string>
+	<string name="ssh_to_longpress_menu_title">SSH שלח לחיצה ארוכה על תפריט</string>
+	<string name="ssh_to_longpress_menu_summary">העבר\ "שלח דרך SSH\" פעולה בתפריט לחיצה ארוכה הזמינה מרשימת הווידאו</string>
+	
+    <!-- -->
+	<string name="settings_cat_advanced">מתקדם</string>
+	<string name="enable_logging_title">אפשר רישום</string>
+	<string name="enable_logging_summary">כולל הודעות מתחילת השנה\'s ביומן המערכת. חובה לשליחת יומן למפתחים.</string>
+	<string name="disable_bugsense_title">השבת BugSense</string>
+	<string name="disable_bugsense_summary">לא לשלוח דוחות קריסה למפתחים. לא מומלץ.</string>
+	
+</resources>
